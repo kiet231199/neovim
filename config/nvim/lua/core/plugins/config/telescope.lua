@@ -106,7 +106,7 @@ telescope.setup({
 
 -- load extensions
 telescope.load_extension('file_browser')
-telescope.load_extension('fzf')
+if vim.fn.has("win32") == 0 then telescope.load_extension('fzf') end
 telescope.load_extension('project')
 telescope.load_extension('ui-select')
 telescope.load_extension('find_pickers')

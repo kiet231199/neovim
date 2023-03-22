@@ -77,4 +77,9 @@ configs.setup({
 	}
 })
 
--- install.compilers = { "clang", "gcc" }
+-- Only need to run on the first time, then comment it
+-- if vim.fn.has("win32") == 1 then
+-- 	install.compilers = { "x86_64-w64-mingw32-clang", "gcc", "g++" }
+-- else
+-- 	install.compilers = { "clang", "gcc" }
+-- end

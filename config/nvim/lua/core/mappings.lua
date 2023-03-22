@@ -21,7 +21,7 @@ mappings.general = {
 		["<esc>"] = { ":noh <CR>", "clear highlight search" },
 		["<C-a>"] = { "ggVG", "select all" },
 
-		["<F11>"] = { ":set rnu! <CR>", "toggle interface" },
+		["<F11>"] = { ":lua IsView() <CR>", "toggle interface" },
 		["<F12>n"] = { ":set norelativenumber!<CR>", "toggle relative number" },
 		["<F12>c"] = { ":set list!<CR>", "toggle viewing special character" },
 		["<F12>s"] = { ":lua SetGlobalStatusLine()<CR>", "toggle global status line" },
