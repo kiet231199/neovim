@@ -7,35 +7,36 @@ mappings.general = {
 		["<C-a>"] = { "<ESC>^i", "beginning of line" },
 		["<C-e>"] = { "<End>", "end of line" },
 
-		["<A-h>"] = { "<Left>", "move left" },
+		["<A-h>"] = { "<Letf>", "move left" },
 		["<A-l>"] = { "<Right>", "move right" },
 		["<A-j>"] = { "<Down>", "move down" },
 		["<A-k>"] = { "<Up>", "move up" },
 	},
 
 	n = {
-		["<esc>"] = { "<cmd> noh <CR>", "clear highlight search" },
+		["<esc>"] = { ":noh <CR>", "clear highlight search" },
 		["<C-a>"] = { "ggVG", "select all" },
+		["<C-s>"] = { ':w<CR>:lua require("notify")("Save successfull 勒", "info",{title = "Save file "})<CR>:noh<CR>', opts = { silent = true } },
 
-		["<F11>"] = { "<cmd> set rnu! <CR>", "toggle interface" },
-		["<F12>n"] = { "<cmd> set norelativenumber!<CR>", "toggle relative number" },
-		["<F12>c"] = { "<cmd> set list!<CR>", "toggle viewing special character" },
-		["<F12>s"] = { "<cmd> lua SetGlobalStatusLine()<CR>", "toggle global status line" },
+		["<F11>"] = { ":set rnu! <CR>", "toggle interface" },
+		["<F12>n"] = { ":set norelativenumber!<CR>", "toggle relative number" },
+		["<F12>c"] = { ":set list!<CR>", "toggle viewing special character" },
+		["<F12>s"] = { ":lua SetGlobalStatusLine()<CR>", "toggle global status line" },
 
-		["<A-.>"] = { "<cmd> tabn <CR>", "next tab" },
-		["<A-,>"] = { "<cmd> tabp <CR>", "previous tab" },
-		["<A-c>"] = { "<cmd> bd <CR>", "delete tab" },
+		['<A-.>'] = { ":tabn <CR>", "next tab" },
+		['<A-,>'] = { ":tabp <CR>", "previous tab" },
+		['<A-c>'] = { ":bd <CR>", "delete tab" },
 
-		["te"] = { "<cmd> tabedit", "new tab" },
-		["sh"] = { "<cmd> split <CR><C-w>w", "split pane horizontally" },
-		["sv"] = { "<cmd> vsplit <CR><C-w>w", "split pane vertically" },
+		["te"] = { ":tabedit", "new tab" },
+		["sh"] = { ":split <CR><C-w>w", "split pane horizontally" },
+		["sv"] = { ":vsplit <CR><C-w>w", "split pane vertically" },
 
-		["dv"] = { "<cmd> diffsplit", "diffview file" },
+		["dv"] = { ":diffsplit", "diffview file" },
 
-		["<A-Up>"] = { "<cmd> resize -2 <CR>", "Resize up" },
-		["<A-Down>"] = { "<cmd> resize +2 <CR>", "Resize down" },
-		["<A-Left>"] = { "<cmd> vertical resize -2 <CR>", "Resize left" },
-		["<A-Right>"] = { "<cmd> vertical resize +2 <CR>", "Resize right" },
+		["<A-Up>"] = { ":resize -2 <CR>", "Resize up" },
+		["<A-Down>"] = { ":resize +2 <CR>", "Resize down" },
+		["<A-Left>"] = { ":vertical resize -2 <CR>", "Resize left" },
+		["<A-Right>"] = { ":vertical resize +2 <CR>", "Resize right" },
 	},
 
 	t = {
@@ -61,52 +62,44 @@ mappings.general = {
 mappings.gitsigns = {
 	plugin = true,
 	n = {
-		["<F9>"] = { "<cmd> Gitsigns toogle_current_line_blame <CR>", "toggle blame line" },
+		["<F9>"] = { ":Gitsigns toogle_current_line_blame <CR>", "toggle blame line" },
 	},
 	i = {
-		["<F9>"] = { "<cmd> Gitsigns toogle_current_line_blame <CR>", "toggle blame line" },
+		["<F9>"] = { ":Gitsigns toogle_current_line_blame <CR>", "toggle blame line" },
 	},
 }
 
 mappings.telescope = {
 	plugin = true,
 	n = {
-		["ff"] = { "<cmd> Telescope find_files <CR>", "find files" },
-		["fw"] = { "<cmd> Telescope live_grep <CR>", "live grep" },
-		["f<TAB>"] = { "<cmd> Telescope buffers <CR>", "find buffers" },
-		["fh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
-		["fo"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
-		["fk"] = { "<cmd> Telescope keymaps <CR>", "find oldfiles" },
-		["fd"] = { "<cmd> Telescope diagnostics <CR>", "find oldfiles" },
-		["fr"] = { "<cmd> Telescope registers <CR>", "find oldfiles" },
-		["fb"] = { "<cmd> Telescope file_browser <CR>", "find oldfiles" },
-		["fg"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
-		["fp"] = { "<cmd> Telescope project <CR>", "git commits" },
-		["fc"] = { "<cmd> Telescope neoclip unnamed extra=star,plus,a,b <CR>", "git commits" },
-		["fn"] = { "<cmd> Telescope noice <CR>", "git commits" },
+		["ff"] = { ":Telescope find_files <CR>", "find files" },
+		["fw"] = { ":Telescope live_grep <CR>", "live grep" },
+		["f<TAB>"] = { ":Telescope buffers <CR>", "find buffers" },
+		["fh"] = { ":Telescope help_tags <CR>", "help page" },
+		["fo"] = { ":Telescope oldfiles <CR>", "find oldfiles" },
+		["fk"] = { ":Telescope keymaps <CR>", "find oldfiles" },
+		["fd"] = { ":Telescope diagnostics <CR>", "find oldfiles" },
+		["fr"] = { ":Telescope registers <CR>", "find oldfiles" },
+		["fb"] = { ":Telescope file_browser <CR>", "find oldfiles" },
+		["fg"] = { ":Telescope git_commits <CR>", "git commits" },
+		["fp"] = { ":Telescope project <CR>", "git commits" },
+		["fc"] = { ":Telescope neoclip unnamed extra=star,plus,a,b <CR>", "git commits" },
+		["fn"] = { ":Telescope noice <CR>", "git commits" },
 	},
 }
 
 mappings.lspconfig = {
 	plugin = true,
 	x = {
-		["<space>f"] = { "<cmd> lua require('lsp-range-format').format() <CR>", "format range", opts = { silent = true } },
-	},
-}
-
-mappings.searchreplace = {
-	plugin = true,
-	v = {
-		['<leader>ra'] = { "<cmd> SearchReplaceWithinVisualSelection <CR>", "search replace visual" },
-		['<leader>rc'] = { "<cmd> SearchReplaceWithinVisualSelectionCWord <CR>", "search replace visual" },
+		["<space>f"] = { ":lua require('lsp-range-format').format() <CR>", "format range", opts = { silent = true } },
 	},
 }
 
 mappings.himywords = {
 	plugin = true,
 	n = {
-		['<space>m'] = { "<cmd> HiMyWordsToggle <CR>", "highlight word on cursor" },
-		['<space>M'] = { "<cmd> HiMyWordsClear <CR>", "clear all highlight" },
+		['<space>m'] = { ":HiMyWordsToggle <CR>", "highlight word on cursor" },
+		['<space>M'] = { ":HiMyWordsClear <CR>", "clear all highlight" },
 	},
 }
 
@@ -114,18 +107,11 @@ mappings.toggleterm = {
 	plugin = true,
 	t = {
 		['<C-t>'] = { "<C-\\><C-n>", "exit terminal mode" },
-		['<F8>'] = { "<cmd> ToggleTerm <CR>", "toggle float terminal" },
-		['<C-Up>'] = { "<cmd> ToggleTerm <CR> <cmd> ToggleTerm direction=float <CR>", "toggle float terminal" },
-		['<C-Down>'] = { "<cmd> ToggleTerm <CR> <cmd> ToggleTerm direction=horizontal <CR>", "toggle float terminal" },
-		['<C-Left>'] = { "<cmd> ToggleTerm <CR> <cmd> ToggleTerm direction=tab <CR>", "toggle float terminal" },
-		['<C-Right>'] = { "<cmd> ToggleTerm <CR> <cmd> ToggleTerm direction=vertical <CR>", "toggle float terminal" },
-	},
-}
-
-mappings.notify = {
-	plugin = true,
-	n = {
-		["<C-s>"] = { '<cmd>w<CR>:lua require("notify")("Save successfull 勒", "info",{title = "Save file "})<CR><cmd>noh<CR>', opts = { silent = true } },
+		['<F8>'] = { ":ToggleTerm <CR>", "toggle float terminal" },
+		['<C-Up>'] = { ":ToggleTerm <CR>:ToggleTerm direction=float <CR>", "toggle float terminal" },
+		['<C-Down>'] = { ":ToggleTerm <CR>:ToggleTerm direction=horizontal <CR>", "toggle float terminal" },
+		['<C-Left>'] = { ":ToggleTerm <CR>:ToggleTerm direction=tab <CR>", "toggle float terminal" },
+		['<C-Right>'] = { ":ToggleTerm <CR>:ToggleTerm direction=vertical <CR>", "toggle float terminal" },
 	},
 }
 
@@ -140,32 +126,32 @@ mappings.tabout = {
 mappings.move = {
 	plugin = true,
 	n = {
-		["<A-j>"] = { "<cmd> MoveLine(1) <CR>", "move block down" },
-		["<A-k>"] = { "<cmd> MoveLine(-1) <CR>", "move block up" },
-		["<A-h>"] = { "<cmd> MoveHChar(-1) <CR>", "move block left" },
-		["<A-l>"] = { "<cmd> MoveHChar(1) <CR>", "move block right" },
+		["<A-j>"] = { ":MoveLine(1) <CR>", "move block down" },
+		["<A-k>"] = { ":MoveLine(-1) <CR>", "move block up" },
+		["<A-h>"] = { ":MoveHChar(-1) <CR>", "move block left" },
+		["<A-l>"] = { ":MoveHChar(1) <CR>", "move block right" },
 	},
 	v = {
-		["<A-j>"] = { "<cmd> MoveBlock(1) <CR>", "move block down" },
-		["<A-k>"] = { "<cmd> MoveBlock(-1) <CR>", "move block up" },
-		["<A-h>"] = { "<cmd> MoveHBlock(-1) <CR>", "move block left" },
-		["<A-l>"] = { "<cmd> MoveHBlock(1) <CR>", "move block right" },
+		["<A-j>"] = { ":MoveBlock(1) <CR>", "move block down" },
+		["<A-k>"] = { ":MoveBlock(-1) <CR>", "move block up" },
+		["<A-h>"] = { ":MoveHBlock(-1) <CR>", "move block left" },
+		["<A-l>"] = { ":MoveHBlock(1) <CR>", "move block right" },
 	},
 }
 
 mappings.searchbox = {
 	plugin = true,
 	n = {
-		["<A-f>"] = { "<cmd> SearchBoxIncSearch title=Search<CR>", "search" },
-		["<A-S-f>"] = { "<cmd> SearchBoxIncSearch title=Search -- <C-r>=expand('<cword>') <CR><CR>", "search" },
-		["<A-r>"] = { "<cmd> SearchBoxReplace title=Replace confirm=menu<CR>", "search" },
-		["<A-S-r>"] = { "<cmd> SearchBoxReplace title=Replace confirm=menu -- <C-r>=expand('<cword>') <CR><CR>", "search" },
+		["<A-f>"] = { ":SearchBoxIncSearch title=Search<CR>", "search" },
+		["<A-S-f>"] = { ":SearchBoxIncSearch title=Search -- <C-r>=expand('<cword>') <CR><CR>", "search" },
+		["<A-r>"] = { ":SearchBoxReplace title=Replace confirm=menu<CR>", "search" },
+		["<A-S-r>"] = { ":SearchBoxReplace title=Replace confirm=menu -- <C-r>=expand('<cword>') <CR><CR>", "search" },
 	},
 	v = {
-		["<A-f>"] = { "<cmd> SearchBoxIncSearch title=Search visual_mode=true<CR>", "search" },
-		["<A-S-f>"] = { "<cmd> SearchBoxIncSearch title=Search visual_mode=true -- <C-r>=expand('<cword>') <CR><CR>", "search" },
-		["<A-r>"] = { "<cmd> SearchBoxReplace title=Replace visual_mode=true confirm=menu<CR>", "search" },
-		["<A-S-r>"] = { "<cmd> SearchBoxReplace title=Replace visual_mode=true confirm=menu -- <C-r>=expand('<cword>') <CR><CR>", "search" },
+		["<A-f>"] = { ":SearchBoxIncSearch title=Search visual_mode=true<CR>", "search" },
+		["<A-S-f>"] = { ":SearchBoxIncSearch title=Search visual_mode=true -- <C-r>=expand('<cword>') <CR><CR>", "search" },
+		["<A-r>"] = { ":SearchBoxReplace title=Replace visual_mode=true confirm=menu<CR>", "search" },
+		["<A-S-r>"] = { ":SearchBoxReplace title=Replace visual_mode=true confirm=menu -- <C-r>=expand('<cword>') <CR><CR>", "search" },
 	},
 }
 

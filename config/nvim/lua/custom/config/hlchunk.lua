@@ -39,7 +39,8 @@ hlchunk.setup({
         },
         -- you can uncomment to get more indented line style
         style = {
-            vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"),
+			"#697094",
+            -- vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("LineNr")), "fg", "gui"),
         },
         exclude_filetype = {
             alpha = true,
@@ -55,7 +56,7 @@ hlchunk.setup({
     },
 
     line_num = {
-        enable = true,
+        enable = false,
         support_filetypes = {
             "*.json",
             "*.c",
@@ -69,11 +70,11 @@ hlchunk.setup({
             "*.md",
             "*.txt",
         },
-        style = "#00ffff",
+        style = "#7aa2f7",
     },
 
     blank = {
-        enable = true,
+		enable = false,
         chars = {
             " ",
         },

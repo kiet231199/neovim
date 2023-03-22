@@ -76,6 +76,9 @@ custom.plugins = {
 		config = function()
 			require("custom.config.gitsigns")
 		end,
+		init = function()
+			require("core.utils").load_mappings("gitsigns")
+		end,
 	},
 	['rhysd/git-messenger.vim'] = {
 		-- Desc: Git show commit contents
