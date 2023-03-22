@@ -8,7 +8,7 @@ ultivisual.setup({
 	-- You can switch the ultimate visual features.
 	features = {
 		indent = true,
-		brackets = false,
+		brackets = true,
 		paste = false,
 	},
 

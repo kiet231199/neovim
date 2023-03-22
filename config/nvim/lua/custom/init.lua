@@ -258,6 +258,12 @@ custom.plugins = {
 			require("custom.config.treesitter")
 		end,
 	},
+	['nvim-treesitter/nvim-treesitter-textobjects'] = {
+		-- Desc: Code ultilities
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter',
+		},
+	},
 	['p00f/nvim-ts-rainbow'] = {
 		-- Desc: Bracket color
 		dependencies = {
