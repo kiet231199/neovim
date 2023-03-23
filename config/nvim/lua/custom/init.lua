@@ -49,7 +49,7 @@ custom.plugins = {
 			require("custom.config.jabs")
 		end,
 		keys = {
-			{ "t", "<cmd>JABSOpen<CR>", mode = "n", silent = true, noremap = true },
+			{ "<tab>", "<cmd>JABSOpen<CR>", mode = "n", silent = true, noremap = true },
 		},
 	},
 
@@ -468,9 +468,10 @@ custom.plugins = {
 		init = function()
 			require("core.utils").load_mappings("toggleterm")
 		end,
-		keys = {
-			{ "<F8>", "<cmd>ToggleTerm direction=float<CR>", mode = "n", silent = true, noremap = true },
-		},
+		-- keys = {
+		-- 	{ "<F8>", "<cmd>ToggleTerm direction=float<CR>", mode = "n", silent = true, noremap = true },
+		-- },
+		cmd = "ToggleTerm",
 	},
 
 	-- Colorful ----------------------------------------------------

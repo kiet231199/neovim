@@ -18,12 +18,12 @@ ultivisual.setup({
 	keymaps = {
 		make_indent = {
 			key = '<TAB>',
-			modes = { 'v', 'n' }, -- 'v'; visual, 'n'; normal, 'i'; insert
+			modes = { 'v' }, -- 'v'; visual, 'n'; normal, 'i'; insert
 		},
 
 		delete_indent = {
 			key = '<S-TAB>',
-			modes = { 'v', 'n' }, -- 'v'; visual, 'n'; normal, 'i'; insert
+			modes = { 'v' }, -- 'v'; visual, 'n'; normal, 'i'; insert
 		},
 
 		brackets = {
