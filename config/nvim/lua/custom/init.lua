@@ -275,7 +275,7 @@ custom.plugins = {
 	['ZhiyuanLck/smart-pairs'] = {
 		-- Desc: Smart placing bracket
 		config = function()
-			require("pairs"):setup()
+			require("pairs"):setup({ enter = { enable_mapping = false } })
 		end,
 		event = "InsertEnter",
 	},
