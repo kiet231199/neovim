@@ -7,8 +7,8 @@ saga.setup({
 		lines_below = 10,
 	},
 	scroll_preview = {
-		scroll_down = '<C-f>',
-		scroll_up = '<C-b>',
+		scroll_down = '<C-d>',
+		scroll_up = '<C-u>',
 	},
 	request_timeout = 2000,
 	finder = {
@@ -35,7 +35,7 @@ saga.setup({
 		},
 	},
 	lightbulb = {
-		enable = true,
+		enable = false,
 		enable_in_insert = true,
 		sign = true,
 		sign_priority = 40,
@@ -63,14 +63,15 @@ saga.setup({
 		win_position = 'right',
 		win_with = '',
 		win_width = 40,
+		preview_width = 80;
 		show_detail = true,
 		auto_preview = true,
 		auto_refresh = true,
 		auto_close = true,
 		custom_sort = nil,
 		keys = {
-			jump = 'o',
-			expand_collapse = 'u',
+			jump = '<CR>',
+			expand_collapse = '<space>',
 			quit = 'q',
 		},
 	},
@@ -120,20 +121,20 @@ saga.setup({
 })
 
 -- Finder
-keymap("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
+keymap("n", "gf", ":Lspsaga lsp_finder<CR>", { silent = true })
 -- Code action
-keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
+keymap({"n","v"}, "<leader>ca", ":Lspsaga code_action<CR>", { silent = true })
 -- Rename
-keymap("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
+keymap("n", "gr", ":Lspsaga rename<CR>", { silent = true })
 -- Peek Definition
-keymap("n", "gpd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
+keymap("n", "gpd", ":Lspsaga peek_definition<CR>", { silent = true })
 -- Show line diagnostics
-keymap("n", "go", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
+keymap("n", "go", ":Lspsaga show_line_diagnostics<CR>", { silent = true })
 -- Show cursor diagnostic
-keymap("n", "go", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
+keymap("n", "go", ":Lspsaga show_cursor_diagnostics<CR>", { silent = true })
 -- Diagnsotic jump can use `<c-o>` to jump back
-keymap("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
-keymap("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
+keymap("n", "gk", ":Lspsaga diagnostic_jump_prev<CR>", { silent = true })
+keymap("n", "gj", ":Lspsaga diagnostic_jump_next<CR>", { silent = true })
 -- Only jump to error
 keymap("n", "gek", function()
 	require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
@@ -142,6 +143,6 @@ keymap("n", "gej", function()
 	require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
 end, { silent = true })
 -- Hover Doc
-keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
+keymap("n", "K", ":Lspsaga hover_doc<CR>", { silent = true })
 -- Outline
-keymap("n", "<F6>", "<cmd>WindowsDisableAutowidth<CR><cmd>Lspsaga outline<CR>",{ silent = true })
+keymap("n", "<F6>", ":WindowsDisableAutowidth<CR>:Lspsaga outline<CR>",{ silent = true })

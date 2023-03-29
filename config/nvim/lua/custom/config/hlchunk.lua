@@ -18,7 +18,6 @@ hlchunk.setup({
             "*.py",
             "*.sh",
             "*.md",
-            "*.txt",
         },
         chars = {
             horizontal_line = "─",
@@ -28,6 +27,9 @@ hlchunk.setup({
             right_arrow = ">",
         },
         style = "Yellow",
+        exclude_filetype = {
+			telescope_prompt = true,
+		},
     },
 
     indent = {
@@ -68,7 +70,6 @@ hlchunk.setup({
             "*.py",
             "*.sh",
             "*.md",
-            "*.txt",
         },
         style = "#7aa2f7",
     },
