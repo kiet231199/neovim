@@ -128,6 +128,9 @@ local plugins = {
 		config = function()
 			require("core.plugins.config.lspsaga")
 		end,
+		init = function()
+			require("core.utils").load_mappings("lspsaga")
+		end,
 	},
 	['https://git.sr.ht/~whynothugo/lsp_lines.nvim'] = {
 		-- Desc: LSP show line diagnostics

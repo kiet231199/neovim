@@ -78,14 +78,7 @@ lualine.setup({
 				},
 				symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '},
 				colored = true,           -- Displays diagnostics status in color if set to true.
-				always_visible = function()
-					local winwidth = vim.fn.winwidth(0)
-					if winwidth > 100 then
-						return true
-					else
-						return false
-					end
-				end,    -- Show diagnostics even if there are none.
+				always_visible = false,
 				separator = { left = '', right = ''},
 			},
 		},
@@ -167,9 +160,14 @@ lualine.setup({
 		lualine_a = {},
 		lualine_b = {},
 		lualine_c = { require("tabline").tabline_buffers },
-		lualine_x = { require("tabline").tabline_tabs },
-		lualine_y = {},
-		lualine_z = {}
+		lualine_x = {},
+		lualine_y = { { 'tabs' } },
+		lualine_z = {
+			{
+				'datetime',
+				 style = "%H:%M - %a, %d/%m/%Y",
+			},
+		},
 	},
 	-- tabline = {},
 	extensions = {},

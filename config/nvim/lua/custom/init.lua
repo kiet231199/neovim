@@ -178,12 +178,15 @@ custom.plugins = {
 	},
 	['glepnir/lspsaga.nvim'] = {
 		-- Desc: LSP better UI
-		event = 'BufRead',
+		event = 'LspAttach',
 		dependencies = {
 			'anuvyklack/windows.nvim',
 		},
 		config = function()
 			require("custom.config.lspsaga")
+		end,
+		init = function()
+			require("core.utils").load_mappings("lspsaga")
 		end,
 	},
 	['https://git.sr.ht/~whynothugo/lsp_lines.nvim'] = {
