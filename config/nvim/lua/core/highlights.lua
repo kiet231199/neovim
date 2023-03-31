@@ -32,12 +32,6 @@ local highlights = {
 		["HlSearchLens"] = { fg = "#fbc7f1", bg = "#1a1b26" },
 		["HlSearchLensNear"] = { fg = "Red", bg = "#1a1b26", bold = true },
 		["HlSearchFloat"] = { link = "IncSearch" },
-		-- Cmp
-		["CmpItemAbbrMatch"] = { fg = "Orange", bold = true },
-		["CmpItemAbbrMatchDefault"] = { fg = "Orange", bold = true },
-		["CmpItemAbbrMatchFuzzy"] = { fg = "Red", bold = true },
-		["CmpItemAbbrMatchFuzzyDefault"] = { fg = "Red", bold = true },
-		["CmpItemKindText"] = { fg = "Yellow", bold = true },
 	},
 }
 

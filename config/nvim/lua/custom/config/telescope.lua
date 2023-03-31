@@ -33,6 +33,12 @@ telescope.setup({
 		winblend = 12,
 		color_devicons = true,
 		set_env = { ["COLORTERM"] = "truecolor" },
+		preview = {
+			treesitter = true,
+		},
+		history = {
+			path = vim.g.data_path .. "/telescope_history"
+		},
 	},
 	mappings = {
 		-- i = { ["<C-t>"] = trouble.open_with_trouble },

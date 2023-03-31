@@ -108,6 +108,7 @@ custom.plugins = {
 	-- Fuzy finder -------------------------------------------------
 	['nvim-telescope/telescope.nvim'] = {
 		-- Desc: Telescope
+		tag = '0.1.1',
 		dependencies = {
 			-- Desc: Prevent duplicate function
 			'nvim-lua/plenary.nvim',

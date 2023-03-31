@@ -153,6 +153,10 @@ require 'lspconfig'.clangd.setup {
 require 'lspconfig'.lua_ls.setup {
 	settings = {
 		Lua = {
+			diagnostic = {
+				-- Get the language server to recognize the `vim` global
+				globals = {'vim'},
+			},
 			workspace = {
 				-- Disable neodev modify workspace
 				checkThirdParty = false,

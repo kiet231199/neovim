@@ -43,6 +43,7 @@ else
 
 		-- Define path
 		config_path = vim.g.neovim_path .. "/config",
+		data_path = vim.g.neovim_path .. "/data",
 
 		-- Define path for python3 and nodejs framework
 		python3_host_prog = vim.g.neovim_path .. "/tools/python-3.10.7/bin/python3",

@@ -87,7 +87,7 @@ saga.setup({
 		win_position = 'right',
 		win_with = '',
 		win_width = 40,
-		preview_width = 80;
+		preview_width = 0.6;
 		show_detail = true,
 		auto_preview = true,
 		auto_refresh = true,
