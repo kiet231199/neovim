@@ -6,7 +6,7 @@ end
 
 smartcolumn.setup({
 	colorcolumn = "80",
-	disabled_filetypes = { "c", "bash", "lua", "alpha", "lazy" },
+	disabled_filetypes = { "alpha", "lazy", "txt", "md" },
 	custom_colorcolumn = {},
 	scope = "file",
 })

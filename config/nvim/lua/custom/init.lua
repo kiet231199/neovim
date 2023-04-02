@@ -108,7 +108,6 @@ custom.plugins = {
 	-- Fuzy finder -------------------------------------------------
 	['nvim-telescope/telescope.nvim'] = {
 		-- Desc: Telescope
-		tag = '0.1.1',
 		dependencies = {
 			-- Desc: Prevent duplicate function
 			'nvim-lua/plenary.nvim',
@@ -179,7 +178,6 @@ custom.plugins = {
 	},
 	['glepnir/lspsaga.nvim'] = {
 		-- Desc: LSP better UI
-		event = 'LspAttach',
 		dependencies = {
 			'anuvyklack/windows.nvim',
 		},
@@ -201,7 +199,6 @@ custom.plugins = {
 	},
 	['folke/trouble.nvim'] = {
 		-- Desc: Show LSP diagnostics
-		lazy = true,
 		config = function()
 			require("custom.config.trouble")
 		end,
@@ -412,9 +409,6 @@ custom.plugins = {
 		config = function()
 			require("custom.config.noice")
 		end,
-		keys = {
-			{ "<F2>", mode = "" },
-		},
 	},
 	['folke/which-key.nvim'] = {
 		-- Desc: Show keymap
@@ -586,13 +580,6 @@ custom.plugins = {
 			{ "<leader>bd", "<cmd>BasedConvert dec<CR>", mode = "n", silent = true, noremap = true },
 		},
 	},
-	['phaazon/mind.nvim'] = {
-		-- Desc: Note taking
-		config = function()
-			require("custom.config.mind")
-		end,
-		cmd = "MindOpenMain",
-	},
 	['cloudysake/asciitree.nvim'] = {
 		-- Desc: Auto generate tree
 		config = function()
@@ -602,6 +589,17 @@ custom.plugins = {
 	},
 
 	-- Plugin on testing ----------------------------------------
+	['chrisgrieser/nvim-spider'] = {
+		config = function()
+			require("spider").setup({ skipInsignificantPunctuation = false })
+		end,
+		init = function()
+			vim.keymap.set({"n", "o", "x"}, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
+			vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-w" })
+			vim.keymap.set({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-w" })
+			vim.keymap.set({ "n", "o", "x" }, "ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "Spider-w" })
+		end,
+	},
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {

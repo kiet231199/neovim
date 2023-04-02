@@ -67,6 +67,8 @@ local highlights = {
 		["NotifyINFOBody"] = { link = "Normal" },
 		["NotifyDEBUGBody"] = { link = "Normal" },
 		["NotifyTRACEBody"] = { link = "Normal" },
+		-- CodeWindow
+		["CodewindowBorder"] = { fg = "#ffff00" }
 	}
 }
 

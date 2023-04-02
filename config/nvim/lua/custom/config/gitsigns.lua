@@ -13,7 +13,7 @@ gitsigns.setup({
 		changedelete = {hl = 'GitSignsChange', text = ' ', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
 	},
 	signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-	numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
+	numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
 	linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
 	word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
 	watch_gitdir = {
@@ -65,10 +65,6 @@ gitsigns.setup({
 			vim.schedule(function() gs.prev_hunk() end)
 			return '<Ignore>'
 		end, {expr=true})
-
-		-- Navigation
-		-- map('n', '<space>hn', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-		-- map('n', '<space>hp', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
 
 		-- Actions
 		map({'n', 'v'}, '<space>hs', ':Gitsigns stage_hunk<CR>')

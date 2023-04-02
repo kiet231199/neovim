@@ -17,7 +17,6 @@ hlchunk.setup({
             "*.lua",
             "*.py",
             "*.sh",
-            "*.md",
         },
         chars = {
             horizontal_line = "─",

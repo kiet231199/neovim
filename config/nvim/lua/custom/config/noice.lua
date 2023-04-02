@@ -7,18 +7,18 @@ end
 noice.setup({
 	cmdline = {
 		enabled = true, -- enables the Noice cmdline UI
-		view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
+		view = "cmdline", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
 		opts = { lang = "vim" }, -- enable syntax highlighting in the cmdline
 		format = {
 			-- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
 			-- view: (default is cmdline view)
 			-- opts: any options passed to the view
 			-- icon_hl_group: optional hl_group for the icon
-			cmdline = { pattern = "^:", icon = "", lang = "vim"},
-			search_down = { kind = "search", pattern = "^/", icon = " ", lang = "vim" },
-			search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "vim" },
+			cmdline = { pattern = "^:", icon = " Command   ", lang = "vim"},
+			search_down = { kind = "search", pattern = "^/", icon = " Search Down   ", lang = "vim" },
+			search_up = { kind = "search", pattern = "^%?", icon = " Search Up   ", lang = "vim" },
 			filter = { pattern = "^:%s*!", icon = "$", lang = "bash" },
-			lua = { pattern = "^:%s*lua%s+", icon = "", lang = "lua" },
+			lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = "", lang = "lua" },
 			help = { pattern = "^:%s*he?l?p?%s+", icon = "" },
 			input = {}, -- Used by input()
 			-- lua = false, -- to disable a format, set to `false`
@@ -101,14 +101,14 @@ noice.setup({
 		},
 		override = {
 			-- override the default lsp markdown formatter with Noice
-			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+			["vim.lsp.util.convert_input_to_markdown_lines"] = false,
 			-- override the lsp markdown formatter with Noice
 			["vim.lsp.util.stylize_markdown"] = true,
 			-- override cmp documentation with Noice (needs the other options to work)
 			["cmp.entry.get_documentation"] = true,
 		},
 		hover = {
-			enabled = true,
+			enabled = false,
 			view = nil, -- when nil, use defaults from documentation
 			opts = {}, -- merged with defaults from documentation
 		},
@@ -141,7 +141,7 @@ noice.setup({
 			},
 		},
 	},
-	--[[ markdown = {
+	markdown = {
 		hover = {
 			["|(%S-)|"] = vim.cmd.help, -- vim help links
 			["%[.-%]%((%S-)%)"] = require("noice.util").open, -- markdown links
@@ -154,7 +154,7 @@ noice.setup({
 			["^%s*(See also:)"] = "@text.title",
 			["{%S-}"] = "@parameter",
 		},
-	}, ]]
+	},
 	health = {
 		checker = true, -- Disable if you don't want health checks to run
 	},
@@ -167,13 +167,13 @@ noice.setup({
 	presets = {
 		-- you can enable a preset by setting it to true, or a table that will override the preset config
 		-- you can also add custom presets that you can enable/disable with enabled=true
-		bottom_search = false, -- use a classic bottom cmdline for search
+		bottom_search = true, -- use a classic bottom cmdline for search
 		command_palette = false, -- position the cmdline and popupmenu together
 		long_message_to_split = true, -- long messages will be sent to a split
 		inc_rename = false, -- enables an input dialog for inc-rename.nvim
 		lsp_doc_border = false, -- add a border to hover docs and signature help
 	},
-	throttle = 1000 / 500, -- how frequently does Noice need to checkfor ui updates? This has no effect when in blocking mode.
+	throttle = 1000 / 30, -- how frequently does Noice need to checkfor ui updates? This has no effect when in blocking mode.
 	--@type NoiceConfigViews
 	views = {
 		mini = {

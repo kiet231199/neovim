@@ -7,7 +7,7 @@ mappings.general = {
 		["<C-a>"] = { "<ESC>^i", "beginning of line" },
 		["<C-e>"] = { "<End>", "end of line" },
 
-		["<A-h>"] = { "<Letf>", "move left" },
+		["<A-h>"] = { "<Left>", "move left" },
 		["<A-l>"] = { "<Right>", "move right" },
 		["<A-j>"] = { "<Down>", "move down" },
 		["<A-k>"] = { "<Up>", "move up" },
@@ -62,9 +62,11 @@ mappings.general = {
 mappings.gitsigns = {
 	plugin = true,
 	n = {
+		["<F2>"] = { ":Gitsigns toggle_numhl<CR>:Gitsigns toggle_linehl<CR>", "toggle highlight line" },
 		["<F9>"] = { ":Gitsigns toogle_current_line_blame <CR>", "toggle blame line" },
 	},
 	i = {
+		["<F2>"] = { ":Gitsigns toggle_numhl<CR>:Gitsigns toggle_linehl<CR>", "toggle highlight line" },
 		["<F9>"] = { ":Gitsigns toogle_current_line_blame <CR>", "toggle blame line" },
 	},
 }
