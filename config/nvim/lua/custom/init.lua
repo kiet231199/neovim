@@ -600,6 +600,11 @@ custom.plugins = {
 			vim.keymap.set({ "n", "o", "x" }, "ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "Spider-w" })
 		end,
 	},
+	['tamton-aquib/flirt.nvim'] = {},
+	['rebelot/terminal.nvim'] = {},
+	['Bekaboo/deadcolumn.nvim'] = {},
+	['mrjones2014/smart-splits.nvim'] = {},
+	-- vim.bo.filetype
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {
