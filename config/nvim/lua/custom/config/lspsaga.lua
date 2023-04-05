@@ -94,7 +94,7 @@ saga.setup({
 		auto_close = true,
 		custom_sort = nil,
 		keys = {
-			expand_or_collapse = '<CR>',
+			expand_or_jump= '<CR>',
 			quit = 'q',
 		},
 	},

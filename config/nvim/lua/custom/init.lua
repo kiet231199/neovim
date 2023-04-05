@@ -594,17 +594,17 @@ custom.plugins = {
 			require("spider").setup({ skipInsignificantPunctuation = false })
 		end,
 		init = function()
-			vim.keymap.set({"n", "o", "x"}, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
-			vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-w" })
-			vim.keymap.set({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-w" })
-			vim.keymap.set({ "n", "o", "x" }, "ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "Spider-w" })
+			vim.keymap.set({ "n", "o", "x"}, ">", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
+			-- vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-w" })
+			vim.keymap.set({ "n", "o", "x" }, "<", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-w" })
+			-- vim.keymap.set({ "n", "o", "x" }, "ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "Spider-w" })
 		end,
 	},
 	['tamton-aquib/flirt.nvim'] = {},
 	['rebelot/terminal.nvim'] = {},
 	['Bekaboo/deadcolumn.nvim'] = {},
 	['mrjones2014/smart-splits.nvim'] = {},
-	-- vim.bo.filetype
+       -- vim.bo.filetype
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {
