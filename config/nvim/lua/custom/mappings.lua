@@ -107,13 +107,11 @@ mappings.himywords = {
 
 mappings.toggleterm = {
 	plugin = true,
-	n = {
+	t = {
 		['<C-Up>'] = { ":ToggleTerm <CR>:ToggleTerm direction=tab <CR>", "toggle float terminal" },
 		['<C-Down>'] = { ":ToggleTerm <CR>:ToggleTerm direction=horizontal <CR>", "toggle float terminal" },
 		['<C-Left>'] = { ":ToggleTerm <CR>:ToggleTerm direction=float <CR>", "toggle float terminal" },
 		['<C-Right>'] = { ":ToggleTerm <CR>:ToggleTerm direction=vertical <CR>", "toggle float terminal" },
-	},
-	t = {
 		['<C-t>'] = { "<C-\\><C-n>", "exit terminal mode" },
 		['<F8>'] = { "<C-\\><C-n>:ToggleTerm <CR>", "toggle float terminal" },
 	},
@@ -165,7 +163,7 @@ mappings.lspsaga = {
 		["gf"] = { ":Lspsaga lsp_finder<CR>", "finder", opts = { silent = true } },
 		["gr"] =  { ":Lspsaga rename<CR>", "rename", opts = { silent = true } },
 		["K"] = { ":Lspsaga hover_doc<CR>", "hover doc", opts = { silent = true } },
-		["<F6>"] = { ":WindowsDisableAutowidth<CR>:Lspsaga outline<CR>",{ silent = true } },
+		["<F6>"] = { ":WindowsDisableAutowidth<CR>:Lspsaga outline<CR>", opts = { silent = true } },
 		-- Use <C-t> to jump back
 		["gpd"] = { ":Lspsaga peek_definition<CR>", "float definition", opts = { silent = true } },
 		-- Diagnsotic jump can use `<c-o>` to jump back

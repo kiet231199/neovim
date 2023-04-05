@@ -466,9 +466,6 @@ custom.plugins = {
 		init = function()
 			require("core.utils").load_mappings("toggleterm")
 		end,
-		-- keys = {
-		-- 	{ "<F8>", "<cmd>ToggleTerm direction=float<CR>", mode = "n", silent = true, noremap = true },
-		-- },
 		cmd = "ToggleTerm",
 	},
 
@@ -510,10 +507,10 @@ custom.plugins = {
 			require("custom.config.twilight")
 		end,
 	},
-	['m4xshen/smartcolumn.nvim'] = {
-		-- Desc: Page column
+	['Bekaboo/deadcolumn.nvim'] = {
+	 	-- Desc: Page column
 		config = function()
-			require("custom.config.smartcolumn")
+			require("custom.config.deadcolumn")
 		end,
 	},
 	['yaocccc/nvim-foldsign'] = {
@@ -590,6 +587,7 @@ custom.plugins = {
 
 	-- Plugin on testing ----------------------------------------
 	['chrisgrieser/nvim-spider'] = {
+	 	-- Desc: Quick move
 		config = function()
 			require("spider").setup({ skipInsignificantPunctuation = false })
 		end,
@@ -600,11 +598,18 @@ custom.plugins = {
 			-- vim.keymap.set({ "n", "o", "x" }, "ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "Spider-w" })
 		end,
 	},
-	['tamton-aquib/flirt.nvim'] = {},
-	['rebelot/terminal.nvim'] = {},
-	['Bekaboo/deadcolumn.nvim'] = {},
-	['mrjones2014/smart-splits.nvim'] = {},
-       -- vim.bo.filetype
+	['rebelot/terminal.nvim'] = {
+		-- Desc: Float terminal
+		-- config = function()
+		-- 	require("custom.config.terminal")
+		-- end,
+		-- init = function()
+		-- 	require("core.utils").load_mappings("terminal")
+		-- end,
+	},
+	['hungnguyen1503/friendly-snippets'] = {
+		pin = true,
+	},
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {

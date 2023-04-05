@@ -41,6 +41,7 @@ local options = {
 	filetype  	   = "on",
 	whichwrap  	   = "bs<>[]hl",
 	diffopt        = { "vertical", "closeoff" },
+	colorcolumn    = "80",
 }
 
 vim.opt.listchars:append "space:▁"
