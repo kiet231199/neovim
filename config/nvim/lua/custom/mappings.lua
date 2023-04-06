@@ -107,11 +107,13 @@ mappings.himywords = {
 
 mappings.toggleterm = {
 	plugin = true,
-	t = {
+	n = {
 		['<C-Up>'] = { ":ToggleTerm <CR>:ToggleTerm direction=tab <CR>", "toggle float terminal" },
 		['<C-Down>'] = { ":ToggleTerm <CR>:ToggleTerm direction=horizontal <CR>", "toggle float terminal" },
 		['<C-Left>'] = { ":ToggleTerm <CR>:ToggleTerm direction=float <CR>", "toggle float terminal" },
 		['<C-Right>'] = { ":ToggleTerm <CR>:ToggleTerm direction=vertical <CR>", "toggle float terminal" },
+	},
+	t = {
 		['<C-t>'] = { "<C-\\><C-n>", "exit terminal mode" },
 		['<F8>'] = { "<C-\\><C-n>:ToggleTerm <CR>", "toggle float terminal" },
 	},
