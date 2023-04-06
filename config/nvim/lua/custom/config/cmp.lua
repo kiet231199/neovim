@@ -77,7 +77,8 @@ local kinds = {
 	nvim_lsp = "[LSP]",
 	nvim_lsp_document_symbols = "[Doc]",
 	luasnip = "[Snippet]",
-	buffer = "[Buffer]",
+	vsnip = "[Snippet]",
+	buffer = "Buffer]",
 	luasnip_choice = "[Snippet]",
 	buffer_lines = "[Buffer]",
 	cmdline = "[Cmd]",
@@ -97,7 +98,6 @@ cmp.setup({
 	snippet = {
 		expand = function(args)
 			require("luasnip").lsp_expand(args.body)
-			require("luasnip").filetype_extend("c")
 		end,
 	},
 	mapping = {
@@ -152,6 +152,7 @@ cmp.setup({
 				buffer = 1,
 				path = 1,
 				nvim_lsp = 0,
+				vsnip = 0,
 				luasnip = 1,
 				ctags = 0,
 				cmdline_history = 0,

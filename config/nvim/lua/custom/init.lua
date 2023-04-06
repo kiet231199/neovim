@@ -600,9 +600,9 @@ custom.plugins = {
 	},
 	['rebelot/terminal.nvim'] = {
 		-- Desc: Float terminal
-		-- config = function()
-		-- 	require("custom.config.terminal")
-		-- end,
+		config = function()
+			require("custom.config.terminal")
+		end,
 		-- init = function()
 		-- 	require("core.utils").load_mappings("terminal")
 		-- end,
