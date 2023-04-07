@@ -78,34 +78,22 @@ mappings.lspconfig = {
 	},
 }
 
-mappings.toggleterm = {
-	plugin = true,
-	t = {
-		['<C-t>'] = { "<C-\\><C-n>", "exit terminal mode" },
-		['<F8>'] = { ":ToggleTerm <CR>", "toggle float terminal" },
-		['<C-Up>'] = { ":ToggleTerm <CR> :ToggleTerm direction=float <CR>", "toggle float terminal" },
-		['<C-Down>'] = { ":ToggleTerm <CR> :ToggleTerm direction=horizontal <CR>", "toggle float terminal" },
-		['<C-Left>'] = { ":ToggleTerm <CR> :ToggleTerm direction=tab <CR>", "toggle float terminal" },
-		['<C-Right>'] = { ":ToggleTerm <CR> :ToggleTerm direction=vertical <CR>", "toggle float terminal" },
-	},
-}
-
 mappings.lspsaga = {
-       plugin = true,
-       n = {
-               ["gf"] = { ":Lspsaga lsp_finder<CR>", "finder", opts = { silent = true } },
-               ["gr"] =  { ":Lspsaga rename<CR>", "rename", opts = { silent = true } },
-               ["K"] = { ":Lspsaga hover_doc<CR>", "hover doc", opts = { silent = true } },
-               ["<F6>"] = { ":WindowsDisableAutowidth<CR>:Lspsaga outline<CR>",{ silent = true } },
-               -- Use <C-t> to jump back
-               ["gpd"] = { ":Lspsaga peek_definition<CR>", "float definition", opts = { silent = true } },
-               -- Diagnsotic jump can use `<c-o>` to jump back
-               ["gk"] = { ":Lspsaga diagnostic_jump_prev<CR>", "diagnostic jump prev", opts = { silent = true } },
-               ["gj"] = { ":Lspsaga diagnostic_jump_next<CR>", "diagnostic jump next", opts = { silent = true } },
-               -- Only jump to error
-               ["gek"] = { function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "error jump prev", opts = { silent = true } },
-               ["gej"] = { function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "error jump next", opts = { silent = true } },
-       }
+	plugin = true,
+	n = {
+		["gf"] = { ":Lspsaga lsp_finder<CR>", "finder", opts = { silent = true } },
+		["gr"] =  { ":Lspsaga rename<CR>", "rename", opts = { silent = true } },
+		["K"] = { ":Lspsaga hover_doc<CR>", "hover doc", opts = { silent = true } },
+		["<F6>"] = { ":WindowsDisableAutowidth<CR>:Lspsaga outline<CR>",{ silent = true } },
+		-- Use <C-t> to jump back
+		["gpd"] = { ":Lspsaga peek_definition<CR>", "float definition", opts = { silent = true } },
+		-- Diagnsotic jump can use `<c-o>` to jump back
+		["gk"] = { ":Lspsaga diagnostic_jump_prev<CR>", "diagnostic jump prev", opts = { silent = true } },
+		["gj"] = { ":Lspsaga diagnostic_jump_next<CR>", "diagnostic jump next", opts = { silent = true } },
+		-- Only jump to error
+		["gek"] = { function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "error jump prev", opts = { silent = true } },
+		["gej"] = { function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "error jump next", opts = { silent = true } },
+	}
 }
 
 return mappings

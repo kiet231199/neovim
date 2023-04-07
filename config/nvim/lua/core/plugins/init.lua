@@ -232,19 +232,14 @@ local plugins = {
 		end,
 	},
 	-- Float terminal ----------------------------------------------
-	['akinsho/toggleterm.nvim'] = {
-		-- Desc: float terminal
-		-- TODO: Config to be more stable
+	['rebelot/terminal.nvim'] = {
+		-- Desc: Float terminal
 		config = function()
-			require("core.plugins.config.toggleterm")
+			require("custom.config.terminal")
 		end,
-		init = function()
-			require("core.utils").load_mappings("toggleterm")
-		end,
-		keys = {
-			{ "<F8>", "<cmd>ToggleTerm direction=float<CR>", mode = "n", silent = true, noremap = true },
-		},
 	},
+
+	-- Colorful ----------------------------------------------------
 	['anuvyklack/pretty-fold.nvim'] = {
 		-- Desc: Fold text
 		config = function()

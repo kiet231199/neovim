@@ -157,7 +157,7 @@ lualine.setup({
 		lualine_z = {'location'}
 	},
 	tabline = {
-		lualine_a = {},
+		lualine_a = { require("terminal").current_term_index() },
 		lualine_b = {},
 		lualine_c = { require("tabline").tabline_buffers },
 		lualine_x = {},
