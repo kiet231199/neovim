@@ -37,13 +37,9 @@ mappings.general = {
 		["<A-Down>"] = { ":resize +2 <CR>", "Resize down" },
 		["<A-Left>"] = { ":vertical resize -2 <CR>", "Resize left" },
 		["<A-Right>"] = { ":vertical resize +2 <CR>", "Resize right" },
-
-		["<"] = { "V<gv<ESC>", "tab blockcode backward", opts = { noremap = true, silent = true } },
-		[">"] = { "V>gv<ESC>", "tab blockcode forward", opts = { noremap = true, silent = true } },
 	},
 
 	t = {
-		['<C-t>'] = { "<C-\\><C-n>", "exit terminal mode" },
 		["<C-k>"] = { "<C-\\><C-N><C-w>k", "Move to up pane", opts = { silent = true } },
 		["<C-j>"] = { "<C-\\><C-N><C-w>j", "Move to down pane", opts = { silent = true } },
 		["<C-h>"] = { "<C-\\><C-N><C-w>h", "Move to left pane", opts = { silent = true } },
@@ -106,6 +102,18 @@ mappings.himywords = {
 	n = {
 		['<space>m'] = { ":HiMyWordsToggle <CR>", "highlight word on cursor" },
 		['<space>M'] = { ":HiMyWordsClear <CR>", "clear all highlight" },
+	},
+}
+
+mappings.toggleterm = {
+	plugin = true,
+	t = {
+		['<C-t>'] = { "<C-\\><C-n>", "exit terminal mode" },
+		['<F8>'] = { "<C-\\><C-n>:ToggleTerm <CR>", "toggle float terminal" },
+		['<C-Up>'] = { ":ToggleTerm <CR>:ToggleTerm direction=tab <CR>", "toggle float terminal" },
+		['<C-Down>'] = { ":ToggleTerm <CR>:ToggleTerm direction=horizontal <CR>", "toggle float terminal" },
+		['<C-Left>'] = { ":ToggleTerm <CR>:ToggleTerm direction=float <CR>", "toggle float terminal" },
+		['<C-Right>'] = { ":ToggleTerm <CR>:ToggleTerm direction=vertical <CR>", "toggle float terminal" },
 	},
 }
 

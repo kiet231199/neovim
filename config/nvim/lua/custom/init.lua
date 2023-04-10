@@ -457,11 +457,16 @@ custom.plugins = {
 	},
 
 	-- Float terminal ----------------------------------------------
-	['rebelot/terminal.nvim'] = {
-		-- Desc: Float terminal
+	['akinsho/toggleterm.nvim'] = {
+		-- Desc: float terminal
+		-- TODO: Config to be more stable
 		config = function()
-			require("custom.config.terminal")
+			require("custom.config.toggleterm")
 		end,
+		init = function()
+			require("core.utils").load_mappings("toggleterm")
+		end,
+		cmd = "ToggleTerm",
 	},
 
 	-- Colorful ----------------------------------------------------
@@ -592,6 +597,15 @@ custom.plugins = {
 			vim.keymap.set({ "n", "o", "x" }, "<", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-w" })
 			-- vim.keymap.set({ "n", "o", "x" }, "ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "Spider-w" })
 		end,
+	},
+	['rebelot/terminal.nvim'] = {
+		-- Desc: Float terminal
+		config = function()
+			require("custom.config.terminal")
+		end,
+		-- init = function()
+		-- 	require("core.utils").load_mappings("terminal")
+		-- end,
 	},
 	['hungnguyen1503/friendly-snippets'] = {
 		pin = true,
