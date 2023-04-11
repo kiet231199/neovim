@@ -40,10 +40,11 @@ mappings.general = {
 	},
 
 	t = {
-		["<C-k>"] = { "<C-\\><C-N><C-w>k", "Move to up pane", opts = { silent = true } },
-		["<C-j>"] = { "<C-\\><C-N><C-w>j", "Move to down pane", opts = { silent = true } },
-		["<C-h>"] = { "<C-\\><C-N><C-w>h", "Move to left pane", opts = { silent = true } },
-		["<C-l>"] = { "<C-\\><C-N><C-w>l", "Move to right pane", opts = { silent = true } },
+		['<C-t>'] = { "<C-\\><C-n>", "exit terminal mode" },
+		["<C-k>"] = { "<C-\\><C-n><C-w>k", "Move to up pane", opts = { silent = true } },
+		["<C-j>"] = { "<C-\\><C-n><C-w>j", "Move to down pane", opts = { silent = true } },
+		["<C-h>"] = { "<C-\\><C-n><C-w>h", "Move to left pane", opts = { silent = true } },
+		["<C-l>"] = { "<C-\\><C-n><C-w>l", "Move to right pane", opts = { silent = true } },
 	},
 
 	v = {
@@ -105,15 +106,13 @@ mappings.himywords = {
 	},
 }
 
-mappings.toggleterm = {
+mappings.terminal = {
 	plugin = true,
+	n = {
+		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
+	},
 	t = {
-		['<C-t>'] = { "<C-\\><C-n>", "exit terminal mode" },
-		['<F8>'] = { "<C-\\><C-n>:ToggleTerm <CR>", "toggle float terminal" },
-		['<C-Up>'] = { ":ToggleTerm <CR>:ToggleTerm direction=tab <CR>", "toggle float terminal" },
-		['<C-Down>'] = { ":ToggleTerm <CR>:ToggleTerm direction=horizontal <CR>", "toggle float terminal" },
-		['<C-Left>'] = { ":ToggleTerm <CR>:ToggleTerm direction=float <CR>", "toggle float terminal" },
-		['<C-Right>'] = { ":ToggleTerm <CR>:ToggleTerm direction=vertical <CR>", "toggle float terminal" },
+		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
 	},
 }
 

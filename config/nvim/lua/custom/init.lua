@@ -18,7 +18,6 @@ custom.plugins = {
 	},
 	['lewis6991/impatient.nvim'] = {
 		-- Desc: Boost startup time
-		priority = 1000,
 		config = function()
 			require("custom.config.impatient")
 		end,
@@ -57,14 +56,12 @@ custom.plugins = {
 	['nvim-lualine/lualine.nvim'] = {
 		-- Desc: Status line
 		-- TODO: Config for dynamic lualine
-		priority = 998,
 		config = function()
 			require("custom.config.lualine")
 		end,
 	},
 	['kdheepak/tabline.nvim'] = {
 		-- Desc: Tabline
-		priority = 998,
 		config = function()
 			require("custom.config.tabline")
 		end,
@@ -352,6 +349,18 @@ custom.plugins = {
 		end,
 		event = "InsertEnter",
 	},
+	['chrisgrieser/nvim-spider'] = {
+	 	-- Desc: Quick move
+		config = function()
+			require("spider").setup({ skipInsignificantPunctuation = false })
+		end,
+		init = function()
+			vim.keymap.set({ "n", "o", "x"}, ">", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
+			-- vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-w" })
+			vim.keymap.set({ "n", "o", "x" }, "<", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-w" })
+			-- vim.keymap.set({ "n", "o", "x" }, "ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "Spider-w" })
+		end,
+	},
 
 	-- Search ------------------------------------------------------
 	['VonHeikemen/searchbox.nvim'] = {
@@ -457,16 +466,14 @@ custom.plugins = {
 	},
 
 	-- Float terminal ----------------------------------------------
-	['akinsho/toggleterm.nvim'] = {
-		-- Desc: float terminal
-		-- TODO: Config to be more stable
+	['rebelot/terminal.nvim'] = {
+		-- Desc: Float terminal
 		config = function()
-			require("custom.config.toggleterm")
+			require("custom.config.terminal")
 		end,
 		init = function()
-			require("core.utils").load_mappings("toggleterm")
+			require("core.utils").load_mappings("terminal")
 		end,
-		cmd = "ToggleTerm",
 	},
 
 	-- Colorful ----------------------------------------------------
@@ -586,27 +593,7 @@ custom.plugins = {
 	},
 
 	-- Plugin on testing ----------------------------------------
-	['chrisgrieser/nvim-spider'] = {
-	 	-- Desc: Quick move
-		config = function()
-			require("spider").setup({ skipInsignificantPunctuation = false })
-		end,
-		init = function()
-			vim.keymap.set({ "n", "o", "x"}, ">", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
-			-- vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-w" })
-			vim.keymap.set({ "n", "o", "x" }, "<", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-w" })
-			-- vim.keymap.set({ "n", "o", "x" }, "ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "Spider-w" })
-		end,
-	},
-	['rebelot/terminal.nvim'] = {
-		-- Desc: Float terminal
-		config = function()
-			require("custom.config.terminal")
-		end,
-		-- init = function()
-		-- 	require("core.utils").load_mappings("terminal")
-		-- end,
-	},
+	['mrjones2014/smart-splits.nvim'] = {},
 	['hungnguyen1503/friendly-snippets'] = {
 		pin = true,
 	},

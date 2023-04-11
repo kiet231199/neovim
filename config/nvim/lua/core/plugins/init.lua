@@ -1,8 +1,13 @@
 local plugins = {
 	-- Startup -----------------------------------------------------
+	['goolord/alpha-nvim'] = {
+		-- Desc: Start up screen
+		config = function()
+			require("alpha").setup(require'alpha.themes.dashboard'.config)
+		end,
+	},
 	['lewis6991/impatient.nvim'] = {
 		-- Desc: Boost startup time
-		priority = 1000,
 		config = function()
 			require("core.plugins.config.impatient")
 		end,
@@ -29,14 +34,12 @@ local plugins = {
 	['nvim-lualine/lualine.nvim'] = {
 		-- Desc: Status line
 		-- TODO: Config for dynamic lualine
-		priority = 998,
 		config = function()
 			require("core.plugins.config.lualine")
 		end,
 	},
 	['kdheepak/tabline.nvim'] = {
 		-- Desc: Tabline
-		priority = 998,
 		config = function()
 			require("core.plugins.config.tabline")
 		end,
@@ -92,7 +95,7 @@ local plugins = {
 		-- Desc: Preview clipboard
 		lazy = true,
 		config = function()
-			require("plugins.core.config.neoclip")
+			require("core.plugins.config.neoclip")
 		end,
 	},
 
@@ -188,7 +191,6 @@ local plugins = {
 		end,
 		event = { "InsertEnter", "CmdlineEnter" },
 	},
-
 	-- Highlighter -------------------------------------------------
 	['nvim-treesitter/nvim-treesitter'] = {
 		-- Desc: Code highlight
@@ -202,7 +204,6 @@ local plugins = {
 			'nvim-treesitter/nvim-treesitter',
 		},
 	},
-
 	-- Bracket -----------------------------------------------------
 	['ZhiyuanLck/smart-pairs'] = {
 		-- Desc: Smart placing bracket
@@ -225,6 +226,12 @@ local plugins = {
 		end,
 	},
 	-- Scroll ------------------------------------------------------
+	['karb94/neoscroll.nvim'] = {
+		-- Desc: Smooth scrolling
+		config = function()
+			require("core.plugins.config.neoscroll")
+		end,
+	},
 	['dstein64/nvim-scrollview'] = {
 		-- Desc: Scrollbar
 		config = function()
@@ -235,10 +242,12 @@ local plugins = {
 	['rebelot/terminal.nvim'] = {
 		-- Desc: Float terminal
 		config = function()
-			require("custom.config.terminal")
+			require("core.plugins.config.terminal")
+		end,
+		init = function()
+			require("core.utils").load_mappings("terminal")
 		end,
 	},
-
 	-- Colorful ----------------------------------------------------
 	['anuvyklack/pretty-fold.nvim'] = {
 		-- Desc: Fold text
@@ -251,7 +260,7 @@ local plugins = {
 		pin = true,
 		commit = 'bb06c86',
 		config = function()
-			require("custom.config.winsep")
+			require("core.plugins.config.winsep")
 		end,
 		event = "WinNew",
 	},

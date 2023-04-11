@@ -82,9 +82,9 @@ mappings.lspsaga = {
 	plugin = true,
 	n = {
 		["gf"] = { ":Lspsaga lsp_finder<CR>", "finder", opts = { silent = true } },
-		["gr"] =  { ":Lspsaga rename<CR>", "rename", opts = { silent = true } },
+		["gr"] = { ":Lspsaga rename<CR>", "rename", opts = { silent = true } },
 		["K"] = { ":Lspsaga hover_doc<CR>", "hover doc", opts = { silent = true } },
-		["<F6>"] = { ":WindowsDisableAutowidth<CR>:Lspsaga outline<CR>",{ silent = true } },
+		["<F6>"] = { ":WindowsDisableAutowidth<CR>:Lspsaga outline<CR>", { silent = true } },
 		-- Use <C-t> to jump back
 		["gpd"] = { ":Lspsaga peek_definition<CR>", "float definition", opts = { silent = true } },
 		-- Diagnsotic jump can use `<c-o>` to jump back
@@ -94,6 +94,15 @@ mappings.lspsaga = {
 		["gek"] = { function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "error jump prev", opts = { silent = true } },
 		["gej"] = { function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "error jump next", opts = { silent = true } },
 	}
+}
+mappings.terminal = {
+	plugin = true,
+	n = {
+		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
+	},
+	t = {
+		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
+	},
 }
 
 return mappings
