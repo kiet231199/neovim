@@ -270,10 +270,9 @@ local plugins = {
 			require("core.plugins.config.foldsign")
 		end,
 	},
-	['shellRaining/hlchunk.nvim'] = {
-		-- Desc: Indent highlights
+	['lukas-reineke/indent-blankline.nvim'] = {
 		config = function()
-			require("core.plugins.config.hlchunk")
+			require("core.plugins.config.indentblankline")
 		end,
 	},
 	-- Icon source (need to be placed at the end) ------------------

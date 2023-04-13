@@ -91,8 +91,10 @@ mappings.lspsaga = {
 		["gk"] = { ":Lspsaga diagnostic_jump_prev<CR>", "diagnostic jump prev", opts = { silent = true } },
 		["gj"] = { ":Lspsaga diagnostic_jump_next<CR>", "diagnostic jump next", opts = { silent = true } },
 		-- Only jump to error
-		["gek"] = { function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "error jump prev", opts = { silent = true } },
-		["gej"] = { function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "error jump next", opts = { silent = true } },
+		["gek"] = { function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
+			"error jump prev", opts = { silent = true } },
+		["gej"] = { function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
+			"error jump next", opts = { silent = true } },
 	}
 }
 mappings.terminal = {

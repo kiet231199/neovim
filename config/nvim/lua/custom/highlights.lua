@@ -68,7 +68,9 @@ local highlights = {
 		["NotifyDEBUGBody"] = { link = "Normal" },
 		["NotifyTRACEBody"] = { link = "Normal" },
 		-- CodeWindow
-		["CodewindowBorder"] = { fg = "#ffff00" }
+		["CodewindowBorder"] = { fg = "#ffff00" },
+		-- IndentBlanklineIndent
+		["IndentBlanklineIndent"] = { fg = "#565f89" },
 	}
 }
 

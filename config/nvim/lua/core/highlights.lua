@@ -32,6 +32,8 @@ local highlights = {
 		["HlSearchLens"] = { fg = "#fbc7f1", bg = "#1a1b26" },
 		["HlSearchLensNear"] = { fg = "Red", bg = "#1a1b26", bold = true },
 		["HlSearchFloat"] = { link = "IncSearch" },
+		-- IndentBlanklineIndent
+		["IndentBlanklineIndent"] = { fg = "#565f89" },
 	},
 }
 

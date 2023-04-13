@@ -535,17 +535,16 @@ custom.plugins = {
 			require("core.utils").load_mappings("himywords")
 		end,
 	},
-	['shellRaining/hlchunk.nvim'] = {
-		-- Desc: Indent highlights
-		config = function()
-			require("custom.config.hlchunk")
-		end,
-	},
 	['echasnovski/mini.trailspace'] = {
 		-- Desc: Highlight, remove trailing space
 		version = false,
 		config = function()
 			require("mini.trailspace").setup()
+		end,
+	},
+	['lukas-reineke/indent-blankline.nvim'] = {
+		config = function()
+			require("custom.config.indentblankline")
 		end,
 	},
 
@@ -594,6 +593,7 @@ custom.plugins = {
 
 	-- Plugin on testing ----------------------------------------
 	['mrjones2014/smart-splits.nvim'] = {},
+	['voldikss/vim-floaterm'] = {},
 	['hungnguyen1503/friendly-snippets'] = {
 		pin = true,
 	},
