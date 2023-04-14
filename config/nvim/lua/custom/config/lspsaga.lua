@@ -131,7 +131,10 @@ saga.setup({
 		incoming = " ",
 		outgoing = " ",
 		hover = ' ',
-		kind = {},
+		kind = {
+			['String'] = { ' ', 'String' },
+			['Array'] = { ' ', 'Type' },
+			['Null'] = { ' ', 'Constant' },
+		},
 	},
 })
-

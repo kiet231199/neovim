@@ -87,14 +87,14 @@ saga.setup({
 		win_position = 'right',
 		win_with = '',
 		win_width = 40,
-		preview_width = 80;
+		preview_width = 0.6;
 		show_detail = true,
 		auto_preview = true,
 		auto_refresh = true,
 		auto_close = true,
 		custom_sort = nil,
 		keys = {
-			expand_or_collapse = '<CR>',
+			expand_or_jump= '<CR>',
 			quit = 'q',
 		},
 	},
@@ -131,7 +131,10 @@ saga.setup({
 		incoming = " ",
 		outgoing = " ",
 		hover = ' ',
-		kind = {},
+		kind = {
+			['String'] = { ' ', 'String' },
+			['Array'] = { ' ', 'Type' },
+			['Null'] = { ' ', 'Constant' },
+		},
 	},
 })
-

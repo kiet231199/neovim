@@ -108,7 +108,7 @@ noice.setup({
 			["cmp.entry.get_documentation"] = true,
 		},
 		hover = {
-			enabled = true,
+			enabled = false,
 			view = nil, -- when nil, use defaults from documentation
 			opts = {}, -- merged with defaults from documentation
 		},
@@ -186,7 +186,7 @@ noice.setup({
 				style = 'rounded',
 			},
 			win_options = {
-				winblend = 80,
+				winblend = 60,
 			},
 			timeout = 4000,
 		},
@@ -227,8 +227,11 @@ noice.setup({
 	},
 	routes = {
 		{
-			view = "notify",
-			filter = { event = "msg_showmode" },
+			filter = {
+				event = "msg_show",
+				kind = "search_count",
+			},
+			opts = { skip = true },
 		},
 	},
 	status = {},

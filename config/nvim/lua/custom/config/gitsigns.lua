@@ -11,6 +11,7 @@ gitsigns.setup({
 		delete       = {hl = 'GitSignsDelete', text = ' ', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
 		topdelete    = {hl = 'GitSignsDelete', text = ' ', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
 		changedelete = {hl = 'GitSignsChange', text = ' ', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+		untracked    = {hl = 'GitSignsUntracked', text = '▌ ', numhl='GitSignsUntrackedNr', linehl = 'GitSignsUntrackedLn'},
 	},
 	signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
 	numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`

@@ -1,13 +1,47 @@
-local cmp_status_ok, cmp = pcall(require, "cmp")
-if not cmp_status_ok then
+local cmp_status, cmp = pcall(require, "cmp")
+if not cmp_status then
 	print("Error: cmp")
 	return
 end
 
-local luasnip_status_ok, luasnip = pcall(require, "luasnip")
-if not luasnip_status_ok then
+local luasnip_status, luasnip = pcall(require, "luasnip")
+if not luasnip_status then
 	print("Error: luasnip")
 	return
+end
+
+luasnip.config.set_config({ history = true, updateevents = "TextChanged, TextChangedI" })
+require("luasnip.loaders.from_vscode").lazy_load()
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+    callback = function()
+        if require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+            and not require("luasnip").session.jump_active
+        then
+            require("luasnip").unlink_current()
+        end
+    end,
+})
+
+local function border(hl_name)
+    return {
+        { "╭", hl_name },
+        { "─", hl_name },
+        { "╮", hl_name },
+        { "│", hl_name },
+        { "╯", hl_name },
+        { "─", hl_name },
+        { "╰", hl_name },
+        { "│", hl_name },
+    }
+end
+
+local cmp_window = require("cmp.utils.window")
+cmp_window.info_ = cmp_window.info
+cmp_window.info_ = function(self)
+    local info = self:info_()
+    info.scrollable = false
+    return info
 end
 
 --   פּ ﯟ   some other good icons
@@ -43,7 +77,8 @@ local kinds = {
 	nvim_lsp = "[LSP]",
 	nvim_lsp_document_symbols = "[Doc]",
 	luasnip = "[Snippet]",
-	buffer = "[Buffer]",
+	vsnip = "[Snippet]",
+	buffer = "Buffer]",
 	luasnip_choice = "[Snippet]",
 	buffer_lines = "[Buffer]",
 	cmdline = "[Cmd]",
@@ -114,6 +149,11 @@ cmp.setup({
 			vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 			vim_item.menu = (kinds)[entry.source.name]
 			vim_item.dup = ({	-- Remove duplicate in source
+				buffer = 1,
+				path = 1,
+				nvim_lsp = 0,
+				vsnip = 0,
+				luasnip = 1,
 				ctags = 0,
 				cmdline_history = 0,
 				rg = 0,
@@ -126,7 +166,7 @@ cmp.setup({
 	},
 	sources = require("cmp").config.sources({
 		{ name = "luasnip", option = { show_autosnippets = true }, priority = 9 },
-		{ name = "luasnip_choice", priority = 9 },		
+		{ name = "luasnip_choice", priority = 9 },
 		{ name = "nvim_lsp", priority = 8 },
 		{ name = "nvim_lsp_signature_help", priority = 8 },
 		{ name = "buffer", priority = 7 },
@@ -140,14 +180,15 @@ cmp.setup({
 		select = false,
 	},
 	window = {
-		documentation = {
-			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-		},
 		completion = {
 			scrollbar = false,
 			max_width = 40,
 			max_height = 25,
-			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+			border = border("LspSagaHoverBorder"),
+			winhighlight = "Normal:CmpPmenu,Search:None",
+		},
+		documentation = {
+			border = border("CmpDocumentationBorder"),
 		},
 	},
 	experimental = {

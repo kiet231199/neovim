@@ -590,9 +590,12 @@ custom.plugins = {
 		end,
 		cmd = "Asciitree",
 	},
-
 	-- Plugin on testing ----------------------------------------
-	['mrjones2014/smart-splits.nvim'] = {},
+	['LudoPinelli/comment-box.nvim'] = {
+		config = function()
+			
+		end,
+	},
 	['voldikss/vim-floaterm'] = {},
 	['hungnguyen1503/friendly-snippets'] = {
 		pin = true,

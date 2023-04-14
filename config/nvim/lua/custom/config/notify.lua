@@ -12,11 +12,11 @@ notify.setup({
 		ERROR = " ",
 		INFO = " ",
 		TRACE = "✎",
-		WARN = " "
+		WARN = " "
 	},
 	level = 2,
 	minimum_width = 30,
-	render = "default",
+	render = "compact",
 	stages = "slide",
-	timeout = 1000
+	timeout = 3000
 })
