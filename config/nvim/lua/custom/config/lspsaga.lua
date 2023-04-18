@@ -91,7 +91,7 @@ saga.setup({
 		show_detail = true,
 		auto_preview = true,
 		auto_refresh = true,
-		auto_close = true,
+		auto_close = false,
 		custom_sort = nil,
 		keys = {
 			expand_or_jump= '<CR>',

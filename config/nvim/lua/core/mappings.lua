@@ -32,6 +32,7 @@ mappings.general = {
 	},
 
 	t = {
+		['<C-t>'] = { "<C-\\><C-n>", "exit terminal mode" },
 		["<C-k>"] = { "<C-\\><C-N><C-w>k", "Move to up pane", opts = { silent = true } },
 		["<C-j>"] = { "<C-\\><C-N><C-w>j", "Move to down pane", opts = { silent = true } },
 		["<C-h>"] = { "<C-\\><C-N><C-w>h", "Move to left pane", opts = { silent = true } },

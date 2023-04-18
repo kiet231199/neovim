@@ -248,6 +248,10 @@ custom.plugins = {
 		end,
 		event = { "InsertEnter", "CmdlineEnter" },
 	},
+	['hungnguyen1503/friendly-snippets'] = {
+		-- Desc: Additional snippets
+		pin = true,
+	},
 
 	-- Highlighter -------------------------------------------------
 	['nvim-treesitter/nvim-treesitter'] = {
@@ -411,6 +415,10 @@ custom.plugins = {
 	},
 	['folke/noice.nvim'] = {
 		-- Desc: Show message popup, LSP progress, popup commandline
+		enabled = function()
+			if vim.g.neovide == nil then return true
+			else return false end
+		end,
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 			"rcarriga/nvim-notify",
@@ -591,14 +599,15 @@ custom.plugins = {
 		cmd = "Asciitree",
 	},
 	-- Plugin on testing ----------------------------------------
-	['LudoPinelli/comment-box.nvim'] = {
+	['christoomey/vim-tmux-navigator'] = {
 		config = function()
-			
+			vim.cmd [[
+				noremap <silent> <C-h> :<C-U>TmuxNavigateLeft<cr>
+				noremap <silent> <C-j> :<C-U>TmuxNavigateDown<cr>
+				noremap <silent> <C-k> :<C-U>TmuxNavigateUp<cr>
+				noremap <silent> <C-l> :<C-U>TmuxNavigateRight<cr>
+			]]
 		end,
-	},
-	['voldikss/vim-floaterm'] = {},
-	['hungnguyen1503/friendly-snippets'] = {
-		pin = true,
 	},
 
 	-- Icon source (need to be placed at the end) ------------------

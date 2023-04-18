@@ -71,6 +71,7 @@ local highlights = {
 		["CodewindowBorder"] = { fg = "#ffff00" },
 		-- IndentBlanklineIndent
 		["IndentBlanklineIndent"] = { fg = "#565f89" },
+		["IndentBlanklineContextChar"] = { fg = "#a9b1d6" },
 	}
 }
 
