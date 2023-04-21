@@ -535,9 +535,9 @@ custom.plugins = {
 		end,
 	},
 	['dvoytik/hi-my-words.nvim'] = {
-		-- Desc: Highlight many colors
+		-- Desc: Highlight word with many colors
 		config = function()
-			require("hi-my-words").setup()
+			require("custom.config.himywords")
 		end,
 		init = function()
 			require("core.utils").load_mappings("himywords")
@@ -598,17 +598,18 @@ custom.plugins = {
 		end,
 		cmd = "Asciitree",
 	},
-	-- Plugin on testing ----------------------------------------
 	['christoomey/vim-tmux-navigator'] = {
+		-- Desc: Switch pane between VIM and TMUX
 		config = function()
 			vim.cmd [[
-				noremap <silent> <C-h> :<C-U>TmuxNavigateLeft<cr>
-				noremap <silent> <C-j> :<C-U>TmuxNavigateDown<cr>
-				noremap <silent> <C-k> :<C-U>TmuxNavigateUp<cr>
-				noremap <silent> <C-l> :<C-U>TmuxNavigateRight<cr>
+				noremap <silent> <C-b>h :<C-U>TmuxNavigateLeft<cr>
+				noremap <silent> <C-b>j :<C-U>TmuxNavigateDown<cr>
+				noremap <silent> <C-b>k :<C-U>TmuxNavigateUp<cr>
+				noremap <silent> <C-b>l :<C-U>TmuxNavigateRight<cr>
 			]]
 		end,
 	},
+	-- Plugin on testing ----------------------------------------
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {

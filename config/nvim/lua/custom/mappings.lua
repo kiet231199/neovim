@@ -37,14 +37,13 @@ mappings.general = {
 		["<A-Down>"] = { ":resize +2 <CR>", "Resize down" },
 		["<A-Left>"] = { ":vertical resize -2 <CR>", "Resize left" },
 		["<A-Right>"] = { ":vertical resize +2 <CR>", "Resize right" },
+
+		["<"] = { "V<gv<ESC>", "tab blockcode backward", opts = { noremap = true, silent = true } },
+		[">"] = { "V>gv<ESC>", "tab blockcode forward", opts = { noremap = true, silent = true } },
 	},
 
 	t = {
 		['<C-t>'] = { "<C-\\><C-n>", "exit terminal mode" },
-		["<C-k>"] = { "<C-\\><C-n><C-w>k", "Move to up pane", opts = { silent = true } },
-		["<C-j>"] = { "<C-\\><C-n><C-w>j", "Move to down pane", opts = { silent = true } },
-		["<C-h>"] = { "<C-\\><C-n><C-w>h", "Move to left pane", opts = { silent = true } },
-		["<C-l>"] = { "<C-\\><C-n><C-w>l", "Move to right pane", opts = { silent = true } },
 	},
 
 	v = {
@@ -119,8 +118,8 @@ mappings.terminal = {
 mappings.tabout = {
 	plugin = true,
 	i = {
-		["<C-l>"] = { "<Plug>(Tabout)", "tabout next", opts = { silent = true } },
-		["<C-h>"] = { "<Plug>(TaboutBack)", "tabout previous", opts = { silent = true } },
+		["<C-Right>"] = { "<Plug>(Tabout)", "tabout next", opts = { silent = true } },
+		["<C-Left>"] = { "<Plug>(TaboutBack)", "tabout previous", opts = { silent = true } },
 	},
 }
 
