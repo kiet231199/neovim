@@ -63,11 +63,11 @@ mappings.gitsigns = {
 	plugin = true,
 	n = {
 		["<F2>"] = { ":Gitsigns toggle_numhl<CR>:Gitsigns toggle_linehl<CR>", "toggle highlight line" },
-		["<F9>"] = { ":Gitsigns toogle_current_line_blame <CR>", "toggle blame line" },
+		["<F9>"] = { ":Gitsigns toggle_current_line_blame <CR>", "toggle blame line" },
 	},
 	i = {
 		["<F2>"] = { ":Gitsigns toggle_numhl<CR>:Gitsigns toggle_linehl<CR>", "toggle highlight line" },
-		["<F9>"] = { ":Gitsigns toogle_current_line_blame <CR>", "toggle blame line" },
+		["<F9>"] = { ":Gitsigns toggle_current_line_blame <CR>", "toggle blame line" },
 	},
 }
 
@@ -100,20 +100,20 @@ mappings.lspconfig = {
 mappings.himywords = {
 	plugin = true,
 	n = {
-		['<space>m'] = { ":HiMyWordsToggle <CR>", "highlight word on cursor" },
-		['<space>M'] = { ":HiMyWordsClear <CR>", "clear all highlight" },
+		['<space>m'] = { ":HiMyWordsToggle<CR>", "highlight word on cursor" },
+		['<space>M'] = { ":HiMyWordsClear<CR>", "clear all highlight" },
 	},
 }
 
-mappings.terminal = {
-	plugin = true,
-	n = {
-		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
-	},
-	t = {
-		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
-	},
-}
+-- mappings.terminal = {
+-- 	plugin = true,
+-- 	n = {
+-- 		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
+-- 	},
+-- 	t = {
+-- 		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
+-- 	},
+-- }
 
 mappings.tabout = {
 	plugin = true,
@@ -132,7 +132,7 @@ mappings.move = {
 		["<A-l>"] = { ":MoveHChar(1) <CR>", "move block right" },
 	},
 	v = {
-		["<A-j>"] = { ":MoveBlock(1) <CR>", "move block down" },
+ 		["<A-j>"] = { ":MoveBlock(1) <CR>", "move block down" },
 		["<A-k>"] = { ":MoveBlock(-1) <CR>", "move block up" },
 		["<A-h>"] = { ":MoveHBlock(-1) <CR>", "move block left" },
 		["<A-l>"] = { ":MoveHBlock(1) <CR>", "move block right" },

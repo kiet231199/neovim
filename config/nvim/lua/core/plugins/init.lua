@@ -239,15 +239,15 @@ local plugins = {
 		end,
 	},
 	-- Float terminal ----------------------------------------------
-	['rebelot/terminal.nvim'] = {
-		-- Desc: Float terminal
-		config = function()
-			require("core.plugins.config.terminal")
-		end,
-		init = function()
-			require("core.utils").load_mappings("terminal")
-		end,
-	},
+	-- ['rebelot/terminal.nvim'] = {
+	-- 	-- Desc: Float terminal
+	-- 	config = function()
+	-- 		require("core.plugins.config.terminal")
+	-- 	end,
+	-- 	init = function()
+	-- 		require("core.utils").load_mappings("terminal")
+	-- 	end,
+	-- },
 	-- Colorful ----------------------------------------------------
 	['anuvyklack/pretty-fold.nvim'] = {
 		-- Desc: Fold text

@@ -6,7 +6,7 @@ end
 
 drop.setup({
 	---@type DropTheme|string
-	theme = "stars", -- can be one of the default themes, or a custom theme
+	theme = "leaves", -- can be one of the default themes, or a custom theme
 	max = 50, -- maximum number of drops on the screen
 	interval = 150, -- every 150ms we update the drops
 	screensaver = 1000 * 60 * 5, -- show after 5 minutes. Set to false, to disable

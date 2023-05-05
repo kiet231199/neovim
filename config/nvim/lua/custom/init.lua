@@ -315,6 +315,15 @@ custom.plugins = {
 			{ "<leader>rc", "<cmd>EasyReplaceCwordInVisual<CR>", mode = "v", silent = true, noremap = true },
 		},
 	},
+	['AckslD/muren.nvim'] = {
+		-- Desc: replace pattern
+		config = function()
+			require("custom.config.muren")
+		end,
+		keys = {
+			{ "<leader>rp", "<cmd>MurenToggle<CR>", mode = "n", silent = true, noremap = true },
+		}
+	},
 	['Vonr/align.nvim'] = {
 		-- Desc: Quick align
 		config = function()
@@ -474,15 +483,15 @@ custom.plugins = {
 	},
 
 	-- Float terminal ----------------------------------------------
-	['rebelot/terminal.nvim'] = {
-		-- Desc: Float terminal
-		config = function()
-			require("custom.config.terminal")
-		end,
-		init = function()
-			require("core.utils").load_mappings("terminal")
-		end,
-	},
+	-- ['rebelot/terminal.nvim'] = {
+	-- 	-- Desc: Float terminal
+	-- 	config = function()
+	-- 		require("custom.config.terminal")
+	-- 	end,
+	-- 	init = function()
+	-- 		require("core.utils").load_mappings("terminal")
+	-- 	end,
+	-- },
 
 	-- Colorful ----------------------------------------------------
 	['itchyny/vim-cursorword'] = {
@@ -610,6 +619,11 @@ custom.plugins = {
 		end,
 	},
 	-- Plugin on testing ----------------------------------------
+	['akinson/toggleterm.nvim'] = {
+		config = function()
+			require("custom.config.toggleterm")
+		end,
+	},
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {
