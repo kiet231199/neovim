@@ -105,15 +105,15 @@ mappings.himywords = {
 	},
 }
 
--- mappings.terminal = {
--- 	plugin = true,
--- 	n = {
--- 		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
--- 	},
--- 	t = {
--- 		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
--- 	},
--- }
+mappings.terminal = {
+	plugin = true,
+	n = {
+		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
+	},
+	t = {
+		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
+	},
+}
 
 mappings.tabout = {
 	plugin = true,

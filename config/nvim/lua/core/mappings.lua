@@ -97,14 +97,14 @@ mappings.lspsaga = {
 			"error jump next", opts = { silent = true } },
 	}
 }
--- mappings.terminal = {
--- 	plugin = true,
--- 	n = {
--- 		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
--- 	},
--- 	t = {
--- 		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
--- 	},
--- }
+mappings.terminal = {
+	plugin = true,
+	n = {
+		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
+	},
+	t = {
+		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
+	},
+}
 
 return mappings

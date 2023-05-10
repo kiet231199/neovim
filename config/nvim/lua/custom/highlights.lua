@@ -10,6 +10,9 @@ local highlights = {
 		["PmenuThumb"] = { fg = "#a9b1d6" },
 		-- CursorLine
 		["CursorLineNr"] = { fg = "Yellow", bold = true },
+		-- Fold
+		["Folded"] = { bg = "#1a1b26" },
+		["FoldColumn"] = { fg = "#7aa2f7" },
 	},
 	-- Plugin group
 	plugin = {
@@ -72,6 +75,10 @@ local highlights = {
 		-- IndentBlanklineIndent
 		["IndentBlanklineIndent"] = { fg = "#565f89" },
 		["IndentBlanklineContextChar"] = { fg = "#a9b1d6" },
+		-- Telescope Promt
+		["TelescopeResultsTitle"] = { fg = "#1a1b26", bg = "#f7768e" },
+		["TelescopePreviewTitle"] = { fg = "#1a1b26", bg = "#bb9af7" },
+		["TelescopePromptTitle"] = { fg = "#1a1b26", bg = "#e0af68" },
 	}
 }
 

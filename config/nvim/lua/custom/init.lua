@@ -483,15 +483,15 @@ custom.plugins = {
 	},
 
 	-- Float terminal ----------------------------------------------
-	-- ['rebelot/terminal.nvim'] = {
-	-- 	-- Desc: Float terminal
-	-- 	config = function()
-	-- 		require("custom.config.terminal")
-	-- 	end,
-	-- 	init = function()
-	-- 		require("core.utils").load_mappings("terminal")
-	-- 	end,
-	-- },
+	['rebelot/terminal.nvim'] = {
+		-- Desc: Float terminal
+		config = function()
+			require("custom.config.terminal")
+		end,
+		init = function()
+			require("core.utils").load_mappings("terminal")
+		end,
+	},
 
 	-- Colorful ----------------------------------------------------
 	['itchyny/vim-cursorword'] = {
@@ -619,11 +619,6 @@ custom.plugins = {
 		end,
 	},
 	-- Plugin on testing ----------------------------------------
-	['akinson/toggleterm.nvim'] = {
-		config = function()
-			require("custom.config.toggleterm")
-		end,
-	},
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {
