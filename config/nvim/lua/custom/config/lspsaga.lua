@@ -27,10 +27,10 @@ saga.setup({
 		},
 	},
 	definition = {
-		edit = '<C-c>o',
-		vsplit = 'gvd',
-		split = 'ghd',
-		tabe = 'gtd',
+		edit = 'o',
+		vsplit = 'v',
+		split = 'h',
+		tabe = 't',
 		quit = 'q',
 		close = '<Esc>',
 	},
@@ -135,6 +135,7 @@ saga.setup({
 			['String'] = { ' ', 'String' },
 			['Array'] = { ' ', 'Type' },
 			['Null'] = { ' ', 'Constant' },
+			['Function'] = { ' ', 'Function' },
 		},
 	},
 })
