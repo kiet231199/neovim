@@ -434,6 +434,7 @@ custom.plugins = {
 		},
 		config = function()
 			require("custom.config.noice")
+			require("telescope").load_extension("noice")
 		end,
 	},
 	['folke/which-key.nvim'] = {
