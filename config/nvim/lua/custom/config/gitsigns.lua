@@ -75,10 +75,10 @@ gitsigns.setup({
 		map('n', '<space>hR', gs.reset_buffer)
 		map('n', '<space>hv', gs.preview_hunk)
 		-- map('n', '<space>hb', function() gs.blame_line{full=true} end)
-		map('n', '<space>tb', gs.toggle_current_line_blame)
 		map('n', '<space>hd', gs.diffthis)
 		map('n', '<space>hD', function() gs.diffthis('~') end)
-		-- map('n', '<space>td', gs.toggle_deleted)
+		map('n', '<space>td', gs.toggle_deleted)
+		map('n', '<space>tb', gs.toggle_current_line_blame)
 
 		-- Text object
 		-- map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
