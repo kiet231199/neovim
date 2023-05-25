@@ -68,20 +68,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
 })
 
--- Dynamic winbar
-vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufWritePost' }, {
-	once = true,
-	group = vim.api.nvim_create_augroup('WinBarSetup', {}),
-	callback = function()
-		require('custom.plugin.winbar').setup()
-
-		local api = require('custom.plugin.winbar.api')
-		vim.keymap.set('n', '<space>wl', api.pick)
-		vim.keymap.set('n', '<space>wn', api.goto_context_start)
-		vim.keymap.set('n', '<space>wp', api.select_next_context)
-	end,
-})
-
 -- User define function
 function IsView()
 	if vim.o.number == true then

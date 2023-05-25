@@ -65,16 +65,17 @@ vim.cmd[[
 
 -- Setup plugins manager
 local lazypath = vim.g.config_path .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-	"git",
-	"clone",
-	"--filter=blob:none",
-	"https://github.com/folke/lazy.nvim.git",
-	"--branch=stable", -- latest stable release
-	lazypath,
-	})
-end
+-- WARN: Only uncomment below part on the first run of neovim to install lazy.nvim
+-- if not vim.loop.fs_stat(lazypath) then
+-- 	vim.fn.system({
+-- 	"git",
+-- 	"clone",
+-- 	"--filter=blob:none",
+-- 	"https://github.com/folke/lazy.nvim.git",
+-- 	"--branch=stable", -- latest stable release
+-- 	lazypath,
+-- 	})
+-- end
 vim.opt.rtp:prepend(lazypath)
 
 -- Call default settings

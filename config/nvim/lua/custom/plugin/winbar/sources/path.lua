@@ -44,8 +44,10 @@ local function get_symbols(buf, _)
   local current_path = vim.fs.normalize(
     vim.fn.fnamemodify((vim.api.nvim_buf_get_name(buf)), ':p')
   )
+  local base_path = vim.fn.finddir(vim.fn.fnamemodify(current_path, ":h"), vim.fn.getcwd())
   while
-    current_path ~= '.'
+    current_path ~= '/'
+    and current_path ~= base_path
     and current_path
       ~= configs.eval(configs.opts.sources.path.relative_to, buf)
   do

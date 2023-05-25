@@ -32,8 +32,8 @@ function winbar_menu_entry_t:new(opts)
         icon_hl = 'WinBarIconUISeparator',
       }),
       padding = {
-        left = 1,
-        right = 1,
+        left = 0,
+        right = 3,
       },
       components = {},
     }, opts),

@@ -291,10 +291,11 @@ if lazy_exits then
 	-- Override with default plugins with user ones
 	plugins = require("core.utils").merge_plugins(plugins)
 
-	-- Overide lazy options with user ones
+ -- Overide lazy options with user ones
 	local options = require("core.lazy")
 	options = require("core.utils").load_override(options, "folke/lazy.nvim")
 
-	-- Load plugins and options
+ -- Load plugins and options
 	lazy.setup(plugins, options)
 end
+

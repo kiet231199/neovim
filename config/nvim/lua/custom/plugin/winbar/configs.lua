@@ -52,7 +52,7 @@ M.opts = {
       }
     end,
     pick = {
-      pivots = 'abcdefghijklmnopqrstuvwxyz',
+      pivots = '1234567890abcdefghijklmnopqrstuvwxyz',
     },
   },
   menu = {
@@ -88,12 +88,23 @@ M.opts = {
           menu:click_on(component)
         end
       end,
+	  ['q'] = function()
+        local menu = require('custom.plugin.winbar.api').get_current_winbar_menu()
+        if not menu then
+          return
+        end
+        local cursor = vim.api.nvim_win_get_cursor(menu.win)
+        local component = menu.entries[cursor[1]]:first_clickable(cursor[2])
+        if component then
+          menu:close()
+        end
+	  end,
     },
     ---@alias winbar_menu_win_config_opts_t any|fun(menu: winbar_menu_t):any
     ---@type table<string, winbar_menu_win_config_opts_t>
     ---@see vim.api.nvim_open_win
     win_configs = {
-      border = 'none',
+      border = 'rounded',
       style = 'minimal',
       row = function(menu)
         return menu.parent_menu
@@ -102,7 +113,7 @@ M.opts = {
           or 1
       end,
       col = function(menu)
-        return menu.parent_menu and menu.parent_menu._win_configs.width or 0
+        return menu.parent_menu and menu.parent_menu._win_configs.width + 1 or 0
       end,
       relative = function(menu)
         return menu.parent_menu and 'win' or 'mouse'
@@ -121,7 +132,7 @@ M.opts = {
         )
       end,
       width = function(menu)
-        local min_width = vim.go.pumwidth ~= 0 and vim.go.pumwidth or 8
+        local min_width = vim.go.pumwidth ~= 0 and vim.go.pumwidth or 10
         if vim.tbl_isempty(menu.entries) then
           return min_width
         end
