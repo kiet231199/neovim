@@ -618,7 +618,12 @@ custom.plugins = {
 		end,
 	},
 	-- Plugin on testing ----------------------------------------
-	--
+	['kiet231199/winbar.nvim'] = {
+		-- Desc: Dropping winbar
+		config = function()
+			require("custom.config.winbar")
+		end,
+	},
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {
