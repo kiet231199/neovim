@@ -58,10 +58,12 @@ local function init()
     WinBarIconKindValue             = { link = 'Number' },
     WinBarIconKindVariable          = { link = 'CmpItemKindVariable' },
     WinBarIconKindWhileStatement    = { link = 'Repeat' },
-    WinBarIconUIIndicator           = { link = 'SpecialChar' },
-    WinBarIconUIPickPivot           = { link = 'Error' },
+    WinBarIconUIIndicator           = { fg = "Red", bold = true },
+    WinBarIconUIPickPivot           = { fg = "Yellow", bold = true },
     WinBarIconUISeparator           = { link = 'SpecialChar' },
     WinBarMenuCurrentContext        = { link = 'PmenuSel' },
+    WinBarFolder                    = { link = 'Title' },
+    WinBarNormal                    = { link = 'Function' },
   }
   -- stylua: ignore end
   for hl_name, hl_settings in pairs(hlgroups) do

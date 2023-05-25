@@ -21,6 +21,7 @@ local configs = require('custom.plugin.winbar.configs')
 local function to_winbar_symbol(symbol, opts)
   return bar.winbar_symbol_t:new(vim.tbl_deep_extend('force', {
     name = symbol.name,
+    name_hl = "WinBarNormal",
     icon = configs.opts.symbol.icons.kinds[symbol.kind] or '',
     icon_hl = 'WinBarIconKind' .. symbol.kind,
     symbol = symbol,
@@ -139,6 +140,7 @@ local function to_winbar_symbol_from_path(symbol, opts)
   end
   return bar.winbar_symbol_t:new(vim.tbl_deep_extend('force', {
     name = symbol.name,
+    name_hl = "WinBarFolder",
     icon = icon,
     icon_hl = icon_hl,
     symbol = symbol,
