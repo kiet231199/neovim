@@ -161,7 +161,7 @@ mappings.lspsaga = {
 		["gf"] = { ":Lspsaga lsp_finder<CR>", "finder", opts = { silent = true } },
 		["gr"] =  { ":Lspsaga rename<CR>", "rename", opts = { silent = true } },
 		["K"] = { ":Lspsaga hover_doc<CR>", "hover doc", opts = { silent = true } },
-		["<F6>"] = { ":WindowsDisableAutowidth<CR>:Lspsaga outline<CR>", opts = { silent = true } },
+		["<F6>"] = { ":Lspsaga outline<CR>", opts = { silent = true } },
 		-- Use <C-t> to jump back
 		["gpd"] = { ":Lspsaga peek_definition<CR>", "float definition", opts = { silent = true } },
 		-- Diagnsotic jump can use `<c-o>` to jump back
