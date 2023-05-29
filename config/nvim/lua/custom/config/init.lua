@@ -624,6 +624,16 @@ custom.plugins = {
 			require("custom.config.winbar")
 		end,
 	},
+	['HampusHauffman/bionic.nvim'] = {
+		config = function()
+			vim.cmd([[
+				augroup BionicAutocmd
+					autocmd!
+					autocmd FileType * Bionic
+				augroup END
+			]])
+		end,
+	},
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {
