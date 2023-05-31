@@ -372,6 +372,17 @@ custom.plugins = {
 			-- vim.keymap.set({ "n", "o", "x" }, "ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "Spider-w" })
 		end,
 	},
+	['phaazon/hop.nvim'] = {
+		-- Desc: Speed motion
+		config = function()
+			require("hop").setup({
+				keys = '123456789abcdefghiklmnopqrstuvwxyz',
+			})
+		end,
+		init = function()
+			require("core.utils").load_mappings("hop")
+		end,
+	},
 
 	-- Search ------------------------------------------------------
 	['VonHeikemen/searchbox.nvim'] = {
@@ -599,10 +610,13 @@ custom.plugins = {
 		}
 	},
 	-- Winbar ---------------------------------------------------
-	['kiet231199/winbar.nvim'] = {
-		-- Desc: Dropping winbar
+	['Bekaboo/dropbar.nvim'] = {
+	 	-- Desc: Dropping winbar
 		config = function()
-			require("custom.config.winbar")
+			require("custom.config.dropbar")
+		end,
+		init = function()
+			require("core.utils").load_mappings("dropbar")
 		end,
 	},
 
@@ -636,17 +650,6 @@ custom.plugins = {
 		end,
 	},
 	-- Plugin on testing ----------------------------------------
-	['phaazon/hop.nvim'] = {
-		-- Desc: Speed motion
-		config = function()
-			require("hop").setup({
-				keys = '123456789abcdefghiklmnopqrstuvwxyz',
-			})
-		end,
-		init = function()
-			require("core.utils").load_mappings("hop")
-		end,
-	},
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {

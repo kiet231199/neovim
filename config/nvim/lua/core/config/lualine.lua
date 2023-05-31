@@ -4,24 +4,24 @@ local mode_map = {
 	['niR']  = ' Normal',
 	['niV']  = ' Normal',
 	['nt']   = ' Normal',
-	['v']    = ' Visual',
-	['vs']   = ' Visual',
-	['V']    = ' Visual-L',
-	['Vs']   = ' Visual-L',
-	['s']    = ' Select',
-	['S']    = ' Select-L',
+	['v']    = '󰉷 Visual',
+	['vs']   = '󰉷 Visual',
+	['V']    = '󰉷 Visual-L',
+	['Vs']   = '󰉷 Visual-L',
+	['s']    = '󰉷 Select',
+	['S']    = '󰉷 Select-L',
 	['i']    = ' Insert',
 	['ic']   = ' Insert',
 	['ix']   = ' Insert',
-	['R']    = '﯒ Replace',
-	['Rc']   = '﯒ Replace',
-	['Rx']   = '﯒ Replace',
-	['Rv']   = '﯒ Visual-Replace',
-	['Rvc']  = '﯒ Visual-Replace',
-	['Rvx']  = '﯒ Visual-Replace',
-	['c']    = ' Command',
-	['r']    = '﯒ Replace',
-	['t']    = ' Terminal',
+	['R']    = '󰛔 Replace',
+	['Rc']   = '󰌨 Replace',
+	['Rx']   = '󰌨 Replace',
+	['Rv']   = '󰌨 Visual-Replace',
+	['Rvc']  = '󰌨 Visual-Replace',
+	['Rvx']  = '󰌨 Visual-Replace',
+	['c']    = ' Command',
+	['r']    = '󰌨 Replace',
+	['t']    = ' Terminal',
 }
 
 local status_ok, lualine = pcall(require, "lualine")
@@ -76,7 +76,7 @@ lualine.setup({
 					info  = 'DiagnosticInfo',  -- Changes diagnostics' info color.
 					hint  = 'DiagnosticHint',  -- Changes diagnostics' hint color.
 				},
-				symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '},
+				symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '},
 				colored = true,           -- Displays diagnostics status in color if set to true.
 				always_visible = false,
 				separator = { left = '', right = ''},
@@ -91,7 +91,7 @@ lualine.setup({
 				shorting_target = 40,    -- Shortens path to leave 40 spaces in the window
 				symbols = {
 					modified = ' ',      -- Text to show when the file is modified.
-					readonly = ' ',      -- Text to show when the file is non-modifiable or readonly.
+					readonly = ' ',      -- Text to show when the file is non-modifiable or readonly.
 					unnamed = '[Unnamed]  ', -- Text to show for unnamed buffers.
 					newfile = '[New]  ',     -- Text to show for new created file before first writting
 				},
@@ -114,8 +114,7 @@ lualine.setup({
 					end
 					return msg
 				end,
-				icon = ' ﬍ LSP:',
-				-- color = { fg = '#ffffff', gui = 'bold' },
+				icon = '  LSP:',
 			},
 			{
 				'encoding'
@@ -146,7 +145,7 @@ lualine.setup({
 				shorting_target = 40,    -- Shortens path to leave 40 spaces in the window
 				symbols = {
 					modified = '  ',      -- Text to show when the file is modified.
-					readonly = '  ',      -- Text to show when the file is non-modifiable or readonly.
+					readonly = '  ',      -- Text to show when the file is non-modifiable or readonly.
 					unnamed = '[Unnamed]  ', -- Text to show for unnamed buffers.
 					newfile = '[New]  ',     -- Text to show for new created file before first writting
 				},

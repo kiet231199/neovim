@@ -9,6 +9,6 @@ foldsign.setup({
 	foldsigns = {
 		open = '',          -- mark the beginning of a fold
 		close = '',         -- show a closed fold
-		seps = { '│', '┃' }, -- open fold middle marker
+		seps = { '┃', '┃' }, -- open fold middle marker
 	}
 })

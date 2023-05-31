@@ -183,4 +183,11 @@ mappings.hop = {
 	}
 }
 
+mappings.dropbar = {
+	plugin = true,
+	n = {
+		["<space>w"] = { function() require("dropbar.api").pick() end, "pick winbar element", opts = { silent = true } },
+	}
+}
+
 return mappings

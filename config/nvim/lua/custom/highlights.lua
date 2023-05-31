@@ -13,6 +13,8 @@ local highlights = {
 		-- Fold
 		["Folded"] = { bg = "#1a1b26" },
 		["FoldColumn"] = { fg = "#7aa2f7" },
+		-- Winbar
+		["WinBar"] = { link = "Title" },
 	},
 	-- Plugin group
 	plugin = {
@@ -81,6 +83,11 @@ local highlights = {
 		["TelescopePromptTitle"] = { fg = "#1a1b26", bg = "#e0af68" },
 		-- Hop
 		["HopNextKey"] = { fg = "#7aa2f7", bold = true },
+		-- Dropbar
+		["DropBarMenuCurrentContext"] = { fg = "#03a4ff", bold = true },
+		["DropBarIconUIPickPivot"] = { fg = "Yellow", bold = true },
+		["DropBarIconUISeparator"] = { fg = "Red", bold = true },
+		["DropBarIconUISeparatorMenu"] = { fg = "Red", bold = true },
 	}
 }
 

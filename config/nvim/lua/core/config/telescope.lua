@@ -4,6 +4,14 @@ if not status_ok then
 	return
 end
 
+-- Clone the default Telescope configuration
+local vimgrep_arguments = { unpack(require("telescope.config").values.vimgrep_arguments) }
+-- Search in hidden/dot files.
+table.insert(vimgrep_arguments, "--hidden")
+-- Do not search in the `.git` directory.
+table.insert(vimgrep_arguments, "--glob")
+table.insert(vimgrep_arguments, "!**/.git/*")
+
 telescope.setup({
 	defaults = {
 		-- Default configuration for telescope goes here:
@@ -33,18 +41,41 @@ telescope.setup({
 		winblend = 12,
 		color_devicons = true,
 		set_env = { ["COLORTERM"] = "truecolor" },
+		preview = {
+			treesitter = true,
+		},
+		history = {
+			path = vim.g.data_path .. "/telescope_history"
+		},
+		vimgrep_arguments =vimgrep_arguments,
+		-- Do not preview binary
+		buffer_previewer_maker = function(filepath, bufnr, opts)
+			filepath = vim.fn.expand(filepath)
+			require("plenary.job"):new({
+				command = "file",
+				args = { "--mime-type", "-b", filepath },
+				on_exit = function(j)
+					local mime_type = vim.split(j:result()[1], "/")[1]
+					if mime_type == "text" then
+						require("telescope.previewers").buffer_previewer_maker(filepath, bufnr, opts)
+					else
+						-- maybe we want to write something to the buffer here
+						vim.schedule(function()
+							vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
+						end)
+					end
+				end
+			}):sync()
+		end,
 	},
 	mappings = {
 		-- i = { ["<C-t>"] = trouble.open_with_trouble },
 		-- n = { ["<C-t>"] = trouble.open_with_trouble },
 	},
 	pickers = {
-		-- Default configuration for builtin pickers goes here:
-		-- picker_name = {
-		--   picker_config_key = value,
-		--   ...
-		-- }
-		-- Now telescope.nvim@ene picker_config_key will be applied every time you call this
+		find_files = {
+			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+		},
 	},
 	extensions = {
 		-- Your extension configuration goes here:

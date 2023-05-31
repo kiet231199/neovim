@@ -37,10 +37,10 @@ end
 
 -- icon ⚠
 local signs = {
-	Error = "",
-	Warn = "",
-	Hint = "",
-	Information = ""
+	Error = "",
+	Warn = "",
+	Hint = "",
+	Information = ""
 }
 
 for type, icon in pairs(signs) do

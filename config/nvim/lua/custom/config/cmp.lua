@@ -45,33 +45,32 @@ cmp_window.info_ = function(self)
     return info
 end
 
---   פּ ﯟ   some other good icons
 local kind_icons = {
-	Text          = "",
+	Text          = "󰦨",
 	Method        = "m",
-	Function      = "",
-	Constructor   = "",
-	Field         = "",
-	Variable      = "",
-	Class         = "",
+	Function      = "󰊕",
+	Constructor   = "",
+	Field         = "",
+	Variable      = "󰀫",
+	Class         = "",
 	Interface     = "",
 	Module        = "",
 	Property      = "",
-	Unit          = "",
-	Value         = "",
+	Unit          = "",
+	Value         = "󰎠",
 	Enum          = "",
-	Keyword       = "",
+	Keyword       = "",
 	Snippet       = "",
-	Color         = "",
-	File          = "",
+	Color         = "󰏘",
+	File          = "󰈔",
 	Reference     = "",
-	Folder        = "",
+	Folder        = "󰉋",
 	EnumMember    = "",
-	Constant      = "",
+	Constant      = "󰏿",
 	Struct        = "",
 	Event         = "",
-	Operator      = "",
-	TypeParameter = "",
+	Operator      = "󰆕",
+	TypeParameter = "󰆩",
 }
 
 local kinds = {
