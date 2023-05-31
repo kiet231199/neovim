@@ -74,19 +74,19 @@ mappings.gitsigns = {
 mappings.telescope = {
 	plugin = true,
 	n = {
-		["ff"] = { ":Telescope find_files <CR>", "find files" },
-		["fw"] = { ":Telescope live_grep <CR>", "live grep" },
-		["f<TAB>"] = { ":Telescope buffers <CR>", "find buffers" },
-		["fh"] = { ":Telescope help_tags <CR>", "help page" },
-		["fo"] = { ":Telescope oldfiles <CR>", "find oldfiles" },
-		["fk"] = { ":Telescope keymaps <CR>", "find oldfiles" },
-		["fd"] = { ":Telescope diagnostics <CR>", "find oldfiles" },
-		["fr"] = { ":Telescope registers <CR>", "find oldfiles" },
-		["fb"] = { ":Telescope file_browser <CR>", "find oldfiles" },
-		["fg"] = { ":Telescope git_commits <CR>", "git commits" },
-		["fp"] = { ":Telescope project <CR>", "git commits" },
-		["fc"] = { ":Telescope neoclip unnamed extra=star,plus,a,b <CR>", "git commits" },
-		["fn"] = { ":Telescope noice <CR>", "git commits" },
+		["<space>ff"] = { ":Telescope find_files <CR>", "find files" },
+		["<space>fw"] = { ":Telescope live_grep <CR>", "live grep" },
+		["<space>f<TAB>"] = { ":Telescope buffers <CR>", "find buffers" },
+		["<space>fh"] = { ":Telescope help_tags <CR>", "help page" },
+		["<space>fo"] = { ":Telescope oldfiles <CR>", "find oldfiles" },
+		["<space>fk"] = { ":Telescope keymaps <CR>", "find oldfiles" },
+		["<space>fd"] = { ":Telescope diagnostics <CR>", "find oldfiles" },
+		["<space>fr"] = { ":Telescope registers <CR>", "find oldfiles" },
+		["<space>fb"] = { ":Telescope file_browser <CR>", "find oldfiles" },
+		["<space>fg"] = { ":Telescope git_commits <CR>", "git commits" },
+		["<space>fp"] = { ":Telescope project <CR>", "git commits" },
+		["<space>fc"] = { ":Telescope neoclip unnamed extra=star,plus,a,b <CR>", "git commits" },
+		["<space>fn"] = { ":Telescope noice <CR>", "git commits" },
 	},
 }
 
@@ -170,6 +170,16 @@ mappings.lspsaga = {
 		-- Only jump to error
 		["gek"] = { function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "error jump prev", opts = { silent = true } },
 		["gej"] = { function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "error jump next", opts = { silent = true } },
+	}
+}
+
+mappings.hop = {
+	plugin = true,
+	n = {
+		["f"] = { function() require('hop').hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true }) end, "hop next", opts = { silent = true, remap = true } },
+		["F"] = { function() require('hop').hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true }) end, "hop next", opts = { silent = true, remap = true } },
+		["t"] = { function() require('hop').hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }) end, "hop next", opts = { silent = true, remap = true } },
+		["T"] = { function() require('hop').hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 }) end, "hop next", opts = { silent = true, remap = true } },
 	}
 }
 

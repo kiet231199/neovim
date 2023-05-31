@@ -79,6 +79,8 @@ local highlights = {
 		["TelescopeResultsTitle"] = { fg = "#1a1b26", bg = "#f7768e" },
 		["TelescopePreviewTitle"] = { fg = "#1a1b26", bg = "#bb9af7" },
 		["TelescopePromptTitle"] = { fg = "#1a1b26", bg = "#e0af68" },
+		-- Hop
+		["HopNextKey"] = { fg = "#7aa2f7", bold = true },
 	}
 }
 

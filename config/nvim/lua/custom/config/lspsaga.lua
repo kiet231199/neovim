@@ -133,9 +133,12 @@ saga.setup({
 		hover = ' ',
 		kind = {
 			['String'] = { ' ', 'String' },
-			['Array'] = { ' ', 'Type' },
-			['Null'] = { ' ', 'Constant' },
+			['Array'] = { ' ', 'Type' },
+			['Null'] = { ' ', 'Constant' },
+			['Number'] = { ' ', 'Number' },
 			['Function'] = { ' ', 'Function' },
+			['Text'] = { ' ', 'String' },
+			['Unit'] = { ' ', 'Number' },
 		},
 	},
 })

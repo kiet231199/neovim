@@ -563,6 +563,17 @@ custom.plugins = {
 			require("custom.config.indentblankline")
 		end,
 	},
+	['HampusHauffman/bionic.nvim'] = {
+		-- Desc: Highlight first 2 characters of word, make text easier to read
+		config = function()
+			vim.cmd([[
+				augroup BionicAutocmd
+					autocmd!
+					autocmd FileType * BionicOff
+				augroup END
+			]])
+		end,
+	},
 
 	-- Register, session ---------------------------------------
 	['Shatur/neovim-session-manager'] = {
@@ -586,6 +597,13 @@ custom.plugins = {
 		keys = {
 			{ "<F4>", "<cmd>lua require'codewindow'.toggle_minimap()<CR>", mode = "", silent = true, noremap = true },
 		}
+	},
+	-- Winbar ---------------------------------------------------
+	['kiet231199/winbar.nvim'] = {
+		-- Desc: Dropping winbar
+		config = function()
+			require("custom.config.winbar")
+		end,
 	},
 
 	-- Utility --------------------------------------------------
@@ -618,20 +636,15 @@ custom.plugins = {
 		end,
 	},
 	-- Plugin on testing ----------------------------------------
-	['kiet231199/winbar.nvim'] = {
-		-- Desc: Dropping winbar
+	['phaazon/hop.nvim'] = {
+		-- Desc: Speed motion
 		config = function()
-			require("custom.config.winbar")
+			require("hop").setup({
+				keys = '123456789abcdefghiklmnopqrstuvwxyz',
+			})
 		end,
-	},
-	['HampusHauffman/bionic.nvim'] = {
-		config = function()
-			vim.cmd([[
-				augroup BionicAutocmd
-					autocmd!
-					autocmd FileType * Bionic
-				augroup END
-			]])
+		init = function()
+			require("core.utils").load_mappings("hop")
 		end,
 	},
 
