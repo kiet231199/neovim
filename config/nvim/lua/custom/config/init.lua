@@ -515,8 +515,8 @@ custom.plugins = {
 	},
 	['nvim-zh/colorful-winsep.nvim'] = {
 		-- Desc: Win separator
-		pin = true,
-		commit = 'bb06c86',
+		-- pin = true,
+		-- commit = 'bb06c86',
 		config = function()
 			require("custom.config.winsep")
 		end,

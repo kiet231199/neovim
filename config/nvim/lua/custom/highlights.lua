@@ -92,7 +92,7 @@ local highlights = {
 		-- Dropbar
 		["DropBarMenuCurrentContext"] = { fg = "#03a4ff", bold = true },
 		["DropBarIconUIPickPivot"] = { fg = "Yellow", bold = true },
-		["DropBarIconUISeparator"] = { fg = "Red", bold = true },
+		["DropBarIconUISeparator"] = { fg = "Orange", bold = true },
 		["DropBarIconUISeparatorMenu"] = { fg = "Red", bold = true },
 	}
 }
