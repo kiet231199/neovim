@@ -39,13 +39,5 @@ himywords.setup({
 			"HiMyWordsHLG7",
 			{ fg = "Black", bg = "White", bold = true, italic = false },
 		},
-		-- {
-		-- 	"HiMyWordsHLG8",
-		-- 	{ fg = "#408ec6", bg = "#1e2761", bold = true, italic = true },
-		-- },
-		-- {
-		-- 	"HiMyWordsHLG9",
-		-- 	{ fg = "#990011", bg = "#fcf6f5", bold = true, italic = true },
-		-- },
 	}
 })

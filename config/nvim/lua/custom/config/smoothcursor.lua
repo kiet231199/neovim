@@ -38,5 +38,5 @@ smoothcursor.setup({
 	timeout = 3000,           -- timout for animation
 	threshold = 3,            -- animate if threshold lines jump
 	enabled_filetypes = nil,  -- example: { "lua", "vim" }
-	disabled_filetypes = nil, -- this option will be skipped if enabled_filetypes is set. example: { "TelescopePrompt", "NvimTree" }
+	disabled_filetypes = { "dropbar_menu" }, -- this option will be skipped if enabled_filetypes is set. example: { "TelescopePrompt", "NvimTree" }
 })
