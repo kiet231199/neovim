@@ -15,6 +15,7 @@ vim.opt.fillchars = { eob = " " }
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.mouse = "a"
+vim.opt.mouseevent = true
 
 vim.opt.number = true
 vim.opt.numberwidth = 4

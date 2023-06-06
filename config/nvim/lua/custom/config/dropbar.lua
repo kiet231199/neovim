@@ -4,7 +4,7 @@ if not status_ok then
 	return
 end
 
-local current_path = vim.fs.normalize(vim.fn.fnamemodify((vim.api.nvim_buf_get_name(0)), ':p'))
+local current_path = vim.fs.normalize(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p'))
 
 local kinds = {
 	Array = '󰅪 ',
@@ -72,6 +72,12 @@ local kinds = {
 }
 
 dropbar.setup({
+	enable = function(buf, win)
+		return not vim.api.nvim_win_get_config(win).zindex
+			and vim.bo[buf].buftype == 'alpha'
+			and vim.api.nvim_buf_get_name(buf) ~= ''
+			and not vim.wo[win].diff
+	end,
 	icons = {
 		kinds = {
 			use_devicons = true,
@@ -146,6 +152,17 @@ dropbar.setup({
 				if component then
 					menu:close()
 				end
+			end,
+			['<MouseMove>'] = function()
+				local menu = require('dropbar.api').get_current_dropbar_menu()
+				if not menu then
+					return
+				end
+				local mouse = vim.fn.getmousepos()
+				if mouse.winid ~= menu.win then
+					return
+				end
+				menu:update_hover_hl({ mouse.line, mouse.column - 1 })
 			end,
 		},
 		win_configs = {

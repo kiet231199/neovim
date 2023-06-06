@@ -5,6 +5,7 @@ if not status_ok then
 end
 
 scrollview.setup({
+	mode = 'virtual',
 	zindex = 30,
 	winblend = 50,
 	base = 'right',
@@ -18,13 +19,13 @@ scrollview.setup({
 	signs_show_in_folds = true,
 	signs_zindex = 45,
 	diagnostics_error_priority = 60,
-	diagnostics_error_symbol = '',
+	diagnostics_error_symbol = '',
 	diagnostics_warn_priority = 50,
-	diagnostics_warn_symbol = '',
+	diagnostics_warn_symbol = '',
 	diagnostics_info_priority = 40,
-	diagnostics_info_symbol = '',
+	diagnostics_info_symbol = '󰇘',
 	diagnostics_hint_priority = 30,
-	diagnostics_hint_symbol = '',
+	diagnostics_hint_symbol = '󰇘',
 	folds_priority = 30,
 	folds_symbol = '󰄼',
 	search_priority = 70,

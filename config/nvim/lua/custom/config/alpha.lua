@@ -31,41 +31,46 @@ local function button(sc, txt, keybind)
 	}
 end
 
-local fn = vim.fn
-local marginTopPercent = 0.15
-local marginBotPercent = 0.2
-local headerPadding = fn.max { 2, fn.floor(fn.winheight(0) * marginTopPercent) }
-local footerPadding = fn.max { 2, fn.floor(fn.winheight(0) * marginTopPercent) }
+local spacing = 3
+local margin = function()
+	-- 12 for header and footer, 10 for buttons, 2 * spacing for middle space
+	local temp = vim.fn.floor((vim.fn.winheight(0) - 12 - 10 - 2 * spacing) / 2)
+	while temp <= 0 do
+		spacing = spacing - 1
+		temp = vim.fn.floor((vim.fn.winheight(0) - 12 - 10 - 2 * spacing) / 2)
+	end
+	return temp
+end
 
 local options = {
-
 	header = {
 		type = "text",
 		val = {
-			" ██████╗   ████████╗        ████████╗ ███████╗    ███╗     ████████╗ ██╗   ██╗ ██████╗   ███████╗",   
+			" ██████╗   ████████╗        ████████╗ ███████╗    ███╗     ████████╗ ██╗   ██╗ ██████╗   ███████╗",
 			" ██╔═══██╗ ╚════██╔╝        ██╔═════╝ ██╔════╝  ██═══██╗   ╚══██╔══╝ ██║   ██║ ██╔═══██╗ ██╔════╝",
 			" ██████══╝   ╔██╔═╝  █████╗ ██████╗   █████╗   █████████╗     ██║    ██║   ██║ ██████══╝ █████╗  ",
 			" ██╔══██╗  ╔██╔═╝    ╚════╝ ██╔═══╝   ██╔══╝   ██╔════██║     ██║    ██║   ██║ ██╔══██╗  ██╔══╝  ",
 			" ██║   ██╗ ████████╗        ██║       ███████╗ ██║    ██║     ██║    ╚██████╔╝ ██║   ██╗ ███████╗",
-			" ╚═╝   ╚═╝ ╚═══════╝        ╚═╝       ╚══════╝ ╚═╝    ╚═╝     ╚═╝     ╚═════╝  ╚═╝   ╚═╝ ╚══════╝",		
+			" ╚═╝   ╚═╝ ╚═══════╝        ╚═╝       ╚══════╝ ╚═╝    ╚═╝     ╚═╝     ╚═════╝  ╚═╝   ╚═╝ ╚══════╝",
 		},
 		opts = {
 			position = "center",
 			hl = "Statement",
+			spacing = 0,
 		},
 	},
 
 	buttons = {
 		type = "group",
 		val = {
-			-- button("n", "ﱐ  New File  ", "lua require'startup'.new_file()"),
+			button("n", "ﱐ  New File  ", ":ene<CR>"),
 			button("f", "󰈞  File Search  ", ":Telescope find_files prompt_prefix=🔍 <CR>"),
 			button("p", "󱘶  Project Search  ", ":Telescope project prompt_prefix=🔍 <CR>"),
 			button("w", "󱎸  Word Search  ", ":Telescope live_grep prompt_prefix=🔍 <CR>"),
 			button("o", "󱘞  Old File  ", ":Telescope oldfiles prompt_prefix=🔍 <CR>"),
 			button("b", "  Browser  ", ":Telescope file_browser prompt_prefix=🔍 <CR>"),
 			button("c", "󱈇  Colorscheme  ", ":Telescope colorscheme prompt_prefix=🔍 <CR>"),
-			button("m", "󱤇 Bookmarks  ", ":Telescope marks prompt_prefix=🔍 <CR>"),
+			button("m", "󱤇  Bookmarks  ", ":Telescope marks prompt_prefix=🔍 <CR>"),
 			button("s", "  Settings", ":e ~/.config/nvim/lua/options.lua<CR>"),
 			button("q", "  Quit Neovim", ":qa<CR>"),
 		},
@@ -82,29 +87,29 @@ local options = {
 			" ████══╝   ██║ █████╗      ██║      ██████╔═╝ ████████║ █████████╗ ██╔████╔██║",
 			" ██╔═██╗   ██║ ██╔══╝      ██║      ██╔═══╝   ██╔═══██║ ██╔════██║ ██║╚██╔╝██║",
 			" ██║ ╚═██╗ ██║ ███████╗    ██║      ██║       ██║   ██║ ██║    ██║ ██║ ╚═╝ ██║",
-			" ╚═╝   ╚═╝ ╚═╝ ╚══════╝    ╚═╝      ╚═╝       ╚═╝   ╚═╝ ╚═╝    ╚═╝ ╚═╝     ╚═╝",	
+			" ╚═╝   ╚═╝ ╚═╝ ╚══════╝    ╚═╝      ╚═╝       ╚═╝   ╚═╝ ╚═╝    ╚═╝ ╚═╝     ╚═╝",
 		},
 		opts = {
 			position = "center",
 			hl = "Statement",
+			spacing = 0,
 		},
 	},
 
-	headerPaddingTop = { type = "padding", val = headerPadding },
-	headerPaddingMid= { type = "padding", val = 2 },
-	headerPaddingBottom = { type = "padidng", val = footerPadding },
+	topPad = { type = "padding", val = margin },
+	midPad = { type = "padding", val = spacing },
+	botPad = { type = "padding", val = margin },
 }
-
 
 alpha.setup {
 	layout = {
-		options.headerPaddingTop,
+		options.topPad,
 		options.header,
-		options.headerPaddingMid,
+		options.midPad,
 		options.buttons,
-		options.headerPaddingMid,
+		options.midPad,
 		options.footer,
-		options.footerPaddingBottom,
+		options.botPad,
 	},
 	opts = {},
 }

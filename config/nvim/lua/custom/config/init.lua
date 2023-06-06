@@ -136,9 +136,6 @@ custom.plugins = {
 		init = function()
 			require("core.utils").load_mappings("telescope")
 		end,
-		keys = {
-			{ "<space>", mode = "n" },
-		},
 	},
 	['AckslD/nvim-neoclip.lua'] = {
 		-- Desc: Preview clipboard
@@ -328,11 +325,8 @@ custom.plugins = {
 			require("custom.config.align")
 		end,
 		keys = {
-			{ "aa", "<cmd>lua require'align'.align_to_char(1, true)<CR>", mode = "x", silent = true, noremap = true },
-			{ "as", "<cmd>lua require'align'.align_to_char(2, true, true)<CR>", mode = "x", silent = true, noremap = true },
-			{ "aw", "<cmd>lua require'align'.align_to_string(false, true, true)<CR>", mode = "x", silent = true, noremap = true },
-			{ "ar", "<cmd>lua require'align'.align_to_string(true, true, true)<CR>", mode = "x", silent = true, noremap = true },
-		}
+			{ "<space>", mode = "n" },
+		},
 	},
 	['fedepujol/move.nvim'] = {
 		-- Desc: Quick move
@@ -515,8 +509,6 @@ custom.plugins = {
 	},
 	['nvim-zh/colorful-winsep.nvim'] = {
 		-- Desc: Win separator
-		-- pin = true,
-		-- commit = 'bb06c86',
 		config = function()
 			require("custom.config.winsep")
 		end,

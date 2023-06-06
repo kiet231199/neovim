@@ -11,6 +11,7 @@ local options = {
 	ignorecase     = false,                             -- ignore case in search patterns
 	mouse          = "a",                               -- allow the mouse to be used in neovim
 	mousemodel     = "popup",
+	mousemoveevent = true,
 	pumheight      = 20,                                -- pop up menu height
 	showmode       = false,                             -- we don't need to see things like -- INSERT -- anymor
 	showtabline    = 1,                                 -- always show tabs
