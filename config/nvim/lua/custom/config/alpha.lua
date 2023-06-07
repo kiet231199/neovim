@@ -63,7 +63,7 @@ local options = {
 	buttons = {
 		type = "group",
 		val = {
-			button("n", "ﱐ  New File  ", ":ene<CR>"),
+			button("n", "  New File  ", ":ene<CR>"),
 			button("f", "󰈞  File Search  ", ":Telescope find_files prompt_prefix=🔍 <CR>"),
 			button("p", "󱘶  Project Search  ", ":Telescope project prompt_prefix=🔍 <CR>"),
 			button("w", "󱎸  Word Search  ", ":Telescope live_grep prompt_prefix=🔍 <CR>"),
