@@ -562,19 +562,15 @@ custom.plugins = {
 		end,
 	},
 	['lukas-reineke/indent-blankline.nvim'] = {
+		-- Desc: Indentline
 		config = function()
 			require("custom.config.indentblankline")
 		end,
 	},
-	['HampusHauffman/bionic.nvim'] = {
-		-- Desc: Highlight first 2 characters of word, make text easier to read
+	['FluxxField/bionic-reading.nvim'] = {
+		-- Desc: Easy reading
 		config = function()
-			vim.cmd([[
-				augroup BionicAutocmd
-					autocmd!
-					autocmd FileType * BionicOff
-				augroup END
-			]])
+			require("custom.config.bionic")
 		end,
 	},
 
@@ -642,6 +638,20 @@ custom.plugins = {
 		end,
 	},
 	-- Plugin on testing ----------------------------------------
+	-- ['folke/edgy.nvim'] = {
+	-- 	-- Desc: manage predefine window layout
+	-- 	dependencies = {
+	-- 		-- Desc: Neo-tree for git outline
+	-- 		'nvim-neo-tree/neo-tree.nvim',
+	-- 	},
+	-- 	init = function()
+	-- 		vim.opt.laststatus = 3
+	-- 		vim.opt.splitkeep = "screen"
+	-- 	end,
+	-- 	config = function()
+	-- 		require("custom.config.edgy")
+	-- 	end,
+	-- },
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {
