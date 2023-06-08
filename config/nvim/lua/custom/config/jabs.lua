@@ -35,17 +35,17 @@ jabs.setup({
     },
 
     -- Default symbols
-    -- symbols = {
-    --     current = "C", -- default 
-    --     split = "S", -- default 
-    --     alternate = "A", -- default 
-    --     hidden = "H", -- default ﬘
-    --     locked = "L", -- default 
-    --     ro = "R", -- default 
-    --     edited = "E", -- default 
-    --     terminal = "T", -- default 
-    --     default_file = "D", -- Filetype icon if not present in nvim-web-devicons. Default 
-    -- },
+	symbols = {
+	    current = "", -- default 
+	    split = "", -- default 
+	    alternate = "", -- default 
+	    hidden = "﬘", -- default ﬘
+	    locked = "", -- default 
+	    ro = "", -- default 
+	    edited = "", -- default 
+	    terminal = "", -- default 
+	    default_file = "", -- Filetype icon if not present in nvim-web-devicons. Default 
+	},
 
     -- Keymaps
     keymap = {

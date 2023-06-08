@@ -7,31 +7,53 @@ end
 edgy.setup({
 	left = {
 		{
-			ft = "NvimTree",
-			title = "Nvim-tree",
-			size = { width = 50 },
+			title = "Neo-Tree",
+			ft = "neo-tree",
+			filter = function(buf)
+				return vim.b[buf].neo_tree_source == "filesystem"
+			end,
+			size = { height = 0.5 },
 		},
+		{
+			title = "Neo-Tree Git",
+			ft = "neo-tree",
+			filter = function(buf)
+				return vim.b[buf].neo_tree_source == "git_status"
+			end,
+			pinned = true,
+			open = "Neotree position=right git_status",
+		},
+		{
+			title = "Neo-Tree Buffers",
+			ft = "neo-tree",
+			filter = function(buf)
+				return vim.b[buf].neo_tree_source == "buffers"
+			end,
+			pinned = true,
+			open = "Neotree position=top buffers",
+		},
+		"neo-tree",
 	},
 	bottom = {
 		{
-			"Trouble",
 			title = "Trouble",
-			size = { height = vim.fn.winheight(0) * 0.3 }
+			ft = "Trouble",
+			size = { height = 0.3 }
 		},
 	},
 	right = {
 		{
-			ft = "help",
 			title = "Help",
-			size = { width = vim.fn.winwidth(0) * 0.5 },
+			ft = "help",
+			size = { width = 0.5 },
 			-- only show help buffers
 			filter = function(buf)
 				return vim.bo[buf].buftype == "help"
 			end,
 		},
 		{
-			ft = "lspsagaoutline",
 			title = "Outline",
+			ft = "lspsagaoutline",
 			size = { width = 40 },
 		},
 	},
