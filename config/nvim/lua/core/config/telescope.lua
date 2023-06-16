@@ -45,7 +45,11 @@ telescope.setup({
 			treesitter = true,
 		},
 		history = {
-			path = vim.g.data_path .. "/telescope_history"
+			path = function()
+                if vim.fn.has("unix") then
+                    return vim.g.data_path .. "/telescope_history"
+                end
+            end,
 		},
 		vimgrep_arguments =vimgrep_arguments,
 		-- Do not preview binary

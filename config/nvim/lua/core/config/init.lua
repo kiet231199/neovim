@@ -9,14 +9,14 @@ local plugins = {
 	['lewis6991/impatient.nvim'] = {
 		-- Desc: Boost startup time
 		config = function()
-			require("core.plugins.impatient")
+			require("core.config.impatient")
 		end,
 	},
 	-- Colorscheme -------------------------------------------------
 	["folke/tokyonight.nvim"] = {
 		-- Desc: Colorscheme manager
 		config = function()
-			require("core.plugins.tokyonight")
+			require("core.config.tokyonight")
 			vim.cmd("colorscheme tokyonight")
 		end,
 	},
@@ -24,7 +24,7 @@ local plugins = {
 	['nvim-tree/nvim-tree.lua'] = {
 		-- Desc: File explorer
 		config = function()
-			require("core.plugins.nvim-tree")
+			require("core.config.nvim-tree")
 		end,
 		keys = {
 			{ "<F5>", "<cmd>NvimTreeFindFileToggle<CR>", mode = "", silent = true, noremap = true },
@@ -35,20 +35,20 @@ local plugins = {
 		-- Desc: Status line
 		-- TODO: Config for dynamic lualine
 		config = function()
-			require("core.plugins.lualine")
+			require("core.config.lualine")
 		end,
 	},
 	['kdheepak/tabline.nvim'] = {
 		-- Desc: Tabline
 		config = function()
-			require("core.plugins.tabline")
+			require("core.config.tabline")
 		end,
 	},
 	-- Git ---------------------------------------------------------
 	['lewis6991/gitsigns.nvim'] = {
 		-- Desc: Git icon
 		config = function()
-			require("core.plugins.gitsigns")
+			require("core.config.gitsigns")
 		end,
 	},
 	-- Fuzy finder -------------------------------------------------
@@ -82,20 +82,17 @@ local plugins = {
 			'ziontee113/color-picker.nvim',
 		},
 		config = function()
-			require("core.plugins.telescope")
+			require("core.config.telescope")
 		end,
 		init = function()
 			require("core.utils").load_mappings("telescope")
 		end,
-		keys = {
-			{ "<space>", mode = "n" },
-		},
 	},
 	['AckslD/nvim-neoclip.lua'] = {
 		-- Desc: Preview clipboard
 		lazy = true,
 		config = function()
-			require("core.plugins.neoclip")
+			require("core.config.neoclip")
 		end,
 	},
 
@@ -109,7 +106,7 @@ local plugins = {
 			'Djancyp/lsp-range-format',
 		},
 		config = function()
-			require("core.plugins.lspconfig")
+			require("core.config.lspconfig")
 		end,
 		init = function()
 			require("core.utils").load_mappings("lspconfig")
@@ -118,7 +115,7 @@ local plugins = {
 	['williamboman/mason.nvim'] = {
 		-- Desc: LSP installer
 		config = function()
-			require("core.plugins.mason")
+			require("core.config.mason")
 		end,
 		cmd = "Mason",
 	},
@@ -129,7 +126,7 @@ local plugins = {
 			'anuvyklack/windows.nvim',
 		},
 		config = function()
-			require("core.plugins.lspsaga")
+			require("core.config.lspsaga")
 		end,
 		init = function()
 			require("core.utils").load_mappings("lspsaga")
@@ -147,13 +144,13 @@ local plugins = {
 	['jose-elias-alvarez/null-ls.nvim'] = {
 		-- Desc: Language server for builtin language
 		config = function()
-			require("core.plugins.null-ls")
+			require("core.config.null-ls")
 		end,
 	},
 	['MunifTanjim/prettier.nvim'] = {
 		-- Desc: Prettier for buitin language
 		config = function()
-			require("core.plugins.prettier")
+			require("core.config.prettier")
 		end,
 	},
 	-- LSP completion source ---------------------------------------
@@ -187,7 +184,7 @@ local plugins = {
 			'doxnit/cmp-luasnip-choice',
 		},
 		config = function()
-			require("core.plugins.cmp")
+			require("core.config.cmp")
 		end,
 		event = { "InsertEnter", "CmdlineEnter" },
 	},
@@ -195,7 +192,7 @@ local plugins = {
 	['nvim-treesitter/nvim-treesitter'] = {
 		-- Desc: Code highlight
 		config = function()
-			require("core.plugins.treesitter")
+			require("core.config.treesitter")
 		end,
 	},
 	['p00f/nvim-ts-rainbow'] = {
@@ -222,27 +219,27 @@ local plugins = {
 	['kevinhwang91/nvim-hlslens'] = {
 		-- Desc: Highlight search
 		config = function()
-			require("core.plugins.hlslens")
+			require("core.config.hlslens")
 		end,
 	},
 	-- Scroll ------------------------------------------------------
 	['karb94/neoscroll.nvim'] = {
 		-- Desc: Smooth scrolling
 		config = function()
-			require("core.plugins.neoscroll")
+			require("core.config.neoscroll")
 		end,
 	},
 	['dstein64/nvim-scrollview'] = {
 		-- Desc: Scrollbar
 		config = function()
-			require("core.plugins.scrollview")
+			require("core.config.scrollview")
 		end,
 	},
 	-- Float terminal ----------------------------------------------
 	['rebelot/terminal.nvim'] = {
 		-- Desc: Float terminal
 		config = function()
-			require("core.plugins.terminal")
+			require("core.config.terminal")
 		end,
 		init = function()
 			require("core.utils").load_mappings("terminal")
@@ -252,7 +249,7 @@ local plugins = {
 	['anuvyklack/pretty-fold.nvim'] = {
 		-- Desc: Fold text
 		config = function()
-			require("core.plugins.pretty-fold")
+			require("core.config.pretty-fold")
 		end,
 	},
 	['nvim-zh/colorful-winsep.nvim'] = {
@@ -260,19 +257,19 @@ local plugins = {
 		pin = true,
 		commit = 'bb06c86',
 		config = function()
-			require("core.plugins.winsep")
+			require("core.config.winsep")
 		end,
 		event = "WinNew",
 	},
 	['yaocccc/nvim-foldsign'] = {
 		-- Desc: Fold sign
 		config = function()
-			require("core.plugins.foldsign")
+			require("core.config.foldsign")
 		end,
 	},
 	['lukas-reineke/indent-blankline.nvim'] = {
 		config = function()
-			require("core.plugins.indentblankline")
+			require("core.config.indentblankline")
 		end,
 	},
 	-- Icon source (need to be placed at the end) ------------------

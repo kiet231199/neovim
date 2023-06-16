@@ -111,7 +111,8 @@ saga.setup({
 		},
 	},
 	symbol_in_winbar = {
-		enable = false,
+		-- Temporarily disable winbar on window, so winbar of LSP Saga is enabled
+		enable = vim.fn.has("win32") == 1,
 		separator = '  ',
 		hide_keyword = true,
 		show_file = true,

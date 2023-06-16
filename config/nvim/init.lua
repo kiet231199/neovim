@@ -2,12 +2,12 @@
 local global_config = {}
 if vim.fn.has("win32") == 1 then
 	-- Window
-	vim.g.neovim_path = "C:/Users/kietpham/AppData/Local/"
+	vim.g.neovim_path = "C:/Users/kietpham/AppData/Local"
 
 	-- Neovide (only on windows)
 	if vim.g.neovide then
 		-- Put anything you want to happen only in Neovide here
-		vim.o.guifont = "FiraCode Nerd Font:h11"
+		vim.o.guifont = "Hack Nerd Font Mono:h11"
 		vim.g.neovide_refresh_rate = 60
 		vim.g.neovide_refresh_rate_idle = 60
 		vim.g.neovide_confirm_quit = true

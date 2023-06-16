@@ -80,9 +80,6 @@ custom.plugins = {
 		config = function()
 			require("custom.config.gitmessenger")
 		end,
-		init = function()
-			require("core.utils").load_mappings("gitsigns")
-		end,
 		keys = {
 			{ "<F10>", "<Plug>(git-messenger)", mode = "n", silent = true, noremap = true },
 		},
@@ -427,10 +424,7 @@ custom.plugins = {
 	},
 	['folke/noice.nvim'] = {
 		-- Desc: Show message popup, LSP progress, popup commandline
-		enabled = function()
-			if vim.g.neovide == nil then return true
-			else return false end
-		end,
+		enabled = vim.g.neovide == nil,
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 			"rcarriga/nvim-notify",
@@ -456,7 +450,6 @@ custom.plugins = {
 	},
 	['anuvyklack/windows.nvim'] = {
 		-- Desc: Smooth window swap
-		-- TODO: Fix to compatible with other plugin
 		dependencies = {
 			'anuvyklack/middleclass',
 			'anuvyklack/animation.nvim',
@@ -569,6 +562,8 @@ custom.plugins = {
 	},
 	['FluxxField/bionic-reading.nvim'] = {
 		-- Desc: Easy reading
+		-- Temporarily disable this plugin on window
+		enabled = vim.fn.has("unix") == 1,
 		config = function()
 			require("custom.config.bionic")
 		end,
@@ -600,6 +595,8 @@ custom.plugins = {
 	-- Winbar ---------------------------------------------------
 	['Bekaboo/dropbar.nvim'] = {
 	 	-- Desc: Dropping winbar
+		-- Temporarily disabled winbar on window
+		enabled = vim.fn.has("unix") == 1,
 		config = function()
 			require("custom.config.dropbar")
 		end,

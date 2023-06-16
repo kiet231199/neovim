@@ -115,7 +115,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-local servers = { 'pyright', 'rust_analyzer', 'clangd', 'cmake', 'bashls', 'vimls', 'lua_ls', 'diagnosticls' }
+local servers = { 'pyright', 'clangd', 'cmake', 'bashls', 'vimls', 'lua_ls', 'diagnosticls' }
 
 for _, lsp in pairs(servers) do
 	require('lspconfig')[lsp].setup
