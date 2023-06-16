@@ -5,6 +5,7 @@ if not status_ok then
 end
 
 local current_path = vim.fs.normalize(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p'))
+local preview = true
 
 local kinds = {
 	Array = '󰅪 ',
@@ -95,6 +96,29 @@ dropbar.setup({
 		}
 	},
 	bar = {
+		sources = function(_, _)
+			local sources = require('dropbar.sources')
+			return {
+				sources.path,
+				{
+					get_symbols = function(buf, win, cursor)
+						if vim.bo[buf].ft == 'markdown' then
+							return sources.markdown.get_symbols(buf, win, cursor)
+						end
+						for _, source in ipairs({
+							sources.lsp,
+							sources.treesitter,
+						}) do
+							local symbols = source.get_symbols(buf, win, cursor)
+							if not vim.tbl_isempty(symbols) then
+								return symbols
+							end
+						end
+						return {}
+					end,
+				},
+			}
+		end,
 		padding = {
 			left = 1,
 			right = 1,
@@ -104,10 +128,41 @@ dropbar.setup({
 		},
 		truncate = true,
 	},
+	symbol = {
+		preview = {
+			reorient = function(_, range)
+				local invisible = range['end'].line - vim.fn.line('w$') + 1
+				if invisible > 0 then
+					local view = vim.fn.winsaveview()
+					view.topline = view.topline + invisible
+					vim.fn.winrestview(view)
+				end
+			end,
+		},
+		jump = {
+			reorient = function(win, range)
+				local view = vim.fn.winsaveview()
+				local win_height = vim.api.nvim_win_get_height(win)
+				local topline = range.start.line - math.floor(win_height / 4)
+				if
+					topline > view.topline
+					and topline + win_height < vim.fn.line('$')
+				then
+					view.topline = topline
+					vim.fn.winrestview(view)
+				end
+			end,
+		},
+	},
 	menu = {
+		-- When on, preview the symbol under the cursor on CursorMoved
+		preview = preview,
+		-- When on, automatically set the cursor to the closest previous/next
+		-- clickable component in the direction of cursor movement on CursorMoved
+		quick_navigation = true,
 		entry = {
 			padding = {
-				left = 0,
+				left = 1,
 				right = 1,
 			},
 		},
@@ -120,16 +175,16 @@ dropbar.setup({
 				end
 				local mouse = vim.fn.getmousepos()
 				if mouse.winid ~= menu.win then
-					local parent_menu = api.get_dropbar_menu(mouse.winid)
-					if parent_menu and parent_menu.sub_menu then
-						parent_menu.sub_menu:close()
+					local prev_menu = api.get_dropbar_menu(mouse.winid)
+					if prev_menu and prev_menu.sub_menu then
+						prev_menu.sub_menu:close()
 					end
 					if vim.api.nvim_win_is_valid(mouse.winid) then
 						vim.api.nvim_set_current_win(mouse.winid)
 					end
 					return
 				end
-				menu:click_at({ mouse.line, mouse.column }, nil, 1, 'l')
+				menu:click_at({ mouse.line, mouse.column - 1 }, nil, 1, 'l')
 			end,
 			['<CR>'] = function()
 				local menu = require('dropbar.api').get_current_dropbar_menu()
@@ -160,7 +215,17 @@ dropbar.setup({
 				end
 				local mouse = vim.fn.getmousepos()
 				if mouse.winid ~= menu.win then
+					-- Find the root menu
+					while menu and menu.prev_menu do
+						menu = menu.prev_menu
+					end
+					if menu then
+						menu:finish_preview(true)
+					end
 					return
+				end
+				if preview then
+					menu:preview_symbol_at({ mouse.line, mouse.column - 1 })
 				end
 				menu:update_hover_hl({ mouse.line, mouse.column - 1 })
 			end,
@@ -169,19 +234,19 @@ dropbar.setup({
 			border = 'rounded',
 			style = 'minimal',
 			row = function(menu)
-				return menu.parent_menu
-					and menu.parent_menu.clicked_at
-					and menu.parent_menu.clicked_at[1] - vim.fn.line('w0')
+				return menu.prev_menu
+					and menu.prev_menu.clicked_at
+					and menu.prev_menu.clicked_at[1] - vim.fn.line('w0')
 					or 1
 			end,
 			col = function(menu)
-				return menu.parent_menu and menu.parent_menu._win_configs.width + 1 or 0
+				return menu.prev_menu and menu.prev_menu._win_configs.width + 1 or 0
 			end,
 			relative = function(menu)
-				return menu.parent_menu and 'win' or 'mouse'
+				return menu.prev_menu and 'win' or 'mouse'
 			end,
 			win = function(menu)
-				return menu.parent_menu and menu.parent_menu.win
+				return menu.prev_menu and menu.prev_menu.win
 			end,
 			height = function(menu)
 				return math.max(
@@ -209,12 +274,8 @@ dropbar.setup({
 	},
 	sources = {
 		path = {
-			---@type string|fun(buf: integer): string
 			relative_to = function(_)
 				return vim.fn.finddir(vim.fn.fnamemodify(current_path, ":h"), vim.fn.getcwd())
-			end,
-			filter = function(_)
-				return true
 			end,
 		},
 	}

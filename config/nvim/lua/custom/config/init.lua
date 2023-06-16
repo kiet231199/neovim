@@ -424,6 +424,7 @@ custom.plugins = {
 	},
 	['folke/noice.nvim'] = {
 		-- Desc: Show message popup, LSP progress, popup commandline
+		-- INFO: Disable on neovide
 		enabled = vim.g.neovide == nil,
 		dependencies = {
 			"MunifTanjim/nui.nvim",
@@ -562,8 +563,8 @@ custom.plugins = {
 	},
 	['FluxxField/bionic-reading.nvim'] = {
 		-- Desc: Easy reading
-		-- Temporarily disable this plugin on window
-		enabled = vim.fn.has("unix") == 1,
+		-- FIXME: Temporarily disabled this plugin due to stupid of plugin source
+		enabled = false,
 		config = function()
 			require("custom.config.bionic")
 		end,
@@ -595,7 +596,7 @@ custom.plugins = {
 	-- Winbar ---------------------------------------------------
 	['Bekaboo/dropbar.nvim'] = {
 	 	-- Desc: Dropping winbar
-		-- Temporarily disabled winbar on window
+		-- FIXME: Temporarily disabled winbar on window
 		enabled = vim.fn.has("unix") == 1,
 		config = function()
 			require("custom.config.dropbar")
