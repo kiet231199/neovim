@@ -45,9 +45,14 @@ telescope.setup({
 			treesitter = true,
 		},
 		history = {
-			path = vim.g.data_path .. "/telescope_history"
+			-- Don't need to care about memory in window :3
+			path = function()
+				if vim.fn.has("unix") == 1 then
+					return vim.g.data_path .. "/telescope_history"
+				end
+			end
 		},
-		vimgrep_arguments =vimgrep_arguments,
+		vimgrep_arguments = vimgrep_arguments,
 		-- Do not preview binary
 		buffer_previewer_maker = function(filepath, bufnr, opts)
 			filepath = vim.fn.expand(filepath)
