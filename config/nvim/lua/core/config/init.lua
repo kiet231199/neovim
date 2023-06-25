@@ -21,13 +21,13 @@ local plugins = {
 		end,
 	},
 	-- Workspace ---------------------------------------------------
-	['nvim-tree/nvim-tree.lua'] = {
-		-- Desc: File explorer
+	['nvim-neo-tree/neo-tree.nvim'] = {
+		-- Desc: File browser
 		config = function()
-			require("core.config.nvim-tree")
+			require("custom.config.neotree")
 		end,
 		keys = {
-			{ "<F5>", "<cmd>NvimTreeFindFileToggle<CR>", mode = "", silent = true, noremap = true },
+			{ "<F5>", ":NeoTreeFocusToggle<CR>", mode = "", silent = true, noremap = true },
 		},
 	},
 	-- Tabline and Statusline --------------------------------------
@@ -51,6 +51,7 @@ local plugins = {
 			require("core.config.gitsigns")
 		end,
 	},
+
 	-- Fuzy finder -------------------------------------------------
 	['nvim-telescope/telescope.nvim'] = {
 		-- Desc: Telescope
@@ -121,7 +122,7 @@ local plugins = {
 	},
 	['glepnir/lspsaga.nvim'] = {
 		-- Desc: LSP better UI
-		event = 'BufRead',
+		event = "VeryLazy",
 		dependencies = {
 			'anuvyklack/windows.nvim',
 		},
@@ -248,14 +249,13 @@ local plugins = {
 	-- Colorful ----------------------------------------------------
 	['anuvyklack/pretty-fold.nvim'] = {
 		-- Desc: Fold text
+		event = "VeryLazy",
 		config = function()
 			require("core.config.pretty-fold")
 		end,
 	},
 	['nvim-zh/colorful-winsep.nvim'] = {
 		-- Desc: Win separator
-		pin = true,
-		commit = 'bb06c86',
 		config = function()
 			require("core.config.winsep")
 		end,

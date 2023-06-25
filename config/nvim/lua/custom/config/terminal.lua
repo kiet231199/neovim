@@ -4,7 +4,11 @@ if not status_ok then
 	return
 end
 
-require("terminal").setup()
+require("terminal").setup({
+	layout = {
+		open_cmd = "botright vnew"
+	}
+})
 
 -- Htop
 local htop = require("terminal").terminal:new({
@@ -46,7 +50,7 @@ vim.api.nvim_create_user_command("Lazygit", function(args)
 	end
 end, { nargs = "?" })
 
-vim.keymap.set({ "n", "t" }, "tn", function()
+vim.keymap.set({ "n", "t" }, "<space>tn", function()
 	local index = require("terminal").current_term_index() or 0
 	local terms = require("terminal.active_terminals"):get_sorted_terminals()
 	for i = 1, #terms do
@@ -62,7 +66,7 @@ vim.keymap.set({ "n", "t" }, "tn", function()
 	end
 end, { desc = "next terminal", silent = true })
 
-vim.keymap.set({ "n", "t" }, "tp", function()
+vim.keymap.set({ "n", "t" }, "<space>tp", function()
 	local index = require("terminal").current_term_index() or 0
 	local terms = require("terminal.active_terminals"):get_sorted_terminals()
 	for i = 1, #terms do
@@ -78,12 +82,12 @@ vim.keymap.set({ "n", "t" }, "tp", function()
 	end
 end, { desc = "prev terminal", silent = true })
 
-vim.keymap.set({ "n", "t" }, "tc", function()
+vim.keymap.set({ "n", "t" }, "<space>tc", function()
 	local index = require("terminal").current_term_index()
 	require("terminal").close(index)
 end, { silent = true })
 
-vim.keymap.set({ "n", "t" }, "tk", function()
+vim.keymap.set({ "n", "t" }, "<space>tk", function()
 	local index = require("terminal").current_term_index()
 	require("terminal").kill(index)
 end, { silent = true })

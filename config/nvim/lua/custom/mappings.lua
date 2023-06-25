@@ -33,6 +33,8 @@ mappings.general = {
 
 		["dv"] = { ":diffsplit", "diffview file" },
 
+		["ss"] = { ":w<CR>:source %<CR>", "save and source file" },
+
 		["<A-Up>"] = { ":resize -2 <CR>", "Resize up" },
 		["<A-Down>"] = { ":resize +2 <CR>", "Resize down" },
 		["<A-Left>"] = { ":vertical resize -2 <CR>", "Resize left" },
@@ -173,20 +175,19 @@ mappings.lspsaga = {
 	}
 }
 
-mappings.hop = {
-	plugin = true,
-	n = {
-		["f"] = { function() require('hop').hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true }) end, "hop next", opts = { silent = true, remap = true } },
-		["F"] = { function() require('hop').hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true }) end, "hop next", opts = { silent = true, remap = true } },
-		["t"] = { function() require('hop').hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }) end, "hop next", opts = { silent = true, remap = true } },
-		["T"] = { function() require('hop').hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 }) end, "hop next", opts = { silent = true, remap = true } },
-	}
-}
-
 mappings.dropbar = {
 	plugin = true,
 	n = {
-		["<space>w"] = { function() require("dropbar.api").pick() end, "pick winbar element", opts = { silent = true } },
+		["<space>ww"] = { function() require("dropbar.api").pick() end, "pick winbar element", opts = { silent = true } },
+	}
+}
+
+mappings.session = {
+	plugin = true,
+	n = {
+		["<space>sl"] = { ":SessionManager load_last_session<CR>", "Load last session", opts = { silent = true, noremap = true } },
+		["<space>ss"] = { ":SessionManager save_current_session<CR>", "Save current session", opts = { silent = true, noremap = true } },
+		["<space>sd"] = { ":SessionManager load_last_session<CR>", "Delete session", opts = { silent = true, noremap = true } },
 	}
 }
 

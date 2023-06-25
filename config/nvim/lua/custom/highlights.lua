@@ -94,6 +94,8 @@ local highlights = {
 		["DropBarIconUIPickPivot"] = { fg = "Yellow", bold = true },
 		["DropBarIconUISeparator"] = { fg = "Orange", bold = true },
 		["DropBarIconUISeparatorMenu"] = { fg = "Red", bold = true },
+		-- Flash
+		["FlashLabel"] = { fg = "Yellow", bold = true },
 	}
 }
 

@@ -12,7 +12,7 @@ edgy.setup({
 			filter = function(buf)
 				return vim.b[buf].neo_tree_source == "filesystem"
 			end,
-			size = { height = 0.5 },
+			size = { width = 50 },
 		},
 		{
 			title = "Neo-Tree Git",
@@ -22,6 +22,7 @@ edgy.setup({
 			end,
 			pinned = true,
 			open = "Neotree position=right git_status",
+			size = { width = 50 },
 		},
 		{
 			title = "Neo-Tree Buffers",
@@ -31,6 +32,7 @@ edgy.setup({
 			end,
 			pinned = true,
 			open = "Neotree position=top buffers",
+			size = { width = 50 },
 		},
 		"neo-tree",
 	},
@@ -91,7 +93,7 @@ edgy.setup({
 		-- Setting to `false`, won't set any winbar.
 		-- Setting to a string, will set the winbar to that string.
 		winbar = true,
-		winfixwidth = true,
+		winfixwidth = false,
 		winfixheight = false,
 		winhighlight = "WinBar:EdgyWinBar,Normal:EdgyNormal",
 		spell = false,
@@ -105,36 +107,41 @@ edgy.setup({
 		["q"] = function(win)
 			win:close()
 		end,
-		-- hide window
-		["<c-q>"] = function(win)
-			win:hide()
+		-- decrease width
+		["<c-right>"] = function(win)
+			win:resize("width", 2)
 		end,
-		-- close sidebar
-		["Q"] = function(win)
-			win.view.edgebar:close()
+		-- decrease width
+		["<c-left>"] = function(win)
+			win:resize("width", -2)
 		end,
-		-- next open window
-		["]w"] = function(win)
-			win:next({ visible = true, focus = true })
+		-- increase height
+		["<c-up>"] = function(win)
+			win:resize("height", 2)
 		end,
-		-- previous open window
-		["[w"] = function(win)
-			win:prev({ visible = true, focus = true })
+		-- decrease height
+		["<c-down"] = function(win)
+			win:resize("height", -2)
 		end,
-		-- next loaded window
-		["]W"] = function(win)
-			win:next({ pinned = false, focus = true })
+		-- reset all custom sizing
+		["<c-space>"] = function(win)
+			win.view.edgebar:equalize()
 		end,
-		-- prev loaded window
-		["[W"] = function(win)
-			win:prev({ pinned = false, focus = true })
-		end,
+		-- Disable default mappings
+		["<c-q>"]     = false,
+		["Q"]         = false,
+		["]w"]        = false,
+		["[w"]        = false,
+		["]W"]        = false,
+		["[W"]        = false,
+		["<c-w>>"]    = false,
+		["<c-w><lt>"] = false,
+		["<c-w>+"]    = false,
+		["<c-w>-"]    = false,
+		["<c-w>="]    = false,
 	},
 	icons = {
 		closed = " ",
 		open = " ",
 	},
-	-- enable this on Neovim <= 0.10.0 to properly fold edgebar windows.
-	-- Not needed on a nightly build >= June 5, 2023.
-	fix_win_height = vim.fn.has("nvim-0.10.0") == 0,
 })

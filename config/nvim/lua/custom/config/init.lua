@@ -31,13 +31,14 @@ custom.plugins = {
 	},
 
 	-- Workspace ---------------------------------------------------
-	['nvim-tree/nvim-tree.lua'] = {
-		-- Desc: File explorer
+	['nvim-neo-tree/neo-tree.nvim'] = {
+		-- Desc: File browser
+		-- INFO: Need to reconfigure highlight
 		config = function()
-			require("custom.config.nvim-tree")
+			require("custom.config.neotree")
 		end,
 		keys = {
-			{ "<F5>", "<cmd>NvimTreeFindFileToggle<CR>", mode = "", silent = true, noremap = true },
+			{ "<F5>", ":NeoTreeFocusToggle<CR>", mode = "", silent = true, noremap = true },
 		},
 	},
 	['matbme/JABS.nvim'] = {
@@ -167,6 +168,7 @@ custom.plugins = {
 	},
 	['glepnir/lspsaga.nvim'] = {
 		-- Desc: LSP better UI
+		event = "VeryLazy",
 		dependencies = {
 			'anuvyklack/windows.nvim',
 		},
@@ -188,18 +190,21 @@ custom.plugins = {
 	},
 	['folke/trouble.nvim'] = {
 		-- Desc: Show LSP diagnostics
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.trouble")
 		end,
 	},
 	['jose-elias-alvarez/null-ls.nvim'] = {
 		-- Desc: Language server for builtin language
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.null-ls")
 		end,
 	},
 	['MunifTanjim/prettier.nvim'] = {
 		-- Desc: Prettier for buitin language
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.prettier")
 		end,
@@ -242,6 +247,7 @@ custom.plugins = {
 	},
 	['hungnguyen1503/friendly-snippets'] = {
 		-- Desc: Additional snippets
+		event = "VeryLazy",
 		pin = true,
 	},
 
@@ -251,12 +257,6 @@ custom.plugins = {
 		config = function()
 			require("custom.config.treesitter")
 		end,
-	},
-	['nvim-treesitter/nvim-treesitter-textobjects'] = {
-		-- Desc: Code ultilities
-		dependencies = {
-			'nvim-treesitter/nvim-treesitter',
-		},
 	},
 	['p00f/nvim-ts-rainbow'] = {
 		-- Desc: Bracket color
@@ -296,15 +296,25 @@ custom.plugins = {
 			require("custom.config.todo")
 		end,
 	},
+	['s1n7ax/nvim-comment-frame'] = {
+		-- Desc: Create comment block
+		event = "VeryLazy",
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter',
+		},
+		config = function()
+			require("custom.config.comment-frame")
+		end,
+	},
 
 	-- Easy editing ------------------------------------------------
 	['kqito/vim-easy-replace'] = {
 		-- Desc: Quick replace
 		keys = {
-			{ "<leader>ra", "<cmd>EasyReplaceWord<CR>", mode = "n", silent = true, noremap = true },
-			{ "<leader>rc", "<cmd>EasyReplaceCword<CR>", mode = "n", silent = true, noremap = true },
-			{ "<leader>ra", "<cmd>EasyReplaceWordInVisual<CR>", mode = "v", silent = true, noremap = true },
-			{ "<leader>rc", "<cmd>EasyReplaceCwordInVisual<CR>", mode = "v", silent = true, noremap = true },
+			{ "<leader>ra", ":EasyReplaceWord<CR>", mode = "n", silent = true, noremap = true },
+			{ "<leader>rc", ":EasyReplaceCword<CR>", mode = "n", silent = true, noremap = true },
+			{ "<leader>ra", ":EasyReplaceWordInVisual<CR>", mode = "v", silent = true, noremap = true },
+			{ "<leader>rc", ":EasyReplaceCwordInVisual<CR>", mode = "v", silent = true, noremap = true },
 		},
 	},
 	['AckslD/muren.nvim'] = {
@@ -313,20 +323,19 @@ custom.plugins = {
 			require("custom.config.muren")
 		end,
 		keys = {
-			{ "<leader>rp", "<cmd>MurenToggle<CR>", mode = "n", silent = true, noremap = true },
+			{ "<leader>rp", ":MurenToggle<CR>", mode = "n", silent = true, noremap = true },
 		}
 	},
 	['Vonr/align.nvim'] = {
 		-- Desc: Quick align
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.align")
 		end,
-		keys = {
-			{ "<space>", mode = "n" },
-		},
 	},
 	['fedepujol/move.nvim'] = {
 		-- Desc: Quick move
+		event = "VeryLazy",
 		pin = true,
 		init = function()
 			require("core.utils").load_mappings("move")
@@ -334,12 +343,14 @@ custom.plugins = {
 	},
 	['nguyenvukhang/nvim-toggler'] = {
 		-- Desc: Toggle word (true/false)
+		event = "VeryLazy",
 		config = function()
 			require("nvim-toggler").setup()
 		end,
 	},
 	['astaos/nvim-ultivisual'] = {
 		-- Desc: Quick move by tab, quick surround
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.ultivisual")
 		end,
@@ -353,6 +364,7 @@ custom.plugins = {
 	},
 	['chrisgrieser/nvim-spider'] = {
 	 	-- Desc: Quick move
+		event = "VeryLazy",
 		config = function()
 			require("spider").setup({ skipInsignificantPunctuation = false })
 		end,
@@ -363,21 +375,22 @@ custom.plugins = {
 			-- vim.keymap.set({ "n", "o", "x" }, "ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "Spider-w" })
 		end,
 	},
-	['phaazon/hop.nvim'] = {
-		-- Desc: Speed motion
+	['folke/flash.nvim'] = {
+		-- Desc: navigate code fast
+		event = "VeryLazy",
 		config = function()
-			require("hop").setup({
-				keys = '123456789abcdefghiklmnopqrstuvwxyz',
-			})
+			require("custom.config.flash")
 		end,
-		init = function()
-			require("core.utils").load_mappings("hop")
-		end,
+		keys = {
+			{ "F", mode = { "n", "x", "o" }, function() require("flash").jump() end, },
+			{ "T", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, },
+		},
 	},
 
 	-- Search ------------------------------------------------------
 	['VonHeikemen/searchbox.nvim'] = {
 		-- Desc: Search box
+		event = "VeryLazy",
 		dependencies = {
 			'MunifTanjim/nui.nvim',
 		},
@@ -390,6 +403,7 @@ custom.plugins = {
 	},
 	['kevinhwang91/nvim-hlslens'] = {
 		-- Desc: Highlight search
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.hlslens")
 		end,
@@ -437,6 +451,7 @@ custom.plugins = {
 	},
 	['folke/which-key.nvim'] = {
 		-- Desc: Show keymap
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.whichkey")
 		end,
@@ -456,15 +471,32 @@ custom.plugins = {
 			'anuvyklack/animation.nvim',
 		},
 		config = function()
-			require("custom.config.windows")
+			require("custom.config.window-autowidth")
 		end,
 		event = "WinNew",
+	},
+	['folke/edgy.nvim'] = {
+		-- Desc: manage predefine window layout
+		-- INFO: Need to be reconfigure with neotree
+		event = "VeryLazy",
+		dependencies = {
+			-- Desc: Neo-tree for git outline
+			'nvim-neo-tree/neo-tree.nvim',
+		},
+		init = function()
+			vim.opt.laststatus = 3
+			vim.opt.splitkeep = "screen"
+		end,
+		config = function()
+			require("custom.config.edgy")
+		end,
 	},
 
 	-- Picker ------------------------------------------------------
 	['ziontee113/icon-picker.nvim'] = {
 		-- Desc: Icon quick search
 		lazy = true,
+		event = "VeryLazy",
 		dependencies = {
 			'stevearc/dressing.nvim',
 		},
@@ -475,6 +507,7 @@ custom.plugins = {
 	['ziontee113/color-picker.nvim'] = {
 		-- Desc: Color quick search
 		lazy = true,
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.colorpicker")
 		end,
@@ -483,6 +516,7 @@ custom.plugins = {
 	-- Float terminal ----------------------------------------------
 	['rebelot/terminal.nvim'] = {
 		-- Desc: Float terminal
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.terminal")
 		end,
@@ -497,6 +531,7 @@ custom.plugins = {
 	},
 	['anuvyklack/pretty-fold.nvim'] = {
 		-- Desc: Fold text
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.pretty-fold")
 		end,
@@ -523,24 +558,28 @@ custom.plugins = {
 	['folke/twilight.nvim'] = {
 		-- Desc: Focus on function
 		lazy = true,
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.twilight")
 		end,
 	},
 	['Bekaboo/deadcolumn.nvim'] = {
 	 	-- Desc: Page column
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.deadcolumn")
 		end,
 	},
 	['yaocccc/nvim-foldsign'] = {
 		-- Desc: Fold sign
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.foldsign")
 		end,
 	},
 	['dvoytik/hi-my-words.nvim'] = {
 		-- Desc: Highlight word with many colors
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.himywords")
 		end,
@@ -573,14 +612,13 @@ custom.plugins = {
 	-- Register, session ---------------------------------------
 	['Shatur/neovim-session-manager'] = {
 		-- Desc: Session
+		event = "VeryLazy",
 		config = function()
 			require("custom.config.sessions")
 		end,
-		keys = {
-			{ "sl", "<cmd>SessionManager load_last_session<CR>", mode = "n", silent = true, noremap = true },
-			{ "ss", "<cmd>SessionManager save_current_session<CR>", mode = "n", silent = true, noremap = true },
-			{ "sd", "<cmd>SessionManager delete_session<CR>", mode = "n", silent = true, noremap = true },
-		},
+		init = function()
+			require("core.utils").load_mappings("session")
+		end,
 	},
 
 	-- Minimap --------------------------------------------------
@@ -626,6 +664,7 @@ custom.plugins = {
 	},
 	['christoomey/vim-tmux-navigator'] = {
 		-- Desc: Switch pane between VIM and TMUX
+		event = "VeryLazy",
 		config = function()
 			vim.cmd [[
 				noremap <silent> <C-b>h :<C-U>TmuxNavigateLeft<cr>
@@ -636,20 +675,6 @@ custom.plugins = {
 		end,
 	},
 	-- Plugin on testing ----------------------------------------
-	['folke/edgy.nvim'] = {
-		-- Desc: manage predefine window layout
-		dependencies = {
-			-- Desc: Neo-tree for git outline
-			'nvim-neo-tree/neo-tree.nvim',
-		},
-		init = function()
-			vim.opt.laststatus = 3
-			vim.opt.splitkeep = "screen"
-		end,
-		config = function()
-			require("custom.config.edgy")
-		end,
-	},
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {

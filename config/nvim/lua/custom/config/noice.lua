@@ -24,7 +24,7 @@ noice.setup({
 			-- lua = false, -- to disable a format, set to `false`
 		},
 	},
-	essages = {
+	messages = {
 		-- NOTE: If you enable messages, then the cmdline is enabled automatically.
 		-- This is a current Neovim limitation.
 		enabled = true, -- enables the Noice messages UI

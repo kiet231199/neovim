@@ -12,6 +12,30 @@ table.insert(vimgrep_arguments, "--hidden")
 table.insert(vimgrep_arguments, "--glob")
 table.insert(vimgrep_arguments, "!**/.git/*")
 
+local history_path = ""
+if vim.fn.has("unix") == 1 then
+	history_path = vim.g.data_path .. "/telescope_history"
+else
+	-- Don't need to care about memory in window :3
+	history_path = vim.fn.stdpath("data") .. "/telescope_history"
+end
+
+local actions = require("telescope.actions")
+local mappings = {
+	i = {
+		["<C-f>"] = actions.nop,
+		["<C-k>"] = actions.nop,
+		["<M-f>"] = actions.nop,
+		["<M-k>"] = actions.nop,
+		["<C-r>"] = actions.preview_scrolling_right,
+		["<C-l>"] = actions.preview_scrolling_left,
+		["<M-u>"] = actions.results_scrolling_up,
+		["<M-d>"] = actions.results_scrolling_down,
+		["<M-r>"] = actions.results_scrolling_right,
+		["<M-l>"] = actions.results_scrolling_left,
+	},
+}
+
 telescope.setup({
 	defaults = {
 		-- Default configuration for telescope goes here:
@@ -45,13 +69,9 @@ telescope.setup({
 			treesitter = true,
 		},
 		history = {
-			path = function()
-                if vim.fn.has("unix") then
-                    return vim.g.data_path .. "/telescope_history"
-                end
-            end,
+			path = history_path,
 		},
-		vimgrep_arguments =vimgrep_arguments,
+		vimgrep_arguments = vimgrep_arguments,
 		-- Do not preview binary
 		buffer_previewer_maker = function(filepath, bufnr, opts)
 			filepath = vim.fn.expand(filepath)
@@ -71,10 +91,7 @@ telescope.setup({
 				end
 			}):sync()
 		end,
-	},
-	mappings = {
-		-- i = { ["<C-t>"] = trouble.open_with_trouble },
-		-- n = { ["<C-t>"] = trouble.open_with_trouble },
+		mappings = mappings,
 	},
 	pickers = {
 		find_files = {
@@ -141,9 +158,9 @@ telescope.setup({
 
 -- load extensions
 telescope.load_extension('file_browser')
-if vim.fn.has("win32") == 0 then telescope.load_extension('fzf') end
+if vim.fn.has("unix") == 1 then telescope.load_extension('fzf') end
 telescope.load_extension('project')
 telescope.load_extension('ui-select')
-telescope.load_extension('find_pickers')
+-- telescope.load_extension('find_pickers')
 telescope.load_extension('command_palette')
 telescope.load_extension("neoclip")
