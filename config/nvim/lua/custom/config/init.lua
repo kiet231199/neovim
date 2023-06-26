@@ -1,7 +1,6 @@
 local custom = {}
 
-custom.plugins = {
-	-- Startup -----------------------------------------------------
+custom.plugins = { -- Startup -----------------------------------------------------
 	['goolord/alpha-nvim'] = {
 		-- Desc: Start up screen
 		config = function()
@@ -600,14 +599,6 @@ custom.plugins = {
 			require("custom.config.indentblankline")
 		end,
 	},
-	['FluxxField/bionic-reading.nvim'] = {
-		-- Desc: Easy reading
-		-- FIXME: Temporarily disabled this plugin due to stupid of plugin source
-		enabled = false,
-		config = function()
-			require("custom.config.bionic")
-		end,
-	},
 
 	-- Register, session ---------------------------------------
 	['Shatur/neovim-session-manager'] = {
@@ -675,6 +666,21 @@ custom.plugins = {
 		end,
 	},
 	-- Plugin on testing ----------------------------------------
+	['JellyApple102/easyread.nvim'] = {
+		-- Desc: Bionic highlighting
+		event = "VeryLazy",
+		config = function()
+			require("custom.config.easyread")
+		end,
+	},
+	['m4xshen/hardtime.nvim'] = {
+		-- Desc: Remind
+		-- INFO: Need to update Hint message, this plugin is to early
+		event = "VeryLazy",
+		config = function()
+			require("custom.config.hardtime")
+		end,
+	},
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {

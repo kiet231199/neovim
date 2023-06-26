@@ -7,26 +7,26 @@ end
 winsep.setup({
 	-- Window divider color definition
 	highlight = {
-		guibg = "#1A1B26",
-		guifg = "#A9B1D6"
+		bg = "#1A1B26",
+		fg = "#A9B1D6"
 	},
 	-- timer refresh rate
 	interval = 300,
 	-- filetype in the list, will not be executed
-	no_exec_files = { "packer", "TelescopePrompt", "mason", "CompetiTest", "NvimTree" },
+	no_exec_files = { "lazy", "TelescopePrompt", "mason", "CompetiTest", "NvimTree" },
 	-- Split line symbol definition
 	symbols = { "━", "┃", "┏", "┓", "┗", "┛" },
 	close_event = function()
 		-- Executed after closing the window divider
 	end,
 	create_event = function()
-		-- Executed after creating the window divider
-		--[[ if fn.winnr('$') == 3 then
-			local win_id = fn.win_getid(vim.fn.winnr('h'))
-			local filetype = api.nvim_buf_get_option(api.nvim_win_get_buf(win_id), 'filetype')
-			if filetype == "NvimTree" then
-				colorful_winsep.NvimSeparatorDel()
-			end
-		end ]]
+		-- local win_n = require("colorful-winsep.utils").calculate_number_windows()
+		-- if win_n == 2 then
+		-- 	local win_id = vim.fn.win_getid(vim.fn.winnr('h'))
+		-- 	local filetype = vim.api.nvim_get_option_value('filetype', { buf = vim.api.nvim_win_get_buf(win_id) })
+		-- 	if filetype == "neo-tree" then
+		-- 		winsep.NvimSeparatorDel()
+		-- 	end
+		-- end
 	end
 })
