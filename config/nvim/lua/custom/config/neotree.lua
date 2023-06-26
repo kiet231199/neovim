@@ -14,7 +14,7 @@ neotree.setup({
 	sort_function = nil,                                                   -- use a custom function for sorting files and directories in the tree
 	default_component_configs = {
 		container = {
-			enable_character_fade = true
+			enable_character_fade = false
 		},
 		indent = {
 			indent_size = 2,
@@ -46,6 +46,7 @@ neotree.setup({
 		},
 		name = {
 			trailing_slash = false,
+			highlight_opened_files = true,
 			use_git_status_colors = true,
 			highlight = "NeoTreeFileName",
 		},
@@ -65,31 +66,25 @@ neotree.setup({
 			}
 		},
 	},
-	document_symbols = {
-		kinds = {
-			File          = { icon = "󰈙", hl = "Tag" },
-			Namespace     = { icon = "󰌗", hl = "Include" },
-			Package       = { icon = "󰏖", hl = "Label" },
-			Class         = { icon = "󰌗", hl = "Include" },
-			Property      = { icon = "󰆧", hl = "@property" },
-			Enum          = { icon = "󰒻", hl = "@number" },
-			Function      = { icon = "󰊕", hl = "Function" },
-			String        = { icon = "󰀬", hl = "String" },
-			Number        = { icon = "󰎠", hl = "Number" },
-			Array         = { icon = "󰅪", hl = "Type" },
-			Object        = { icon = "󰅩", hl = "Type" },
-			Key           = { icon = "󰌋", hl = "" },
-			Struct        = { icon = "󰌗", hl = "Type" },
-			Operator      = { icon = "󰆕", hl = "Operator" },
-			TypeParameter = { icon = "󰊄", hl = "Type" },
-			StaticMethod  = { icon = "󰠄", hl = 'Function' },
-		}
-	},
 	source_selector = {
 		sources = {
-			{ source = "filesystem", display_name = " 󰉓 Files " },
-			{ source = "git_status", display_name = " 󰊢 Git " },
+			winbar = true,
+			{ source = "filesystem",       display_name = " 󰉓 Files " },
+			{ source = "git_status",       display_name = " 󰊢 Git " },
+			{ source = "document_symbols", display_name = " 󰧮 Doc Symbols " },
+			content_layout = "center",
+			highlight_tab = "NeoTreeTabInactive",
+			highlight_tab_active = "NeoTreeTabActive",
+			highlight_background = "NeoTreeTabInactive",
+			highlight_separator = "ActiveWindow",
+			highlight_separator_active = "NeoTreeTabSeparatorActive"
 		},
+	},
+	sources = {
+		"filesystem",
+		"buffers",
+		"git_status",
+		"document_symbols",
 	},
 	-- A list of functions, each representing a global custom command
 	-- that will be available in all sources (if not overridden in `opts[source_name].commands`)
@@ -99,7 +94,7 @@ neotree.setup({
 		position = "left",
 		width = 50,
 		mapping_options = {
-			noremap = true,
+			noremap = false,
 			nowait = true,
 		},
 		mappings = {
@@ -118,13 +113,7 @@ neotree.setup({
 			["w"] = "open_with_window_picker",
 			["C"] = "close_node",
 			["z"] = "close_all_nodes",
-			["a"] = {
-				"add",
-				-- some commands may take optional config options, see `:h neo-tree-mappings` for details
-				config = {
-					show_path = "none" -- "none", "relative", "absolute"
-				}
-			},
+			["a"] = { "add", config = { show_path = "none" } }, -- "none", "relative", "absolute"
 			["A"] = "add_directory", -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
 			["d"] = "delete",
 			["r"] = "rename",
@@ -141,7 +130,7 @@ neotree.setup({
 	nesting_rules = {},
 	filesystem = {
 		filtered_items = {
-			visible = false, -- when true, they will just be displayed differently than normal items
+			visible = true, -- when true, they will just be displayed differently than normal items
 			hide_dotfiles = true,
 			hide_gitignored = true,
 			hide_hidden = true, -- only works on Windows for hidden files/directories
@@ -163,7 +152,7 @@ neotree.setup({
 				--".null-ls_*",
 			},
 		},
-		follow_current_file = false,              -- This will find and focus the file in the active buffer every
+		follow_current_file = true, -- This will find and focus the file in the active buffer every
 		-- time the current file is changed while the tree is open.
 		group_empty_dirs = false,                 -- when true, empty folders will be grouped together
 		hijack_netrw_behavior = "open_default",   -- netrw disabled, opening a directory opens neo-tree
@@ -176,7 +165,7 @@ neotree.setup({
 		window = {
 			mappings = {
 				["<bs>"]   = "navigate_up",
-				["."]      = "set_root",
+				["<S-bs>"] = "set_root",
 				["H"]      = "toggle_hidden",
 				["/"]      = "fuzzy_finder",
 				["D"]      = "fuzzy_finder_directory",
@@ -223,5 +212,44 @@ neotree.setup({
 				["gg"] = "git_commit_and_push",
 			}
 		}
-	}
+	},
+	document_symbols = {
+		kinds = {
+			File          = { icon = "󰈙", hl = "Tag" },
+			Namespace     = { icon = "󰌗", hl = "Include" },
+			Package       = { icon = "󰏖", hl = "Label" },
+			Class         = { icon = "󰌗", hl = "Include" },
+			Property      = { icon = "󰆧", hl = "@property" },
+			Enum          = { icon = "󰒻", hl = "@number" },
+			Function      = { icon = "󰊕", hl = "Function" },
+			String        = { icon = "󰀬", hl = "String" },
+			Number        = { icon = "󰎠", hl = "Number" },
+			Array         = { icon = "󰅪", hl = "Type" },
+			Object        = { icon = "󰅩", hl = "Type" },
+			Key           = { icon = "󰌋", hl = "" },
+			Struct        = { icon = "󰌗", hl = "Type" },
+			Operator      = { icon = "󰆕", hl = "Operator" },
+			TypeParameter = { icon = "󰊄", hl = "Type" },
+			StaticMethod  = { icon = "󰠄", hl = 'Function' },
+		},
+		window = {
+			mappings = {
+				["<cr>"] = "jump_to_symbol",
+				["r"]    = "rename",
+				["P"]    = { "toggle_preview", config = { use_float = true } },
+				["l"]    = "focus_preview",
+				["h"]    = "open_split",
+				["v"]    = "open_vsplit",
+				-- Disable un-effective mappings
+				["a"]   = false,
+				["A"]   = false,
+				["c"]   = false,
+				["d"]   = false,
+				["m"]   = false,
+				["p"]   = false,
+				["x"]   = false,
+				["y"]   = false,
+			},
+		},
+	},
 })

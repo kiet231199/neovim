@@ -8,27 +8,6 @@ if not status_ok then
 	return
 end
 
--- build in text objects.
--- @block.inner
--- @block.outer
--- @call.inner
--- @call.outer
--- @class.inner
--- @class.outer
--- @comment.outer
--- @conditional.inner
--- @conditional.outer
--- @frame.inner
--- @frame.outer
--- @function.inner
--- @function.outer
--- @loop.inner
--- @loop.outer
--- @parameter.inner
--- @parameter.outer
--- @scopename.inner
--- @statement.outer
-
 configs.setup({
     -- ensure_installed = { "c", "cpp"}, -- one of "all" or a list of languages
 	ignore_install = { "" }, -- List of parsers to ignore installing

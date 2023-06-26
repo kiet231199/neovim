@@ -45,9 +45,11 @@ lualine.setup({
 		}
 	},
 	sections = {
-		lualine_a = { function ()
-        	return mode_map[vim.api.nvim_get_mode().mode] or "__"
-    	end},
+		lualine_a = {
+			function()
+				return mode_map[vim.api.nvim_get_mode().mode] or "__"
+			end
+		},
 		lualine_b = {
 			{
 				'branch',
@@ -76,7 +78,7 @@ lualine.setup({
 					info  = 'DiagnosticInfo',  -- Changes diagnostics' info color.
 					hint  = 'DiagnosticHint',  -- Changes diagnostics' hint color.
 				},
-				symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '},
+				symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
 				colored = true,           -- Displays diagnostics status in color if set to true.
 				always_visible = false,
 				separator = { left = '', right = ''},
@@ -101,7 +103,7 @@ lualine.setup({
 			{
 				function()
 					local msg = 'none'
-					local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+					local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
 					local clients = vim.lsp.get_active_clients()
 					if next(clients) == nil then
 						return msg

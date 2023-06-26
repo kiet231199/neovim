@@ -161,6 +161,6 @@ telescope.load_extension('file_browser')
 if vim.fn.has("unix") == 1 then telescope.load_extension('fzf') end
 telescope.load_extension('project')
 telescope.load_extension('ui-select')
--- telescope.load_extension('find_pickers')
+telescope.load_extension('find_pickers')
 telescope.load_extension('command_palette')
 telescope.load_extension("neoclip")

@@ -5,7 +5,7 @@ if not status_ok then
 end
 
 flash.setup({
-	labels = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+	labels = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+",
 	search = {
 		-- search/jump in all windows
 		multi_window = true,
@@ -24,6 +24,8 @@ flash.setup({
 		exclude = {
 			"notify",
 			"cmp_menu",
+			"neo-tree",
+			"lspsagaoutline",
 			function(win)
 				-- exclude non-focusable windows
 				return not vim.api.nvim_win_get_config(win).focusable
@@ -105,7 +107,7 @@ flash.setup({
 		-- options used for treesitter selections
 		-- `require("flash").treesitter()`
 		treesitter = {
-			labels = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			labels = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+",
 			jump = { pos = "range" },
 			highlight = {
 				label = { before = true, after = true, style = "inline" },

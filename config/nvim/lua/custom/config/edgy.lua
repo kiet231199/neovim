@@ -34,6 +34,16 @@ edgy.setup({
 			open = "Neotree position=top buffers",
 			size = { width = 50 },
 		},
+		{
+			title = "Neo-Tree Document Symbols",
+			ft = "neo-tree",
+			filter = function(buf)
+				return vim.b[buf].neo_tree_source == "document_symbols"
+			end,
+			pinned = true,
+			open = "Neotree position=top document_symbols",
+			size = { width = 50 },
+		},
 		"neo-tree",
 	},
 	bottom = {
@@ -107,6 +117,10 @@ edgy.setup({
 		["q"] = function(win)
 			win:close()
 		end,
+		-- close sidebar
+		["Q"]         = function(win)
+			win.view.edgebar:close()
+		end,
 		-- decrease width
 		["<c-right>"] = function(win)
 			win:resize("width", 2)
@@ -129,7 +143,6 @@ edgy.setup({
 		end,
 		-- Disable default mappings
 		["<c-q>"]     = false,
-		["Q"]         = false,
 		["]w"]        = false,
 		["[w"]        = false,
 		["]W"]        = false,
