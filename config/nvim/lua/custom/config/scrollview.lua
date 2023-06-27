@@ -5,6 +5,7 @@ if not status_ok then
 end
 
 scrollview.setup({
+	excluded_filetypes = { 'neo-tree', 'lspsagaoutline' },
 	mode = 'virtual',
 	zindex = 30,
 	winblend = 50,

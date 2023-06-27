@@ -9,6 +9,7 @@ hardtime.setup({
 	max_count = 5,
 	disable_mouse = false,
 	hint = true,
+	notifications = true,
 	allow_different_key = false,
 	resetting_keys = {
 		["1"] = { "n", "v" },

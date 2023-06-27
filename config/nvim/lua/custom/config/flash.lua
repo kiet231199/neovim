@@ -35,6 +35,10 @@ flash.setup({
 		-- a jump label can be used. It's NOT recommended to set this,
 		-- unless you know what you're doing
 		trigger = "",
+		-- max pattern length. If the pattern length is equal to this
+		-- labels will no longer be skipped. When it exceeds this length
+		-- it will either end in a jump or terminate the search
+		max_length = nil, ---@type number?
 	},
 	jump = {
 		-- save location in the jumplist
@@ -49,9 +53,19 @@ flash.setup({
 		nohlsearch = true,
 		-- automatically jump when there is only one match
 		autojump = true,
+		-- You can force inclusive/exclusive jumps by setting the
+		-- `inclusive` option. By default it will be automatically
+		-- set based on the mode.
+		inclusive = nil, ---@type boolean?
+		-- jump position offset. Not used for range jumps.
+		-- 0: default
+		-- 1: when pos == "end" and pos < current position
+		offset = nil, ---@type number
 	},
 	highlight = {
 		label = {
+			-- allow uppercase labels
+			uppercase = true,
 			-- add a label for the first match in the current window.
 			-- you can always jump to the first match with `<CR>`
 			current = true,
@@ -64,6 +78,18 @@ flash.setup({
 			-- flash tries to re-use labels that were already assigned to a position,
 			-- when typing more characters. By default only lower-case labels are re-used.
 			reuse = "all", ---@type "lowercase" | "all"
+			-- for the current window, label targets closer to the cursor first
+			distance = true,
+			-- minimum pattern length to show labels
+			-- Ignored for custom labelers.
+			min_pattern_length = 0,
+			-- Enable this to use rainbow colors to highlight labels
+			-- Can be useful for visualizing Treesitter ranges.
+			rainbow = {
+				enabled = false,
+				-- number between 1 and 9
+				shade = 5,
+			},
 		},
 		-- show a backdrop with hl FlashBackdrop
 		backdrop = true,
@@ -80,6 +106,8 @@ flash.setup({
 	},
 	-- initial pattern to use when opening flash
 	pattern = "",
+	-- When `true`, flash will try to continue the last search
+	continue = true,
 	modes = {
 		-- options used when flash is activated through
 		-- a regular search with `/` or `?`

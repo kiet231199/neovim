@@ -361,19 +361,6 @@ custom.plugins = { -- Startup --------------------------------------------------
 		end,
 		event = "InsertEnter",
 	},
-	['chrisgrieser/nvim-spider'] = {
-	 	-- Desc: Quick move
-		event = "VeryLazy",
-		config = function()
-			require("spider").setup({ skipInsignificantPunctuation = false })
-		end,
-		init = function()
-			vim.keymap.set({ "n", "o", "x"}, ">", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
-			-- vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-w" })
-			vim.keymap.set({ "n", "o", "x" }, "<", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-w" })
-			-- vim.keymap.set({ "n", "o", "x" }, "ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "Spider-w" })
-		end,
-	},
 	['folke/flash.nvim'] = {
 		-- Desc: navigate code fast
 		event = "VeryLazy",
@@ -381,7 +368,8 @@ custom.plugins = { -- Startup --------------------------------------------------
 			require("custom.config.flash")
 		end,
 		keys = {
-			{ "F", mode = { "n", "x", "o" }, function() require("flash").jump() end, },
+			{ "f", mode = { "n", "x", "o" }, function() require("flash").jump() end, },
+			{ "t", mode = { "n", "x", "o" }, function() require("flash").treesitter_search() end, },
 			{ "T", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, },
 		},
 	},
@@ -675,7 +663,7 @@ custom.plugins = { -- Startup --------------------------------------------------
 	},
 	['m4xshen/hardtime.nvim'] = {
 		-- Desc: Remind
-		-- INFO: Need to update Hint message, this plugin is to early
+		-- INFO: Need to update Hint message, this plugin is in early
 		event = "VeryLazy",
 		config = function()
 			require("custom.config.hardtime")
