@@ -5,8 +5,8 @@ if not status_ok then
 end
 
 hardtime.setup({
-	max_time = 300,
-	max_count = 5,
+	max_time = 100,
+	max_count = 15,
 	disable_mouse = false,
 	hint = true,
 	notifications = true,

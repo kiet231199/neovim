@@ -100,6 +100,8 @@ local highlights = {
 		["FlashLabel"]                   = { fg = "#7aa2f7", bold = true },
 		["FlashMatch"]                   = { fg = "Yellow", bold = true },
 		["FlashCurrent"]                 = { fg = "Red", bold = true },
+		["FlashPrompt"]                  = { link = "Normal" },
+		["FlashPromptIcon"]              = { link = "Normal" },
 	}
 }
 

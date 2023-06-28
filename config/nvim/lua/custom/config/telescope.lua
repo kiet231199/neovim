@@ -20,6 +20,7 @@ else
 	history_path = vim.fn.stdpath("data") .. "/telescope_history"
 end
 
+local utils = require("custom.config.telescope_utils")
 local actions = require("telescope.actions")
 local mappings = {
 	i = {
@@ -27,8 +28,10 @@ local mappings = {
 		["<C-k>"] = actions.nop,
 		["<M-f>"] = actions.nop,
 		["<M-k>"] = actions.nop,
-		["<C-r>"] = actions.preview_scrolling_right,
-		["<C-l>"] = actions.preview_scrolling_left,
+		["<C-u>"] = utils.scroll_up,
+		["<C-d>"] = utils.scroll_down,
+		["<C-r>"] = utils.scroll_right,
+		["<C-l>"] = utils.scroll_left,
 		["<M-u>"] = actions.results_scrolling_up,
 		["<M-d>"] = actions.results_scrolling_down,
 		["<M-r>"] = actions.results_scrolling_right,

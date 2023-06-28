@@ -10,7 +10,7 @@ flash.setup({
 		-- search/jump in all windows
 		multi_window = true,
 		-- search direction
-		forward = true,
+		forward = false,
 		-- when `false`, find only matches in the given direction
 		wrap = true,
 		-- Each mode will take ignorecase and smartcase into account.
@@ -19,7 +19,7 @@ flash.setup({
 		-- * fuzzy: fuzzy search
 		mode = "exact",
 		-- behave like `incsearch`
-		incremental = true,
+		incremental = false,
 		-- Excluded filetypes and custom window filters
 		exclude = {
 			"notify",
@@ -62,35 +62,35 @@ flash.setup({
 		-- 1: when pos == "end" and pos < current position
 		offset = nil, ---@type number
 	},
-	highlight = {
-		label = {
-			-- allow uppercase labels
-			uppercase = true,
-			-- add a label for the first match in the current window.
-			-- you can always jump to the first match with `<CR>`
-			current = true,
-			-- show the label after the match
-			after = { 0, 0 }, ---@type boolean|number[]
-			-- show the label before the match
-			before = false, ---@type boolean|number[]
-			-- position of the label extmark
-			style = "overlay", ---@type "eol" | "overlay" | "right_align" | "inline"
-			-- flash tries to re-use labels that were already assigned to a position,
-			-- when typing more characters. By default only lower-case labels are re-used.
-			reuse = "all", ---@type "lowercase" | "all"
-			-- for the current window, label targets closer to the cursor first
-			distance = true,
-			-- minimum pattern length to show labels
-			-- Ignored for custom labelers.
-			min_pattern_length = 0,
-			-- Enable this to use rainbow colors to highlight labels
-			-- Can be useful for visualizing Treesitter ranges.
-			rainbow = {
-				enabled = false,
-				-- number between 1 and 9
-				shade = 5,
-			},
+	label = {
+		-- allow uppercase labels
+		uppercase = true,
+		-- add a label for the first match in the current window.
+		-- you can always jump to the first match with `<CR>`
+		current = true,
+		-- show the label after the match
+		after = { 0, 0 }, ---@type boolean|number[]
+		-- show the label before the match
+		before = false, ---@type boolean|number[]
+		-- position of the label extmark
+		style = "overlay", ---@type "eol" | "overlay" | "right_align" | "inline"
+		-- flash tries to re-use labels that were already assigned to a position,
+		-- when typing more characters. By default only lower-case labels are re-used.
+		reuse = "all", ---@type "lowercase" | "all"
+		-- for the current window, label targets closer to the cursor first
+		distance = true,
+		-- minimum pattern length to show labels
+		-- Ignored for custom labelers.
+		min_pattern_length = 0,
+		-- Enable this to use rainbow colors to highlight labels
+		-- Can be useful for visualizing Treesitter ranges.
+		rainbow = {
+			enabled = false,
+			-- number between 1 and 9
+			shade = 5,
 		},
+	},
+	highlight = {
 		-- show a backdrop with hl FlashBackdrop
 		backdrop = true,
 		-- Highlight the search matches
@@ -142,6 +142,27 @@ flash.setup({
 				backdrop = false,
 				matches = false,
 			},
+		},
+		treesitter_search = {
+			jump = { pos = "range" },
+			search = { multi_window = true, wrap = true, incremental = false },
+			remote_op = { restore = true },
+			label = { before = true, after = true, style = "inline" },
+		},
+	},
+	-- options for the floating window that shows the prompt,
+	-- for regular jumps
+	prompt = {
+		enabled = true,
+		prefix = { { "⚡ ", "FlashPromptIcon" } },
+		win_config = {
+			relative = "editor",
+			width = 25,
+			height = 1,
+			row = vim.fn.winheight(0) - 1,
+			col = 6 ,
+			border = 'rounded',
+			zindex = 1000,
 		},
 	},
 })
