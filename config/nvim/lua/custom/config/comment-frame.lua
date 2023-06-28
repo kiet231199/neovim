@@ -8,7 +8,7 @@ commentframe.setup({
 	disable_default_keymap = false,
 	-- adds custom keymap
 	keymap = 'gl',
-	multiline_keymap = 'gf',
+	multiline_keymap = 'gm',
 	-- start the comment with this string
 	start_str = '#',
 	-- end the comment line with this string
