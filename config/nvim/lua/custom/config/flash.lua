@@ -8,7 +8,7 @@ flash.setup({
 	labels = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+",
 	search = {
 		-- search/jump in all windows
-		multi_window = true,
+		multi_window = false,
 		-- search direction
 		forward = false,
 		-- when `false`, find only matches in the given direction
@@ -154,14 +154,13 @@ flash.setup({
 	-- for regular jumps
 	prompt = {
 		enabled = true,
-		prefix = { { "⚡ ", "FlashPromptIcon" } },
+		prefix = { { "⚡ Jump to : ", "FlashPromptIcon" } },
 		win_config = {
 			relative = "editor",
-			width = 25,
+			width = 1,
 			height = 1,
-			row = vim.fn.winheight(0) - 1,
-			col = 6 ,
-			border = 'rounded',
+			row = -1,
+			col = 0,
 			zindex = 1000,
 		},
 	},

@@ -369,8 +369,7 @@ custom.plugins = { -- Startup --------------------------------------------------
 		end,
 		keys = {
 			{ "f", mode = { "n", "x", "o" }, function() require("flash").jump() end, },
-			{ "t", mode = { "n", "x", "o" }, function() require("flash").treesitter_search() end, },
-			{ "T", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, },
+			{ "t", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, },
 		},
 	},
 
