@@ -44,10 +44,10 @@ local smooth_scroll = function(prompt_bufnr, direction, time, lines)
 end
 
 local utils = {
-	scroll_up    = function(prompt_bufnr) smooth_scroll(prompt_bufnr, 1, 500, 15) end,
-	scroll_down  = function(prompt_bufnr) smooth_scroll(prompt_bufnr, 2, 500, 15) end,
-	scroll_left  = function(prompt_bufnr) smooth_scroll(prompt_bufnr, 3, 500, 20) end,
-	scroll_right = function(prompt_bufnr) smooth_scroll(prompt_bufnr, 4, 500, 20) end,
+	previewer_scroll_up    = function(prompt_bufnr) smooth_scroll(prompt_bufnr, 1, 500, 15) end,
+	previewer_scroll_down  = function(prompt_bufnr) smooth_scroll(prompt_bufnr, 2, 500, 15) end,
+	previewer_scroll_left  = function(prompt_bufnr) smooth_scroll(prompt_bufnr, 3, 500, 20) end,
+	previewer_scroll_right = function(prompt_bufnr) smooth_scroll(prompt_bufnr, 4, 500, 20) end,
 }
 
 return utils

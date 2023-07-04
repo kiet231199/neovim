@@ -170,6 +170,5 @@ lualine.setup({
 			},
 		},
 	},
-	-- tabline = {},
 	extensions = {},
 })

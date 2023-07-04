@@ -41,7 +41,7 @@ return {
 			init = " ",
 			import = " ",
 			keys = " ",
-			lazy = "鈴 ",
+			lazy = "󰒲 ",
 			loaded = "●",
 			not_loaded = "○",
 			plugin = " ",

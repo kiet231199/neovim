@@ -27,7 +27,6 @@ mappings.general = {
 		['<A-,>'] = { ":tabp <CR>", "previous tab" },
 		['<A-c>'] = { ":bd <CR>", "delete tab" },
 
-		["te"] = { ":tabedit", "new tab" },
 		["sh"] = { ":split <CR><C-w>w", "split pane horizontally" },
 		["sv"] = { ":vsplit <CR><C-w>w", "split pane vertically" },
 

@@ -668,6 +668,17 @@ custom.plugins = { -- Startup --------------------------------------------------
 			require("custom.config.hardtime")
 		end,
 	},
+	['romgrk/barbar.nvim'] = {
+		-- ERROR: Still can not modify this f**king plugin
+		enabled = false,
+		config = function()
+			require("custom.config.barbar")
+		end,
+	},
+	['rebelot/heirline.nvim'] = {
+		-- INFO: Replace for lualine
+		enabled = false,
+	},
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {
