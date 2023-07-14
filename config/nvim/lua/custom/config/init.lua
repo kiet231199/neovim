@@ -168,9 +168,7 @@ custom.plugins = { -- Startup --------------------------------------------------
 	['glepnir/lspsaga.nvim'] = {
 		-- Desc: LSP better UI
 		event = "VeryLazy",
-		dependencies = {
-			'anuvyklack/windows.nvim',
-		},
+		commit = "7dfabd5",
 		config = function()
 			require("custom.config.lspsaga")
 		end,
@@ -459,7 +457,7 @@ custom.plugins = { -- Startup --------------------------------------------------
 		config = function()
 			require("custom.config.window-autowidth")
 		end,
-		event = "WinNew",
+		event = "VeryLazy",
 	},
 	['folke/edgy.nvim'] = {
 		-- Desc: manage predefine window layout

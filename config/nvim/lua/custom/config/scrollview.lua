@@ -5,6 +5,7 @@ if not status_ok then
 end
 
 scrollview.setup({
+	always_show = true,
 	excluded_filetypes = { 'neo-tree', 'lspsagaoutline' },
 	mode = 'virtual',
 	zindex = 30,
@@ -13,12 +14,15 @@ scrollview.setup({
 	column = 2,
 	current_only = true,
 	hide_on_intersect = false,
+	hover = true,
 	line_limit = 5000,
 	signs_max_per_row = 1,
 	signs_column = 1,
 	signs_on_startup = {'search', 'diagnostics', 'folds' },
 	signs_show_in_folds = true,
 	signs_zindex = 45,
+	cursor_priority = 100,
+	cursor_symbol = '󰇀',
 	diagnostics_error_priority = 60,
 	diagnostics_error_symbol = '',
 	diagnostics_warn_priority = 50,

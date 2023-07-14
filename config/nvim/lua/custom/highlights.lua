@@ -26,12 +26,12 @@ local highlights = {
 		["SwapSplitStatusLine"]          = { fg = "Black", bg = "Red", bold = true },
 		-- Scrollview
 		["ScrollView"]                   = { bg = "#494C63" },
-		["ScrollViewCursor"]             = { fg = "#bb9af7", bg = "None" },
-		["ScrollViewDiagnosticsError"]   = { fg = "#f70067", bg = "None" },
-		["ScrollViewDiagnosticsWarn"]    = { fg = "#f79000", bg = "None" },
-		["ScrollViewDiagnosticsInfo"]    = { fg = "#a9ff68", bg = "None" },
-		["ScrollViewDiagnosticsHint"]    = { fg = "#1abc9c", bg = "None" },
-		["ScrollViewFolds"]              = { fg = "#7aa2f7", bg = "None" },
+		["ScrollViewCursor"]             = { fg = "#bb9af7" },
+		["ScrollViewDiagnosticsError"]   = { fg = "#f70067" },
+		["ScrollViewDiagnosticsWarn"]    = { fg = "#f79000" },
+		["ScrollViewDiagnosticsInfo"]    = { fg = "#a9ff68" },
+		["ScrollViewDiagnosticsHint"]    = { fg = "#1abc9c" },
+		["ScrollViewFolds"]              = { fg = "#7aa2f7" },
 		["ScrollViewSearch"]             = { fg = "Red", bg = "None", bold = true },
 		-- Gitsigns
 		["GitSignsCurrentLineBlame"]     = { fg = "Yellow", bg = "#1a1b26" },

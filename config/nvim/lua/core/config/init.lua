@@ -34,9 +34,9 @@ local plugins = {
 	['nvim-lualine/lualine.nvim'] = {
 		-- Desc: Status line
 		-- TODO: Config for dynamic lualine
-		config = function()
-			require("core.config.lualine")
-		end,
+		-- config = function()
+		-- 	require("core.config.lualine")
+		-- end,
 	},
 	['kdheepak/tabline.nvim'] = {
 		-- Desc: Tabline
@@ -123,9 +123,7 @@ local plugins = {
 	['glepnir/lspsaga.nvim'] = {
 		-- Desc: LSP better UI
 		event = "VeryLazy",
-		dependencies = {
-			'anuvyklack/windows.nvim',
-		},
+		commit = "7dfabd5",
 		config = function()
 			require("core.config.lspsaga")
 		end,
