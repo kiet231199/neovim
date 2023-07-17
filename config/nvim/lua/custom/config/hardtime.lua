@@ -10,7 +10,7 @@ hardtime.setup({
 	disable_mouse = false,
 	hint = true,
 	notifications = true,
-	allow_different_key = false,
+	allow_different_key = true,
 	resetting_keys = {
 		["1"] = { "n", "v" },
 		["2"] = { "n", "v" },
@@ -36,20 +36,7 @@ hardtime.setup({
 		["j"] = { "n", "v" },
 		["k"] = { "n", "v" },
 		["l"] = { "n", "v" },
-		["-"] = { "n", "v" },
-		["+"] = { "n", "v" },
-		["gj"] = { "n", "v" },
-		["gk"] = { "n", "v" },
-		["<CR>"] = { "n", "v" },
-		["<C-M>"] = { "n", "v" },
-		["<C-N>"] = { "n", "v" },
-		["<C-P>"] = { "n", "v" },
 	},
-	disabled_keys = {
-		-- ["<UP>"] = { "", "i" },
-		-- ["<DOWN>"] = { "", "i" },
-		-- ["<LEFT>"] = { "", "i" },
-		-- ["<RIGHT>"] = { "", "i" }
-	},
+	disabled_keys = {},
 	disabled_filetypes = { "qf", "netrw", "neo-tree", "lazy", "mason" },
 })

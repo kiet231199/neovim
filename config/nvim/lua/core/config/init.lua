@@ -140,18 +140,7 @@ local plugins = {
 			{ "<F3>", "<cmd> lua require'lsp_lines'.toggle()<CR>", mode = "", silent = true, noremap = true },
 		},
 	},
-	['jose-elias-alvarez/null-ls.nvim'] = {
-		-- Desc: Language server for builtin language
-		config = function()
-			require("core.config.null-ls")
-		end,
-	},
-	['MunifTanjim/prettier.nvim'] = {
-		-- Desc: Prettier for buitin language
-		config = function()
-			require("core.config.prettier")
-		end,
-	},
+
 	-- LSP completion source ---------------------------------------
 	['hrsh7th/nvim-cmp'] = {
 		-- Desc: Completion manager

@@ -192,20 +192,6 @@ custom.plugins = { -- Startup --------------------------------------------------
 			require("custom.config.trouble")
 		end,
 	},
-	['jose-elias-alvarez/null-ls.nvim'] = {
-		-- Desc: Language server for builtin language
-		event = "VeryLazy",
-		config = function()
-			require("custom.config.null-ls")
-		end,
-	},
-	['MunifTanjim/prettier.nvim'] = {
-		-- Desc: Prettier for buitin language
-		event = "VeryLazy",
-		config = function()
-			require("custom.config.prettier")
-		end,
-	},
 
 	-- LSP completion source ---------------------------------------
 	['hrsh7th/nvim-cmp'] = {
@@ -665,17 +651,6 @@ custom.plugins = { -- Startup --------------------------------------------------
 		config = function()
 			require("custom.config.hardtime")
 		end,
-	},
-	['romgrk/barbar.nvim'] = {
-		-- ERROR: Still can not modify this f**king plugin
-		enabled = false,
-		config = function()
-			require("custom.config.barbar")
-		end,
-	},
-	['rebelot/heirline.nvim'] = {
-		-- INFO: Replace for lualine
-		enabled = false,
 	},
 
 	-- Icon source (need to be placed at the end) ------------------
