@@ -50,7 +50,6 @@ vim.opt.listchars:append "eol:↲"
 vim.opt.listchars:append "tab:░░"
 
 vim.opt.shortmess:append "c"
-vim.opt.iskeyword:append "-"
 vim.opt.whichwrap:append "<,>,[,],h,l"
 
 vim.opt.formatoptions:remove({ "c", "r", "o" })
