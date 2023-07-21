@@ -164,7 +164,7 @@ cmp.setup({
 		end,
 		expandable_indicator = true,
 	},
-	sources = require("cmp").config.sources({
+	sources = {
 		{ name = "luasnip", option = { show_autosnippets = true }, priority = 9 },
 		{ name = "luasnip_choice", priority = 9 },
 		{ name = "nvim_lsp", priority = 8 },
@@ -174,7 +174,7 @@ cmp.setup({
 		{ name = "path", priority = 5 },
 		{ name = "env", priority = 4 },
 		{ name = "rg", priority = 3 },
-	}),
+	},
 	confirm_opts = {
 		behavior = require("cmp").ConfirmBehavior.Replace,
 		select = false,

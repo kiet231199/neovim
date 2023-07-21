@@ -644,14 +644,6 @@ custom.plugins = { -- Startup --------------------------------------------------
 			require("custom.config.easyread")
 		end,
 	},
-	['m4xshen/hardtime.nvim'] = {
-		-- Desc: Remind
-		-- INFO: Need to update Hint message, this plugin is in early
-		event = "VeryLazy",
-		config = function()
-			require("custom.config.hardtime")
-		end,
-	},
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {
