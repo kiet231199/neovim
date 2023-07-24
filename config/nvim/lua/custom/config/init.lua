@@ -645,6 +645,17 @@ custom.plugins = { -- Startup --------------------------------------------------
 		end,
 	},
 
+	-- Plugin on pending ----------------------------------------
+	['00sapo/visual.nvim'] = {
+		cond = false,
+	},
+	['willothy/nvim-cokeline'] = {
+		cond = false,
+	},
+	['rebelot/heirline.nvim'] = {
+		cond = false,
+	},
+
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {
 		-- Desc: devicons source for vim
