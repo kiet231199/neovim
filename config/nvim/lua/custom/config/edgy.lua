@@ -12,7 +12,7 @@ edgy.setup({
 			filter = function(buf)
 				return vim.b[buf].neo_tree_source == "filesystem"
 			end,
-			size = { width = 50 },
+			size = { height = 0.5 },
 		},
 		{
 			title = "Neo-Tree Git",
@@ -22,7 +22,6 @@ edgy.setup({
 			end,
 			pinned = true,
 			open = "Neotree position=right git_status",
-			size = { width = 50 },
 		},
 		{
 			title = "Neo-Tree Buffers",
@@ -32,17 +31,6 @@ edgy.setup({
 			end,
 			pinned = true,
 			open = "Neotree position=top buffers",
-			size = { width = 50 },
-		},
-		{
-			title = "Neo-Tree Document Symbols",
-			ft = "neo-tree",
-			filter = function(buf)
-				return vim.b[buf].neo_tree_source == "document_symbols"
-			end,
-			pinned = true,
-			open = "Neotree position=top document_symbols",
-			size = { width = 50 },
 		},
 		"neo-tree",
 	},
@@ -66,14 +54,13 @@ edgy.setup({
 		{
 			title = "Outline",
 			ft = "lspsagaoutline",
-			size = { width = 40 },
 		},
 	},
 	top = {},
 	options = {
-		left = { size = 30 },
-		bottom = { size = 10 },
-		right = { size = 30 },
+		left = { size = 50 },
+		bottom = { size = 15 },
+		right = { size = 40 },
 		top = { size = 10 },
 	},
 	-- edgebar animations

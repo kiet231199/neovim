@@ -47,7 +47,7 @@ end
 
 local kind_icons = {
 	Text          = "󰦨",
-	Method        = "m",
+	Method        = "",
 	Function      = "󰊕",
 	Constructor   = "",
 	Field         = "",

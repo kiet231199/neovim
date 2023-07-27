@@ -7,6 +7,6 @@ require("custom.options")
 -- Public plugins ------------------------------------------------------------------
 local plugins = {}
 
-plugins= require("custom.config")
+plugins = require("custom.config")
 
 return plugins

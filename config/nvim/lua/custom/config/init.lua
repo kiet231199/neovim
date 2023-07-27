@@ -168,7 +168,6 @@ custom.plugins = { -- Startup --------------------------------------------------
 	['glepnir/lspsaga.nvim'] = {
 		-- Desc: LSP better UI
 		event = "VeryLazy",
-		commit = "7dfabd5",
 		config = function()
 			require("custom.config.lspsaga")
 		end,
