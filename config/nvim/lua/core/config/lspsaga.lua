@@ -60,7 +60,7 @@ saga.setup({
 		text_hl_follow = true,
 		border_follow = true,
 		extend_relatedInformation = true,
-		diagnostic_only_current = true,
+		diagnostic_only_current = false,
 		keys = {
 			exec_action = 'o',
 			quit = 'q',
@@ -129,7 +129,7 @@ saga.setup({
 		collapse = '',
 		code_action = '💡',
 		actionfix = ' ',
-		lines = { '└', '├', '│', '─', '┌' },
+		lines = { '└', '├', '│', ' ', '┌' },
 		imp_sign = '󰳛 ',
 		kind = {
 			['File'] = { ' ', 'Tag' },
