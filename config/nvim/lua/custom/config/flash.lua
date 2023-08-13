@@ -182,7 +182,7 @@ flash.setup({
 			search = { incremental = false },
 			label = { before = true, after = true, style = "inline" },
 			highlight = {
-				backdrop = false,
+				backdrop = true,
 				matches = false,
 			},
 		},

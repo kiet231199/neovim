@@ -3,8 +3,8 @@ local saga = require('lspsaga')
 
 saga.setup({
 	preview = {
-		lines_above = 0,
-		lines_below = 10,
+		lines_above = 5,
+		lines_below = 5,
 	},
 	scroll_preview = {
 		scroll_down = '<C-d>',
@@ -14,7 +14,7 @@ saga.setup({
 	finder = {
 		max_height = 0.5,
 		left_width= 0.3,
-		right_width = 0.3,
+		right_width = 0.5,
 		method = {},
 		default = 'ref+imp',
 		layout = 'float',
@@ -22,7 +22,7 @@ saga.setup({
 		silent = false,
 		keys = {
 			shuttle = 'w',
-			toggle_or_oppen = '<CR>',
+			toggle_or_oppen = 'o',
 			vsplit = 'v',
 			split = 'h',
 			tabe = 't',
@@ -37,8 +37,8 @@ saga.setup({
 		priority = 100,
 	},
 	definition = {
-		width = '0.6',
-		height = '0.5',
+		width = '0.8',
+		height = '0.6',
 		keys= {
 			edit = 'o',
 			vsplit = 'v',
@@ -86,16 +86,17 @@ saga.setup({
 		}
 	},
 	outline = {
+		layout = 'float',
 		win_position = 'right',
 		win_width = 40,
 		auto_preview = true,
 		detail = true,
 		auto_close = true,
 		close_after_jump = false,
-		max_height = 0.9,
-		left_width = 0.1,
+		max_height = 0.6,
+		left_width = 0.3,
 		keys = {
-			toggle_or_jump= '<CR>',
+			toggle_or_jump= 'o',
 			quit = 'q',
 			jump = '<CR>'
 		},

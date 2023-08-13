@@ -1,6 +1,7 @@
 local custom = {}
 
-custom.plugins = { -- Startup -----------------------------------------------------
+custom.plugins = {
+	-- Startup -----------------------------------------------------
 	['goolord/alpha-nvim'] = {
 		-- Desc: Start up screen
 		config = function()
@@ -29,7 +30,7 @@ custom.plugins = { -- Startup --------------------------------------------------
 		end,
 	},
 
-	-- Workspace ---------------------------------------------------
+	-- Explorer ----------------------------------------------------
 	['nvim-neo-tree/neo-tree.nvim'] = {
 		-- Desc: File browser
 		-- INFO: Need to reconfigure highlight
@@ -355,6 +356,14 @@ custom.plugins = { -- Startup --------------------------------------------------
 			{ "t", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, },
 		},
 	},
+	['sustech-data/wildfire.nvim'] = {
+		-- Desc: Treesitter quick select
+		event = "VeryLazy",
+		dependencies = "nvim-treesitter/nvim-treesitter",
+		config = function()
+			require("wildfire").setup()
+		end,
+	},
 
 	-- Search ------------------------------------------------------
 	['VonHeikemen/searchbox.nvim'] = {
@@ -532,13 +541,6 @@ custom.plugins = { -- Startup --------------------------------------------------
 			require("custom.config.twilight")
 		end,
 	},
-	['Bekaboo/deadcolumn.nvim'] = {
-	 	-- Desc: Page column
-		event = "VeryLazy",
-		config = function()
-			require("custom.config.deadcolumn")
-		end,
-	},
 	['yaocccc/nvim-foldsign'] = {
 		-- Desc: Fold sign
 		event = "VeryLazy",
@@ -569,6 +571,19 @@ custom.plugins = { -- Startup --------------------------------------------------
 			require("custom.config.indentblankline")
 		end,
 	},
+	['fmbarina/multicolumn.nvim'] = {
+		-- Desc: Smart column
+		config = function()
+			require("custom.config.multicolumn")
+		end,
+	},
+	['JellyApple102/easyread.nvim'] = {
+		-- Desc: Bionic highlighting
+		event = "VeryLazy",
+		config = function()
+			require("custom.config.easyread")
+		end,
+	},
 
 	-- Register, session ---------------------------------------
 	['Shatur/neovim-session-manager'] = {
@@ -592,6 +607,7 @@ custom.plugins = { -- Startup --------------------------------------------------
 			{ "<F4>", "<cmd>lua require'codewindow'.toggle_minimap()<CR>", mode = "", silent = true, noremap = true },
 		}
 	},
+
 	-- Winbar ---------------------------------------------------
 	['Bekaboo/dropbar.nvim'] = {
 	 	-- Desc: Dropping winbar
@@ -636,13 +652,6 @@ custom.plugins = { -- Startup --------------------------------------------------
 		end,
 	},
 	-- Plugin on testing ----------------------------------------
-	['JellyApple102/easyread.nvim'] = {
-		-- Desc: Bionic highlighting
-		event = "VeryLazy",
-		config = function()
-			require("custom.config.easyread")
-		end,
-	},
 
 	-- Plugin on pending ----------------------------------------
 	['00sapo/visual.nvim'] = {
