@@ -12,9 +12,9 @@ saga.setup({
 	},
 	request_timeout = 2000,
 	finder = {
-		max_height = 0.5,
+		max_height = 0.6,
 		left_width= 0.3,
-		right_width = 0.5,
+		right_width = 0.6,
 		method = {},
 		default = 'ref+imp',
 		layout = 'float',
@@ -38,7 +38,7 @@ saga.setup({
 	},
 	definition = {
 		width = '0.8',
-		height = '0.6',
+		height = '0.5',
 		keys= {
 			edit = 'o',
 			vsplit = 'v',
@@ -93,8 +93,8 @@ saga.setup({
 		detail = true,
 		auto_close = true,
 		close_after_jump = false,
-		max_height = 0.6,
-		left_width = 0.3,
+		max_height = 0.5,
+		left_width = 0.25,
 		keys = {
 			toggle_or_jump= 'o',
 			quit = 'q',
