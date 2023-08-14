@@ -8,7 +8,7 @@ multicolumn.setup({
 	start = 'enabled',
 	base_set = {
 		scope = 'line',
-		rulers = {},
+		rulers = { 80 },
 		to_line_end = true,
 		full_column = true,
 		always_on = false,
@@ -16,11 +16,14 @@ multicolumn.setup({
 		fg_color = nil,
 	},
 	sets = {
+		alpha = {
+			rulers = { 0 },
+		},
 		default = {
 			rulers = { 80 },
 		},
 	},
 	line_limit = 300,
 	exclude_floating = true,
-	exclude_ft = { 'alpha', 'help' },
+	exclude_ft = { 'alpha', 'help', 'markdown', 'netrw' },
 })
