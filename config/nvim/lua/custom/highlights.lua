@@ -102,6 +102,19 @@ local highlights = {
 		["FlashMatch"]                   = { fg = "Yellow", bold = true },
 		["FlashPrompt"]                  = { link = "Normal" },
 		["FlashPromptIcon"]              = { link = "Normal" },
+		-- Drop
+		["Drop1"]                        = { fg = "#3a3920", bg = "#1a1b26", blend = 0 },
+		["Drop1Bold"]                    = { fg = "#3a3920", bg = "#1a1b26", bold = true, blend = 0 },
+		["Drop2"]                        = { fg = "#807622", bg = "#1a1b26", blend = 0 },
+		["Drop2Bold"]                    = { fg = "#807622", bg = "#1a1b26", bold = true, blend = 0 },
+		["Drop3"]                        = { fg = "#eaa724", bg = "#1a1b26", blend = 0 },
+		["Drop3Bold"]                    = { fg = "#eaa724", bg = "#1a1b26", bold = true, blend = 0 },
+		["Drop4"]                        = { fg = "#d25b01", bg = "#1a1b26", blend = 0 },
+		["Drop4Bold"]                    = { fg = "#d25b01", bg = "#1a1b26", bold = true, blend = 0 },
+		["Drop5"]                        = { fg = "#5b1c02", bg = "#1a1b26", blend = 0 },
+		["Drop5Bold"]                    = { fg = "#5b1c02", bg = "#1a1b26", bold = true, blend = 0 },
+		["Drop6"]                        = { fg = "#740819", bg = "#1a1b26", blend = 0 },
+		["Drop6Bold"]                    = { fg = "#740819", bg = "#1a1b26", bold = true, blend = 0 },
 	}
 }
 

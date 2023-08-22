@@ -7,8 +7,8 @@ saga.setup({
 		lines_below = 5,
 	},
 	scroll_preview = {
-		scroll_down = '<C-d>',
-		scroll_up = '<C-u>',
+		scroll_down = '<C-f>',
+		scroll_up = '<C-b>',
 	},
 	request_timeout = 2000,
 	finder = {
@@ -64,7 +64,6 @@ saga.setup({
 		keys = {
 			exec_action = 'o',
 			quit = 'q',
-			go_action = 'g',
 			toggle_or_jump = '<CR>',
 			quit_in_show = { 'q', '<ESC>' },
 		},

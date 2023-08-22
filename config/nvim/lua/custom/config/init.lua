@@ -343,7 +343,17 @@ custom.plugins = {
 		config = function()
 			require("nvim-surround").setup()
 		end,
-		event = "InsertEnter",
+	},
+	['roobert/surround-ui.nvim'] = {
+		dependencies = {
+			"kylechui/nvim-surround",
+			"folke/which-key.nvim",
+		},
+		config = function()
+			require("surround-ui").setup({
+				root_key = "s"
+			})
+		end,
 	},
 	['folke/flash.nvim'] = {
 		-- Desc: navigate code fast
@@ -654,11 +664,11 @@ custom.plugins = {
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------
-	['00sapo/visual.nvim'] = {
-		cond = false,
-	},
 	['willothy/nvim-cokeline'] = {
 		cond = false,
+		-- config = function()
+		-- 	require("custom.config.cokeline")
+		-- end,
 	},
 	['rebelot/heirline.nvim'] = {
 		cond = false,
