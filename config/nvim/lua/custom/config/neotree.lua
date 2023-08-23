@@ -9,9 +9,9 @@ neotree.setup({
 	popup_border_style = "rounded",
 	enable_git_status = true,
 	enable_diagnostics = true,
-	open_files_do_not_replace_types = { "terminal", "trouble", "qf" },     -- when opening files, do not use windows containing these filetypes or buftypes
-	sort_case_insensitive = false,                                         -- used when sorting files and directories in the tree
-	sort_function = nil,                                                   -- use a custom function for sorting files and directories in the tree
+	open_files_do_not_replace_types = { "terminal", "trouble", "qf", "edgy" },     -- when opening files, do not use windows containing these filetypes or buftypes
+	sort_case_insensitive = false,                                                 -- used when sorting files and directories in the tree
+	sort_function = nil,                                                           -- use a custom function for sorting files and directories in the tree
 	default_component_configs = {
 		container = {
 			enable_character_fade = false
