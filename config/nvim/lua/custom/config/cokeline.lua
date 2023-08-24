@@ -15,6 +15,9 @@ local my_color = {
         fg = "#5c87eb",
         bg = "#3b4261",
     },
+    normal = {
+        bg = "#13141c",
+    },
 }
 
 cokeline.setup({
@@ -52,7 +55,7 @@ cokeline.setup({
                     and my_color.focus.bg
                     or my_color.non_focus.bg
             end,
-            bg = get_hex('Normal', 'bg'),
+            bg = my_color.normal.bg
 		},
 		{
 			text = ' ',
@@ -131,30 +134,23 @@ cokeline.setup({
                     and my_color.focus.bg
                     or my_color.non_focus.bg
             end,
-            bg = get_hex('Normal', 'bg'),
+            bg = my_color.normal.bg
 		},
 		{
 			text = ' ',
-			fg = get_hex('Normal', 'fg'),
-			bg = get_hex('Normal', 'bg'),
+			bg = my_color.normal.bg,
 		},
 	},
 
-	-- Custom areas can be displayed on the right hand side of the bufferline.
-	-- They act identically to buffer components, except their methods don't take a Buffer object.
-	-- If you want a rhs component to be stateful, you can wrap it in a closure containing state.
-	-- rhs = {},
+	rhs = {},
 
-	-- Tabpages can be displayed on either the left or right of the bufferline.
-	-- They act the same as other components, except they are passed TabPage objects instead of
-	-- buffer objects.
 	tabs = {
 		placement = "right",
 		components = {
             {
                 text = '',
                 fg = my_color.focus.bg,
-                bg = get_hex('Normal', 'bg'),
+                bg = my_color.normal.bg,
             },
             {
                 text = function(buffer)
@@ -167,7 +163,7 @@ cokeline.setup({
             {
                 text = '',
                 fg = my_color.focus.bg,
-                bg = get_hex('Normal', 'bg'),
+                bg = my_color.normal.bg,
             },
         },
     },
