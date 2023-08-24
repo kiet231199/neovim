@@ -59,10 +59,10 @@ custom.plugins = {
 			require("custom.config.lualine")
 		end,
 	},
-	['kdheepak/tabline.nvim'] = {
+	['willothy/nvim-cokeline'] = {
 		-- Desc: Tabline
 		config = function()
-			require("custom.config.tabline")
+			require("custom.config.cokeline")
 		end,
 	},
 
@@ -664,12 +664,6 @@ custom.plugins = {
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------
-	['willothy/nvim-cokeline'] = {
-		cond = false,
-		-- config = function()
-		-- 	require("custom.config.cokeline")
-		-- end,
-	},
 	['rebelot/heirline.nvim'] = {
 		cond = false,
 	},

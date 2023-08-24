@@ -31,19 +31,19 @@ local plugins = {
 		},
 	},
 	-- Tabline and Statusline --------------------------------------
-	-- ['nvim-lualine/lualine.nvim'] = {
-	-- 	-- Desc: Status line
-	-- 	-- TODO: Config for dynamic lualine
-	-- 	config = function()
-	-- 		require("core.config.lualine")
-	-- 	end,
-	-- },
-	-- ['kdheepak/tabline.nvim'] = {
-	-- 	-- Desc: Tabline
-	-- 	config = function()
-	-- 		require("core.config.tabline")
-	-- 	end,
-	-- },
+	['nvim-lualine/lualine.nvim'] = {
+		-- Desc: Status line
+		-- TODO: Config for dynamic lualine
+		config = function()
+			require("core.config.lualine")
+		end,
+	},
+	['willothy/nvim-cokeline'] = {
+		-- Desc: Tabline
+		config = function()
+			require("core.config.cokeline")
+		end,
+	},
 	-- Git ---------------------------------------------------------
 	['lewis6991/gitsigns.nvim'] = {
 		-- Desc: Git icon

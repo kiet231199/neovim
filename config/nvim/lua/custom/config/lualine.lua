@@ -157,18 +157,6 @@ lualine.setup({
 		lualine_y = {'progress'},
 		lualine_z = {'location'}
 	},
-	tabline = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = { require("tabline").tabline_buffers },
-		lualine_x = {},
-		lualine_y = { { 'tabs' } },
-		lualine_z = {
-			{
-				'datetime',
-				 style = "%H:%M - %a, %d/%m/%Y",
-			},
-		},
-	},
+    tabline = {},
 	extensions = {},
 })
