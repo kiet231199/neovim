@@ -24,13 +24,13 @@ edgy.setup({
 			open = "Neotree position=right git_status",
 		},
 		{
-			title = "Neo-Tree Buffers",
+			title = "Neo-Tree Doccuments Symbols",
 			ft = "neo-tree",
 			filter = function(buf)
-				return vim.b[buf].neo_tree_source == "buffers"
+				return vim.b[buf].neo_tree_source == "document_symbols"
 			end,
 			pinned = true,
-			open = "Neotree position=top buffers",
+			open = "Neotree position=top document_symbols",
 		},
 		"neo-tree",
 	},
