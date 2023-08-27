@@ -1,7 +1,7 @@
 local status_ok, cokeline = pcall(require, "cokeline")
 if not status_ok then
-	print("Error: cokeline")
-	return
+    print("Error: cokeline")
+    return
 end
 
 local get_hex = require('cokeline/utils').get_hex
@@ -21,34 +21,34 @@ local my_color = {
 }
 
 cokeline.setup({
-	show_if_buffers_are_at_least = 1,
-	buffers = {
-		focus_on_delete = 'next',
-		new_buffers_position = 'last',
-		delete_on_right_click = true,
-	},
-	rendering = {
-		max_buffer_width = 60,
-	},
+    show_if_buffers_are_at_least = 1,
+    buffers = {
+        focus_on_delete = 'next',
+        new_buffers_position = 'last',
+        delete_on_right_click = false,
+    },
+    rendering = {
+        max_buffer_width = 60,
+    },
 
-	default_hl = {
-		fg = function(buffer)
-			return
-				buffer.is_focused
-				and my_color.focus.fg
-				or my_color.non_focus.fg
-		end,
-		bg = function(buffer)
-			return
-				buffer.is_focused
-				and my_color.focus.bg
-				or my_color.non_focus.bg
-		end,
-	},
+    default_hl = {
+        fg = function(buffer)
+            return
+                buffer.is_focused
+                and my_color.focus.fg
+                or my_color.non_focus.fg
+        end,
+        bg = function(buffer)
+            return
+                buffer.is_focused
+                and my_color.focus.bg
+                or my_color.non_focus.bg
+        end,
+    },
 
-	components = {
-		{
-			text = '',
+    components = {
+        {
+            text = '',
             fg = function(buffer)
                 return
                     buffer.is_focused
@@ -56,39 +56,54 @@ cokeline.setup({
                     or my_color.non_focus.bg
             end,
             bg = my_color.normal.bg
-		},
-		{
-			text = ' ',
-		},
-		{
-			text = function(buffer)
-				return buffer.devicon.icon
-			end,
-			fg = function(buffer)
+        },
+        {
+            text = ' ',
+        },
+        {
+            text = function(buffer)
+                return buffer.devicon.icon
+            end,
+            fg = function(buffer)
                 if buffer.is_focused then
                     return my_color.focus.fg
                 else
                     return buffer.devicon.color
                 end
-			end,
-		},
-		{
-			text = ' ',
-		},
+            end,
+        },
+        {
+            text = ' ',
+        },
         {
             text = function(buffer) return buffer.index .. ':' end,
-			style = function(buffer)
-				return buffer.is_focused and 'bold' or nil
-			end,
+            style = function(buffer)
+                return buffer.is_focused and 'bold' or nil
+            end,
         },
-		{
-			text = function(buffer) return buffer.filename .. ' ' end,
-			style = function(buffer)
-				return buffer.is_focused and 'bold' or nil
-			end,
-		},
-		{
-			text = function(buffer)
+        {
+            text = function(buffer) return buffer.filename end,
+            style = function(buffer)
+                return buffer.is_focused and 'bold' or nil
+            end,
+        },
+        {
+            text = function(buffer)
+                if buffer.is_modified then
+                    return ' ' .. ''
+                else
+                    return ''
+                end
+            end,
+            style = function(buffer)
+                return buffer.is_focused and 'bold' or nil
+            end,
+        },
+        {
+            text = ' ',
+        },
+        {
+            text = function(buffer)
                 if buffer.is_focused then
                     if buffer.diagnostics.errors ~= 0 then
                         return ":" .. buffer.diagnostics.errors
@@ -102,32 +117,34 @@ cokeline.setup({
                 else
                     return ''
                 end
-			end,
-            style = 'bold',
-			fg = function(buffer)
+            end,
+            style = function(buffer)
+                return buffer.is_focused and 'bold' or nil
+            end,
+            fg = function(buffer)
                 if buffer.diagnostics.errors ~= 0 then
                     return get_hex('DiagnosticError', 'fg')
                 else
-                    if buffer.diagnostics.warnings ~=0 then
+                    if buffer.diagnostics.warnings ~= 0 then
                         return get_hex('DiagnosticWarning', 'fg')
                     else
                         return my_color.focus.fg
                     end
                 end
-			end,
-		},
-		{
-			text = ' ',
-		},
-		{
-			text = '',
-			delete_buffer_on_left_click = true,
-		},
-		{
-			text = ' ',
-		},
-		{
-			text = '',
+            end,
+        },
+        {
+            text = ' ',
+        },
+        {
+            text = '',
+            delete_buffer_on_left_click = true,
+        },
+        {
+            text = ' ',
+        },
+        {
+            text = '',
             fg = function(buffer)
                 return
                     buffer.is_focused
@@ -135,18 +152,18 @@ cokeline.setup({
                     or my_color.non_focus.bg
             end,
             bg = my_color.normal.bg
-		},
-		{
-			text = ' ',
-			bg = my_color.normal.bg,
-		},
-	},
+        },
+        {
+            text = ' ',
+            bg = my_color.normal.bg,
+        },
+    },
 
-	rhs = {},
+    rhs = {},
 
-	tabs = {
-		placement = "right",
-		components = {
+    tabs = {
+        placement = "right",
+        components = {
             {
                 text = '',
                 fg = my_color.focus.bg,

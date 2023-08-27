@@ -661,6 +661,13 @@ custom.plugins = {
 			]]
 		end,
 	},
+    ['NStefan002/speedtyper.nvim'] = {
+        -- Desc: Game - Monkey type
+        config = function()
+            require("speedtyper").setup({ time = 60 })
+        end
+    },
+
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------
