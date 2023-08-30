@@ -88,6 +88,9 @@ cokeline.setup({
             end,
         },
         {
+            text = ' ',
+        },
+        {
             text = function(buffer)
                 if buffer.is_modified then
                     return ' ' .. ''
@@ -97,40 +100,6 @@ cokeline.setup({
             end,
             style = function(buffer)
                 return buffer.is_focused and 'bold' or nil
-            end,
-        },
-        {
-            text = ' ',
-        },
-        {
-            text = function(buffer)
-                if buffer.is_focused then
-                    if buffer.diagnostics.errors ~= 0 then
-                        return ":" .. buffer.diagnostics.errors
-                    else
-                        if buffer.diagnostics.warnings ~= 0 then
-                            return ":" .. buffer.diagnostics.warnings
-                        else
-                            return ''
-                        end
-                    end
-                else
-                    return ''
-                end
-            end,
-            style = function(buffer)
-                return buffer.is_focused and 'bold' or nil
-            end,
-            fg = function(buffer)
-                if buffer.diagnostics.errors ~= 0 then
-                    return get_hex('DiagnosticError', 'fg')
-                else
-                    if buffer.diagnostics.warnings ~= 0 then
-                        return get_hex('DiagnosticWarning', 'fg')
-                    else
-                        return my_color.focus.fg
-                    end
-                end
             end,
         },
         {
@@ -165,13 +134,56 @@ cokeline.setup({
         placement = "right",
         components = {
             {
-                text = '',
-                fg = my_color.focus.bg,
+                text = ' ',
                 bg = my_color.normal.bg,
             },
             {
-                text = function(buffer)
-                    return ' 󰃰 ' .. vim.fn.strftime('%H:%M - %a, %d/%m/%Y') .. ' '
+                text = '',
+                fg = my_color.non_focus.bg,
+                bg = my_color.normal.bg,
+            },
+            {
+                text = function()
+                    local counts = { 0, 0, 0, 0, }
+                    for _, d in pairs(vim.diagnostic.get(0)) do
+                        counts[d.severity] = counts[d.severity] + 1
+                    end
+                    if counts[1] ~= 0 then
+                        return ' :' .. counts[1] .. ' '
+                    else
+                        if counts[2] ~= 0 then
+                            return ' :' .. counts[2] .. ' '
+                        else
+                            return ' '
+                        end
+                    end
+                end,
+                fg = function()
+                    local counts = { 0, 0, 0, 0, }
+                    for _, d in pairs(vim.diagnostic.get(0)) do
+                        counts[d.severity] = counts[d.severity] + 1
+                    end
+                    if counts[1] ~= 0 then
+                        return get_hex('DiagnosticError', 'fg')
+                    else
+                        if counts[2] ~= 0 then
+                            return get_hex('DiagnosticWarning', 'fg')
+                        end
+                    end
+                end,
+            },
+            {
+                text = '',
+                fg = my_color.focus.bg,
+                bg = my_color.non_focus.bg,
+            },
+            {
+                text = function()
+                    if vim.fn.winwidth(0) > 100 then
+                        return ' 󰃰 ' .. vim.fn.strftime('%H:%M - %a, %d/%m/%Y') .. ' '
+                    else
+                        return ' 󰃰 ' .. vim.fn.strftime('%H:%M - %D') .. ' '
+                    end
                 end,
                 style = 'bold',
                 fg = my_color.focus.fg,
@@ -185,3 +197,4 @@ cokeline.setup({
         },
     },
 })
+
