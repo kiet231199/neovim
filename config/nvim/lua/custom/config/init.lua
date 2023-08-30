@@ -673,6 +673,9 @@ custom.plugins = {
 	-- Plugin on pending ----------------------------------------
 	['rebelot/heirline.nvim'] = {
 		cond = false,
+        config = function()
+            require("custom.config.heirline")
+        end,
 	},
 
 	-- Icon source (need to be placed at the end) ------------------

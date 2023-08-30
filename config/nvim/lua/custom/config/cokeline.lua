@@ -23,9 +23,9 @@ local my_color = {
 cokeline.setup({
     show_if_buffers_are_at_least = 1,
     buffers = {
-        focus_on_delete = 'next',
-        new_buffers_position = 'last',
-        delete_on_right_click = false,
+        focus_on_delete = 'prev',
+        new_buffers_position = 'next',
+        delete_on_right_click = true,
     },
     rendering = {
         max_buffer_width = 60,
@@ -107,7 +107,9 @@ cokeline.setup({
         },
         {
             text = '',
-            delete_buffer_on_left_click = true,
+            on_click = function(_, _, _, _, buffer)
+                buffer:delete()
+            end,
         },
         {
             text = ' ',
