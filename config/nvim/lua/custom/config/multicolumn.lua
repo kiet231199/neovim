@@ -12,7 +12,7 @@ multicolumn.setup({
 		to_line_end = true,
 		full_column = true,
 		always_on = false,
-		bg_color = nil,
+		bg_color = "#13141c",
 		fg_color = nil,
 	},
 	sets = {
