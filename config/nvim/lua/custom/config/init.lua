@@ -472,7 +472,6 @@ custom.plugins = {
 			'nvim-neo-tree/neo-tree.nvim',
 		},
 		init = function()
-			vim.opt.laststatus = 3
 			vim.opt.splitkeep = "screen"
 		end,
 		config = function()
@@ -673,6 +672,9 @@ custom.plugins = {
 	-- Plugin on pending ----------------------------------------
 	['rebelot/heirline.nvim'] = {
 		cond = false,
+        init = function()
+			vim.opt.laststatus = 2
+        end,
         config = function()
             require("custom.config.heirline")
         end,
