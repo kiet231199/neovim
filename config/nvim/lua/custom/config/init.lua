@@ -525,6 +525,7 @@ custom.plugins = {
 	},
 	['nvim-zh/colorful-winsep.nvim'] = {
 		-- Desc: Win separator
+        cond = true,
 		config = function()
 			require("custom.config.winsep")
 		end,
@@ -679,6 +680,8 @@ custom.plugins = {
             require("custom.config.heirline")
         end,
 	},
+    ['mfussenegger/nvim-dap'] = { cond = false },
+    ['rcarriga/nvim-dap-ui'] = { cond = false },
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {
