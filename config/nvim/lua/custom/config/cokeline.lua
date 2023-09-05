@@ -77,14 +77,14 @@ cokeline.setup({
         },
         {
             text = function(buffer) return buffer.index .. ':' end,
-            style = function(buffer)
-                return buffer.is_focused and 'bold' or nil
+            bold = function(buffer)
+                return buffer.is_focused
             end,
         },
         {
             text = function(buffer) return buffer.filename end,
-            style = function(buffer)
-                return buffer.is_focused and 'bold' or nil
+            bold = function(buffer)
+                return buffer.is_focused
             end,
         },
         {
@@ -98,8 +98,8 @@ cokeline.setup({
                     return ''
                 end
             end,
-            style = function(buffer)
-                return buffer.is_focused and 'bold' or nil
+            bold = function(buffer)
+                return buffer.is_focused
             end,
         },
         {
@@ -187,7 +187,7 @@ cokeline.setup({
                         return ' 󰃰 ' .. vim.fn.strftime('%H:%M - %D') .. ' '
                     end
                 end,
-                style = 'bold',
+                bold = true,
                 fg = my_color.focus.fg,
                 bg = my_color.focus.bg,
             },

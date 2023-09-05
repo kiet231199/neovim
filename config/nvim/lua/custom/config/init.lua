@@ -55,6 +55,7 @@ custom.plugins = {
 	['nvim-lualine/lualine.nvim'] = {
 		-- Desc: Status line
 		-- TODO: Config for dynamic lualine
+        cond = false,
 		config = function()
 			require("custom.config.lualine")
 		end,
@@ -672,9 +673,10 @@ custom.plugins = {
 
 	-- Plugin on pending ----------------------------------------
 	['rebelot/heirline.nvim'] = {
-		cond = false,
+		cond = true,
         init = function()
 			vim.opt.laststatus = 2
+            vim.opt.showcmdloc = 'statusline'
         end,
         config = function()
             require("custom.config.heirline")

@@ -11,7 +11,7 @@ winsep.setup({
 		fg = "#A9B1D6"
 	},
 	-- timer refresh rate
-	interval = 100,
+	interval = 50,
 	-- filetype in the list, will not be executed
 	no_exec_files = { "lazy", "TelescopePrompt", "mason", "CompetiTest", "NvimTree" },
 	-- Split line symbol definition
