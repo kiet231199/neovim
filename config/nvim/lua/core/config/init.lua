@@ -31,12 +31,14 @@ local plugins = {
 		},
 	},
 	-- Tabline and Statusline --------------------------------------
-	['nvim-lualine/lualine.nvim'] = {
-		-- Desc: Status line
-		-- TODO: Config for dynamic lualine
-		config = function()
-			require("core.config.lualine")
-		end,
+	['rebelot/heirline.nvim'] = {
+        init = function()
+			vim.opt.laststatus = 2
+            vim.opt.showcmdloc = 'statusline'
+        end,
+        config = function()
+            require("core.config.heirline")
+        end,
 	},
 	['willothy/nvim-cokeline'] = {
 		-- Desc: Tabline

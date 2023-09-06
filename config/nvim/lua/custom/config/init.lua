@@ -52,13 +52,16 @@ custom.plugins = {
 	},
 
 	-- Tabline and Statusline --------------------------------------
-	['nvim-lualine/lualine.nvim'] = {
-		-- Desc: Status line
-		-- TODO: Config for dynamic lualine
-        cond = false,
-		config = function()
-			require("custom.config.lualine")
-		end,
+	['rebelot/heirline.nvim'] = {
+        init = function()
+			vim.opt.laststatus = 2
+            vim.opt.showcmdloc = 'statusline'
+            vim.opt.showtabline = 2
+            vim.cmd([[au FileType * if index(['wipe', 'delete'], &bufhidden) >= 0 | set nobuflisted | endif]])
+        end,
+        config = function()
+            require("custom.config.heirline")
+        end,
 	},
 	['willothy/nvim-cokeline'] = {
 		-- Desc: Tabline
@@ -672,16 +675,6 @@ custom.plugins = {
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------
-	['rebelot/heirline.nvim'] = {
-		cond = true,
-        init = function()
-			vim.opt.laststatus = 2
-            vim.opt.showcmdloc = 'statusline'
-        end,
-        config = function()
-            require("custom.config.heirline")
-        end,
-	},
     ['mfussenegger/nvim-dap'] = { cond = false },
     ['rcarriga/nvim-dap-ui'] = { cond = false },
 
