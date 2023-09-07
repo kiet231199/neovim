@@ -675,8 +675,11 @@ custom.plugins = {
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------
+    ['nvim-treesitter/nvim-treesitter-textobjects'] = { cond = false },
     ['mfussenegger/nvim-dap'] = { cond = false },
     ['rcarriga/nvim-dap-ui'] = { cond = false },
+    ['jay-babu/mason-nvim-dap.nvim'] = { cond = false },
+
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {
