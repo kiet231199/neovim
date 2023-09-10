@@ -32,19 +32,16 @@ local plugins = {
 	},
 	-- Tabline and Statusline --------------------------------------
 	['rebelot/heirline.nvim'] = {
+        -- Desc: Show both tabline and statusline
         init = function()
 			vim.opt.laststatus = 2
             vim.opt.showcmdloc = 'statusline'
+            vim.opt.showtabline = 2
+            vim.cmd([[au FileType * if index(['wipe', 'delete'], &bufhidden) >= 0 | set nobuflisted | endif]])
         end,
         config = function()
             require("core.config.heirline")
         end,
-	},
-	['willothy/nvim-cokeline'] = {
-		-- Desc: Tabline
-		config = function()
-			require("core.config.cokeline")
-		end,
 	},
 	-- Git ---------------------------------------------------------
 	['lewis6991/gitsigns.nvim'] = {

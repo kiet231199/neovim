@@ -18,6 +18,10 @@ local my_color = {
         bg = "#7aa2f7",
     },
     secondary = {
+        fg = "#0c1220",
+        bg = "#616da0",
+    },
+    tertiary = {
         fg = "#5c87eb",
         bg = "#3b4261",
     },
@@ -110,8 +114,8 @@ local vimode = {
             ["!"] = "󰋖",
         },
         mode_colors = {
-            n = "cyan",
-            i = "#7aa2f7" ,
+            n = "#7aa2f7",
+            i = "#3d59a1",
             v = "#5c87eb",
             V = "#5c87eb",
             c =  "#3acaba",
@@ -178,10 +182,9 @@ local vimode = {
         provider = '',
         hl = function(self)
             local mode = vim.fn.mode(1):sub(1, 1) -- get only the first mode character
-            return { fg = self.mode_colors[mode], bold = true, bg = my_color.normal.bg }
+            return { fg = self.mode_colors[mode], bold = true, bg = my_color.secondary.bg }
         end,
     },
-    { provider = " " },
 }
 
 local has_git = {
@@ -196,50 +199,11 @@ local has_git = {
         fg = my_color.secondary.fg,
         bg = my_color.secondary.bg,
     },
-    {
-        provider = '',
-        hl = {
-            fg = my_color.primary.bg,
-            bg = my_color.normal.bg,
-        },
-    },
     {   -- git branch name
         provider = function(self)
-            return " " .. self.status_dict.head
+            return "  " .. self.status_dict.head
         end,
-        hl = {
-            fg = my_color.primary.fg,
-            bg = my_color.primary.bg,
-            bold = true,
-        },
-    },
-    {
-        provider = '',
-        hl = {
-            fg = my_color.primary.bg,
-            bg = my_color.secondary.bg,
-        },
-    },
-    {
-        provider = function(self)
-            local count = self.status_dict.added or 0
-            return count > 0 and (" " .. count)
-        end,
-        hl = { fg = "green" },
-    },
-    {
-        provider = function(self)
-            local count = self.status_dict.removed or 0
-            return count > 0 and (" " .. count)
-        end,
-        hl = { fg = "red" },
-    },
-    {
-        provider = function(self)
-            local count = self.status_dict.changed or 0
-            return count > 0 and (" " .. count)
-        end,
-        hl = { fg = "yellow" },
+        hl = { bold = true },
     },
     {
         condition = function(self)
@@ -250,6 +214,34 @@ local has_git = {
             return (count > 0)
         end,
         provider = ' ',
+    },
+    {
+        provider = function(self)
+            local count = self.status_dict.added or 0
+            return count > 0 and (" " .. count)
+        end,
+        hl = { fg = "#374a45" },
+    },
+    {
+        provider = function(self)
+            local count = self.status_dict.removed or 0
+            return count > 0 and (" " .. count)
+        end,
+        hl = { fg = "#cc0000" },
+    },
+    {
+        provider = function(self)
+            local count = self.status_dict.changed or 0
+            return count > 0 and (" " .. count)
+        end,
+        hl = { fg = "yellow" },
+    },
+    {
+        provider = '',
+        hl = {
+            fg = my_color.secondary.bg,
+            bg = my_color.tertiary.bg,
+        },
     },
     on_click = {
         callback = function()
@@ -265,27 +257,20 @@ local none_git = {
         return (conditions.is_active() and not conditions.is_git_repo()) and not conditions.buffer_matches(my_exclude)
     end,
     hl = {
-        fg = my_color.primary.fg,
-        bg = my_color.primary.bg,
-    },
-    {
-        provider = '',
-        hl = {
-            fg = my_color.primary.bg,
-            bg = my_color.normal.bg,
-        },
+        fg = my_color.secondary.fg,
+        bg = my_color.secondary.bg,
     },
     {   -- git branch name
         provider = function()
-            return " None"
+            return "  None"
         end,
         hl = { bold = true }
     },
     {
         provider = '',
         hl = {
-            fg = my_color.primary.bg,
-            bg = my_color.secondary.bg,
+            fg = my_color.secondary.bg,
+            bg = my_color.tertiary.bg,
         },
     },
 }
@@ -312,7 +297,7 @@ local filename = {
             if conditions.buffer_matches(my_exclude) then
                 return { fg = my_color.primary.fg, bg = my_color.primary.bg }
             else
-                return { fg = my_color.secondary.fg, bg = my_color.secondary.bg }
+                return { fg = my_color.tertiary.fg, bg = my_color.tertiary.bg }
             end
         else
             return { fg = my_color.normal.fg, bg = my_color.normal.bg }
@@ -371,7 +356,7 @@ local filename = {
             if conditions.buffer_matches(my_exclude) then
                 return { fg = my_color.primary.bg, bg = my_color.primary.fg, bold = true }
             else
-                return { fg = my_color.secondary.bg, bg = my_color.normal.bg, bold = true }
+                return { fg = my_color.tertiary.bg, bg = my_color.normal.bg, bold = true }
             end
         end,
     },
@@ -400,14 +385,14 @@ local diagnostics = {
         self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
     end,
     hl = {
-        fg = my_color.secondary.fg,
-        bg = my_color.secondary.bg,
+        fg = my_color.tertiary.fg,
+        bg = my_color.tertiary.bg,
     },
     update = { "DiagnosticChanged", "BufEnter" },
     {
         provider = '',
         hl = {
-            fg = my_color.secondary.bg,
+            fg = my_color.tertiary.bg,
             bg = my_color.normal.bg,
         },
     },
@@ -464,7 +449,7 @@ local lsp = {
         provider = '',
         hl = {
             fg = my_color.primary.bg,
-            bg = my_color.secondary.bg,
+            bg = my_color.tertiary.bg,
         },
     },
     {
@@ -480,7 +465,7 @@ local lsp = {
         provider = '',
         hl = {
             fg = my_color.primary.bg,
-            bg = my_color.secondary.bg,
+            bg = my_color.tertiary.bg,
         },
     },
     on_click = {
@@ -507,8 +492,8 @@ local debugger = {
     -- end,
     -- hl = "Debug"
     hl = {
-        fg = my_color.secondary.fg,
-        bg = my_color.secondary.bg,
+        fg = my_color.tertiary.fg,
+        bg = my_color.tertiary.bg,
     },
     {
         provider = function()
@@ -519,7 +504,7 @@ local debugger = {
     {
         provider = '',
         hl = {
-            fg = my_color.secondary.bg,
+            fg = my_color.tertiary.bg,
             bg = my_color.normal.bg,
         },
     },
@@ -527,10 +512,19 @@ local debugger = {
 
 local key = {
     condition = function()
-        return vim.o.cmdheight == 0
+        if conditions.is_active then
+            return vim.o.cmdheight == 0
+        else return false end
     end,
-    provider = "%3.5(%S%) ",
-    hl = { fg = "orange", bg = my_color.normal.bg },
+    hl = { fg = my_color.tertiary.fg, bg = my_color.tertiary.bg },
+    {
+        provider = '',
+        hl = {
+            fg = my_color.tertiary.bg,
+            bg = my_color.normal.bg,
+        },
+    },
+    { provider = "%3.5(%S%) " },
 }
 
 local macro = {
@@ -569,7 +563,7 @@ local percentage = {
         provider = '',
         hl = {
             fg = my_color.secondary.bg,
-            bg = my_color.normal.bg,
+            bg = my_color.tertiary.bg,
         },
     },
     {
@@ -631,7 +625,6 @@ local statusline = {
     {
         flexible = 8,
         vimode,
-        blank,
     },
     git,
     filename,
@@ -649,8 +642,8 @@ local statusline = {
     {
         flexible = 1,
         {
-            key,
             macro,
+            key,
         },
         blank,
     },
@@ -664,56 +657,77 @@ local statusline = {
     },
 }
 
-local TablineFileNameBlock = {
+-- initialize the buflist cache
+local current_buffer_list = {}
+
+local update_buffer_list = function()
+    vim.schedule(function()
+        local buffers = vim.tbl_filter(function(bufnr)
+            return vim.api.nvim_buf_get_option(bufnr, "buflisted")
+        end, vim.api.nvim_list_bufs())
+        for i, v in ipairs(buffers) do
+            current_buffer_list[i] = v
+        end
+        for i = #buffers + 1, #current_buffer_list do
+            current_buffer_list[i] = nil
+        end
+    end)
+end
+
+-- setup an autocmd that updates the buffer list every events happend
+vim.api.nvim_create_autocmd({ "VimEnter", "UIEnter", "BufAdd", "BufDelete", "SourcePost" }, {
+    callback = function()
+        update_buffer_list()
+    end,
+})
+
+local buffername = {
     init = function(self)
         self.filename = vim.api.nvim_buf_get_name(self.bufnr)
     end,
     hl = function(self)
         if self.is_active then
-            return "TabLineSel"
-        -- why not?
+            return { fg = my_color.primary.fg, bg = my_color.primary.bg }
         elseif not vim.api.nvim_buf_is_loaded(self.bufnr) then
-            return { fg = "gray" }
+            return { fg = my_color.tertiary.fg, bg = my_color.tertiary.bg }
         else
-            return "TabLine"
+            return { fg = my_color.secondary.fg, bg = my_color.secondary.bg }
         end
     end,
     {
-        condition = conditions.is_active,
-        provider = '',
-        hl = {
-            fg = my_color.primary.bg,
-            bg = my_color.secondary.bg,
-        },
+        provider = ' ',
+        hl = function(self)
+            if self.is_active then
+                return { fg = my_color.primary.bg, bg = my_color.primary.fg }
+            elseif not vim.api.nvim_buf_is_loaded(self.bufnr) then
+                return { fg = my_color.tertiary.bg, bg = my_color.normal.bg }
+            else
+                return { fg = my_color.secondary.bg, bg = my_color.normal.bg }
+            end
+        end,
     },
     {
         provider = function(self)
-            return tostring(self.bufnr) .. ". "
+            return " " .. (self.bufnr) .. ". "
         end,
-        hl = "Comment",
     },
     {
         init = function(self)
-            local filename = self.filename
-            local extension = vim.fn.fnamemodify(filename, ":e")
-            self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+            local extension = vim.fn.fnamemodify(self.filename, ":e")
+            self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(self.filename, extension, { default = true })
         end,
         provider = function(self)
             return self.icon and (self.icon .. " ")
         end,
-        hl = function(self)
-            return { fg = self.icon_color }
-        end
     },
     {
         provider = function(self)
-            -- self.filename will be defined later, just keep looking at the example!
-            local filename = self.filename
-            filename = filename == "" and "[No Name]" or vim.fn.fnamemodify(filename, ":t")
-            return filename
+            local name = self.filename
+            name = name == "" and " None" or vim.fn.fnamemodify(self.filename, ":t")
+            return name
         end,
         hl = function(self)
-            return { bold = self.is_active or self.is_visible, italic = true }
+            return { bold = self.is_active }
         end,
     },
     {
@@ -721,8 +735,7 @@ local TablineFileNameBlock = {
             condition = function(self)
                 return vim.api.nvim_buf_get_option(self.bufnr, "modified")
             end,
-            provider = "[+]",
-            hl = { fg = "green" },
+            provider = " ",
         },
         {
             condition = function(self)
@@ -733,10 +746,9 @@ local TablineFileNameBlock = {
                 if vim.api.nvim_buf_get_option(self.bufnr, "buftype") == "terminal" then
                     return "  "
                 else
-                    return ""
+                    return " "
                 end
             end,
-            hl = { fg = "orange" },
         },
     },
     {
@@ -745,8 +757,7 @@ local TablineFileNameBlock = {
         end,
         { provider = " " },
         {
-            provider = "",
-            hl = { fg = "gray" },
+            provider = "",
             on_click = {
                 callback = function(_, minwid)
                     vim.schedule(function()
@@ -761,13 +772,18 @@ local TablineFileNameBlock = {
             },
         },
     },
+    { provider = " " },
     {
-        condition = conditions.is_active,
         provider = '',
-        hl = {
-            fg = my_color.primary.bg,
-            bg = my_color.normal.bg,
-        },
+        hl = function(self)
+            if self.is_active then
+                return { fg = my_color.primary.bg, bg = my_color.primary.fg }
+            elseif not vim.api.nvim_buf_is_loaded(self.bufnr) then
+                return { fg = my_color.tertiary.bg, bg = my_color.normal.bg }
+            else
+                return { fg = my_color.secondary.bg, bg = my_color.normal.bg }
+            end
+        end,
     },
     on_click = {
         callback = function(_, minwid, _, button)
@@ -786,42 +802,15 @@ local TablineFileNameBlock = {
     },
 }
 
--- this is the default function used to retrieve buffers
-local get_bufs = function()
-    return vim.tbl_filter(function(bufnr)
-        return vim.api.nvim_buf_get_option(bufnr, "buflisted")
-    end, vim.api.nvim_list_bufs())
-end
-
--- initialize the buflist cache
-local buflist_cache = {}
-
--- setup an autocmd that updates the buflist_cache every time that buffers are added/removed
-vim.api.nvim_create_autocmd({ "VimEnter", "UIEnter", "BufAdd", "BufDelete" }, {
-    callback = function()
-        vim.schedule(function()
-            local buffers = get_bufs()
-            for i, v in ipairs(buffers) do
-                buflist_cache[i] = v
-            end
-            for i = #buffers + 1, #buflist_cache do
-                buflist_cache[i] = nil
-            end
-        end)
-    end,
-})
-
-local BufferLine = utils.make_buflist(
-    TablineFileNameBlock,
+local buffer = utils.make_buflist(
+    buffername,
     { provider = " ", hl = { fg = "gray" } },
     { provider = " ", hl = { fg = "gray" } },
-    function()
-        return buflist_cache
-    end,
+    function() return current_buffer_list end,
     false
 )
 
-local TabLineOffset = {
+local offset = {
     condition = function(self)
         local win = vim.api.nvim_tabpage_list_wins(0)[1]
         local bufnr = vim.api.nvim_win_get_buf(win)
@@ -834,58 +823,77 @@ local TabLineOffset = {
         --     ...
         end
     end,
-
-    provider = function(self)
-        local title = self.title
-        local width = vim.api.nvim_win_get_width(self.winid)
-        local pad = math.ceil((width - #title) / 2)
-        return string.rep(" ", pad) .. title .. string.rep(" ", pad)
-    end,
-
     hl = function(self)
-        if vim.api.nvim_get_current_win() == self.winid then
-            return "TablineSel"
+        local bufnr = vim.api.nvim_win_get_buf(0)
+        if vim.api.nvim_get_current_win() == self.winid or vim.bo[bufnr].filetype == "neo-tree" then
+            return { fg = my_color.primary.bg, bg = my_color.normal.bg }
         else
-            return "Tabline"
+            return { fg = my_color.normal.bg, bg = my_color.normal.bg }
         end
     end,
-}
-
-local Tabpage = {
-    provider = function(self)
-        return "%" .. self.tabnr .. "T " .. self.tabpage .. " %T"
-    end,
-    hl = function(self)
-        if not self.is_active then
-            return "TabLine"
-        else
-            return "TabLineSel"
-        end
-    end,
-}
-
-local TabPages = {
-    -- only show this component if there's 2 or more tabpages
-    condition = function()
-        return #vim.api.nvim_list_tabpages() >= 2
-    end,
-    { provider = "%=" },
-    utils.make_tablist(Tabpage),
+    { provider = '' },
     {
-        provider = "%999X  %X",
-        hl = "TabLine",
+        provider = function(self)
+            local title = self.title
+            local width = vim.api.nvim_win_get_width(self.winid)
+            local pad = math.ceil((width - #title) / 2) - 1
+            return string.rep(" ", pad) .. title .. string.rep(" ", pad)
+        end,
+        hl = function(self)
+            local bufnr = vim.api.nvim_win_get_buf(0)
+            if vim.api.nvim_get_current_win() == self.winid or vim.bo[bufnr].filetype == "neo-tree" then
+                return { fg = my_color.primary.fg, bg = my_color.primary.bg, bold = true }
+            else
+                return { fg = my_color.normal.fg, bg = my_color.normal.bg }
+            end
+        end,
+    },
+    { provider = '' },
+}
+
+local time = {
+    hl = {
+        fg = my_color.primary.fg,
+        bg = my_color.primary.bg,
+        bold = true,
+    },
+    {
+        condition = conditions.is_active,
+        provider = '',
+        hl = {
+            fg = my_color.primary.bg,
+            bg = my_color.normal.bg,
+        },
+    },
+    {
+        provider = function()
+            if vim.fn.winwidth(0) > 100 then
+                return ' 󰃰 ' .. vim.fn.strftime('%H:%M - %a, %d/%m/%Y') .. ' '
+            else
+                return ' 󰃰 ' .. vim.fn.strftime('%H:%M - %D') .. ' '
+            end
+        end,
+    },
+    {
+        condition = conditions.is_active,
+        provider = '',
+        hl = {
+            fg = my_color.primary.bg,
+            bg = my_color.normal.bg,
+        },
     },
 }
 
-local TabLine = {
-    TabLineOffset,
-    BufferLine,
-    TabPages
+local bufferline = {
+    offset,
+    buffer,
+    { provider = "%=" }, -- right align
+    time,
 }
 
 heirline.setup({
     statusline = statusline,
-    -- tabline = TabLine,
+    tabline = bufferline,
     opts = {
         disable_winbar_cb = true,
     },

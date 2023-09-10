@@ -53,6 +53,7 @@ custom.plugins = {
 
 	-- Tabline and Statusline --------------------------------------
 	['rebelot/heirline.nvim'] = {
+        -- Desc: Show both tabline and statusline
         init = function()
 			vim.opt.laststatus = 2
             vim.opt.showcmdloc = 'statusline'
@@ -62,12 +63,6 @@ custom.plugins = {
         config = function()
             require("custom.config.heirline")
         end,
-	},
-	['willothy/nvim-cokeline'] = {
-		-- Desc: Tabline
-		config = function()
-			require("custom.config.cokeline")
-		end,
 	},
 
 	-- Git ---------------------------------------------------------
@@ -679,7 +674,6 @@ custom.plugins = {
     ['mfussenegger/nvim-dap'] = { cond = false },
     ['rcarriga/nvim-dap-ui'] = { cond = false },
     ['jay-babu/mason-nvim-dap.nvim'] = { cond = false },
-
 
 	-- Icon source (need to be placed at the end) ------------------
 	['ryanoasis/vim-devicons'] = {
