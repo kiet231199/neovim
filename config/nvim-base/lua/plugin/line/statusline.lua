@@ -513,7 +513,7 @@ local debugger = {
 local key = {
     condition = function()
         if conditions.is_active() then
-            return vim.o.cmdheight == 0
+            return vim.o.cmdheight == 1
         else return false end
     end,
     hl = { fg = my_color.tertiary.fg, bg = my_color.tertiary.bg },
@@ -530,7 +530,7 @@ local key = {
 local macro = {
     condition = function()
         if conditions.is_active() then
-            return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
+            return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 1
         else return false end
     end,
     provider = " record macro to ",
