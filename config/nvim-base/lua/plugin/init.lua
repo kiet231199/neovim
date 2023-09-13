@@ -131,6 +131,30 @@ plugins = {
 		end,
 	},
 
+	-- Window -----------------------------------------------------
+	['folke/edgy.nvim'] = {
+		-- Desc: manage predefine window layout
+		event = "VeryLazy",
+		dependencies = {
+			-- Desc: Neo-tree for git outline
+			'nvim-neo-tree/neo-tree.nvim',
+		},
+		init = function()
+			vim.opt.splitkeep = "screen"
+		end,
+		config = function()
+			require("plugin.ui.window.edgy")
+		end,
+	},
+	['nvim-zh/colorful-winsep.nvim'] = {
+		-- Desc: Win separator
+        cond = true,
+		config = function()
+			require("plugin.ui.window.winsep")
+		end,
+		event = "WinNew",
+	},
+
 	-- Language Server Protocol ------------------------------------
 	['neovim/nvim-lspconfig'] = {
 		-- Desc: LSP config manager
