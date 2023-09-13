@@ -52,7 +52,7 @@ whichkey.setup({
 	},
 	layout = {
 		height = { min = 4, max = 10 }, -- min and max height of the columns
-		width = { min = 10, max = 30 }, -- min and max width of the columns
+		width = { min = 10, max = 40 }, -- min and max width of the columns
 		spacing = 5, -- spacing between columns
 		align = "left", -- align columns left, center or right
 	},

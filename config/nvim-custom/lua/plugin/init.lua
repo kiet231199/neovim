@@ -251,9 +251,7 @@ plugins = {
 	},
 	['p00f/nvim-ts-rainbow'] = {
 		-- Desc: Bracket color
-		dependencies = {
-			'nvim-treesitter/nvim-treesitter',
-		},
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 	},
 
 	-- Editor -----------------------------------------------------
@@ -411,6 +409,11 @@ plugins = {
 			require("wildfire").setup()
 		end,
 	},
+    ['nvim-treesitter/nvim-treesitter-textobjects'] = {
+		-- Desc: Treesitter navigate
+        after = "nvim-treesitter",
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    },
 
 	-- Better UI ---------------------------------------------------
 	['folke/noice.nvim'] = {
@@ -646,12 +649,36 @@ plugins = {
 	},
 
 	-- Plugin on testing ----------------------------------------
+	-- Debugger --------------------------------------------------
+    ['mfussenegger/nvim-dap'] = {
+        cond = false,
+        config = function()
+            -- require("utils").load_mappings("dap")
+            require("plugin.debugger.c")
+        end
+    },
+    ['rcarriga/nvim-dap-ui'] = {
+        cond = false,
+        event = "VeryLazy",
+        dependencies = {
+            'mfussenegger/nvim-dap',
+        },
+        config = function()
+            require("plugin.debugger.dapui")
+        end
+    },
+    ['jay-babu/mason-nvim-dap.nvim'] = {
+        cond = false,
+        dependencies = {
+            'williamboman/mason.nvim',
+            'mfussenegger/nvim-dap',
+        },
+        config = function()
+            require("plugin.debugger.dapmason")
+        end,
+    },
 
 	-- Plugin on pending ----------------------------------------
-    ['nvim-treesitter/nvim-treesitter-textobjects'] = { cond = false },
-    ['mfussenegger/nvim-dap'] = { cond = false },
-    ['rcarriga/nvim-dap-ui'] = { cond = false },
-    ['jay-babu/mason-nvim-dap.nvim'] = { cond = false },
 }
 
 -- Load lazy (plugin manager)
