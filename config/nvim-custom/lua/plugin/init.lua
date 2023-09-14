@@ -651,14 +651,11 @@ plugins = {
 	-- Plugin on testing ----------------------------------------
 	-- Debugger --------------------------------------------------
     ['mfussenegger/nvim-dap'] = {
-        cond = false,
         config = function()
             -- require("utils").load_mappings("dap")
-            require("plugin.debugger.c")
         end
     },
     ['rcarriga/nvim-dap-ui'] = {
-        cond = false,
         event = "VeryLazy",
         dependencies = {
             'mfussenegger/nvim-dap',
@@ -668,7 +665,6 @@ plugins = {
         end
     },
     ['jay-babu/mason-nvim-dap.nvim'] = {
-        cond = false,
         dependencies = {
             'williamboman/mason.nvim',
             'mfussenegger/nvim-dap',

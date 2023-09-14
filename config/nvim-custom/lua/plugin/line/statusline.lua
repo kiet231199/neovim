@@ -597,10 +597,13 @@ local lines = {
     {
         condition = conditions.is_active,
         provider = '',
-        hl = {
-            fg = my_color.primary.bg,
-            bg = my_color.secondary.bg,
-        },
+        hl = function()
+            if conditions.buffer_matches(my_exclude) then
+                return { fg = my_color.primary.bg, bg = my_color.tertiary.bg }
+            else
+                return { fg = my_color.primary.bg, bg = my_color.secondary.bg }
+            end
+        end,
     },
     {
         provider = "%9(%l %c%)",
