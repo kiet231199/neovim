@@ -254,6 +254,23 @@ plugins = {
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 	},
 
+	-- Debugger --------------------------------------------------
+    ['mfussenegger/nvim-dap'] = {
+        config = function()
+            -- require("utils").load_mappings("dap")
+            require("plugin.debugger.dapconfig")
+        end
+    },
+    ['rcarriga/nvim-dap-ui'] = {
+        event = "VeryLazy",
+        dependencies = {
+            'mfussenegger/nvim-dap',
+        },
+        config = function()
+            require("plugin.debugger.dapui")
+        end
+    },
+
 	-- Editor -----------------------------------------------------
 	['numToStr/Comment.nvim'] = {
 		-- Desc: Quick comment
@@ -649,30 +666,6 @@ plugins = {
 	},
 
 	-- Plugin on testing ----------------------------------------
-	-- Debugger --------------------------------------------------
-    ['mfussenegger/nvim-dap'] = {
-        config = function()
-            -- require("utils").load_mappings("dap")
-        end
-    },
-    ['rcarriga/nvim-dap-ui'] = {
-        event = "VeryLazy",
-        dependencies = {
-            'mfussenegger/nvim-dap',
-        },
-        config = function()
-            require("plugin.debugger.dapui")
-        end
-    },
-    ['jay-babu/mason-nvim-dap.nvim'] = {
-        dependencies = {
-            'williamboman/mason.nvim',
-            'mfussenegger/nvim-dap',
-        },
-        config = function()
-            require("plugin.debugger.dapmason")
-        end,
-    },
 
 	-- Plugin on pending ----------------------------------------
 }

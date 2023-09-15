@@ -283,9 +283,10 @@ local git = { -- Merge has_git and none_git together
     },
     {
         condition = conditions.is_active,
-        provider = '',
+
+        provider = '',
         hl = {
-            fg = my_color.secondary.bg,
+            fg = my_color.tertiary.bg,
             bg = my_color.normal.bg,
         },
     },
@@ -512,7 +513,7 @@ local debugger = {
 
 local key = {
     condition = function()
-        if conditions.is_active() then
+        if conditions.is_active() and not conditions.buffer_matches(my_exclude) then
             return vim.o.cmdheight == 0
         else return false end
     end,
@@ -529,7 +530,7 @@ local key = {
 
 local macro = {
     condition = function()
-        if conditions.is_active() then
+        if conditions.is_active() and not conditions.buffer_matches(my_exclude) then
             return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
         else return false end
     end,
@@ -606,7 +607,7 @@ local lines = {
         end,
     },
     {
-        provider = "%9(%l %c%)",
+        provider = " %4(%l %c%)",
     },
     {
         condition = conditions.is_not_active,
@@ -633,7 +634,7 @@ local statusline = {
     filename,
     { provider = "%=" }, -- middle align
     {
-        flexible = 2,
+        flexible = 3,
         {
             diagnostics,
             lsp,
@@ -648,7 +649,13 @@ local statusline = {
             macro,
             key,
         },
-        blank,
+        {
+            provider = '',
+            hl = {
+                fg = my_color.tertiary.bg,
+                bg = my_color.normal.bg,
+            },
+        },
     },
     {
         flexible = 4,
