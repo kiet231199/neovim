@@ -137,7 +137,7 @@ local vimode = {
         end,
     },
     {
-        flexible = 7,
+        flexible = 8,
         {
             init = function(self)
                 self.mode = vim.fn.mode(1)
@@ -207,34 +207,27 @@ local has_git = {
     },
     {
         condition = function(self)
-            local count = 0
-            count = count + (self.status_dict.added or 0)
-            count = count + (self.status_dict.removed or 0)
-            count = count + (self.status_dict.changed or 0)
-            return (count > 0)
+            return self.has_changes
         end,
         provider = ' ',
     },
     {
         provider = function(self)
             local count = self.status_dict.added or 0
-            return count > 0 and (" " .. count)
+            return count > 0 and (" " .. count)
         end,
-        hl = { fg = "#374a45" },
     },
     {
         provider = function(self)
             local count = self.status_dict.removed or 0
-            return count > 0 and (" " .. count)
+            return count > 0 and (" " .. count)
         end,
-        hl = { fg = "#cc0000" },
     },
     {
         provider = function(self)
             local count = self.status_dict.changed or 0
-            return count > 0 and (" " .. count)
+            return count > 0 and (" " .. count)
         end,
-        hl = { fg = "yellow" },
     },
     {
         provider = '',
@@ -276,18 +269,17 @@ local none_git = {
 }
 
 local git = { -- Merge has_git and none_git together
-    flexible = 6,
+    flexible = 7,
     {
         has_git,
         none_git,
     },
     {
         condition = conditions.is_active,
-
         provider = '',
         hl = {
-            fg = my_color.tertiary.bg,
-            bg = my_color.normal.bg,
+            fg = my_color.secondary.bg,
+            bg = my_color.tertiary.bg,
         },
     },
 }
@@ -512,12 +504,23 @@ local debugger = {
 }
 
 local key = {
-    condition = function()
-        if conditions.is_active() and not conditions.buffer_matches(my_exclude) then
-            return vim.o.cmdheight == 0
-        else return false end
-    end,
-    hl = { fg = my_color.tertiary.fg, bg = my_color.tertiary.bg },
+    flexible = 2,
+    {
+        condition = function()
+            if conditions.is_active() and not conditions.buffer_matches(my_exclude) then
+                return vim.o.cmdheight == 0
+            else return false end
+        end,
+        hl = { fg = my_color.tertiary.fg, bg = my_color.tertiary.bg },
+        {
+            provider = '',
+            hl = {
+                fg = my_color.tertiary.bg,
+                bg = my_color.normal.bg,
+            },
+        },
+        { provider = "%3.5(%S%) " },
+    },
     {
         provider = '',
         hl = {
@@ -525,28 +528,32 @@ local key = {
             bg = my_color.normal.bg,
         },
     },
-    { provider = "%3.5(%S%) " },
+
 }
 
 local macro = {
-    condition = function()
-        if conditions.is_active() and not conditions.buffer_matches(my_exclude) then
-            return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
-        else return false end
-    end,
-    provider = " record macro to ",
-    hl = { fg = "orange", bg = my_color.normal.bg, bold = true },
-    utils.surround({ "[", "]" }, nil, {
-        provider = function()
-            return vim.fn.reg_recording()
+    flexible = 1,
+    {
+        condition = function()
+            if conditions.is_active() and not conditions.buffer_matches(my_exclude) then
+                return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
+            else return false end
         end,
-        hl = { fg = "green", bold = true },
-    }),
-    { provider = " " },
-    update = {
-        "RecordingEnter",
-        "RecordingLeave",
-    }
+        provider = " record macro to ",
+        hl = { fg = "orange", bg = my_color.normal.bg, bold = true },
+        utils.surround({ "[", "]" }, nil, {
+            provider = function()
+                return vim.fn.reg_recording()
+            end,
+            hl = { fg = "green", bold = true },
+        }),
+        { provider = " " },
+        update = {
+            "RecordingEnter",
+            "RecordingLeave",
+        }
+    },
+    { provider = "" },
 }
 
 local percentage = {
@@ -568,7 +575,7 @@ local percentage = {
         },
     },
     {
-        flexible = 3,
+        flexible = 5,
         {
             {
                 provider = ' %P ',
@@ -607,11 +614,17 @@ local lines = {
         end,
     },
     {
-        provider = " %4(%l %c%)",
-    },
-    {
-        condition = conditions.is_not_active,
-        provider = ' ',
+        flexible = 6,
+        {
+            {
+                provider = " %4(%l %c%)",
+            },
+            {
+                condition = conditions.is_not_active,
+                provider = ' ',
+            },
+        },
+        { provider = "" },
     },
     {
         condition = conditions.is_active,
@@ -627,43 +640,29 @@ local blank = { provider = "" }
 
 local statusline = {
     {
-        flexible = 8,
+        flexible = 9,
         vimode,
     },
     git,
     filename,
-    { provider = "%=" }, -- middle align
     {
-        flexible = 3,
+        { provider = "%=" }, -- middle align
         {
-            diagnostics,
-            lsp,
-            debugger,
+            flexible = 3,
+            {
+                diagnostics,
+                lsp,
+                debugger,
+            },
+            blank,
         },
-        blank,
-    },
-    { provider = "%=" }, -- right align
-    {
-        flexible = 1,
+        { provider = "%=" }, -- right align
         {
             macro,
             key,
-        },
-        {
-            provider = '',
-            hl = {
-                fg = my_color.tertiary.bg,
-                bg = my_color.normal.bg,
-            },
-        },
-    },
-    {
-        flexible = 4,
-        {
             percentage,
             lines,
         },
-        blank,
     },
 }
 
