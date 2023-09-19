@@ -115,7 +115,7 @@ local vimode = {
         },
         mode_colors = {
             n = "#7aa2f7",
-            i = "#3d59a1",
+            i = "cyan",
             v = "#5c87eb",
             V = "#5c87eb",
             c =  "#3acaba",
@@ -522,6 +522,7 @@ local key = {
         { provider = "%3.5(%S%) " },
     },
     {
+        condition = conditions.is_active,
         provider = '',
         hl = {
             fg = my_color.tertiary.bg,

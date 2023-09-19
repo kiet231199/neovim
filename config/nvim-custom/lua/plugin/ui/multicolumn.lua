@@ -9,7 +9,7 @@ multicolumn.setup({
 	base_set = {
 		scope = 'line',
 		rulers = { 80 },
-		to_line_end = true,
+		to_line_end = false,
 		full_column = true,
 		always_on = false,
 		bg_color = "#13141c",
