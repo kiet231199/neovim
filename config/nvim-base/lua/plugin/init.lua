@@ -80,18 +80,6 @@ plugins = {
 			{ "<F10>", "<Plug>(git-messenger)", mode = "n", silent = true, noremap = true },
 		},
 	},
-	['sindrets/diffview.nvim'] = {
-		-- Desc: Git diffview
-		pin = true,
-		dependencies = {
-			'nvim-lua/plenary.nvim',
-		},
-		commit = '03deb5',
-		config = function()
-			require("plugin.git.diffview")
-		end,
-		cmd = "DiffviewOpen",
-	},
 
 	-- Fuzy finder -------------------------------------------------
 	['nvim-telescope/telescope.nvim'] = {
