@@ -259,6 +259,12 @@ plugins = {
 			require("plugin.editor.comment.todo")
 		end,
 	},
+	['dstein64/nvim-scrollview'] = {
+		-- Desc: Scrollbar
+		config = function()
+			require("plugin.editor.scroll.scrollview")
+		end,
+	},
 	['VonHeikemen/searchbox.nvim'] = {
 		-- Desc: Search box
 		event = "VeryLazy",

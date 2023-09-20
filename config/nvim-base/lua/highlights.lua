@@ -34,7 +34,7 @@ local highlights = {
 		["ScrollViewFolds"]              = { fg = "#7aa2f7" },
 		["ScrollViewSearch"]             = { fg = "Red", bg = "None", bold = true },
 		-- Gitsigns
-		["GitSignsCurrentLineBlame"]     = { fg = "Yellow", bg = "#1a1b26" },
+		["GitSignsCurrentLineBlame"]     = { fg = "Yellow", bg = "#292e42" },
 		["GitSignsAdd"]                  = { fg = "Green" },
 		["GitSignsAddNr"]                = { fg = "Green" },
 		["GitSignsChange"]               = { fg = "Yellow" },
