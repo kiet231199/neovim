@@ -9,12 +9,19 @@ local highlights = {
 		["PmenuSbar"]                    = { bg = "#1a1b26" },
 		["PmenuThumb"]                   = { fg = "#a9b1d6" },
 		-- CursorLine
+		["LineNr"]                       = { fg = "#697094" },
 		["CursorLineNr"]                 = { fg = "Yellow", bold = true },
 		-- Fold
 		["Folded"]                       = { bg = "#1a1b26" },
 		["FoldColumn"]                   = { fg = "#7aa2f7" },
 		-- Winbar
 		["WinBar"]                       = { link = "Title" },
+        -- WinSeparator
+		["WinSeparator"]                 = { fg = "Magenta", bold = true },
+        -- Search
+		["IncSearch"]                    = { fg = "#13141c", bg = "Red", bold = false },
+        -- TablineFill
+		["TabLineFill"]                  = { bg = "#13141c" },
 	},
 	-- Plugin group
 	plugin = {

@@ -14,7 +14,7 @@ tokyonight.setup({
         -- Style to be applied to different syntax groups
         -- Value is any valid attr-list value for `:help nvim_set_hl`
         comments = { italic = true },
-        keywords = { italic = true, bold = true },
+        keywords = { italic = false, bold = true },
         functions = { italic = true, bold = true },
         variables = {},
         -- Background styles. Can be "dark", "transparent" or "normal"
@@ -39,28 +39,8 @@ tokyonight.setup({
     -- @param highlights Highlights
     -- @param colors ColorScheme
     on_highlights = function(hl, cl)
-		local black = "#000000"
-		-- Common
-		hl.WinSeparator = { fg = cl.magenta, bold = true }
-		hl.LineNr = { fg = "#697094" }
-		hl.CursorLineNr = { fg = "#fefe14" , bold = true }
-		hl.IncSearch = { fg = black, bg = cl.red1 }
-		hl.TabLineFill = { bg = "#13141c" }
-		-- NvimTree
-		hl.NvimTreeWinSeparator = { fg = "#a9b1d6" }
-		hl.NvimTreeIndentMarker = { fg = "#a9b1d6" }
-		hl.NvimTreeLspDiagnosticsError = { fg = cl.error }
-		hl.NvimTreeLspDiagnosticsWarning = { fg = cl.warning }
-		hl.NvimTreeLspDiagnosticsInformation = { fg = cl.info }
-		hl.NvimTreeLspDiagnosticsHint = { fg = cl.hint }
-		-- Telescope
-		hl.TelescopePromptBorder = { fg = cl.yellow }
-		hl.TelescopePreviewBorder = { fg = cl.magenta }
-		hl.TelescopeResultsBorder = { fg = cl.red }
-		hl.TelescopePromptTitle = { fg = cl.yellow }
-		hl.TelescopePreviewTitle = { fg = cl.magenta }
-		hl.TelescopeResultsTitle = { fg = cl.red }
-		-- Whichkey
-		hl.WhichKey = { fg = cl.yellow }
+		-- local black = "#000000"
+		-- hl.LineNr = { fg = "#697094" }
+		-- hl.CursorLineNr = { fg = "#fefe14" , bold = true }
 	end,
 })
