@@ -101,6 +101,8 @@ cmp.setup({
 		end,
 	},
 	mapping = {
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
 		["<C-j>"] = require("cmp").mapping(function(fallback)
 			if luasnip.expandable() then
 				luasnip.expand()
@@ -120,10 +122,10 @@ cmp.setup({
 		["<C-Space>"] = require("cmp").mapping(require("cmp").mapping.complete(), { "i", "c" }),
 		-- Accept currently selected item. If none selected, `select` first item.
 		-- Set `select` to `false` to only confirm explicitly selected items.
-		["<CR>"] = require("cmp").mapping.confirm(),
+		["<CR>"] = require("cmp").mapping.confirm({ select = false }),
 		["<Tab>"] = require("cmp").mapping(function(fallback)
 			if require("cmp").visible() then
-				require("cmp").select_next_item()
+                require("cmp").select_next_item({ behavior = require("cmp").SelectBehavior.Select })
 			elseif luasnip.expand_or_jumpable() then
 				vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
 			elseif has_words_before() then
@@ -134,7 +136,7 @@ cmp.setup({
 		end, { "i", "s" }),
 		["<S-Tab>"] = require("cmp").mapping(function(fallback)
 			if require("cmp").visible() then
-				require("cmp").select_prev_item()
+                require("cmp").select_prev_item({ behavior = require("cmp").SelectBehavior.Select })
 			elseif luasnip.jumpable(-1) then
 				vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
 			else

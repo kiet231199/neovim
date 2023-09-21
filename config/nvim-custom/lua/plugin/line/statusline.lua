@@ -12,6 +12,21 @@ local utils = require("heirline.utils")
 local get_hex = require('heirline.utils').get_highlight
 
 -- INFO: Define some tables
+local my_separator = {
+    external = {
+        left = '',
+        right = '',
+        -- left = '',
+        -- right = '',
+    },
+    internal = {
+        left_t = '',
+        right = '',
+        -- left = '',
+        -- right = '',
+    },
+}
+
 local my_color = {
     primary = {
         fg = "#15161e",
@@ -130,7 +145,7 @@ local vimode = {
         }
     },
     {
-        provider = '',
+        provider = my_separator.external.left,
         hl = function(self)
             local mode = vim.fn.mode(1):sub(1, 1) -- get only the first mode character
             return { fg = self.mode_colors[mode], bold = true, bg = get_hex("Normal").bg }
@@ -179,7 +194,7 @@ local vimode = {
         },
     },
     {
-        provider = '',
+        provider = my_separator.external.right,
         hl = function(self)
             local mode = vim.fn.mode(1):sub(1, 1) -- get only the first mode character
             return { fg = self.mode_colors[mode], bold = true, bg = my_color.secondary.bg }
@@ -209,7 +224,7 @@ local has_git = {
         condition = function(self)
             return self.has_changes
         end,
-        provider = ' ',
+        provider = ' ' .. my_separator.internal.right,
     },
     {
         provider = function(self)
@@ -230,7 +245,7 @@ local has_git = {
         end,
     },
     {
-        provider = '',
+        provider = my_separator.external.right,
         hl = {
             fg = my_color.secondary.bg,
             bg = my_color.tertiary.bg,
@@ -260,7 +275,7 @@ local none_git = {
         hl = { bold = true }
     },
     {
-        provider = '',
+        provider = my_separator.external.right,
         hl = {
             fg = my_color.secondary.bg,
             bg = my_color.tertiary.bg,
@@ -276,7 +291,7 @@ local git = { -- Merge has_git and none_git together
     },
     {
         condition = conditions.is_active,
-        provider = '',
+        provider = my_separator.external.right,
         hl = {
             fg = my_color.secondary.bg,
             bg = my_color.tertiary.bg,
@@ -300,7 +315,7 @@ local filename = {
         condition = function()
             return conditions.is_active() and conditions.buffer_matches(my_exclude)
         end,
-        provider = '',
+        provider = my_separator.external.left,
         hl = {
             fg = my_color.primary.bg,
             bg = my_color.primary.fg,
@@ -344,7 +359,7 @@ local filename = {
     },
     {
         condition = conditions.is_active,
-        provider = '',
+        provider = my_separator.external.right,
         hl = function()
             if conditions.buffer_matches(my_exclude) then
                 return { fg = my_color.primary.bg, bg = my_color.primary.fg, bold = true }
@@ -383,7 +398,7 @@ local diagnostics = {
     },
     update = { "DiagnosticChanged", "BufEnter" },
     {
-        provider = '',
+        provider = my_separator.external.left,
         hl = {
             fg = my_color.tertiary.bg,
             bg = my_color.normal.bg,
@@ -439,7 +454,7 @@ local lsp = {
         bold = true,
     },
     {
-        provider = '',
+        provider = my_separator.external.left,
         hl = {
             fg = my_color.primary.bg,
             bg = my_color.tertiary.bg,
@@ -455,7 +470,7 @@ local lsp = {
         end,
     },
     {
-        provider = '',
+        provider = my_separator.external.right,
         hl = {
             fg = my_color.primary.bg,
             bg = my_color.tertiary.bg,
@@ -495,7 +510,7 @@ local debugger = {
          end,
     },
     {
-        provider = '',
+        provider = my_separator.external.right,
         hl = {
             fg = my_color.tertiary.bg,
             bg = my_color.normal.bg,
@@ -513,7 +528,7 @@ local key = {
         end,
         hl = { fg = my_color.tertiary.fg, bg = my_color.tertiary.bg },
         {
-            provider = '',
+            provider = my_separator.external.left,
             hl = {
                 fg = my_color.tertiary.bg,
                 bg = my_color.normal.bg,
@@ -523,7 +538,7 @@ local key = {
     },
     {
         condition = conditions.is_active,
-        provider = '',
+        provider = my_separator.external.left,
         hl = {
             fg = my_color.tertiary.bg,
             bg = my_color.normal.bg,
@@ -569,7 +584,7 @@ local percentage = {
         bg = my_color.secondary.bg,
     },
     {
-        provider = '',
+        provider = my_separator.external.left,
         hl = {
             fg = my_color.secondary.bg,
             bg = my_color.tertiary.bg,
@@ -605,7 +620,7 @@ local lines = {
     end,
     {
         condition = conditions.is_active,
-        provider = '',
+        provider = my_separator.external.left,
         hl = function()
             if conditions.buffer_matches(my_exclude) then
                 return { fg = my_color.primary.bg, bg = my_color.tertiary.bg }
@@ -629,7 +644,7 @@ local lines = {
     },
     {
         condition = conditions.is_active,
-        provider = '',
+        provider = my_separator.external.right,
         hl = {
             fg = my_color.primary.bg,
             bg = my_color.normal.bg,

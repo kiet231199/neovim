@@ -15,7 +15,7 @@ asciitree.setup({
 	},
 	-- How deep each level should be drawn. This value can be overridden by
 	-- calling the AsciiTree command with a number, such as :AsciiTree 4.
-	depth = 4,
+	depth = 3,
 
 	-- The delimiter to look for when converting to a tree. By default, this
 	-- looks for a tree that looks like:
