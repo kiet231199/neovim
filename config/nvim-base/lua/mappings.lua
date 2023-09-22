@@ -24,6 +24,10 @@ mappings.general = {
 		["<F12>n"] = { ":set norelativenumber!<CR>", "toggle relative number" },
 		["<F12>c"] = { ":set list!<CR>", "toggle viewing special character" },
 
+		['<A-.>'] = { ":bnext<CR>", "next buffer" },
+		['<A-,>'] = { ":bprevious <CR>", "previous buffer" },
+		['<A-c>'] = { ":bdelete<CR>", "delete buffer" },
+
 		["<A-Up>"] = { ":resize -2 <CR>", "Resize up" },
 		["<A-Down>"] = { ":resize +2 <CR>", "Resize down" },
 		["<A-Left>"] = { ":vertical resize -2 <CR>", "Resize left" },
@@ -53,9 +57,11 @@ mappings.general = {
 mappings.gitsigns = {
 	plugin = true,
 	n = {
+		["<F2>"] = { ":Gitsigns toggle_numhl<CR>:Gitsigns toggle_linehl<CR>", "toggle highlight line" },
 		["<F9>"] = { ":Gitsigns toggle_current_line_blame <CR>", "toggle blame line" },
 	},
 	i = {
+		["<F2>"] = { ":Gitsigns toggle_numhl<CR>:Gitsigns toggle_linehl<CR>", "toggle highlight line" },
 		["<F9>"] = { ":Gitsigns toggle_current_line_blame <CR>", "toggle blame line" },
 	},
 }
@@ -151,6 +157,42 @@ mappings.session = {
 		["<space>ss"] = { ":SessionManager save_current_session<CR>", "Save current session", opts = { silent = true, noremap = true } },
 		["<space>sd"] = { ":SessionManager load_last_session<CR>", "Delete session", opts = { silent = true, noremap = true } },
 	}
+}
+
+mappings.dap = {
+    plugin = true,
+    n = {
+        ["<space>dr"] = { "<cmd>DapContinue<CR>" , "Start or continue the debugger" },
+        ["<space>dx"] = { "<cmd>DapTerminate<CR>", "Terminate debugger" },
+        ["<space>df"] = { "<cmd>DapStepInto<CR>" , "Step Into (next line)" },
+        ["<space>dF"] = { "<cmd>DapStepOut<CR>"  , "Step Out" },
+        ["<space>ds"] = { "<cmd>DapStepOver<CR>" , "Step Over" },
+        -- INFO: Using mouse to toggle breakpoint
+        ["<2-LeftMouse>"] = {
+            function()
+                require('persistent-breakpoints.api').toggle_breakpoint()
+            end,
+            "Add breakpoint at line by double click"
+        },
+        ["<space>db"]    = {
+            function()
+                require('persistent-breakpoints.api').toggle_breakpoint()
+            end,
+            "Add breakpoint at line"
+        },
+        ["<space>dcb"]   = {
+            function()
+                require('persistent-breakpoints.api').set_conditional_breakpoint(vim.fn.input(' CONDITION    '))
+            end,
+            "Condition breakpoint"
+        },
+        ["<space>ddb"]   = {
+            function()
+                require('persistent-breakpoints.api').clear_all_breakpoints()
+            end,
+            "Clear all breakpoints"
+        },
+    }
 }
 
 return mappings

@@ -246,6 +246,44 @@ plugins = {
 		},
 	},
 
+	-- Debugger --------------------------------------------------
+    ['mfussenegger/nvim-dap'] = {
+        -- Desc: Debugger Adapter
+        config = function()
+            require("plugin.debugger.dapconfig")
+        end,
+		init = function()
+			require("utils").load_mappings("dap")
+		end,
+    },
+    ['rcarriga/nvim-dap-ui'] = {
+        -- Desc: UI for DAP
+        event = "VeryLazy",
+        dependencies = { 'mfussenegger/nvim-dap' },
+        config = function()
+            require("plugin.debugger.dapui")
+        end
+    },
+    ['theHamsta/nvim-dap-virtual-text'] = {
+        -- Desc: Virtual text debug information
+		dependencies = {
+            'nvim-treesitter/nvim-treesitter',
+            'mfussenegger/nvim-dap'
+        },
+        config = function()
+            require("plugin.debugger.daptext")
+        end,
+    },
+    ['Weissle/persistent-breakpoints.nvim'] = {
+        -- Desc: Conditional breakpoint
+		dependencies = { 'mfussenegger/nvim-dap' },
+        config = function()
+            require('persistent-breakpoints').setup {
+                load_breakpoints_event = { "BufReadPost" }
+            }
+        end,
+    },
+
 	-- Editor -----------------------------------------------------
 	['numToStr/Comment.nvim'] = {
 		-- Desc: Quick comment
