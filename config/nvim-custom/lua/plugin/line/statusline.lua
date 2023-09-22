@@ -494,20 +494,16 @@ local debugger = {
     condition = function()
         return conditions.is_active() and not conditions.buffer_matches(my_exclude)
     end,
-    -- condition = function()
-    --     local session = require("dap").session()
-    --     return session ~= nil
-    -- end,
-    -- hl = "Debug"
     hl = {
         fg = my_color.tertiary.fg,
         bg = my_color.tertiary.bg,
     },
     {
         provider = function()
-            return "  None"
-            -- return " " .. require("dap").status()
-         end,
+            local session = require("dap").session()
+            if session ~= nil then return "  " .. require("dap").status()
+            else return "  None" end
+        end,
     },
     {
         provider = my_separator.external.right,

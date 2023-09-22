@@ -4,6 +4,12 @@ if not status_ok then
 	return
 end
 
+local status_ok, dap = pcall(require, "dap")
+if not status_ok then
+	print("Error: dap")
+	return
+end
+
 dapui.setup({
     controls = {
         element = "repl",
@@ -34,33 +40,34 @@ dapui.setup({
         current_frame = "",
         expanded = ""
     },
-    layouts = { {
-        elements = { {
-            id = "scopes",
-            size = 0.25
-        }, {
-            id = "breakpoints",
-            size = 0.25
-        }, {
-            id = "stacks",
-            size = 0.25
-        }, {
-            id = "watches",
-            size = 0.25
-        } },
-        position = "left",
-        size = 40
-    }, {
-        elements = { {
-            id = "repl",
-            size = 0.5
-        }, {
-            id = "console",
-            size = 0.5
-        } },
-        position = "bottom",
-        size = 10
-    } },
+    layouts = {
+        {
+            elements = {
+                {
+                    id = "scopes",
+                    size = 0.4,
+                },
+                {
+                    id = "repl",
+                    size = 0.4,
+                },
+                {
+                    id = "breakpoints",
+                    size = 0.2,
+                },
+                -- {
+                --     id = "stacks",
+                --     size = 0.25,
+                -- },
+                -- {
+                --     id = "watches",
+                --     size = 0.25,
+                -- }
+            },
+            position = "left",
+            size = 50,
+        },
+    },
     mappings = {
         edit = "e",
         expand = { "<CR>", "<2-LeftMouse>" },
@@ -75,7 +82,11 @@ dapui.setup({
     }
 })
 
-local dap = require("dap")
+vim.fn.sign_define('DapBreakpoint',          { text = ' ', texthl = 'DapBreakpoint' })
+vim.fn.sign_define('DapBreakpointCondition', { text = ' ', texthl = 'DapBreakpoint' })
+vim.fn.sign_define('DapBreakpointRejected',  { text = ' ', texthl = 'DapBreakpoint' })
+vim.fn.sign_define('DapLogPoint',            { text = ' ', texthl = 'DapLogPoint' })
+vim.fn.sign_define('DapStopped',             { text = '󰁕 ', texthl = 'DapStopped' })
 
 dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
 dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end

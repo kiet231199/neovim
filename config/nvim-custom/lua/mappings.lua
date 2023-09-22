@@ -27,9 +27,9 @@ mappings.general = {
 		["<F12>c"] = { ":set list!<CR>", "toggle viewing special character" },
 		["<F12>s"] = { ":lua SetGlobalStatusLine()<CR>", "toggle global status line" },
 
-		['<A-.>'] = { ":tabn <CR>", "next tab" },
-		['<A-,>'] = { ":tabp <CR>", "previous tab" },
-		['<A-c>'] = { ":bd <CR>", "delete tab" },
+		['<A-.>'] = { ":bnext<CR>", "next buffer" },
+		['<A-,>'] = { ":bprevious <CR>", "previous buffer" },
+		['<A-c>'] = { ":bdelete<CR>", "delete buffer" },
 
 		["sh"] = { ":split <CR><C-w>w", "split pane horizontally" },
 		["sv"] = { ":vsplit <CR><C-w>w", "split pane vertically" },
@@ -193,6 +193,42 @@ mappings.session = {
 		["<space>ss"] = { ":SessionManager save_current_session<CR>", "Save current session", opts = { silent = true, noremap = true } },
 		["<space>sd"] = { ":SessionManager load_last_session<CR>", "Delete session", opts = { silent = true, noremap = true } },
 	}
+}
+
+mappings.dap = {
+    plugin = true,
+    n = {
+        ["<space>dr"] = { "<cmd>DapContinue<CR>" , "Start or continue the debugger" },
+        ["<space>dx"] = { "<cmd>DapTerminate<CR>", "Terminate debugger" },
+        ["<space>df"] = { "<cmd>DapStepInto<CR>" , "Step Into (next line)" },
+        ["<space>dF"] = { "<cmd>DapStepOut<CR>"  , "Step Out" },
+        ["<space>ds"] = { "<cmd>DapStepOver<CR>" , "Step Over" },
+        -- INFO: Using mouse to toggle breakpoint
+        ["<2-LeftMouse>"] = {
+            function()
+                require('persistent-breakpoints.api').toggle_breakpoint()
+            end,
+            "Add breakpoint at line by double click"
+        },
+        ["<space>db"]    = {
+            function()
+                require('persistent-breakpoints.api').toggle_breakpoint()
+            end,
+            "Add breakpoint at line"
+        },
+        ["<space>dcb"]   = {
+            function()
+                require('persistent-breakpoints.api').set_conditional_breakpoint(vim.fn.input(' CONDITION    '))
+            end,
+            "Condition breakpoint"
+        },
+        ["<space>ddb"]   = {
+            function()
+                require('persistent-breakpoints.api').clear_all_breakpoints()
+            end,
+            "Clear all breakpoints"
+        },
+    }
 }
 
 return mappings
