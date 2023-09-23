@@ -48,12 +48,12 @@ dapui.setup({
                     size = 0.4,
                 },
                 {
-                    id = "repl",
-                    size = 0.4,
-                },
-                {
                     id = "breakpoints",
                     size = 0.2,
+                },
+                {
+                    id = "repl",
+                    size = 0.4,
                 },
                 -- {
                 --     id = "stacks",

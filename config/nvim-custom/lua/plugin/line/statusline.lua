@@ -200,6 +200,13 @@ local vimode = {
             return { fg = self.mode_colors[mode], bold = true, bg = my_color.secondary.bg }
         end,
     },
+    on_click = {
+        callback = function()
+            vim.cmd("lua IsView()")
+        end,
+        update = true,
+        name = "toggle_copy_mode",
+    },
 }
 
 local has_git = {
@@ -270,7 +277,7 @@ local none_git = {
     },
     {   -- git branch name
         provider = function()
-            return "  None"
+            return " "
         end,
         hl = { bold = true }
     },
@@ -338,7 +345,7 @@ local filename = {
         end,
         provider = function(self)
             local filename = vim.fn.fnamemodify(self.filename, ":p:t")
-            if filename == "" then return " None" end
+            if filename == "" then return " Unnamed" end
             if not conditions.width_percent_below(#filename, 0.25) then
                 filename = vim.fn.pathshorten(filename)
             end
@@ -369,7 +376,7 @@ local filename = {
         end,
     },
     on_click = {
-        callback = function(self)
+        callback = function()
             print(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p:~"))
         end,
         update = true,
@@ -405,31 +412,28 @@ local diagnostics = {
         },
     },
     {
-        provider = " ",
-    },
-    {
         condition = conditions.has_diagnostics,
         {
             provider = function(self)
-                return self.errors > 0 and (self.error_icon .. self.errors .. " ")
+                return self.errors > 0 and (" " .. self.error_icon .. self.errors)
             end,
             hl = { fg = get_hex("DiagnosticError").fg },
         },
         {
             provider = function(self)
-                return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
+                return self.warnings > 0 and (" " .. self.warn_icon .. self.warnings)
             end,
             hl = { fg = get_hex("DiagnosticWarn").fg },
         },
         {
             provider = function(self)
-                return self.info > 0 and (self.info_icon .. self.info .. " ")
+                return self.info > 0 and (" " .. self.info_icon .. self.info)
             end,
             hl = { fg = get_hex("DiagnosticInfo").fg },
         },
         {
             provider = function(self)
-                return self.hints > 0 and (self.hint_icon .. self.hints)
+                return self.hints > 0 and (" " .. self.hint_icon .. self.hints)
             end,
             hl = { fg = get_hex("DiagnosticHint").fg },
         },
@@ -449,14 +453,14 @@ local lsp = {
     end,
     update = {'LspAttach', 'LspDetach'},
     hl = {
-        fg = my_color.primary.fg,
-        bg = my_color.primary.bg,
+        fg = my_color.secondary.fg,
+        bg = my_color.secondary.bg,
         bold = true,
     },
     {
         provider = my_separator.external.left,
         hl = {
-            fg = my_color.primary.bg,
+            fg = my_color.secondary.bg,
             bg = my_color.tertiary.bg,
         },
     },
@@ -466,15 +470,8 @@ local lsp = {
             for _,_ in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
                 lsp_numnr = lsp_numnr + 1
             end
-            return " " .. lsp_numnr
+            return " " .. lsp_numnr .. " "
         end,
-    },
-    {
-        provider = my_separator.external.right,
-        hl = {
-            fg = my_color.primary.bg,
-            bg = my_color.tertiary.bg,
-        },
     },
     on_click = {
         callback = function()
@@ -489,8 +486,77 @@ local lsp = {
     },
 }
 
--- INFO: Reserved
-local debugger = {
+local status = {
+    condition = function()
+        return conditions.is_active() and not conditions.buffer_matches(my_exclude)
+    end,
+    hl = {
+        fg = my_color.primary.fg,
+        bg = my_color.primary.bg,
+        bold = true,
+    },
+    {
+        provider = my_separator.external.left,
+        hl = {
+            fg = my_color.primary.bg,
+            bg = my_color.secondary.bg,
+        },
+    },
+    {
+        provider  = function()
+            if vim.fn.has("unix") then return ""
+            else return "" end
+        end,
+    },
+    {
+        provider = my_separator.external.right,
+        hl = {
+            fg = my_color.primary.bg,
+            bg = my_color.secondary.bg,
+        },
+    },
+    on_click = {
+        callback = function()
+            print(vim.loop.os_uname().sysname)
+        end,
+        update = true,
+        name = "print_os"
+    },
+
+}
+
+local debug_session = {
+    condition = function()
+        return conditions.is_active() and not conditions.buffer_matches(my_exclude)
+    end,
+    hl = {
+        fg = my_color.secondary.fg,
+        bg = my_color.secondary.bg,
+    },
+    {
+        provider = function()
+            local session = require("dap").session()
+            if session ~= nil then return "  " .. require("dap").status()
+            else return " " end
+        end,
+    },
+    {
+        provider = my_separator.external.right,
+        hl = {
+            fg = my_color.secondary.bg,
+            bg = my_color.tertiary.bg,
+        },
+    },
+    on_click = {
+        callback = function()
+            vim.cmd("DapContinue")
+        end,
+        update = true,
+        name = "dap_launch",
+    },
+}
+
+local debug_repl = {
     condition = function()
         return conditions.is_active() and not conditions.buffer_matches(my_exclude)
     end,
@@ -499,11 +565,91 @@ local debugger = {
         bg = my_color.tertiary.bg,
     },
     {
-        provider = function()
-            local session = require("dap").session()
-            if session ~= nil then return "  " .. require("dap").status()
-            else return "  None" end
-        end,
+        {
+            condition = function()
+                return require("dap").session() ~= nil
+            end,
+            { provider = " " },
+            {
+                provider = "",
+                hl = { fg = "yellow" },
+                on_click = {
+                    callback = function()
+                        vim.cmd("DapContinue")
+                    end,
+                    update = true,
+                    name = "dap_run",
+                },
+            },
+        },
+        {
+            condition = function()
+                return require("dap").session() ~= nil
+            end,
+            { provider = " " },
+            {
+                provider = "",
+                hl = { fg = "cyan" },
+                on_click = {
+                    callback = function()
+                        vim.cmd("DapStepInto")
+                    end,
+                    update = true,
+                    name = "dap_stepinto",
+                },
+            },
+        },
+        {
+            condition = function()
+                return require("dap").session() ~= nil
+            end,
+            { provider = " " },
+            {
+                provider = "",
+                hl = { fg = "cyan" },
+                on_click = {
+                    callback = function()
+                        vim.cmd("DapStepOver")
+                    end,
+                    update = true,
+                    name = "dap_stepover",
+                },
+            },
+        },
+        {
+            condition = function()
+                return require("dap").session() ~= nil
+            end,
+            { provider = " " },
+            {
+                provider = "",
+                hl = { fg = "red" },
+                on_click = {
+                    callback = function()
+                        vim.cmd("DapTerminate")
+                    end,
+                    update = true,
+                    name = "dap_terminate",
+                },
+            },
+        },
+        {
+            condition = function()
+                return require("dap").session() ~= nil
+            end,
+            { provider = " " },
+            {
+                provider = "󱔏",
+                on_click = {
+                    callback = function()
+                        vim.cmd("DapVirtualTextToggle")
+                        vim.cmd("DapVirtualTextForceRefresh")
+                    end,
+                    update = true,
+                    name = "dap_toggle_virtual_text",
+                },
+            },
+        },
     },
     {
         provider = my_separator.external.right,
@@ -513,6 +659,12 @@ local debugger = {
         },
     },
 }
+
+local debugger = {
+    debug_session,
+    debug_repl,
+}
+
 
 local key = {
     flexible = 2,
@@ -649,6 +801,7 @@ local lines = {
 }
 
 local blank = { provider = "" }
+local space = { provider = " " }
 
 local statusline = {
     {
@@ -662,9 +815,12 @@ local statusline = {
         {
             flexible = 3,
             {
+                space,
                 diagnostics,
                 lsp,
+                status,
                 debugger,
+                space,
             },
             blank,
         },

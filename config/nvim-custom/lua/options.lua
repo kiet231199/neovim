@@ -75,14 +75,14 @@ function IsView()
 		vim.o.signcolumn = "no"
 		vim.o.number = false
 		vim.o.relativenumber = false
-		vim.o.mouse = ""
+		-- vim.o.mouse = ""
 		vim.cmd("IndentBlanklineDisable")
 		vim.cmd("ScrollViewDisable")
 	else
 		vim.o.signcolumn = "yes"
 		vim.o.number = true
 		vim.o.relativenumber = true
-		vim.o.mouse = "a"
+		-- vim.o.mouse = "a"
 		vim.cmd("IndentBlanklineEnable")
 		vim.cmd("ScrollViewEnable")
 	end
