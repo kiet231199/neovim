@@ -20,7 +20,7 @@ mappings.general = {
 		["<esc>"] = { ":noh <CR>", "clear highlight search" },
 		["<C-a>"] = { "ggVG", "select all" },
 
-		["<F11>"] = { ":lua IsView() <CR>", "toggle interface" },
+		["<F11>"] = { ":lua IsView() <CR>", "toggle interface", opts = { silent = true } },
 		["<F12>n"] = { ":set norelativenumber!<CR>", "toggle relative number" },
 		["<F12>c"] = { ":set list!<CR>", "toggle viewing special character" },
 
