@@ -677,6 +677,7 @@ plugins = {
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------
+    ['p00f/clangd_extensions.nvim'] = { cond = false },
 }
 
 -- Load lazy (plugin manager)
