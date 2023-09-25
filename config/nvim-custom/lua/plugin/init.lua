@@ -121,10 +121,6 @@ plugins = {
 			'AckslD/nvim-neoclip.lua',
 			-- Desc: Show LSP diagnostics
 			'folke/trouble.nvim',
-			-- Desc: Icon quick search
-			'ziontee113/icon-picker.nvim',
-			-- Desc: Color quick search
-			'ziontee113/color-picker.nvim',
 		},
 		config = function()
 			require("plugin.finder.telescope")
@@ -490,25 +486,13 @@ plugins = {
 	},
 
 	-- Picker ------------------------------------------------------
-	['ziontee113/icon-picker.nvim'] = {
-		-- Desc: Icon quick search
-		lazy = true,
-		event = "VeryLazy",
-		dependencies = {
-			'stevearc/dressing.nvim',
-		},
-		config = function()
-			require("plugin.utility.picker.iconpicker")
-		end,
-	},
-	['ziontee113/color-picker.nvim'] = {
-		-- Desc: Color quick search
-		lazy = true,
-		event = "VeryLazy",
-		config = function()
-			require("plugin.utility.picker.colorpicker")
-		end,
-	},
+    ['2KAbhishek/nerdy.nvim'] = {
+        dependencies = {
+            'stevearc/dressing.nvim',
+            'nvim-telescope/telescope.nvim',
+        },
+        cmd = 'Nerdy',
+    },
 
 	-- Float terminal ----------------------------------------------
 	['rebelot/terminal.nvim'] = {
@@ -677,7 +661,6 @@ plugins = {
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------
-    ['p00f/clangd_extensions.nvim'] = { cond = false },
 }
 
 -- Load lazy (plugin manager)

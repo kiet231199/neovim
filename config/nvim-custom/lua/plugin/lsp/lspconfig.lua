@@ -148,6 +148,7 @@ require 'lspconfig'.clangd.setup {
 		completeUnimported = true,
 		semanticHighlighting = true,
 	},
+    hint = { enable = true },
 }
 
 -- Lua
@@ -162,6 +163,7 @@ require 'lspconfig'.lua_ls.setup {
 				-- Disable neodev modify workspace
 				checkThirdParty = false,
 			},
+            hint = { enable = true },
 		},
 	},
 }
