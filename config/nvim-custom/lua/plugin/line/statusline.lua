@@ -107,21 +107,21 @@ local vimode = {
             Vs = "󰉷L",
             s = "󰉷",
             S = "󰉷L",
-            i = "",
-            ic = "C",
-            ix = "X",
-            R = "󰌨",
-            Rc = "󰌨C",
-            Rx = "󰌨X",
-            Rv = "󰌨V",
-            Rvc = "󰌨C",
-            Rvx = "󰌨X",
-            c = "",
-            cv = "V",
-            r = "󰌨",
-            rm = "󰌨",
-            t = "",
-            ["no\22"] = "?",
+            i = " ",
+            ic = " C",
+            ix = " X",
+            R = "󰌨 ",
+            Rc = "󰌨 C",
+            Rx = "󰌨 X",
+            Rv = "󰌨 V",
+            Rvc = "󰌨 C",
+            Rvx = "󰌨 X",
+            c = " ",
+            cv = " V",
+            r = "󰌨 ",
+            rm = "󰌨 ",
+            t = " ",
+            ["no\22"] = " ?",
             ["\22"] = "󰉷?",
             ["\22s"] = "󰉷?",
             ["\19"] = "󰉷?",
@@ -236,19 +236,19 @@ local has_git = {
     {
         provider = function(self)
             local count = self.status_dict.added or 0
-            return count > 0 and (" " .. count)
+            return count > 0 and (" " .. vim.g.propofont .. count)
         end,
     },
     {
         provider = function(self)
             local count = self.status_dict.removed or 0
-            return count > 0 and (" " .. count)
+            return count > 0 and (" " .. vim.g.propofont .. count)
         end,
     },
     {
         provider = function(self)
             local count = self.status_dict.changed or 0
-            return count > 0 and (" " .. count)
+            return count > 0 and (" " .. vim.g.propofont .. count)
         end,
     },
     {
@@ -277,7 +277,7 @@ local none_git = {
     },
     {   -- git branch name
         provider = function()
-            return " "
+            return " " .. vim.g.propofont
         end,
         hl = { bold = true }
     },
@@ -356,7 +356,7 @@ local filename = {
         condition = function()
             return vim.bo.modified
         end,
-        provider = "",
+        provider = "" .. vim.g.propofont,
     },
     {   -- read only icon
         condition = function()
@@ -415,25 +415,25 @@ local diagnostics = {
         condition = conditions.has_diagnostics,
         {
             provider = function(self)
-                return self.errors > 0 and (" " .. self.error_icon .. self.errors)
+                return self.errors > 0 and (" " .. self.error_icon .. vim.g.propofont .. self.errors)
             end,
             hl = { fg = get_hex("DiagnosticError").fg },
         },
         {
             provider = function(self)
-                return self.warnings > 0 and (" " .. self.warn_icon .. self.warnings)
+                return self.warnings > 0 and (" " .. self.warn_icon .. vim.g.propofont .. self.warnings)
             end,
             hl = { fg = get_hex("DiagnosticWarn").fg },
         },
         {
             provider = function(self)
-                return self.info > 0 and (" " .. self.info_icon .. self.info)
+                return self.info > 0 and (" " .. self.info_icon .. vim.g.propofont .. self.info)
             end,
             hl = { fg = get_hex("DiagnosticInfo").fg },
         },
         {
             provider = function(self)
-                return self.hints > 0 and (" " .. self.hint_icon .. self.hints)
+                return self.hints > 0 and (" " .. self.hint_icon .. vim.g.propofont .. self.hints)
             end,
             hl = { fg = get_hex("DiagnosticHint").fg },
         },
@@ -470,7 +470,7 @@ local lsp = {
             for _,_ in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
                 lsp_numnr = lsp_numnr + 1
             end
-            return " " .. lsp_numnr .. " "
+            return vim.g.propofont .. " " .. lsp_numnr .. " "
         end,
     },
     on_click = {
@@ -504,8 +504,8 @@ local status = {
     },
     {
         provider  = function()
-            if vim.fn.has("unix") then return ""
-            else return "" end
+            if vim.fn.has("unix") then return "" .. vim.g.propofont
+            else return "" .. vim.g.propofont end
         end,
     },
     {
@@ -536,8 +536,8 @@ local debug_session = {
     {
         provider = function()
             local session = require("dap").session()
-            if session ~= nil then return "  " .. require("dap").status()
-            else return " " end
+            if session ~= nil then return "  " .. require("dap").status()
+            else return " " .. vim.g.propofont end
         end,
     },
     {
@@ -639,7 +639,7 @@ local debug_repl = {
             end,
             { provider = " " },
             {
-                provider = "󱔏",
+                provider = "󱔏" .. vim.g.propofont,
                 on_click = {
                     callback = function()
                         vim.cmd("DapVirtualTextToggle")

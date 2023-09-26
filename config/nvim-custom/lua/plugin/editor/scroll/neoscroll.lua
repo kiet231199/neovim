@@ -15,8 +15,8 @@ neoscroll.setup({
 
 local t = {}
 -- Syntax: t[keys] = {function, {function arguments}}
-t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '300', [['cubic']]}}
-t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '300', [['cubic']]}}
+t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '400', [['cubic']]}}
+t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '400', [['cubic']]}}
 
 -- Use the "cubic" cubic function
 t['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '800', [['cubic']]}}
