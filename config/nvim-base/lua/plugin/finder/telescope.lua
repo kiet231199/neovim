@@ -66,7 +66,7 @@ telescope.setup({
 			height = 0.9,
 			preview_cutoff = 120,
 		},
-		winblend = 12,
+		winblend = 0,
 		color_devicons = true,
 		set_env = { ["COLORTERM"] = "truecolor" },
 		preview = {

@@ -1,4 +1,5 @@
 vim.g.mapleader = ","
+vim.g.propofont = " "
 
 local options = {
     backup         = false,                             -- creates a backup file
