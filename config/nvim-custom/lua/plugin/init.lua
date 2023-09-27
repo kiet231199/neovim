@@ -23,12 +23,18 @@ plugins = {
 
 	-- Colorscheme -------------------------------------------------
 	['folke/tokyonight.nvim'] = {
-		-- Desc: Colorscheme manager
+		-- Desc: Tokyo-night
 		config = function()
 			require("plugin.colorscheme.tokyonight")
-			vim.cmd("colorscheme tokyonight")
+			vim.cmd("colorscheme tokyonight") -- Set as default
 		end,
 	},
+    ['polirritmico/monokai-nightasty.nvim'] = {
+		-- Desc: Monokai-night
+		config = function()
+			require("plugin.colorscheme.monokai")
+		end,
+    },
 
 	-- Explorer ----------------------------------------------------
 	['nvim-neo-tree/neo-tree.nvim'] = {
@@ -659,8 +665,20 @@ plugins = {
 	},
 
 	-- Plugin on testing ----------------------------------------
+    ['azabiong/vim-highlighter'] = {
+		-- Desc: Highlight word with many colors
+		event = "VeryLazy",
+		config = function()
+			-- require("plugin.ui.highlighter")
+		end,
+		init = function()
+			-- require("utils").load_mappings("highlighter")
+		end,
+
+    },
 
 	-- Plugin on pending ----------------------------------------
+    ['jonboh/nvim-dap-rr'] = {},
 }
 
 -- Load lazy (plugin manager)
