@@ -281,6 +281,17 @@ plugins = {
             }
         end,
     },
+    ['jonboh/nvim-dap-rr'] = {
+        -- Desc: GDB tool for replay debug
+        cond = false,
+        dependencies = {
+            'mfussenegger/nvim-dap',
+            'nvim-telescope/telescope.nvim',
+        },
+        config = function()
+            require("plugin.debugger.daprr")
+        end,
+    },
 
 	-- Editor -----------------------------------------------------
 	['numToStr/Comment.nvim'] = {
@@ -587,7 +598,7 @@ plugins = {
 	['lukas-reineke/indent-blankline.nvim'] = {
 		-- Desc: Indentline
 		config = function()
-			require("plugin.ui.indentblankline")
+			require("plugin.ui.ibl")
 		end,
 	},
 	['fmbarina/multicolumn.nvim'] = {
@@ -665,20 +676,9 @@ plugins = {
 	},
 
 	-- Plugin on testing ----------------------------------------
-    ['azabiong/vim-highlighter'] = {
-		-- Desc: Highlight word with many colors
-		event = "VeryLazy",
-		config = function()
-			-- require("plugin.ui.highlighter")
-		end,
-		init = function()
-			-- require("utils").load_mappings("highlighter")
-		end,
-
-    },
 
 	-- Plugin on pending ----------------------------------------
-    ['jonboh/nvim-dap-rr'] = {},
+    ['altermo/ultimate-autopair.nvim'] = { cond = false },
 }
 
 -- Load lazy (plugin manager)
