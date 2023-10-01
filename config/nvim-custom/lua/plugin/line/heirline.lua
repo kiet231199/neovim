@@ -8,7 +8,6 @@ local utils = require("heirline.utils")
 local function setup_colors()
     return {
         -- We need to do something here for each colorscheme
-        -- lua print(vim.g.colors_name)
     }
 end
 

@@ -24,7 +24,7 @@ ibl.setup({
         highlight = "IblScope",
         include = {
             node_type = {
-                -- c = { "return_statement", "table_constructor" },
+                c = { "case_statement" },
             }
         },
         exclude = {

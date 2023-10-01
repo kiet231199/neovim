@@ -33,13 +33,13 @@ plugins = {
 		-- Desc: Monokai-night
 		config = function()
 			require("plugin.colorscheme.monokai")
+			-- vim.cmd("colorscheme monokai-nightnasty") -- Set as default
 		end,
     },
 
 	-- Explorer ----------------------------------------------------
 	['nvim-neo-tree/neo-tree.nvim'] = {
 		-- Desc: File browser
-		-- INFO: Need to reconfigure highlight
 		config = function()
 			require("plugin.explorer.neotree")
 		end,
@@ -60,6 +60,7 @@ plugins = {
 	-- Tabline and Statusline --------------------------------------
 	['rebelot/heirline.nvim'] = {
         -- Desc: Show both tabline and statusline
+        -- TODO: Configure for colorscheme changing
         init = function()
 			vim.opt.laststatus = 2
             vim.opt.showcmdloc = 'statusline'
@@ -72,8 +73,6 @@ plugins = {
 	},
 	['Bekaboo/dropbar.nvim'] = {
 	 	-- Desc: Winbar
-		-- FIXME: Temporarily disabled winbar on window
-		enabled = vim.fn.has("unix") == 1,
 		config = function()
 			require("plugin.line.dropbar")
 		end,
@@ -363,22 +362,13 @@ plugins = {
 			{ "<leader>rp", ":MurenToggle<CR>", mode = "n", silent = true, noremap = true },
 		}
 	},
-	['ZhiyuanLck/smart-pairs'] = {
+    ['altermo/ultimate-autopair.nvim'] = {
 		-- Desc: Smart placing bracket
-		config = function()
-			require("pairs"):setup({ enter = { enable_mapping = false } })
-		end,
-		event = "InsertEnter",
-	},
-	['abecodes/tabout.nvim'] = {
-		-- Desc: Tabout of bracket
-		config = function()
-			require("plugin.editor.tabout")
-		end,
-		init = function()
-			require("utils").load_mappings("tabout")
-		end,
-	},
+        -- TODO: Investigate and update this plugin
+        config = function()
+            require("plugin.editor.autopair")
+        end,
+    },
 	['kylechui/nvim-surround'] = {
 		-- Desc: Smart pair
 		config = function()
@@ -457,8 +447,6 @@ plugins = {
 	-- Better UI ---------------------------------------------------
 	['folke/noice.nvim'] = {
 		-- Desc: Show message popup, LSP progress, popup commandline
-		-- INFO: Disable on neovide
-		enabled = vim.g.neovide == nil,
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 			"rcarriga/nvim-notify",
@@ -678,7 +666,6 @@ plugins = {
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------
-    ['altermo/ultimate-autopair.nvim'] = { cond = false },
 }
 
 -- Load lazy (plugin manager)

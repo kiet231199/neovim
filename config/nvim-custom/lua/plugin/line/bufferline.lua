@@ -4,14 +4,10 @@ if not status_ok then
 	return
 end
 
--- INFO: Define built in modules
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
-
--- INFO: Define built in utility functions
 local get_hex = require('heirline.utils').get_highlight
 
--- INFO: Define some tables
 local my_color = {
     primary = {
         fg = "#15161e",
