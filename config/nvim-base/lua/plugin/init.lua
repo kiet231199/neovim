@@ -323,22 +323,13 @@ plugins = {
 			require("plugin.editor.search.hlslens")
 		end,
 	},
-	['ZhiyuanLck/smart-pairs'] = {
+    ['altermo/ultimate-autopair.nvim'] = {
 		-- Desc: Smart placing bracket
-		config = function()
-			require("pairs"):setup({ enter = { enable_mapping = false } })
-		end,
-		event = "InsertEnter",
-	},
-	['abecodes/tabout.nvim'] = {
-		-- Desc: Tabout of bracket
-		config = function()
-			require("plugin.editor.tabout")
-		end,
-		init = function()
-			require("utils").load_mappings("tabout")
-		end,
-	},
+        -- TODO: Investigate and update this plugin
+        config = function()
+            require("plugin.editor.autopair")
+        end,
+    },
 	['kylechui/nvim-surround'] = {
 		-- Desc: Smart pair
 		config = function()
@@ -427,7 +418,7 @@ plugins = {
 	['lukas-reineke/indent-blankline.nvim'] = {
 		-- Desc: Indentline
 		config = function()
-			require("plugin.ui.indentblankline")
+			require("plugin.ui.ibl")
 		end,
 	},
 	['fmbarina/multicolumn.nvim'] = {

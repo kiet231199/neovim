@@ -100,14 +100,6 @@ mappings.terminal = {
 	},
 }
 
-mappings.tabout = {
-	plugin = true,
-	i = {
-		["<C-Right>"] = { "<Plug>(Tabout)", "tabout next", opts = { silent = true } },
-		["<C-Left>"] = { "<Plug>(TaboutBack)", "tabout previous", opts = { silent = true } },
-	},
-}
-
 mappings.searchbox = {
 	plugin = true,
 	n = {

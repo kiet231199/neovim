@@ -249,7 +249,13 @@ require("cmp").setup.cmdline({ '/', '?' }, {
 require("cmp").setup.cmdline(':', {
 	mapping = require("cmp").mapping.preset.cmdline(),
 	sources = require("cmp").config.sources({
-		{ name = 'cmdline', priority = 3 },
+        {
+            name = 'cmdline',
+            priority = 3,
+            option = {
+                ignore_cmds = { 'vsplit', 'split' },
+            },
+        },
 		{ name = 'path', priority = 2 },
 		{
 			name = 'cmdline_history',
