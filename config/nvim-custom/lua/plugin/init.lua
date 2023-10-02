@@ -22,18 +22,17 @@ plugins = {
 	},
 
 	-- Colorscheme -------------------------------------------------
+    -- INFO: Colorscheme is selected in plugin.colorscheme.init
 	['folke/tokyonight.nvim'] = {
 		-- Desc: Tokyo-night
 		config = function()
 			require("plugin.colorscheme.tokyonight")
-			vim.cmd("colorscheme tokyonight") -- Set as default
 		end,
 	},
     ['polirritmico/monokai-nightasty.nvim'] = {
 		-- Desc: Monokai-night
 		config = function()
 			require("plugin.colorscheme.monokai")
-			-- vim.cmd("colorscheme monokai-nightnasty") -- Set as default
 		end,
     },
 

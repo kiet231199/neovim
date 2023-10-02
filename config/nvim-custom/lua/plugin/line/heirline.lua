@@ -6,8 +6,17 @@ end
 
 local utils = require("heirline.utils")
 local function setup_colors()
+    local my_colors = require("plugin.line.color").get_colors()
     return {
         -- We need to do something here for each colorscheme
+        primary_fg   = my_colors.primary.fg,
+        primary_bg   = my_colors.primary.bg,
+        secondary_fg = my_colors.secondary.fg,
+        secondary_bg = my_colors.secondary.bg,
+        tertiary_fg  = my_colors.tertiary.fg,
+        tertiary_bg  = my_colors.tertiary.bg,
+        normal_fg    = my_colors.normal.fg,
+        normal_bg    = my_colors.normal.bg,
     }
 end
 

@@ -40,3 +40,5 @@ monokai.setup({
         -- highlights.WinSeparator = { fg = colors.grey }
     end,
 })
+
+require("plugin.colorscheme").set_option() -- Load colorscheme

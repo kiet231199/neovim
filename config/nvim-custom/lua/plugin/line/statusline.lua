@@ -7,49 +7,16 @@ end
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
 local get_hex = require('heirline.utils').get_highlight
+local separator = require("plugin.line.icon").get_icon()
 
-local my_separator = {
-    external = {
-        left = '',
-        right = '',
-        -- left = '',
-        -- right = '',
-    },
-    internal = {
-        left_t = '',
-        right = '',
-        -- left = '',
-        -- right = '',
-    },
-}
-
-local my_color = {
-    primary = {
-        fg = "#15161e",
-        bg = "#7aa2f7",
-    },
-    secondary = {
-        fg = "#0c1220",
-        bg = "#616da0",
-    },
-    tertiary = {
-        fg = "#5c87eb",
-        bg = "#3b4261",
-    },
-    normal = {
-        fg = "#c0caf5",
-        bg = "#13141c",
-    },
-}
-
-local my_exclude = {
+local exclusion = {
     buftype = { "nofile", "prompt", "quickfix" },
     filetype = { "neo-tree" },
 }
 
 local vimode = {
     condition = function()
-        return conditions.is_active() and not conditions.buffer_matches(my_exclude)
+        return conditions.is_active() and not conditions.buffer_matches(exclusion)
     end,
     static = {
         mode_names = {
@@ -141,10 +108,10 @@ local vimode = {
         }
     },
     {
-        provider = my_separator.external.left,
+        provider = separator.external.left,
         hl = function(self)
             local mode = vim.fn.mode(1):sub(1, 1) -- get only the first mode character
-            return { fg = self.mode_colors[mode], bold = true, bg = get_hex("Normal").bg }
+            return { fg = self.mode_colors[mode], bold = true, bg = "normal_bg" }
         end,
     },
     {
@@ -190,10 +157,10 @@ local vimode = {
         },
     },
     {
-        provider = my_separator.external.right,
+        provider = separator.external.right,
         hl = function(self)
             local mode = vim.fn.mode(1):sub(1, 1) -- get only the first mode character
-            return { fg = self.mode_colors[mode], bold = true, bg = my_color.secondary.bg }
+            return { fg = self.mode_colors[mode], bold = true, bg = "secondary_bg" }
         end,
     },
     on_click = {
@@ -207,15 +174,15 @@ local vimode = {
 
 local has_git = {
     condition = function()
-        return (conditions.is_active() and conditions.is_git_repo()) and not conditions.buffer_matches(my_exclude)
+        return (conditions.is_active() and conditions.is_git_repo()) and not conditions.buffer_matches(exclusion)
     end,
     init = function(self)
         self.status_dict = vim.b.gitsigns_status_dict
         self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
     end,
     hl = {
-        fg = my_color.secondary.fg,
-        bg = my_color.secondary.bg,
+        fg = "secondary_fg",
+        bg = "secondary_bg",
     },
     {   -- git branch name
         provider = function(self)
@@ -227,7 +194,7 @@ local has_git = {
         condition = function(self)
             return self.has_changes
         end,
-        provider = ' ' .. my_separator.internal.right,
+        provider = ' ' .. separator.internal.right,
     },
     {
         provider = function(self)
@@ -248,10 +215,10 @@ local has_git = {
         end,
     },
     {
-        provider = my_separator.external.right,
+        provider = separator.external.right,
         hl = {
-            fg = my_color.secondary.bg,
-            bg = my_color.tertiary.bg,
+            fg = "secondary_bg",
+            bg = "tertiary_bg",
         },
     },
     on_click = {
@@ -265,11 +232,11 @@ local has_git = {
 
 local none_git = {
     condition = function()
-        return (conditions.is_active() and not conditions.is_git_repo()) and not conditions.buffer_matches(my_exclude)
+        return (conditions.is_active() and not conditions.is_git_repo()) and not conditions.buffer_matches(exclusion)
     end,
     hl = {
-        fg = my_color.secondary.fg,
-        bg = my_color.secondary.bg,
+        fg = "secondary_fg",
+        bg = "secondary_bg",
     },
     {   -- git branch name
         provider = function()
@@ -278,10 +245,10 @@ local none_git = {
         hl = { bold = true }
     },
     {
-        provider = my_separator.external.right,
+        provider = separator.external.right,
         hl = {
-            fg = my_color.secondary.bg,
-            bg = my_color.tertiary.bg,
+            fg = "secondary_bg",
+            bg = "tertiary_bg",
         },
     },
 }
@@ -294,10 +261,10 @@ local git = { -- Merge has_git and none_git together
     },
     {
         condition = conditions.is_active,
-        provider = my_separator.external.right,
+        provider = separator.external.right,
         hl = {
-            fg = my_color.secondary.bg,
-            bg = my_color.tertiary.bg,
+            fg = "secondary_bg",
+            bg = "tertiary_bg",
         },
     },
 }
@@ -305,23 +272,23 @@ local git = { -- Merge has_git and none_git together
 local filename = {
     hl = function()
         if conditions.is_active() then
-            if conditions.buffer_matches(my_exclude) then
-                return { fg = my_color.primary.fg, bg = my_color.primary.bg }
+            if conditions.buffer_matches(exclusion) then
+                return { fg = "primary_fg", bg = "primary_bg" }
             else
-                return { fg = my_color.tertiary.fg, bg = my_color.tertiary.bg }
+                return { fg = "tertiary_fg", bg = "tertiary_bg" }
             end
         else
-            return { fg = my_color.normal.fg, bg = my_color.normal.bg }
+            return { fg = "normal_fg", bg = "normal_bg" }
         end
     end,
     {
         condition = function()
-            return conditions.is_active() and conditions.buffer_matches(my_exclude)
+            return conditions.is_active() and conditions.buffer_matches(exclusion)
         end,
-        provider = my_separator.external.left,
+        provider = separator.external.left,
         hl = {
-            fg = my_color.primary.bg,
-            bg = my_color.primary.fg,
+            fg = "primary_bg",
+            bg = "primary_fg",
         },
     },
     {   -- file name icon
@@ -362,12 +329,12 @@ local filename = {
     },
     {
         condition = conditions.is_active,
-        provider = my_separator.external.right,
+        provider = separator.external.right,
         hl = function()
-            if conditions.buffer_matches(my_exclude) then
-                return { fg = my_color.primary.bg, bg = my_color.primary.fg, bold = true }
+            if conditions.buffer_matches(exclusion) then
+                return { fg = "primary_bg", bg = "primary_fg", bold = true }
             else
-                return { fg = my_color.tertiary.bg, bg = my_color.normal.bg, bold = true }
+                return { fg = "tertiary_bg", bg = "normal_bg", bold = true }
             end
         end,
     },
@@ -383,7 +350,7 @@ local filename = {
 
 local diagnostics = {
     condition = function()
-        return conditions.is_active() and not conditions.buffer_matches(my_exclude)
+        return conditions.is_active() and not conditions.buffer_matches(exclusion)
     end,
     init = function(self)
         self.error_icon = ""
@@ -396,15 +363,15 @@ local diagnostics = {
         self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
     end,
     hl = {
-        fg = my_color.tertiary.fg,
-        bg = my_color.tertiary.bg,
+        fg = "tertiary_fg",
+        bg = "tertiary_bg",
     },
     update = { "DiagnosticChanged", "BufEnter" },
     {
-        provider = my_separator.external.left,
+        provider = separator.external.left,
         hl = {
-            fg = my_color.tertiary.bg,
-            bg = my_color.normal.bg,
+            fg = "tertiary_bg",
+            bg = "normal_bg",
         },
     },
     {
@@ -445,19 +412,19 @@ local diagnostics = {
 
 local lsp = {
     condition = function()
-        return conditions.is_active() and not conditions.buffer_matches(my_exclude)
+        return conditions.is_active() and not conditions.buffer_matches(exclusion)
     end,
     update = {'LspAttach', 'LspDetach'},
     hl = {
-        fg = my_color.secondary.fg,
-        bg = my_color.secondary.bg,
+        fg = "secondary_fg",
+        bg = "secondary_bg",
         bold = true,
     },
     {
-        provider = my_separator.external.left,
+        provider = separator.external.left,
         hl = {
-            fg = my_color.secondary.bg,
-            bg = my_color.tertiary.bg,
+            fg = "secondary_bg",
+            bg = "tertiary_bg",
         },
     },
     {
@@ -484,18 +451,18 @@ local lsp = {
 
 local status = {
     condition = function()
-        return conditions.is_active() and not conditions.buffer_matches(my_exclude)
+        return conditions.is_active() and not conditions.buffer_matches(exclusion)
     end,
     hl = {
-        fg = my_color.primary.fg,
-        bg = my_color.primary.bg,
+        fg = "primary_fg",
+        bg = "primary_bg",
         bold = true,
     },
     {
-        provider = my_separator.external.left,
+        provider = separator.external.left,
         hl = {
-            fg = my_color.primary.bg,
-            bg = my_color.secondary.bg,
+            fg = "primary_bg",
+            bg = "secondary_bg",
         },
     },
     {
@@ -505,10 +472,10 @@ local status = {
         end,
     },
     {
-        provider = my_separator.external.right,
+        provider = separator.external.right,
         hl = {
-            fg = my_color.primary.bg,
-            bg = my_color.secondary.bg,
+            fg = "primary_bg",
+            bg = "secondary_bg",
         },
     },
     on_click = {
@@ -523,11 +490,11 @@ local status = {
 
 local debug_session = {
     condition = function()
-        return conditions.is_active() and not conditions.buffer_matches(my_exclude)
+        return conditions.is_active() and not conditions.buffer_matches(exclusion)
     end,
     hl = {
-        fg = my_color.secondary.fg,
-        bg = my_color.secondary.bg,
+        fg = "secondary_fg",
+        bg = "secondary_bg",
     },
     {
         provider = function()
@@ -537,10 +504,10 @@ local debug_session = {
         end,
     },
     {
-        provider = my_separator.external.right,
+        provider = separator.external.right,
         hl = {
-            fg = my_color.secondary.bg,
-            bg = my_color.tertiary.bg,
+            fg = "secondary_bg",
+            bg = "tertiary_bg",
         },
     },
     on_click = {
@@ -554,11 +521,11 @@ local debug_session = {
 
 local debug_repl = {
     condition = function()
-        return conditions.is_active() and not conditions.buffer_matches(my_exclude)
+        return conditions.is_active() and not conditions.buffer_matches(exclusion)
     end,
     hl = {
-        fg = my_color.tertiary.fg,
-        bg = my_color.tertiary.bg,
+        fg = "tertiary_fg",
+        bg = "tertiary_bg",
     },
     {
         {
@@ -648,10 +615,10 @@ local debug_repl = {
         },
     },
     {
-        provider = my_separator.external.right,
+        provider = separator.external.right,
         hl = {
-            fg = my_color.tertiary.bg,
-            bg = my_color.normal.bg,
+            fg = "tertiary_bg",
+            bg = "normal_bg",
         },
     },
 }
@@ -666,26 +633,26 @@ local key = {
     flexible = 2,
     {
         condition = function()
-            if conditions.is_active() and not conditions.buffer_matches(my_exclude) then
+            if conditions.is_active() and not conditions.buffer_matches(exclusion) then
                 return vim.o.cmdheight == 0
             else return false end
         end,
-        hl = { fg = my_color.tertiary.fg, bg = my_color.tertiary.bg },
+        hl = { fg = "normal_fg", bg = "tertiary_bg" },
         {
-            provider = my_separator.external.left,
+            provider = separator.external.left,
             hl = {
-                fg = my_color.tertiary.bg,
-                bg = my_color.normal.bg,
+                fg = "tertiary_bg",
+                bg = "normal_bg",
             },
         },
         { provider = "%3.5(%S%) " },
     },
     {
         condition = conditions.is_active,
-        provider = my_separator.external.left,
+        provider = separator.external.left,
         hl = {
-            fg = my_color.tertiary.bg,
-            bg = my_color.normal.bg,
+            fg = "tertiary_bg",
+            bg = "normal_bg",
         },
     },
 }
@@ -694,12 +661,12 @@ local macro = {
     flexible = 1,
     {
         condition = function()
-            if conditions.is_active() and not conditions.buffer_matches(my_exclude) then
+            if conditions.is_active() and not conditions.buffer_matches(exclusion) then
                 return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
             else return false end
         end,
         provider = " record macro to ",
-        hl = { fg = "orange", bg = my_color.normal.bg, bold = true },
+        hl = { fg = "orange", bg = "normal_bg", bold = true },
         utils.surround({ "[", "]" }, nil, {
             provider = function()
                 return vim.fn.reg_recording()
@@ -717,20 +684,20 @@ local macro = {
 
 local percentage = {
     condition = function()
-        return conditions.is_active() and not conditions.buffer_matches(my_exclude)
+        return conditions.is_active() and not conditions.buffer_matches(exclusion)
     end,
     static = {
         sbar = { '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█' },
     },
     hl = {
-        fg = my_color.secondary.fg,
-        bg = my_color.secondary.bg,
+        fg = "secondary_fg",
+        bg = "secondary_bg",
     },
     {
-        provider = my_separator.external.left,
+        provider = separator.external.left,
         hl = {
-            fg = my_color.secondary.bg,
-            bg = my_color.tertiary.bg,
+            fg = "secondary_bg",
+            bg = "tertiary_bg",
         },
     },
     {
@@ -746,7 +713,6 @@ local percentage = {
                     local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
                     return string.rep(self.sbar[i], 2) .. " "
                 end,
-                -- hl = { fg = my_color.secondary.fg },
             },
         },
         { provider = "" },
@@ -756,19 +722,19 @@ local percentage = {
 local lines = {
     hl = function()
         if conditions.is_active() then
-            return { fg = my_color.primary.fg, bg = my_color.primary.bg, bold = true }
+            return { fg = "primary_fg", bg = "primary_bg", bold = true }
         else
-            return { fg = my_color.normal.fg, bg = my_color.normal.bg, bold = false }
+            return { fg = "normal_fg", bg = "normal_bg", bold = false }
         end
     end,
     {
         condition = conditions.is_active,
-        provider = my_separator.external.left,
+        provider = separator.external.left,
         hl = function()
-            if conditions.buffer_matches(my_exclude) then
-                return { fg = my_color.primary.bg, bg = my_color.tertiary.bg }
+            if conditions.buffer_matches(exclusion) then
+                return { fg = "primary_bg", bg = "tertiary_bg" }
             else
-                return { fg = my_color.primary.bg, bg = my_color.secondary.bg }
+                return { fg = "primary_bg", bg = "secondary_bg" }
             end
         end,
     },
@@ -787,10 +753,10 @@ local lines = {
     },
     {
         condition = conditions.is_active,
-        provider = my_separator.external.right,
+        provider = separator.external.right,
         hl = {
-            fg = my_color.primary.bg,
-            bg = my_color.normal.bg,
+            fg = "primary_bg",
+            bg = "normal_bg",
         },
     },
 }
@@ -827,6 +793,7 @@ local statusline = {
             lines,
         },
     },
+    hl = { fg = "normal_fg", bg = "normal_bg" },
 }
 
 return statusline

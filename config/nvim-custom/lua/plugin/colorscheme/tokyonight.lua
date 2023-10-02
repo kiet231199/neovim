@@ -44,3 +44,5 @@ tokyonight.setup({
 		-- hl.CursorLineNr = { fg = "#fefe14" , bold = true }
 	end,
 })
+
+require("plugin.colorscheme").set_option() -- load option and colorscheme
