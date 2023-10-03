@@ -4,6 +4,7 @@ if not status_ok then
 	return
 end
 
+local utils = require("dropbar.utils")
 local current_path = vim.fs.normalize(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p'))
 local preview = true
 
@@ -30,6 +31,12 @@ local kinds = {
 	Folder = ' ',
 	ForStatement = '󰑖 ',
 	Function = '󰊕 ',
+    H1Marker = '󰉫 ',      -- Used by markdown treesitter parser
+    H2Marker = '󰉬 ',
+    H3Marker = '󰉭 ',
+    H4Marker = '󰉮 ',
+    H5Marker = '󰉯 ',
+    H6Marker = '󰉰 ',
 	Identifier = '󰀫 ',
 	IfStatement = ' ',
 	Interface = ' ',
@@ -52,6 +59,7 @@ local kinds = {
 	Object = ' ',
 	Operator = '󰆕 ',
 	Package = '󰆦 ',
+    Pair = '󰅪 ',
 	Property = ' ',
 	Reference = '󰦾 ',
 	Regex = ' ',
@@ -73,13 +81,17 @@ local kinds = {
 }
 
 dropbar.setup({
-	enable = function(buf, win)
-		return not vim.api.nvim_win_get_config(win).zindex
-			and vim.bo[buf].buftype == 'alpha'
-			and vim.api.nvim_buf_get_name(buf) ~= ''
-			and not vim.wo[win].diff
-	end,
+    general = {
+        enable = function(buf, win)
+            return not vim.api.nvim_win_get_config(win).zindex
+                and vim.bo[buf].buftype == ''
+                and vim.api.nvim_buf_get_name(buf) ~= ''
+                and not vim.wo[win].diff
+        end,
+        update_interval = 70,
+    },
 	icons = {
+        enable = true,
 		kinds = {
 			use_devicons = true,
 			symbols = kinds,
@@ -96,29 +108,6 @@ dropbar.setup({
 		}
 	},
 	bar = {
-		sources = function(_, _)
-			local sources = require('dropbar.sources')
-			return {
-				sources.path,
-				{
-					get_symbols = function(buf, win, cursor)
-						if vim.bo[buf].ft == 'markdown' then
-							return sources.markdown.get_symbols(buf, win, cursor)
-						end
-						for _, source in ipairs({
-							sources.lsp,
-							sources.treesitter,
-						}) do
-							local symbols = source.get_symbols(buf, win, cursor)
-							if not vim.tbl_isempty(symbols) then
-								return symbols
-							end
-						end
-						return {}
-					end,
-				},
-			}
-		end,
 		padding = {
 			left = 1,
 			right = 1,
@@ -155,83 +144,13 @@ dropbar.setup({
 		},
 	},
 	menu = {
-		-- When on, preview the symbol under the cursor on CursorMoved
 		preview = preview,
-		-- When on, automatically set the cursor to the closest previous/next
-		-- clickable component in the direction of cursor movement on CursorMoved
-		quick_navigation = true,
+		quick_navigation = false,
 		entry = {
 			padding = {
 				left = 1,
 				right = 1,
 			},
-		},
-		keymaps = {
-			['<LeftMouse>'] = function()
-				local api = require('dropbar.api')
-				local menu = api.get_current_dropbar_menu()
-				if not menu then
-					return
-				end
-				local mouse = vim.fn.getmousepos()
-				if mouse.winid ~= menu.win then
-					local prev_menu = api.get_dropbar_menu(mouse.winid)
-					if prev_menu and prev_menu.sub_menu then
-						prev_menu.sub_menu:close()
-					end
-					if vim.api.nvim_win_is_valid(mouse.winid) then
-						vim.api.nvim_set_current_win(mouse.winid)
-					end
-					return
-				end
-				menu:click_at({ mouse.line, mouse.column - 1 }, nil, 1, 'l')
-			end,
-			['<CR>'] = function()
-				local menu = require('dropbar.api').get_current_dropbar_menu()
-				if not menu then
-					return
-				end
-				local cursor = vim.api.nvim_win_get_cursor(menu.win)
-				local component = menu.entries[cursor[1]]:first_clickable(cursor[2])
-				if component then
-					menu:click_on(component, nil, 1, 'l')
-				end
-			end,
-			['q'] = function()
-				local menu = require('dropbar.api').get_current_dropbar_menu()
-				if not menu then
-					return
-				end
-				local cursor = vim.api.nvim_win_get_cursor(menu.win)
-				local component = menu.entries[cursor[1]]:first_clickable(cursor[2])
-				if component then
-					menu:close()
-				end
-			end,
-			['<MouseMove>'] = function()
-				local menu = require('dropbar.api').get_current_dropbar_menu()
-				if not menu then
-					return
-				end
-				local mouse = vim.fn.getmousepos()
-				-- If mouse is not in the menu window or on the border, end preview
-				-- and clear hover highlights
-				if mouse.winid ~= menu.win or mouse.line <= 0 or mouse.column <= 0 then
-					-- Find the root menu
-					while menu and menu.prev_menu do
-						menu = menu.prev_menu
-					end
-					if menu then
-						menu:finish_preview(true)
-						menu:update_hover_hl()
-					end
-					return
-				end
-				if preview then
-					menu:preview_symbol_at({ mouse.line, mouse.column - 1 }, true)
-				end
-				menu:update_hover_hl({ mouse.line, mouse.column - 1 })
-			end,
 		},
 		win_configs = {
 			border = 'rounded',
