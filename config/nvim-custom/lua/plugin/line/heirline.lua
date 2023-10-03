@@ -5,8 +5,10 @@ if not status_ok then
 end
 
 local utils = require("heirline.utils")
+local colors = require("plugin.line.color")
 local function setup_colors()
-    local my_colors = require("plugin.line.color").get_colors()
+    local my_colors = colors.get_colors()
+    local my_modes = colors.get_mode_colors()
     return {
         -- We need to do something here for each colorscheme
         primary_fg   = my_colors.primary.fg,
@@ -17,6 +19,16 @@ local function setup_colors()
         tertiary_bg  = my_colors.tertiary.bg,
         normal_fg    = my_colors.normal.fg,
         normal_bg    = my_colors.normal.bg,
+        mode_n       = my_modes.n,
+        mode_i       = my_modes.i,
+        mode_v       = my_modes.v,
+        mode_c       = my_modes.c,
+        mode_s       = my_modes.s,
+        mode_r       = my_modes.r,
+        mode_na1     = my_modes.na1,
+        mode_na2     = my_modes.na2,
+        mode_na3     = my_modes.na3,
+        mode_t       = my_modes.t,
     }
 end
 

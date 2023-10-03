@@ -59,7 +59,6 @@ plugins = {
 	-- Tabline and Statusline --------------------------------------
 	['rebelot/heirline.nvim'] = {
         -- Desc: Show both tabline and statusline
-        -- TODO: Configure for colorscheme changing
         init = function()
 			vim.opt.laststatus = 2
             vim.opt.showcmdloc = 'statusline'

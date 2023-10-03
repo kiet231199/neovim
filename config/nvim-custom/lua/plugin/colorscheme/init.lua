@@ -32,6 +32,7 @@ vim.api.nvim_create_augroup("ColorSchemePost", { clear = true })
 vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
         option.colorscheme = vim.g.colors_name
+        option.background = vim.o.background
     end,
     group = "ColorSchemePost",
 })

@@ -241,6 +241,9 @@ local time = {
 }
 
 local bufferline = {
+    condition = function()
+        return conditions.is_active() and not conditions.buffer_matches(exclusion)
+    end,
     offset,
     buffer,
     { provider = "%=" }, -- right align

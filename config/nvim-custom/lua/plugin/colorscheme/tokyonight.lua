@@ -39,6 +39,7 @@ tokyonight.setup({
     -- @param highlights Highlights
     -- @param colors ColorScheme
     on_highlights = function(hl, cl)
+        -- TODO: Config normal highlight for each colorscheme
 		-- local black = "#000000"
 		-- hl.LineNr = { fg = "#697094" }
 		-- hl.CursorLineNr = { fg = "#fefe14" , bold = true }
