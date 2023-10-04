@@ -362,7 +362,6 @@ plugins = {
 	},
     ['altermo/ultimate-autopair.nvim'] = {
 		-- Desc: Smart placing bracket
-        -- TODO: Investigate and update this plugin
         config = function()
             require("plugin.editor.autopair")
         end,

@@ -10,7 +10,7 @@ local separator = require("plugin.line.icon").get_icon()
 
 local exclusion = {
     buftype = { "nofile", "prompt", "quickfix" },
-    filetype = { "neo-tree" },
+    filetype = { "alpha", "neo-tree" },
 }
 
 -- initialize the buflist cache
