@@ -218,7 +218,7 @@ local time = {
         provider = separator.external.left,
         hl = {
             fg = "primary_bg",
-            bg = "normal_bg",
+            bg = "secondary_bg",
         },
     },
     {
@@ -240,6 +240,34 @@ local time = {
     },
 }
 
+local dark_mode = {
+    hl = {
+        fg = "secondary_fg",
+        bg = "secondary_bg",
+        bold = true,
+    },
+    {
+        condition = conditions.is_active,
+        provider = separator.external.left,
+        hl = {
+            fg = "secondary_bg",
+            bg = "normal_bg",
+        },
+    },
+	{
+		provider = function()
+			if vim.o.background == "light" then return " "
+			else return " " end
+		end
+	},
+    on_click = {
+        callback = function()
+			require("plugin.colorscheme").toggle_background()
+        end,
+        name = "toggle_dark_mode",
+    },
+}
+
 local bufferline = {
     condition = function()
         return conditions.is_active() and not conditions.buffer_matches(exclusion)
@@ -247,6 +275,7 @@ local bufferline = {
     offset,
     buffer,
     { provider = "%=" }, -- right align
+	dark_mode,
     time,
     hl = { fg = "primary_bg", bg = "normal_bg" },
 }

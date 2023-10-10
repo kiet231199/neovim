@@ -196,7 +196,7 @@ mappings.dap = {
         ["<space>dF"] = { "<cmd>DapStepOut<CR>"  , "Step Out" },
         ["<space>ds"] = { "<cmd>DapStepOver<CR>" , "Step Over" },
         -- INFO: Using mouse to toggle breakpoint
-        ["<2-LeftMouse>"] = {
+        ["<RightMouse>"] = {
             function()
                 require('persistent-breakpoints.api').toggle_breakpoint()
             end,
