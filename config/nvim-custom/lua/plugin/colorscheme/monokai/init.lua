@@ -4,6 +4,9 @@ if not status_ok then
 	return
 end
 
+local theme = require("plugin.colorscheme").get_option()
+if theme.colorscheme ~= "monokai-nightasty" then return end
+
 monokai.setup({
     dark_style_background = "dark", -- default, dark, transparent, #color
     light_style_background = "dark", -- default, dark, transparent, #color

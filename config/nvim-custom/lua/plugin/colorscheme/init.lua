@@ -22,19 +22,27 @@ api.get_option = function()
     return option
 end
 
+api.get_highlights = function()
+	local highlights = {}
+    if option.colorscheme == "tokyonight" then
+        highlights = require("plugin.colorscheme.tokyonight.highlights")
+    else
+        highlights = require("plugin.colorscheme.monokai.highlights")
+    end
+    if option.background == "light" then return highlights.light
+    else return highlights.dark end
+end
+
 api.toggle_background = function()
     if option.background == "dark" then option.background = "light"
     else option.background = "dark" end
     vim.o.background = option.background
 end
 
-vim.api.nvim_create_augroup("ColorSchemePost", { clear = true })
 vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
         option.colorscheme = vim.g.colors_name
-        option.background = vim.o.background
     end,
-    group = "ColorSchemePost",
 })
 
 return api
