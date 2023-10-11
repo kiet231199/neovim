@@ -23,7 +23,7 @@ local modes = {
         na1 = "orange",   -- \19
         na2 = "orange",   -- \22
         na3 = "orange",   -- \!
-        t   = "$a5e400",
+        t   = "#a5e400",
     },
     default = {
         n   = "Black",
@@ -65,7 +65,7 @@ local colors = {
             primary   = { fg = "#001000", bg = "#a5e400" },
             secondary = { fg = "#8bb50a", bg = "#313131" },
             tertiary  = { fg = "#b6bdb9", bg = "#444444" },
-            normal    = { fg = "#b6bdb9", bg = "#444444" },
+            normal    = { fg = "#b6bdb9", bg = "#121212" },
         },
     },
     default = {

@@ -25,6 +25,11 @@ ibl.setup({
         include = {
             node_type = {
                 c = { "case_statement" },
+				lua = {
+					"function_call",
+					"table_constructor",
+					"field",
+				},
             }
         },
         exclude = {

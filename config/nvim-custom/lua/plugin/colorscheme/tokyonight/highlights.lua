@@ -95,8 +95,7 @@ local dark = {
         -- CodeWindow
         ["CodewindowBorder"]             = { fg = "#ffff00" },
         -- IndentBlanklineIndent
-        ["IndentBlanklineIndent"]        = { fg = "#565f89" },
-        ["IndentBlanklineContextChar"]   = { fg = "#a9b1d6" },
+        ["IblScope"]                     = { fg = "White" },
         -- Telescope Promt
         ["TelescopeResultsTitle"]        = { fg = "#1a1b26", bg = "#f7768e" },
         ["TelescopePreviewTitle"]        = { fg = "#1a1b26", bg = "#bb9af7" },
