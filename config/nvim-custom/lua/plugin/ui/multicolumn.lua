@@ -25,5 +25,5 @@ multicolumn.setup({
 	},
 	line_limit = 300,
 	exclude_floating = true,
-	exclude_ft = { 'alpha', 'help', 'markdown', 'netrw' },
+	exclude_ft = { 'alpha', 'help', 'markdown', 'netrw', 'neo-tree' },
 })

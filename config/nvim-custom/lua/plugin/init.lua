@@ -280,6 +280,7 @@ plugins = {
     },
     ['jonboh/nvim-dap-rr'] = {
         -- Desc: GDB tool for replay debug
+		-- TODO: Investigate to config this plugin
         cond = false,
         dependencies = {
             'mfussenegger/nvim-dap',
@@ -350,15 +351,6 @@ plugins = {
 		config = function()
 			require("plugin.editor.search.hlslens")
 		end,
-	},
-	['AckslD/muren.nvim'] = {
-		-- Desc: replace pattern
-		config = function()
-			require("plugin.editor.search.muren")
-		end,
-		keys = {
-			{ "<leader>rp", ":MurenToggle<CR>", mode = "n", silent = true, noremap = true },
-		}
 	},
     ['altermo/ultimate-autopair.nvim'] = {
 		-- Desc: Smart placing bracket
@@ -533,35 +525,6 @@ plugins = {
 			require("plugin.ui.window.winsep")
 		end,
 		event = "WinNew",
-	},
-	['gorbit99/codewindow.nvim'] = {
-		-- Desc: Minimap
-		config = function()
-			require("plugin.ui.codewindow")
-		end,
-		keys = {
-			{ "<F4>", "<cmd>lua require'codewindow'.toggle_minimap()<CR>", mode = "", silent = true, noremap = true },
-		}
-	},
-	['folke/zen-mode.nvim'] = {
-		-- Desc: Focus on function (pair with twilight)
-		dependencies = {
-			'folke/twilight.nvim',
-		},
-		config = function()
-			require("plugin.ui.zenmode")
-		end,
-		keys = {
-			{ "<F7>", "<cmd>ZenMode<CR>", mode = "", silent = true, noremap = true },
-		},
-	},
-	['folke/twilight.nvim'] = {
-		-- Desc: Focus on function
-		lazy = true,
-		event = "VeryLazy",
-		config = function()
-			require("plugin.ui.twilight")
-		end,
 	},
 	['dvoytik/hi-my-words.nvim'] = {
 		-- Desc: Highlight word with many colors
