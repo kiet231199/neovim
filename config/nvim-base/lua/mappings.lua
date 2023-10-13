@@ -9,6 +9,7 @@ local mappings = {}
 mappings.general = {
 	i = {
 		["<C-a>"] = { "<ESC>^i", "beginning of line" },
+		["<C-e>"] = { "<End>", "end of line" },
 
 		["<A-h>"] = { "<Left>", "move left" },
 		["<A-l>"] = { "<Right>", "move right" },
@@ -19,14 +20,23 @@ mappings.general = {
 	n = {
 		["<esc>"] = { ":noh <CR>", "clear highlight search" },
 		["<C-a>"] = { "ggVG", "select all" },
+		["<C-s>"] = { ':w<CR>:lua require("notify")("Save successfull 勒", "info",{title = "Save file "})<CR>:noh<CR>', opts = { silent = true } },
 
 		["<F11>"] = { ":lua IsView() <CR>", "toggle interface", opts = { silent = true } },
 		["<F12>n"] = { ":set norelativenumber!<CR>", "toggle relative number" },
 		["<F12>c"] = { ":set list!<CR>", "toggle viewing special character" },
+		["<F12>s"] = { ":lua SetGlobalStatusLine()<CR>", "toggle global status line" },
 
 		['<A-.>'] = { ":bnext<CR>", "next buffer" },
 		['<A-,>'] = { ":bprevious <CR>", "previous buffer" },
 		['<A-c>'] = { ":bdelete<CR>", "delete buffer" },
+
+		["sh"] = { ":split <CR><C-w>w", "split pane horizontally" },
+		["sv"] = { ":vsplit <CR><C-w>w", "split pane vertically" },
+
+		["dv"] = { ":diffsplit", "diffview file" },
+
+		["ss"] = { ":w<CR>:source %<CR>", "save and source file" },
 
 		["<A-Up>"] = { ":resize -2 <CR>", "Resize up" },
 		["<A-Down>"] = { ":resize +2 <CR>", "Resize down" },
@@ -80,6 +90,8 @@ mappings.telescope = {
 		["<space>fb"] = { ":Telescope file_browser <CR>", "find oldfiles" },
 		["<space>fg"] = { ":Telescope git_commits <CR>", "git commits" },
 		["<space>fp"] = { ":Telescope project <CR>", "git commits" },
+		["<space>fc"] = { ":Telescope neoclip unnamed extra=star,plus,a,b <CR>", "git commits" },
+		["<space>fn"] = { ":Telescope noice <CR>", "git commits" },
 	},
 }
 
@@ -90,6 +102,14 @@ mappings.lspconfig = {
 	},
 }
 
+mappings.himywords = {
+	plugin = true,
+	n = {
+		['<space>m'] = { ":HiMyWordsToggle<CR>", "highlight word on cursor" },
+		['<space>M'] = { ":HiMyWordsClear<CR>", "clear all highlight" },
+	},
+}
+
 mappings.terminal = {
 	plugin = true,
 	n = {
@@ -97,6 +117,22 @@ mappings.terminal = {
 	},
 	t = {
 		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
+	},
+}
+
+mappings.move = {
+	plugin = true,
+	n = {
+		["<A-j>"] = { ":MoveLine(1) <CR>", "move block down" },
+		["<A-k>"] = { ":MoveLine(-1) <CR>", "move block up" },
+		["<A-h>"] = { ":MoveHChar(-1) <CR>", "move block left" },
+		["<A-l>"] = { ":MoveHChar(1) <CR>", "move block right" },
+	},
+	v = {
+ 		["<A-j>"] = { ":MoveBlock(1) <CR>", "move block down" },
+		["<A-k>"] = { ":MoveBlock(-1) <CR>", "move block up" },
+		["<A-h>"] = { ":MoveHBlock(-1) <CR>", "move block left" },
+		["<A-l>"] = { ":MoveHBlock(1) <CR>", "move block right" },
 	},
 }
 
@@ -160,7 +196,7 @@ mappings.dap = {
         ["<space>dF"] = { "<cmd>DapStepOut<CR>"  , "Step Out" },
         ["<space>ds"] = { "<cmd>DapStepOver<CR>" , "Step Over" },
         -- INFO: Using mouse to toggle breakpoint
-        ["<2-LeftMouse>"] = {
+        ["<RightMouse>"] = {
             function()
                 require('persistent-breakpoints.api').toggle_breakpoint()
             end,

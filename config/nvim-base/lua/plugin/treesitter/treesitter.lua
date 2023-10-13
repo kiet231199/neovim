@@ -64,6 +64,40 @@ configs.setup({
 			'red',
 		},
 	},
+    textobjects = {
+        move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+                ["[f"] = { query = "@function.outer", desc = "next function start point" },
+                ["[s"] = { query = "@class.outer", desc = "next struct start point" },
+                ["[a"] = { query = "@parameter.outer", desc = "next param" },
+                ["[i"] = { query = "@conditional.outer", desc = "next conditional start point" },
+                ["[l"] = { query = "@loop.outer", desc = "next loop start point" },
+            },
+            goto_next_end= {
+                ["]f"] = { query = "@function.outer", desc = "next function end point" },
+                ["]s"] = { query = "@class.outer", desc = "next struct end point" },
+                ["]a"] = { query = "@parameter.outer", desc = "next param" },
+                ["]i"] = { query = "@conditional.outer", desc = "next conditional end point" },
+                ["]l"] = { query = "@loop.outer", desc = "next loop end point" },
+            },
+            goto_previous_start = {
+                ["[F"] = { query = "@function.outer", desc = "prev function start point" },
+                ["[S"] = { query = "@class.outer", desc = "prev struct start point" },
+                ["[A"] = { query = "@parameter.outer", desc = "prev param" },
+                ["[I"] = { query = "@conditional.outer", desc = "prev conditional start point" },
+                ["[L"] = { query = "@loop.outer", desc = "prev loop start point" },
+            },
+            goto_previous_end = {
+                ["]F"] = { query = "@function.outer", desc = "prev function end point" },
+                ["]S"] = { query = "@class.outer", desc = "prev struct end point" },
+                ["]A"] = { query = "@parameter.outer", desc = "prev param" },
+                ["]I"] = { query = "@conditional.outer", desc = "prev conditional end point" },
+                ["]L"] = { query = "@loop.outer", desc = "prev loop end point" },
+            },
+        },
+    }
 })
 
 -- Only need to run on the first time, then comment it

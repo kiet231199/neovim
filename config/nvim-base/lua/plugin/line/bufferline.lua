@@ -4,36 +4,13 @@ if not status_ok then
 	return
 end
 
--- INFO: Define built in modules
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
+local separator = require("plugin.line.icon").get_icon()
 
--- INFO: Define built in utility functions
-local get_hex = require('heirline.utils').get_highlight
-
--- INFO: Define some tables
-local my_color = {
-    primary = {
-        fg = "#15161e",
-        bg = "#7aa2f7",
-    },
-    secondary = {
-        fg = "#0c1220",
-        bg = "#616da0",
-    },
-    tertiary = {
-        fg = "#5c87eb",
-        bg = "#3b4261",
-    },
-    normal = {
-        fg = "#c0caf5",
-        bg = "#13141c",
-    },
-}
-
-local my_exclude = {
+local exclusion = {
     buftype = { "nofile", "prompt", "quickfix" },
-    filetype = { "neo-tree" },
+    filetype = { "alpha", "neo-tree" },
 }
 
 -- initialize the buflist cache
@@ -66,22 +43,22 @@ local buffername = {
     end,
     hl = function(self)
         if self.is_active then
-            return { fg = my_color.primary.fg, bg = my_color.primary.bg }
+            return { fg = "primary_fg", bg = "primary_bg" }
         elseif not vim.api.nvim_buf_is_loaded(self.bufnr) then
-            return { fg = my_color.tertiary.fg, bg = my_color.tertiary.bg }
+            return { fg = "tertiary_fg", bg = "tertiary_bg" }
         else
-            return { fg = my_color.secondary.fg, bg = my_color.secondary.bg }
+            return { fg = "secondary_fg", bg = "secondary_bg" }
         end
     end,
     {
-        provider = '',
+        provider = separator.external.left,
         hl = function(self)
             if self.is_active then
-                return { fg = my_color.primary.bg, bg = my_color.primary.fg }
+                return { fg = "primary_bg", bg = "normal_bg" }
             elseif not vim.api.nvim_buf_is_loaded(self.bufnr) then
-                return { fg = my_color.tertiary.bg, bg = my_color.normal.bg }
+                return { fg = "tertiary_bg", bg = "normal_bg" }
             else
-                return { fg = my_color.secondary.bg, bg = my_color.normal.bg }
+                return { fg = "secondary_bg", bg = "normal_bg" }
             end
         end,
     },
@@ -153,14 +130,14 @@ local buffername = {
     },
     { provider = " " },
     {
-        provider = '',
+        provider = separator.external.right,
         hl = function(self)
             if self.is_active then
-                return { fg = my_color.primary.bg, bg = my_color.primary.fg }
+                return { fg = "primary_bg", bg = "normal_bg" }
             elseif not vim.api.nvim_buf_is_loaded(self.bufnr) then
-                return { fg = my_color.tertiary.bg, bg = my_color.normal.bg }
+                return { fg = "tertiary_bg", bg = "normal_bg" }
             else
-                return { fg = my_color.secondary.bg, bg = my_color.normal.bg }
+                return { fg = "secondary_bg", bg = "normal_bg" }
             end
         end,
     },
@@ -183,8 +160,8 @@ local buffername = {
 
 local buffer = utils.make_buflist(
     { buffername, { provider = " " } },
-    { provider = " ", hl = { fg = "orange", bg = my_color.normal.bg } },
-    { provider = " ", hl = { fg = "orange", bg = my_color.normal.bg } },
+    { provider = " ", hl = { fg = "orange", bg = "normal_bg" } },
+    { provider = " ", hl = { fg = "orange", bg = "normal_bg" } },
     function() return current_buffer_list end,
     false
 )
@@ -205,12 +182,12 @@ local offset = {
     hl = function(self)
         local bufnr = vim.api.nvim_win_get_buf(0)
         if vim.api.nvim_get_current_win() == self.winid or vim.bo[bufnr].filetype == "neo-tree" then
-            return { fg = my_color.primary.bg, bg = my_color.normal.bg }
+            return { fg = "primary_bg", bg = "normal_bg" }
         else
-            return { fg = my_color.normal.bg, bg = my_color.normal.bg }
+            return { fg = "normal_bg", bg = "normal_bg" }
         end
     end,
-    { provider = '' },
+    { provider = separator.external.left },
     {
         provider = function(self)
             local title = self.title
@@ -221,27 +198,27 @@ local offset = {
         hl = function(self)
             local bufnr = vim.api.nvim_win_get_buf(0)
             if vim.api.nvim_get_current_win() == self.winid or vim.bo[bufnr].filetype == "neo-tree" then
-                return { fg = my_color.primary.fg, bg = my_color.primary.bg, bold = true }
+                return { fg = "primary_fg", bg = "primary_bg", bold = true }
             else
-                return { fg = my_color.normal.fg, bg = my_color.normal.bg }
+                return { fg = "normal_fg", bg = "normal_bg" }
             end
         end,
     },
-    { provider = ' ' },
+    { provider = separator.external.right .. " " },
 }
 
 local time = {
     hl = {
-        fg = my_color.primary.fg,
-        bg = my_color.primary.bg,
+        fg = "primary_fg",
+        bg = "primary_bg",
         bold = true,
     },
     {
         condition = conditions.is_active,
-        provider = '',
+        provider = separator.external.left,
         hl = {
-            fg = my_color.primary.bg,
-            bg = my_color.normal.bg,
+            fg = "primary_bg",
+            bg = "secondary_bg",
         },
     },
     {
@@ -255,19 +232,52 @@ local time = {
     },
     {
         condition = conditions.is_active,
-        provider = '',
+        provider = separator.external.right,
         hl = {
-            fg = my_color.primary.bg,
-            bg = my_color.normal.bg,
+            fg = "primary_bg",
+            bg = "normal_bg",
         },
     },
 }
 
+local dark_mode = {
+    hl = {
+        fg = "secondary_fg",
+        bg = "secondary_bg",
+        bold = true,
+    },
+    {
+        condition = conditions.is_active,
+        provider = separator.external.left,
+        hl = {
+            fg = "secondary_bg",
+            bg = "normal_bg",
+        },
+    },
+	{
+		provider = function()
+			if vim.o.background == "light" then return " "
+			else return " " end
+		end
+	},
+    on_click = {
+        callback = function()
+			require("plugin.colorscheme").toggle_background()
+        end,
+        name = "toggle_dark_mode",
+    },
+}
+
 local bufferline = {
+    condition = function()
+        return conditions.is_active() and not conditions.buffer_matches(exclusion)
+    end,
     offset,
     buffer,
     { provider = "%=" }, -- right align
+	dark_mode,
     time,
+    hl = { fg = "primary_bg", bg = "normal_bg" },
 }
 
 return bufferline

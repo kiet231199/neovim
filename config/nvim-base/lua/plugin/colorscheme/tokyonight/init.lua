@@ -21,10 +21,9 @@ tokyonight.setup({
         sidebars = "night", -- style for sidebars, see below
         floats = "night", -- style for floating windows
     },
+	day_brightness = 0.2, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
     sidebars = { "qf", "help", "packer" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
     hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
-    dim_inactive = true, -- dims inactive windows
-    lualine_bold = true, -- When `true`, section headers in the lualine theme will be bold
 
     -- You can override specific color groups to use other groups or a hex color
     -- function will be called with a ColorScheme table
@@ -39,8 +38,14 @@ tokyonight.setup({
     -- @param highlights Highlights
     -- @param colors ColorScheme
     on_highlights = function(hl, cl)
+        -- TODO: Config normal highlight for each colorscheme
 		-- local black = "#000000"
 		-- hl.LineNr = { fg = "#697094" }
 		-- hl.CursorLineNr = { fg = "#fefe14" , bold = true }
 	end,
 })
+
+local theme = require("plugin.colorscheme").get_option()
+if theme.colorscheme ~= "tokyonight" then return end
+
+require("plugin.colorscheme").set_option() -- load option and colorscheme

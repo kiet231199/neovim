@@ -22,6 +22,7 @@ end
 
 local utils = require("plugin.finder.utils")
 local actions = require("telescope.actions")
+
 local mappings = {
 	i = {
 		["<C-f>"] = actions.nop,
@@ -33,8 +34,7 @@ local mappings = {
 		["<C-r>"] = utils.previewer_scroll_right,
 		["<C-l>"] = utils.previewer_scroll_left,
 		["<M-u>"] = actions.results_scrolling_up,
-		-- ["<M-d>"] = actions.results_scrolling_down,
-		["<M-d>"] = utils.results_scroll_down,
+		["<M-d>"] = actions.results_scrolling_down,
 		["<M-r>"] = actions.results_scrolling_right,
 		["<M-l>"] = actions.results_scrolling_left,
 	},
@@ -42,9 +42,6 @@ local mappings = {
 
 telescope.setup({
 	defaults = {
-		-- Default configuration for telescope goes here:
-		-- config_key = value,
-		-- other layout configuration here
 		prompt_prefix = '🔍: ',
 		initial_mode = "insert",
 		selection_strategy = "reset",
@@ -66,6 +63,10 @@ telescope.setup({
 			height = 0.9,
 			preview_cutoff = 120,
 		},
+        -- create_layout = function(picker)
+        --     local layout = require("plugin.finder.layout").get_layout(picker)
+        --     return require("telescope.pickers.layout")(layout)
+        -- end,
 		winblend = 0,
 		color_devicons = true,
 		set_env = { ["COLORTERM"] = "truecolor" },

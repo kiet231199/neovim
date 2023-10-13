@@ -11,7 +11,7 @@ local options = {
 	hlsearch       = true,                              -- highlight all matches on previous search pattern
 	ignorecase     = false,                             -- ignore case in search patterns
 	mouse          = "a",                               -- allow the mouse to be used in neovim
-	mousemodel     = "popup",
+	mousemodel     = "extend",
 	mousemoveevent = true,
 	pumheight      = 20,                                -- pop up menu height
 	showmode       = false,                             -- we don't need to see things like -- INSERT -- anymor
@@ -27,7 +27,7 @@ local options = {
 	undofile       = true,                              -- enable persistent undo
 	updatetime     = 1000,                              -- faster completion (4000ms default)
 	writebackup    = false,                             -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
-	expandtab      = true,                              -- convert tabs to spaces
+	expandtab      = false,                              -- convert tabs to spaces
 	shiftwidth     = 4,                                 -- the number of spaces inserted for each indentation
 	tabstop        = 4,                                 -- insert 4 spaces for a tab
 	cursorline     = true,                              -- highlight the current line
@@ -77,13 +77,15 @@ function IsView()
 		vim.o.number = false
 		vim.o.relativenumber = false
 		-- vim.o.mouse = ""
-		vim.cmd("IndentBlanklineDisable")
+		vim.cmd("IBLToggle")
+		vim.cmd("ScrollViewDisable")
 	else
 		vim.o.signcolumn = "yes"
 		vim.o.number = true
 		vim.o.relativenumber = true
 		-- vim.o.mouse = "a"
-		vim.cmd("IndentBlanklineEnable")
+		vim.cmd("IBLToggle")
+		vim.cmd("ScrollViewEnable")
 	end
 end
 

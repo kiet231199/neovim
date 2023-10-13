@@ -8,6 +8,13 @@ plugins = {
 			require("plugin.startup.alpha")
 		end,
 	},
+	['folke/drop.nvim'] = {
+		-- Desc: Waiting screen
+		cond = false,
+		config = function()
+			require("plugin.startup.drop")
+		end,
+	},
 	['lewis6991/impatient.nvim'] = {
 		-- Desc: Boost startup time
 		config = function()
@@ -16,23 +23,37 @@ plugins = {
 	},
 
 	-- Colorscheme -------------------------------------------------
+    -- INFO: Colorscheme is selected in plugin.colorscheme.init
 	['folke/tokyonight.nvim'] = {
-		-- Desc: Colorscheme manager
+		-- Desc: Tokyo-night
 		config = function()
 			require("plugin.colorscheme.tokyonight")
-			vim.cmd("colorscheme tokyonight")
 		end,
 	},
+    ['polirritmico/monokai-nightasty.nvim'] = {
+		-- Desc: Monokai-night
+		config = function()
+			require("plugin.colorscheme.monokai")
+		end,
+    },
 
 	-- Explorer ----------------------------------------------------
 	['nvim-neo-tree/neo-tree.nvim'] = {
 		-- Desc: File browser
-		-- INFO: Need to reconfigure highlight
 		config = function()
 			require("plugin.explorer.neotree")
 		end,
 		keys = {
 			{ "<F5>", ":NeoTreeFocusToggle<CR>", mode = "", silent = true, noremap = true },
+		},
+	},
+	['matbme/JABS.nvim'] = {
+		-- Desc: Tab explorer
+		config = function()
+			require("plugin.explorer.jabs")
+		end,
+		keys = {
+			{ "<tab>", "<cmd>JABSOpen<CR>", mode = "n", silent = true, noremap = true },
 		},
 	},
 
@@ -51,8 +72,6 @@ plugins = {
 	},
 	['Bekaboo/dropbar.nvim'] = {
 	 	-- Desc: Winbar
-		-- FIXME: Temporarily disabled winbar on window
-		enabled = vim.fn.has("unix") == 1,
 		config = function()
 			require("plugin.line.dropbar")
 		end,
@@ -106,10 +125,6 @@ plugins = {
 			'AckslD/nvim-neoclip.lua',
 			-- Desc: Show LSP diagnostics
 			'folke/trouble.nvim',
-			-- Desc: Icon quick search
-			'ziontee113/icon-picker.nvim',
-			-- Desc: Color quick search
-			'ziontee113/color-picker.nvim',
 		},
 		config = function()
 			require("plugin.finder.telescope")
@@ -118,29 +133,12 @@ plugins = {
 			require("utils").load_mappings("telescope")
 		end,
 	},
-
-	-- Window -----------------------------------------------------
-	['folke/edgy.nvim'] = {
-		-- Desc: manage predefine window layout
-		event = "VeryLazy",
-		dependencies = {
-			-- Desc: Neo-tree for git outline
-			'nvim-neo-tree/neo-tree.nvim',
-		},
-		init = function()
-			vim.opt.splitkeep = "screen"
-		end,
+	['AckslD/nvim-neoclip.lua'] = {
+		-- Desc: Preview clipboard
+		lazy = true,
 		config = function()
-			require("plugin.ui.window.edgy")
+			require("plugin.finder.neoclip")
 		end,
-	},
-	['nvim-zh/colorful-winsep.nvim'] = {
-		-- Desc: Win separator
-        cond = true,
-		config = function()
-			require("plugin.ui.window.winsep")
-		end,
-		event = "WinNew",
 	},
 
 	-- Language Server Protocol ------------------------------------
@@ -241,9 +239,7 @@ plugins = {
 	},
 	['p00f/nvim-ts-rainbow'] = {
 		-- Desc: Bracket color
-		dependencies = {
-			'nvim-treesitter/nvim-treesitter',
-		},
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 	},
 
 	-- Debugger --------------------------------------------------
@@ -283,6 +279,18 @@ plugins = {
             }
         end,
     },
+    ['jonboh/nvim-dap-rr'] = {
+        -- Desc: GDB tool for replay debug
+		-- TODO: Investigate to config this plugin
+        cond = false,
+        dependencies = {
+            'mfussenegger/nvim-dap',
+            'nvim-telescope/telescope.nvim',
+        },
+        config = function()
+            require("plugin.debugger.daprr")
+        end,
+    },
 
 	-- Editor -----------------------------------------------------
 	['numToStr/Comment.nvim'] = {
@@ -297,10 +305,35 @@ plugins = {
 			require("plugin.editor.comment.todo")
 		end,
 	},
+	['s1n7ax/nvim-comment-frame'] = {
+		-- Desc: Create comment block
+		cond = false,
+		event = "VeryLazy",
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter',
+		},
+		config = function()
+			require("plugin.editor.comment.comment-frame")
+		end,
+	},
+	['karb94/neoscroll.nvim'] = {
+		-- Desc: Smooth scrolling
+		cond = false,
+		config = function()
+			require("plugin.editor.scroll.neoscroll")
+		end,
+	},
 	['dstein64/nvim-scrollview'] = {
 		-- Desc: Scrollbar
 		config = function()
 			require("plugin.editor.scroll.scrollview")
+		end,
+	},
+	['gen740/SmoothCursor.nvim'] = {
+		-- Desc: Cursor pointer
+		cond = false,
+		config = function()
+			require("plugin.editor.scroll.smoothcursor")
 		end,
 	},
 	['VonHeikemen/searchbox.nvim'] = {
@@ -325,7 +358,6 @@ plugins = {
 	},
     ['altermo/ultimate-autopair.nvim'] = {
 		-- Desc: Smart placing bracket
-        -- TODO: Investigate and update this plugin
         config = function()
             require("plugin.editor.autopair")
         end,
@@ -356,6 +388,29 @@ plugins = {
 			{ "<leader>rc", ":EasyReplaceCwordInVisual<CR>", mode = "v", silent = true, noremap = true },
 		},
 	},
+	['Vonr/align.nvim'] = {
+		-- Desc: Quick align
+		event = "VeryLazy",
+		config = function()
+			require("plugin.editor.align")
+		end,
+	},
+	['fedepujol/move.nvim'] = {
+		-- Desc: Quick move
+		event = "VeryLazy",
+		pin = true,
+		init = function()
+			require("utils").load_mappings("move")
+		end,
+	},
+	['nguyenvukhang/nvim-toggler'] = {
+		-- Desc: Toggle word (true/false)
+		cond = false,
+		event = "VeryLazy",
+		config = function()
+			require("nvim-toggler").setup()
+		end,
+	},
 
 	-- Navigating code  ------------------------------------------------
 	['folke/flash.nvim'] = {
@@ -377,6 +432,70 @@ plugins = {
 			require("wildfire").setup()
 		end,
 	},
+    ['nvim-treesitter/nvim-treesitter-textobjects'] = {
+		-- Desc: Treesitter navigate
+        after = "nvim-treesitter",
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    },
+
+	-- Better UI ---------------------------------------------------
+	['folke/noice.nvim'] = {
+		-- Desc: Show message popup, LSP progress, popup commandline
+		cond = false,
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+		},
+		config = function()
+			require("plugin.ui.noice")
+			require("telescope").load_extension("noice")
+		end,
+	},
+
+	-- Window -----------------------------------------------------
+	['xorid/swap-split.nvim'] = {
+		-- Desc: Window choose
+		cond = false,
+		keys = {
+			{ "sw", "<cmd>SwapSplit<CR>", mode = "n", silent = true, noremap = true },
+		},
+	},
+	['anuvyklack/windows.nvim'] = {
+		-- Desc: Smooth window swap
+		cond = false,
+		dependencies = {
+			'anuvyklack/middleclass',
+			'anuvyklack/animation.nvim',
+		},
+		config = function()
+			require("plugin.ui.window.window-autowidth")
+		end,
+		event = "VeryLazy",
+	},
+	['folke/edgy.nvim'] = {
+		-- Desc: manage predefine window layout
+		event = "VeryLazy",
+		dependencies = {
+			-- Desc: Neo-tree for git outline
+			'nvim-neo-tree/neo-tree.nvim',
+		},
+		init = function()
+			vim.opt.splitkeep = "screen"
+		end,
+		config = function()
+			require("plugin.ui.window.edgy")
+		end,
+	},
+
+	-- Picker ------------------------------------------------------
+    ['2KAbhishek/nerdy.nvim'] = {
+		cond = false,
+        dependencies = {
+            'stevearc/dressing.nvim',
+            'nvim-telescope/telescope.nvim',
+        },
+        cmd = 'Nerdy',
+    },
 
 	-- Float terminal ----------------------------------------------
 	['rebelot/terminal.nvim'] = {
@@ -408,6 +527,25 @@ plugins = {
 			require("plugin.ui.fold.foldsign")
 		end,
 	},
+	['nvim-zh/colorful-winsep.nvim'] = {
+		-- Desc: Win separator
+        cond = true,
+		config = function()
+			require("plugin.ui.window.winsep")
+		end,
+		event = "WinNew",
+	},
+	['dvoytik/hi-my-words.nvim'] = {
+		-- Desc: Highlight word with many colors
+		cond = false,
+		event = "VeryLazy",
+		config = function()
+			require("plugin.ui.himywords")
+		end,
+		init = function()
+			require("utils").load_mappings("himywords")
+		end,
+	},
 	['echasnovski/mini.trailspace'] = {
 		-- Desc: Highlight, remove trailing space
 		version = false,
@@ -427,8 +565,23 @@ plugins = {
 			require("plugin.ui.multicolumn")
 		end,
 	},
+	['JellyApple102/easyread.nvim'] = {
+		-- Desc: Bionic highlighting
+		cond = false,
+		event = "VeryLazy",
+		config = function()
+			require("plugin.ui.easyread")
+		end,
+	},
 
 	-- Utility --------------------------------------------------
+	['rcarriga/nvim-notify'] = {
+		-- Desc: Message popup
+		cond = false,
+		config = function()
+			require("plugin.utility.notify")
+		end,
+	},
 	['Shatur/neovim-session-manager'] = {
 		-- Desc: Session
 		event = "VeryLazy",
@@ -446,12 +599,47 @@ plugins = {
 			require("plugin.utility.whichkey")
 		end,
 	},
+	['trmckay/based.nvim'] = {
+		-- Desc: Conver dec to hex
+		cond = false,
+		config = function()
+			require("plugin.utility.based")
+		end,
+		keys = {
+			{ "<leader>bh", "<cmd>BasedConvert hex<CR>", mode = "n", silent = true, noremap = true },
+			{ "<leader>bd", "<cmd>BasedConvert dec<CR>", mode = "n", silent = true, noremap = true },
+		},
+	},
+	['cloudysake/asciitree.nvim'] = {
+		-- Desc: Auto generate tree
+		cond = false,
+        event = "VeryLazy",
+		config = function()
+			require("plugin.utility.asciitree")
+		end,
+	},
+	['christoomey/vim-tmux-navigator'] = {
+		-- Desc: Switch pane between VIM and TMUX
+		event = "VeryLazy",
+		config = function()
+			vim.cmd [[
+				noremap <silent> <C-b>h :<C-U>TmuxNavigateLeft<cr>
+				noremap <silent> <C-b>j :<C-U>TmuxNavigateDown<cr>
+				noremap <silent> <C-b>k :<C-U>TmuxNavigateUp<cr>
+				noremap <silent> <C-b>l :<C-U>TmuxNavigateRight<cr>
+			]]
+		end,
+	},
 	['ryanoasis/vim-devicons'] = {
 		-- Desc: devicons source for vim
 	},
 	['kyazdani42/nvim-web-devicons'] = {
 		-- Desc: devicons source for neovim
 	},
+
+	-- Plugin on testing ----------------------------------------
+
+	-- Plugin on pending ----------------------------------------
 }
 
 -- Load lazy (plugin manager)

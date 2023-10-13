@@ -51,6 +51,7 @@ end
 -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
 require("neodev").setup({
 	-- add any options here, or leave empty to use the default settings
+    library = { plugins = { "nvim-dap-ui" }, types = true },
 })
 
 local config = {
@@ -147,6 +148,7 @@ require 'lspconfig'.clangd.setup {
 		completeUnimported = true,
 		semanticHighlighting = true,
 	},
+    hint = { enable = true },
 }
 
 -- Lua
@@ -161,6 +163,7 @@ require 'lspconfig'.lua_ls.setup {
 				-- Disable neodev modify workspace
 				checkThirdParty = false,
 			},
+            hint = { enable = true },
 		},
 	},
 }
