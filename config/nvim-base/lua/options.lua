@@ -1,5 +1,5 @@
 vim.g.mapleader = ","
-vim.g.propofont = " "
+vim.g.propofont = ""
 
 local options = {
     backup         = false,                             -- creates a backup file
@@ -56,43 +56,5 @@ vim.opt.listchars:append "eol:↲"
 vim.opt.listchars:append "tab:░░"
 
 vim.opt.shortmess:append "c"
-vim.opt.whichwrap:append "<,>,[,],h,l"
 
 vim.opt.formatoptions:remove({ "c", "r", "o" })
-
--- Set limitation for git commit
-vim.cmd 'autocmd Filetype gitcommit setlocal spell textwidth=72'
-
--- Autocmd
--- Highlight yank
-vim.api.nvim_create_autocmd("TextYankPost", {
-	command = "silent! lua vim.highlight.on_yank({ timeout = 500 })",
-	group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
-})
-
--- User define function
-function IsView()
-	if vim.o.number == true then
-		vim.o.signcolumn = "no"
-		vim.o.number = false
-		vim.o.relativenumber = false
-		-- vim.o.mouse = ""
-		vim.cmd("IBLToggle")
-		vim.cmd("ScrollViewDisable")
-	else
-		vim.o.signcolumn = "yes"
-		vim.o.number = true
-		vim.o.relativenumber = true
-		-- vim.o.mouse = "a"
-		vim.cmd("IBLToggle")
-		vim.cmd("ScrollViewEnable")
-	end
-end
-
-function SetGlobalStatusLine()
-	if vim.o.laststatus == 3 then
-		vim.o.laststatus = 2
-	else
-		vim.o.laststatus = 3
-	end
-end

@@ -1,7 +1,3 @@
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap = true, silent = true }
-
 -- vim.keymap.set('n', '<space>df', vim.diagnostic.open_float, opts)
 -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
@@ -35,6 +31,9 @@ local on_attach = function(client, bufnr)
 	require("lsp-format").on_attach(client)
 end
 
+-- LSP format range keymap
+vim.keymap.set("x", "<space>f", ":lua require'lsp-range-format'.format()<CR>", { noremap = true, silent = true })
+
 -- icon ⚠
 local signs = {
 	Error = "",
@@ -54,7 +53,7 @@ require("neodev").setup({
     library = { plugins = { "nvim-dap-ui" }, types = true },
 })
 
-local config = {
+vim.diagnostic.config({
 	-- disable virtual text
 	virtual_text = false,
 	-- show signs
@@ -72,9 +71,8 @@ local config = {
 		header = "",
 		prefix = "",
 	},
-}
+})
 
-vim.diagnostic.config(config)
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 	border = "rounded",
 	width = 60,
@@ -84,49 +82,42 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 	width = 60,
 })
 
-local lsp_flags = {
-	-- This is the default in Nvim 0.7+
-	debounce_text_changes = 150,
-}
-
-local tabwidth = function()
-	return vim.opt.shiftwidth:get()
-end
-
 -- Lsp format
+local tabwidth = function() return vim.opt.shiftwidth:get() end
 require("lsp-format").setup {
-	bash = { tab_width = tabwidth },
-	c = { tab_width = tabwidth },
-	cmake = { tab_width = tabwidth },
-	lua = { tab_width = tabwidth },
-	make = { tab_width = tabwidth },
+	bash   = { tab_width = tabwidth },
+	c      = { tab_width = tabwidth },
+	cmake  = { tab_width = tabwidth },
+	lua    = { tab_width = tabwidth },
+	make   = { tab_width = tabwidth },
 	python = { tab_width = tabwidth },
-	vim = { tab_width = tabwidth },
+	vim    = { tab_width = tabwidth },
 }
 
--- local on_attach = function(client)
---     -- ... custom code ...
--- end
-
+-- LSP Common configuration
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-	properties = { "documentation", "detail", "additionalTextEdits" },
+capabilities.textDocument.completion.completionItem = {
+	snippetSupport = true,
+	resolveSupport = {
+		properties = { "documentation", "detail", "additionalTextEdits" },
+	},
 }
-
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 local servers = { 'pyright', 'clangd', 'cmake', 'bashls', 'vimls', 'lua_ls', 'diagnosticls' }
-
 for _, lsp in pairs(servers) do
 	require('lspconfig')[lsp].setup
 	{
 		on_attach = on_attach,
-		flags = lsp_flags,
+		flags = {
+			-- This is the default in Nvim 0.7+
+			debounce_text_changes = 150,
+		},
 		capabilities = capabilities,
 	}
 end
 
+-- LSP specific configuration
 -- C
 local clangd_capabilities = capabilities
 clangd_capabilities.textDocument.semanHighlighting = true
@@ -190,6 +181,3 @@ require 'lspconfig'.vimls.setup {
 		vimruntime = ""
 	}
 }
-
--- LSP format range keymap
-vim.keymap.set("x", "<space>f", ":lua require'lsp-range-format'.format()<CR>", { noremap = true, silent = true })

@@ -262,7 +262,7 @@ local dark_mode = {
 	},
     on_click = {
         callback = function()
-			require("plugin.colorscheme").toggle_background()
+			vim.cmd("lua ToggleBackground()")
         end,
         name = "toggle_dark_mode",
     },
