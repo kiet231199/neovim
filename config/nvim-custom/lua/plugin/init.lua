@@ -89,13 +89,15 @@ plugins = {
 			require("utils").load_mappings("gitsigns")
 		end,
 	},
-	['rhysd/git-messenger.vim'] = {
-		-- Desc: Git show commit contents
+	['niuiic/git-log.nvim'] = {
+		-- Desc: Show git commit
+		event = "VeryLazy",
+		dependencies = { 'niuiic/core.nvim' },
 		config = function()
-			require("plugin.git.gitmessenger")
+			require("plugin.git.gitlog")
 		end,
 		keys = {
-			{ "<F10>", "<Plug>(git-messenger)", mode = "n", silent = true, noremap = true },
+			{ "<F10>", function() require("git-log").check_log() end, mode = "n", silent = true },
 		},
 	},
 
@@ -350,6 +352,13 @@ plugins = {
 		event = "VeryLazy",
 		config = function()
 			require("plugin.editor.search.hlslens")
+		end,
+	},
+	['backdround/improved-search.nvim'] = {
+		-- Desc: search multiple words
+		event = "VeryLazy",
+		config = function()
+			vim.keymap.set({"n", "x"}, "*", require("improved-search").in_place)
 		end,
 	},
     ['altermo/ultimate-autopair.nvim'] = {

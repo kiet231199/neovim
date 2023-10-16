@@ -33,10 +33,12 @@ smoothcursor.setup({
 		tail = { cursor = nil, texthl = "SmoothCursor" }
 	},
 	speed = 25,               -- max is 100 to stick to your current position
+	flyin_effect = nil,       -- Choose "bottom" or "top" for flying effecthh
 	intervals = 35,           -- tick interval
 	priority = 10,            -- set marker priority
 	timeout = 3000,           -- timout for animation
 	threshold = 3,            -- animate if threshold lines jump
+	disable_float_win = true, -- Disable in floating windows
 	enabled_filetypes = nil,  -- example: { "lua", "vim" }
 	disabled_filetypes = { "dropbar_menu" }, -- this option will be skipped if enabled_filetypes is set. example: { "TelescopePrompt", "NvimTree" }
 })
