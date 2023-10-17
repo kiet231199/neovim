@@ -89,8 +89,19 @@ plugins = {
 			require("utils").load_mappings("gitsigns")
 		end,
 	},
+	['rhysd/git-messenger.vim'] = {
+		-- Desc: Git show commit contents
+		config = function()
+			require("plugin.git.gitmessenger")
+		end,
+		keys = {
+			{ "<F10>", "<Plug>(git-messenger)", mode = "n", silent = true, noremap = true },
+		},
+	},
 	['niuiic/git-log.nvim'] = {
 		-- Desc: Show git commit
+		-- FIXME: Temporarily disable this plugin because it can not replace gitmessenger
+		cond = false,
 		event = "VeryLazy",
 		dependencies = { 'niuiic/core.nvim' },
 		config = function()
@@ -358,7 +369,7 @@ plugins = {
 		-- Desc: search multiple words
 		event = "VeryLazy",
 		config = function()
-			vim.keymap.set({"n", "x"}, "*", require("improved-search").in_place)
+			vim.keymap.set({ "n", "x" }, "#", require("improved-search").in_place)
 		end,
 	},
     ['altermo/ultimate-autopair.nvim'] = {
@@ -392,6 +403,11 @@ plugins = {
 			{ "<leader>ra", ":EasyReplaceWordInVisual<CR>", mode = "v", silent = true, noremap = true },
 			{ "<leader>rc", ":EasyReplaceCwordInVisual<CR>", mode = "v", silent = true, noremap = true },
 		},
+	},
+	['mg979/vim-visual-multi'] = {
+		-- Desc: Multiple cursor
+		-- TODO: Investiage to use this plugin
+		event = "VeryLazy",
 	},
 	['Vonr/align.nvim'] = {
 		-- Desc: Quick align
