@@ -4,7 +4,7 @@ if vim.fn.has("win32") == 1 then
 	-- Window
 else
 	-- Linux
-	vim.g.neovim_path = "/data4/kietpham/00_dot"
+	vim.g.neovim_path = "/data1/kietpham/00_dot"
 
 	global_config = {
 		-- Disable netrw at the very start of your init.lua (strongly advised)

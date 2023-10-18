@@ -12,6 +12,9 @@ require("options")
 -- Load plugins
 require("plugin")
 
+-- Load users define functions
+require("udf")
+
 -- Load keymaps
 require("utils").load_mappings()
 

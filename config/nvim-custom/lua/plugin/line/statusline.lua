@@ -165,7 +165,7 @@ local vimode = {
     },
     on_click = {
         callback = function()
-            vim.cmd("lua IsView()")
+            vim.cmd("lua ToggleCopyMode()")
         end,
         update = true,
         name = "toggle_copy_mode",

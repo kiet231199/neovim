@@ -7,7 +7,7 @@ end
 mason.setup({
     -- The directory in which to install packages.
     --install_root_dir = path.concat { vim.fn.stdpath "config", "mason" },
-    install_root_dir = vim.g.config_path .. "/mason",
+    install_root_dir = vim.g.neovim_path .. "/config/mason",
     ui = {
         check_outdated_packages_on_open = false,
         border = "rounded",

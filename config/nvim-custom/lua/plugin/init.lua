@@ -91,24 +91,12 @@ plugins = {
 	},
 	['rhysd/git-messenger.vim'] = {
 		-- Desc: Git show commit contents
+		-- TODO: Long term: Convert this plugin to lua, and can be customizable
 		config = function()
 			require("plugin.git.gitmessenger")
 		end,
 		keys = {
 			{ "<F10>", "<Plug>(git-messenger)", mode = "n", silent = true, noremap = true },
-		},
-	},
-	['niuiic/git-log.nvim'] = {
-		-- Desc: Show git commit
-		-- FIXME: Temporarily disable this plugin because it can not replace gitmessenger
-		cond = false,
-		event = "VeryLazy",
-		dependencies = { 'niuiic/core.nvim' },
-		config = function()
-			require("plugin.git.gitlog")
-		end,
-		keys = {
-			{ "<F10>", function() require("git-log").check_log() end, mode = "n", silent = true },
 		},
 	},
 
@@ -266,6 +254,7 @@ plugins = {
     },
     ['rcarriga/nvim-dap-ui'] = {
         -- Desc: UI for DAP
+		-- TODO: Reconfigure for this plugin
         event = "VeryLazy",
         dependencies = { 'mfussenegger/nvim-dap' },
         config = function()

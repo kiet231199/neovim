@@ -69,29 +69,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
 })
 
--- User define function
-function IsView()
-	if vim.o.number == true then
-		vim.o.signcolumn = "no"
-		vim.o.number = false
-		vim.o.relativenumber = false
-		-- vim.o.mouse = ""
-		vim.cmd("IBLToggle")
-		vim.cmd("ScrollViewDisable")
-	else
-		vim.o.signcolumn = "yes"
-		vim.o.number = true
-		vim.o.relativenumber = true
-		-- vim.o.mouse = "a"
-		vim.cmd("IBLToggle")
-		vim.cmd("ScrollViewEnable")
-	end
-end
-
-function SetGlobalStatusLine()
-	if vim.o.laststatus == 3 then
-		vim.o.laststatus = 2
-	else
-		vim.o.laststatus = 3
-	end
-end
