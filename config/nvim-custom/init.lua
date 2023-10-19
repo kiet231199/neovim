@@ -4,7 +4,8 @@ if vim.fn.has("win32") == 1 then
 	-- Window
 else
 	-- Linux
-	vim.g.neovim_path = "/data1/kietpham/00_dot"
+	vim.g.neovim_path = "/data1/kietpham/00_dot" -- WARN: Do not change this path
+	vim.g.my_path = "/data1/kietpham/00_dot/config/nvim-custom"           -- INFO: Define parent path of your "config" folder here
 
 	global_config = {
 		-- Disable netrw at the very start of your init.lua (strongly advised)
@@ -12,8 +13,8 @@ else
 		loaded_netrwPlugin = 1,
 
 		-- Define path
-		config_path = vim.g.neovim_path .. "/config",
-		data_path = vim.g.neovim_path .. "/data",
+		config_path = vim.g.my_path .. "/config", -- Change config to .config if your path point to home
+		data_path = vim.g.my_path .. "/data",
 
 		-- Define path for python3 and nodejs framework
 		python3_host_prog = vim.g.neovim_path .. "/tools/python-3.10.7/bin/python3",
@@ -34,7 +35,7 @@ vim.cmd[[
 ]]
 
 -- Setup plugins manager
-local lazypath = vim.g.config_path .. "/lazy/lazy.nvim"
+local lazypath = vim.g.neovim_path .. "/config/lazy/lazy.nvim"
 -- WARN: Only uncomment below part on the first run of neovim to install lazy.nvim
 -- if not vim.loop.fs_stat(lazypath) then
 -- 	vim.fn.system({

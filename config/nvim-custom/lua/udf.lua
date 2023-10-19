@@ -30,3 +30,10 @@ function ToggleBackground()
 	require("plugin.colorscheme").toggle_background()
 end
 
+function ToggleLSP()
+	if vim.diagnostic.is_disabled() then
+		vim.diagnostic.enable()
+	else
+		vim.diagnostic.disable()
+	end
+end

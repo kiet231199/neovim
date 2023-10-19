@@ -254,7 +254,6 @@ plugins = {
     },
     ['rcarriga/nvim-dap-ui'] = {
         -- Desc: UI for DAP
-		-- TODO: Reconfigure for this plugin
         event = "VeryLazy",
         dependencies = { 'mfussenegger/nvim-dap' },
         config = function()
@@ -263,6 +262,7 @@ plugins = {
     },
     ['theHamsta/nvim-dap-virtual-text'] = {
         -- Desc: Virtual text debug information
+		-- ERROR: Can not toggle virtual text anymore
 		dependencies = {
             'nvim-treesitter/nvim-treesitter',
             'mfussenegger/nvim-dap'
@@ -278,18 +278,6 @@ plugins = {
             require('persistent-breakpoints').setup {
                 load_breakpoints_event = { "BufReadPost" }
             }
-        end,
-    },
-    ['jonboh/nvim-dap-rr'] = {
-        -- Desc: GDB tool for replay debug
-		-- TODO: Investigate to config this plugin
-        cond = false,
-        dependencies = {
-            'mfussenegger/nvim-dap',
-            'nvim-telescope/telescope.nvim',
-        },
-        config = function()
-            require("plugin.debugger.daprr")
         end,
     },
 

@@ -36,7 +36,6 @@ monokai.setup({
     -- @param highlights Highlights
     -- @param colors ColorScheme
     on_highlights = function(highlights, colors)
-        -- TODO: Config normal highlight for each colorscheme
         -- highlights.TelescopeNormal = { fg = colors.magenta, bg = colors.charcoal }
         -- highlights.WinSeparator = { fg = colors.grey }
     end,

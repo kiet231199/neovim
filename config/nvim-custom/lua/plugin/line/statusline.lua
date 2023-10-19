@@ -375,7 +375,9 @@ local diagnostics = {
         },
     },
     {
-        condition = conditions.has_diagnostics,
+        condition = function()
+			return conditions.has_diagnostics() and require("dap").session() == nil
+		end,
         {
             provider = function(self)
                 return self.errors > 0 and (" " .. self.error_icon .. vim.g.propofont .. self.errors)
@@ -488,6 +490,7 @@ local status = {
 
 }
 
+local debug_status = false
 local debug_session = {
     condition = function()
         return conditions.is_active() and not conditions.buffer_matches(exclusion)
@@ -499,7 +502,7 @@ local debug_session = {
     {
         provider = function()
             local session = require("dap").session()
-            if session ~= nil then return "  " .. require("dap").status()
+            if session ~= nil and debug_status then return "  " .. require("dap").status()
             else return " " .. vim.g.propofont end
         end,
     },
@@ -512,10 +515,11 @@ local debug_session = {
     },
     on_click = {
         callback = function()
-            vim.cmd("DapContinue")
+			if debug_status then debug_status = false
+			else debug_status = true end
         end,
         update = true,
-        name = "dap_launch",
+        name = "toggle_dap_status",
     },
 }
 
@@ -534,7 +538,7 @@ local debug_repl = {
             end,
             { provider = " " },
             {
-                provider = "",
+                provider = vim.g.propofont .. "" .. vim.g.propofont,
                 hl = { fg = "yellow" },
                 on_click = {
                     callback = function()
@@ -551,14 +555,14 @@ local debug_repl = {
             end,
             { provider = " " },
             {
-                provider = "",
-                hl = { fg = "cyan" },
+                provider = "" .. vim.g.propofont,
+                hl = { fg = "green" },
                 on_click = {
                     callback = function()
-                        vim.cmd("DapStepInto")
+                        require("dap").pause()
                     end,
                     update = true,
-                    name = "dap_stepinto",
+                    name = "dap_pause",
                 },
             },
         },
@@ -568,7 +572,7 @@ local debug_repl = {
             end,
             { provider = " " },
             {
-                provider = "",
+                provider = "" .. vim.g.propofont,
                 hl = { fg = "cyan" },
                 on_click = {
                     callback = function()
@@ -585,7 +589,41 @@ local debug_repl = {
             end,
             { provider = " " },
             {
-                provider = "",
+                provider = "" .. vim.g.propofont,
+                hl = { fg = "cyan" },
+                on_click = {
+                    callback = function()
+                        vim.cmd("DapStepInto")
+                    end,
+                    update = true,
+                    name = "dap_stepinto",
+                },
+            },
+        },
+        {
+            condition = function()
+                return require("dap").session() ~= nil
+            end,
+            { provider = " " },
+            {
+                provider = "" .. vim.g.propofont,
+                hl = { fg = "cyan" },
+                on_click = {
+                    callback = function()
+                        vim.cmd("DapStepOut")
+                    end,
+                    update = true,
+                    name = "dap_stepout",
+                },
+            },
+        },
+        {
+            condition = function()
+                return require("dap").session() ~= nil
+            end,
+            { provider = " " },
+            {
+                provider = "" .. vim.g.propofont,
                 hl = { fg = "red" },
                 on_click = {
                     callback = function()
@@ -593,6 +631,23 @@ local debug_repl = {
                     end,
                     update = true,
                     name = "dap_terminate",
+                },
+            },
+        },
+        {
+            condition = function()
+                return require("dap").session() ~= nil
+            end,
+            { provider = " " },
+            {
+                provider = vim.g.propofont .. "󰇀" .. vim.g.propofont,
+                hl = { fg = "yellow" },
+                on_click = {
+                    callback = function()
+                        require("dap").run_to_cursor()
+                    end,
+                    update = true,
+                    name = "dap_run_to_cursor",
                 },
             },
         },
