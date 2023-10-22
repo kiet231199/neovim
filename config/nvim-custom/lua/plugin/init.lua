@@ -218,6 +218,8 @@ plugins = {
 			-- Desc: Completion for Luasnip
 			'saadparwaiz1/cmp_luasnip',
 			'doxnit/cmp-luasnip-choice',
+			-- Desc: Tabnine AI
+			'tzachar/cmp-tabnine',
 		},
 		config = function()
 			require("plugin.lsp.cmp")
@@ -644,4 +646,3 @@ if lazy_exits then
     -- Load plugins and options
 	lazy.setup(plugins, options)
 end
-

@@ -74,19 +74,20 @@ local kind_icons = {
 }
 
 local kinds = {
-	nvim_lsp = "[LSP]",
+	nvim_lsp                  = "[LSP]",
 	nvim_lsp_document_symbols = "[Doc]",
-	luasnip = "[Snippet]",
-	vsnip = "[Snippet]",
-	buffer = "Buffer]",
-	luasnip_choice = "[Snippet]",
-	buffer_lines = "[Buffer]",
-	cmdline = "[Cmd]",
-	cmdline_history = "[History]",
-	path = "[Path]",
-	rg = "[RG]",
-	ctags = "[Ctags]",
-	env = "[Env]",
+	luasnip                   = "[Snippet]",
+	cmp_tabnine               = "[Tabnine]",
+	vsnip                     = "[Snippet]",
+	buffer                    = "[Buffer]",
+	luasnip_choice            = "[Snippet]",
+	buffer_lines              = "[Buffer]",
+	cmdline                   = "[Cmd]",
+	cmdline_history           = "[History]",
+	path                      = "[Path]",
+	rg                        = "[RG]",
+	ctags                     = "[Ctags]",
+	env                       = "[Env]",
 }
 
 local has_words_before = function()
@@ -151,14 +152,15 @@ cmp.setup({
 			vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 			vim_item.menu = (kinds)[entry.source.name]
 			vim_item.dup = ({	-- Remove duplicate in source
-				buffer = 1,
-				path = 1,
-				nvim_lsp = 0,
-				vsnip = 0,
-				luasnip = 1,
-				ctags = 0,
+				buffer          = 1,
+				path            = 1,
+				nvim_lsp        = 0,
+				cmp_tabnine     = 1,
+				vsnip           = 0,
+				luasnip         = 1,
+				ctags           = 0,
 				cmdline_history = 0,
-				rg = 0,
+				rg              = 1,
 			})[entry.source.name] or 0
 			local maxwidth = 40
 			vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
@@ -167,15 +169,16 @@ cmp.setup({
 		expandable_indicator = true,
 	},
 	sources = {
-		{ name = "luasnip", option = { show_autosnippets = true }, priority = 9 },
-		{ name = "luasnip_choice", priority = 9 },
-		{ name = "nvim_lsp", priority = 8 },
-		{ name = "nvim_lsp_signature_help", priority = 8 },
-		{ name = "buffer", priority = 7 },
-		{ name = "ctags", priority = 6 },
-		{ name = "path", priority = 5 },
-		{ name = "env", priority = 4 },
-		{ name = "rg", priority = 3 },
+		{ name = "luasnip", option = { show_autosnippets = true }, priority = 10 },
+		{ name = "luasnip_choice"         , priority = 9 },
+		{ name = "nvim_lsp"               , priority = 8 },
+		{ name = "nvim_lsp_signature_help", priority = 7 },
+		{ name = "cmp_tabnine"            , priority = 6 },
+		{ name = "buffer"                 , priority = 5 },
+		{ name = "ctags"                  , priority = 4 },
+		{ name = "path"                   , priority = 3 },
+		{ name = "env"                    , priority = 2 },
+		{ name = "rg"                     , priority = 1 },
 	},
 	confirm_opts = {
 		behavior = require("cmp").ConfirmBehavior.Replace,
@@ -217,9 +220,9 @@ cmp.setup({
 require("cmp").setup.filetype('gitcommit', {
 	sources = require("cmp").config.sources({
 		{ name = 'cmp_git', priority = 4 }, -- You can specify the `cmp_git` source if you were installed it.
-		{ name = 'buffer', priority = 3 },
-		{ name = 'path', priority = 2 },
-		{ name = 'ctags', priority = 1 },
+		{ name = 'buffer' , priority = 3 },
+		{ name = 'path'   , priority = 2 },
+		{ name = 'ctags'  , priority = 1 },
 	})
 })
 
@@ -266,3 +269,9 @@ require("cmp").setup.cmdline(':', {
 })
 
 require('cmp_luasnip_choice').setup({ auto_open = true });
+require('cmp_tabnine.config'):setup({
+	max_lines = 300,
+	max_num_result = 20,
+	run_on_every_keystroke = true,
+	snippet_placeholder = '..',
+})
