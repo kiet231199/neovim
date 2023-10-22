@@ -15,3 +15,6 @@ require("utils").load_mappings()
 
 -- Override highlights
 require("utils").load_highlights()
+
+-- Load cheatsheet
+require("cheatsheet")

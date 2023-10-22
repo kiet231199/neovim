@@ -19,6 +19,9 @@ multicolumn.setup({
 		alpha = {
 			rulers = { 0 },
 		},
+		nvcheatsheet = {
+			rulers = { 0 },
+		},
 		default = {
 			rulers = { 80 },
 		},
