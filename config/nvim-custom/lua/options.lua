@@ -58,14 +58,3 @@ vim.opt.listchars:append "tab:░░"
 vim.opt.shortmess:append "c"
 
 vim.opt.formatoptions:remove({ "c", "r", "o" })
-
--- Set limitation for git commit
-vim.cmd 'autocmd Filetype gitcommit setlocal spell textwidth=72'
-
--- Autocmd
--- Highlight yank
-vim.api.nvim_create_autocmd("TextYankPost", {
-	command = "silent! lua vim.highlight.on_yank({ timeout = 500 })",
-	group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
-})
-
