@@ -77,7 +77,6 @@ local kinds = {
 	nvim_lsp                  = "[LSP]",
 	nvim_lsp_document_symbols = "[Doc]",
 	luasnip                   = "[Snippet]",
-	cmp_tabnine               = "[Tabnine]",
 	vsnip                     = "[Snippet]",
 	buffer                    = "[Buffer]",
 	luasnip_choice            = "[Snippet]",
@@ -155,7 +154,6 @@ cmp.setup({
 				buffer          = 1,
 				path            = 1,
 				nvim_lsp        = 0,
-				cmp_tabnine     = 1,
 				vsnip           = 0,
 				luasnip         = 1,
 				ctags           = 0,
@@ -173,7 +171,6 @@ cmp.setup({
 		{ name = "luasnip_choice"         , priority = 9 },
 		{ name = "nvim_lsp"               , priority = 8 },
 		{ name = "nvim_lsp_signature_help", priority = 7 },
-		{ name = "cmp_tabnine"            , priority = 6 },
 		{ name = "buffer"                 , priority = 5 },
 		{ name = "ctags"                  , priority = 4 },
 		{ name = "path"                   , priority = 3 },
@@ -269,9 +266,3 @@ require("cmp").setup.cmdline(':', {
 })
 
 require('cmp_luasnip_choice').setup({ auto_open = true });
-require('cmp_tabnine.config'):setup({
-	max_lines = 300,
-	max_num_result = 20,
-	run_on_every_keystroke = true,
-	snippet_placeholder = '..',
-})

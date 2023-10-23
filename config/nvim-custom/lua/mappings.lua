@@ -191,16 +191,16 @@ mappings.session = {
 mappings.dap = {
     plugin = true,
     n = {
-        ["<F15>"] = { function() require("dap").repl.toggle({ height = 10 }) end, "Open RELP",                  opts = { silent = true } }, -- <S-F3>
-        ["<F16>"] = { function() require("dap.ui.widgets").hover() end          , "Open preview",               opts = { silent = true } }, -- <S-F4>
-        ["<F17>"] = { ":DapContinue<CR>"                                        , "Start or continue debugger", opts = { silent = true } }, -- <S-F5>
-        ["<F29>"] = { function() require("dap").run_to_cursor() end             , "Run to cursor",              opts = { silent = true } }, -- <C-F5>
-        ["<F18>"] = { function() require("dap").pause() end                     , "Pause debugger",             opts = { silent = true } }, -- <S-F6>
-        ["<F19>"] = { function() require("dap").restart() end                   , "Restart debugger",           opts = { silent = true } }, -- <S-F7>
-        ["<F20>"] = { ":DapTerminate<CR>"                                       , "Terminate debugger",         opts = { silent = true } }, -- <S-F8>
-        ["<F22>"] = { ":DapStepOver<CR>"                                        , "Step Over",                  opts = { silent = true } }, -- <S-F10>
-        ["<F23>"] = { ":DapStepInto<CR>"                                        , "Step Into (next line)",      opts = { silent = true } }, -- <S-F11>
-        ["<F24>"] = { ":DapStepOut<CR>"                                         , "Step Out",                   opts = { silent = true } }, -- <S-F12>
+        ["<F15>"] = { function() require("dapui").float_element("watches", { width = 100, height = 15, enter = true }) end, "Open Watches", opts = { silent = true } }, -- <S-F3>
+        ["<F16>"] = { function() require("dap.ui.widgets").hover() end          , "Open preview",                                           opts = { silent = true } }, -- <S-F4>
+        ["<F17>"] = { ":DapContinue<CR>"                                        , "Start or continue debugger",                             opts = { silent = true } }, -- <S-F5>
+        ["<F29>"] = { function() require("dap").run_to_cursor() end             , "Run to cursor",                                          opts = { silent = true } }, -- <C-F5>
+        ["<F18>"] = { function() require("dap").pause() end                     , "Pause debugger",                                         opts = { silent = true } }, -- <S-F6>
+        ["<F19>"] = { function() require("dap").restart() end                   , "Restart debugger",                                       opts = { silent = true } }, -- <S-F7>
+        ["<F20>"] = { ":DapTerminate<CR>"                                       , "Terminate debugger",                                     opts = { silent = true } }, -- <S-F8>
+        ["<F22>"] = { ":DapStepOver<CR>"                                        , "Step Over",                                              opts = { silent = true } }, -- <S-F10>
+        ["<F23>"] = { ":DapStepInto<CR>"                                        , "Step Into (next line)",                                  opts = { silent = true } }, -- <S-F11>
+        ["<F24>"] = { ":DapStepOut<CR>"                                         , "Step Out",                                               opts = { silent = true } }, -- <S-F12>
         -- INFO: Doubleclick to toggle breakpoint
         ["<RightMouse>"] = {
             function()

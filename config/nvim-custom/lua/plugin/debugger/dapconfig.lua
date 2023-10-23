@@ -56,7 +56,7 @@ dap.configurations.c = {
         cwd = '${workspaceFolder}',
         stopAtEntry = false,
         program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+            return vim.fn.input('Path to executable: ', '/data1/kietpham/01_codec/omx_test/IT/IT2/build/usr/local/bin/', 'file')
         end,
         setupCommands = {
             {

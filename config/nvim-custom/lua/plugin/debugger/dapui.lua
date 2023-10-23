@@ -48,7 +48,7 @@ dapui.setup({
                     size = 0.6,
                 },
                 {
-                    id = "breakpoints",
+                    id = "repl",
                     size = 0.4,
                 },
             },
