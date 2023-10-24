@@ -8,12 +8,6 @@ plugins = {
 			require("plugin.startup.alpha")
 		end,
 	},
-	['folke/drop.nvim'] = {
-		-- Desc: Waiting screen
-		config = function()
-			require("plugin.startup.drop")
-		end,
-	},
 	['lewis6991/impatient.nvim'] = {
 		-- Desc: Boost startup time
 		config = function()
@@ -125,9 +119,11 @@ plugins = {
 			'AckslD/nvim-neoclip.lua',
 			-- Desc: Show LSP diagnostics
 			'folke/trouble.nvim',
+			-- Desc: Multiple search
+			'brookhong/telescope-pathogen.nvim',
 		},
 		config = function()
-			require("plugin.finder.telescope")
+			require("plugin.telescope.telescope")
 		end,
 		init = function()
 			require("utils").load_mappings("telescope")
@@ -137,7 +133,7 @@ plugins = {
 		-- Desc: Preview clipboard
 		lazy = true,
 		config = function()
-			require("plugin.finder.neoclip")
+			require("plugin.telescope.neoclip")
 		end,
 	},
 
@@ -282,6 +278,30 @@ plugins = {
     },
 
 	-- Editor -----------------------------------------------------
+	['folke/flash.nvim'] = {
+		-- Desc: navigate code fast
+		event = "VeryLazy",
+		config = function()
+			require("plugin.editor.flash")
+		end,
+		keys = {
+			{ "f", mode = { "n", "x", "o" }, function() require("flash").jump() end, },
+			{ "t", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, },
+		},
+	},
+	['sustech-data/wildfire.nvim'] = {
+		-- Desc: Treesitter quick select
+		event = "VeryLazy",
+		dependencies = "nvim-treesitter/nvim-treesitter",
+		config = function()
+			require("wildfire").setup()
+		end,
+	},
+    ['nvim-treesitter/nvim-treesitter-textobjects'] = {
+		-- Desc: Treesitter navigate
+        after = "nvim-treesitter",
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    },
 	['numToStr/Comment.nvim'] = {
 		-- Desc: Quick comment
 		config = function()
@@ -302,51 +322,6 @@ plugins = {
 		},
 		config = function()
 			require("plugin.editor.comment.comment-frame")
-		end,
-	},
-	['karb94/neoscroll.nvim'] = {
-		-- Desc: Smooth scrolling
-		config = function()
-			require("plugin.editor.scroll.neoscroll")
-		end,
-	},
-	['dstein64/nvim-scrollview'] = {
-		-- Desc: Scrollbar
-		config = function()
-			require("plugin.editor.scroll.scrollview")
-		end,
-	},
-	['gen740/SmoothCursor.nvim'] = {
-		-- Desc: Cursor pointer
-		config = function()
-			require("plugin.editor.scroll.smoothcursor")
-		end,
-	},
-	['VonHeikemen/searchbox.nvim'] = {
-		-- Desc: Search box
-		event = "VeryLazy",
-		dependencies = {
-			'MunifTanjim/nui.nvim',
-		},
-		config = function()
-			require("plugin.editor.search.searchbox")
-		end,
-		init = function()
-			require("utils").load_mappings("searchbox")
-		end,
-	},
-	['kevinhwang91/nvim-hlslens'] = {
-		-- Desc: Highlight search
-		event = "VeryLazy",
-		config = function()
-			require("plugin.editor.search.hlslens")
-		end,
-	},
-	['backdround/improved-search.nvim'] = {
-		-- Desc: search multiple words
-		event = "VeryLazy",
-		config = function()
-			vim.keymap.set({ "n", "x" }, "#", require("improved-search").in_place)
 		end,
 	},
     ['altermo/ultimate-autopair.nvim'] = {
@@ -409,33 +384,52 @@ plugins = {
 		end,
 	},
 
-	-- Navigating code  ------------------------------------------------
-	['folke/flash.nvim'] = {
-		-- Desc: navigate code fast
-		event = "VeryLazy",
-		config = function()
-			require("plugin.navigate.flash")
-		end,
-		keys = {
-			{ "f", mode = { "n", "x", "o" }, function() require("flash").jump() end, },
-			{ "t", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, },
-		},
-	},
-	['sustech-data/wildfire.nvim'] = {
-		-- Desc: Treesitter quick select
-		event = "VeryLazy",
-		dependencies = "nvim-treesitter/nvim-treesitter",
-		config = function()
-			require("wildfire").setup()
-		end,
-	},
-    ['nvim-treesitter/nvim-treesitter-textobjects'] = {
-		-- Desc: Treesitter navigate
-        after = "nvim-treesitter",
-		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    },
-
 	-- Better UI ---------------------------------------------------
+	['VonHeikemen/searchbox.nvim'] = {
+		-- Desc: Search box
+		event = "VeryLazy",
+		dependencies = {
+			'MunifTanjim/nui.nvim',
+		},
+		config = function()
+			require("plugin.ui.search.searchbox")
+		end,
+		init = function()
+			require("utils").load_mappings("searchbox")
+		end,
+	},
+	['kevinhwang91/nvim-hlslens'] = {
+		-- Desc: Highlight search
+		event = "VeryLazy",
+		config = function()
+			require("plugin.ui.search.hlslens")
+		end,
+	},
+	['backdround/improved-search.nvim'] = {
+		-- Desc: search multiple words
+		event = "VeryLazy",
+		config = function()
+			vim.keymap.set({ "n", "x" }, "#", require("improved-search").in_place)
+		end,
+	},
+	['karb94/neoscroll.nvim'] = {
+		-- Desc: Smooth scrolling
+		config = function()
+			require("plugin.ui.scroll.neoscroll")
+		end,
+	},
+	['dstein64/nvim-scrollview'] = {
+		-- Desc: Scrollbar
+		config = function()
+			require("plugin.ui.scroll.scrollview")
+		end,
+	},
+	['gen740/SmoothCursor.nvim'] = {
+		-- Desc: Cursor pointer
+		config = function()
+			require("plugin.ui.scroll.smoothcursor")
+		end,
+	},
 	['folke/noice.nvim'] = {
 		-- Desc: Show message popup, LSP progress, popup commandline
 		dependencies = {
@@ -566,6 +560,12 @@ plugins = {
 	},
 
 	-- Utility --------------------------------------------------
+	['folke/drop.nvim'] = {
+		-- Desc: Waiting screen
+		config = function()
+			require("plugin.utility.drop")
+		end,
+	},
 	['rcarriga/nvim-notify'] = {
 		-- Desc: Message popup
 		config = function()

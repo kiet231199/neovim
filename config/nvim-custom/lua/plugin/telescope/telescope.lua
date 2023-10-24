@@ -20,7 +20,7 @@ else
 	history_path = vim.fn.stdpath("data") .. "/telescope_history"
 end
 
-local utils = require("plugin.finder.utils")
+local utils = require("plugin.telescope.utils")
 local actions = require("telescope.actions")
 
 local mappings = {
@@ -157,7 +157,7 @@ telescope.setup({
 				{ "Toggle LSP", 'ToggleLSP' },
 				{ "Toggle Null LSP", 'ToggleNullLSP' },
 			},
-		}
+		},
 	}
 })
 
