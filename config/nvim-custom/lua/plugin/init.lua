@@ -111,6 +111,8 @@ plugins = {
 			'nvim-telescope/telescope-project.nvim',
 			-- Desc: UI for telescope
 			'nvim-telescope/telescope-ui-select.nvim',
+			-- Dess: Telescope DAP
+			'nvim-telescope/telescope-dap.nvim',
 			-- Desc: Builtin/extension picker for telescope
 			'keyvchan/telescope-find-pickers.nvim',
 			-- Desc: Menu command
@@ -119,8 +121,6 @@ plugins = {
 			'AckslD/nvim-neoclip.lua',
 			-- Desc: Show LSP diagnostics
 			'folke/trouble.nvim',
-			-- Desc: Multiple search
-			'brookhong/telescope-pathogen.nvim',
 		},
 		config = function()
 			require("plugin.telescope.telescope")
@@ -214,6 +214,8 @@ plugins = {
 			-- Desc: Completion for Luasnip
 			'saadparwaiz1/cmp_luasnip',
 			'doxnit/cmp-luasnip-choice',
+			-- Desc: Completion for DAP
+			'rcarriga/cmp-dap',
 		},
 		config = function()
 			require("plugin.lsp.cmp")
@@ -258,7 +260,6 @@ plugins = {
     },
     ['theHamsta/nvim-dap-virtual-text'] = {
         -- Desc: Virtual text debug information
-		-- ERROR: Can not toggle virtual text anymore
 		dependencies = {
             'nvim-treesitter/nvim-treesitter',
             'mfussenegger/nvim-dap'

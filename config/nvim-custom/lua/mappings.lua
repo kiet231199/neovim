@@ -88,7 +88,7 @@ mappings.telescope = {
 		["<space>fk"]     = { ":Telescope keymaps <CR>"                            , "find keymaps" },
 		["<space>fd"]     = { ":Telescope diagnostics <CR>"                        , "find diagnostics" },
 		["<space>fr"]     = { ":Telescope registers <CR>"                          , "find registers" },
-		["<space>fb"]     = { ":Telescope file_browser <CR>"                       , "file_browser" },
+		["<space>fb"]     = { ":Telescope dap list_breakpoints <CR>"               , "find breakpoints" },
 		["<space>fg"]     = { ":Telescope git_commits <CR>"                        , "git commits" },
 		["<space>fp"]     = { ":Telescope project <CR>"                            , "find project" },
 		["<space>fc"]     = { ":Telescope neoclip unnamed extra=star,plus,a,b <CR>", "find clipboard" },

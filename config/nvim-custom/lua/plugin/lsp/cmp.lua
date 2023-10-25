@@ -95,6 +95,10 @@ local has_words_before = function()
 end
 
 cmp.setup({
+	enabled = function()
+		return vim.api.nvim_get_option_value("buftype", { buf = 0 }) ~= "prompt"
+			or require("cmp_dap").is_dap_buffer()
+	end,
 	snippet = {
 		expand = function(args)
 			require("luasnip").lsp_expand(args.body)
@@ -200,15 +204,15 @@ cmp.setup({
 	sorting = {
 		priority_weight = 2,
         comparators = {
+            require("cmp").config.compare.kind,
+            require("cmp").config.compare.recently_used,
+            require("cmp").config.compare.sort_text,
+            require("cmp").config.compare.order,
+            require("cmp").config.compare.length,
             require("cmp-under-comparator").under,
             require("cmp").config.compare.offset,
             require("cmp").config.compare.exact,
             require("cmp").config.compare.score,
-            require("cmp").config.compare.recently_used,
-            require("cmp").config.compare.kind,
-            require("cmp").config.compare.sort_text,
-            require("cmp").config.compare.length,
-            require("cmp").config.compare.order,
         },
     },
 })
@@ -263,6 +267,12 @@ require("cmp").setup.cmdline(':', {
 			max_item_count = 3,
 		},
 	})
+})
+
+require("cmp").setup.filetype({ "dap-repl", "dapui_watches" }, {
+	sources = {
+		{ name = "dap" },
+	},
 })
 
 require('cmp_luasnip_choice').setup({ auto_open = true });

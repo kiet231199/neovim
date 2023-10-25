@@ -40,6 +40,7 @@ local mappings = {
 	},
 }
 
+-- TODO: Config layout for specific plugins
 telescope.setup({
 	defaults = {
 		prompt_prefix = '🔍: ',
@@ -168,4 +169,5 @@ telescope.load_extension('project')
 telescope.load_extension('ui-select')
 telescope.load_extension('find_pickers')
 telescope.load_extension('command_palette')
-telescope.load_extension("neoclip")
+telescope.load_extension('neoclip')
+telescope.load_extension('dap')
