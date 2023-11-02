@@ -71,7 +71,7 @@ autopair.setup({
         enable = true,
         enable_normal = true,
         enable_reverse = true,
-        hopout = false,
+        hopout = true,
         --{(|)} > fastwarp > {(}|)
         map = '<A-e>', --string or table
         rmap = '<A-E>', --string or table
@@ -99,8 +99,8 @@ autopair.setup({
     },
     close = {      -- *ultimate-autopair-map-close-config*
         enable = true,
-        map = '<A-)>', --string or table
-        cmap = '<A-)>', --string or table
+        map = '<A-c>', --string or table
+        cmap = '<A-c>', --string or table
         conf = {},
         --contains extension config
         multi = false,
@@ -110,9 +110,9 @@ autopair.setup({
         --then a `)` will not be inserted
     },
     tabout = {       -- *ultimate-autopair-map-tabout-config*
-        enable = false,
-        map = '<A-tab>', --string or table
-        cmap = '<A-tab>', --string or table
+        enable = true,
+        map = '<A-t>', --string or table
+        cmap = '<A-t>', --string or table
         conf = {},
         --contains extension config
         multi = false,
@@ -132,8 +132,15 @@ autopair.setup({
         cond = { p = 40, filter = true },
         alpha = { p = 30, filter = false, all = false },
         suround = { p = 20 },
-        fly = { other_char = { ' ' }, nofilter = false, p = 10, undomapconf = {}, undomap = nil, undocmap = nil,
-            only_jump_end_pair = false },
+		fly = {
+            other_char = { ' ' },
+            nofilter = false,
+            p = 10,
+            undomapconf = {},
+            undomap = nil,
+            undocmap = nil,
+            only_jump_end_pair = false
+        },
     },
     internal_pairs = { -- *ultimate-autopair-pairs-default-pairs*
         {
@@ -165,17 +172,15 @@ autopair.setup({
             '"',
             suround = true,
             multiline = false,
-            alpha = {
-                'txt' }
-        },
+            alpha = { 'txt' },
+		},
         {
             "'",
             "'",
             suround = true,
             cond = function(fn) return not fn.in_lisp() or fn.in_string() end,
             alpha = true,
-            nft = {
-                'tex', 'latex' },
+            nft = { 'tex', 'latex' },
             multiline = false
         },
         { '`',    '`',   nft = { 'tex', 'latex' },   multiline = false },

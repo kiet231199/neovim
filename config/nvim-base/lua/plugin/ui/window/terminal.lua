@@ -93,5 +93,5 @@ vim.keymap.set({ "n", "t" }, "<space>tk", function()
 end, { silent = true })
 
 vim.keymap.set({ "n", "t" }, "<C-Right>", require("terminal.mappings").move({ open_cmd = "botright vnew" }), { silent = true })
-vim.keymap.set({ "n", "t" }, "<C-Down>", require("terminal.mappings").move({ open_cmd = "botright new" }), { silent = true })
+vim.keymap.set({ "n", "t" }, "<C-Down>" , require("terminal.mappings").move({ open_cmd = "botright new" }) , { silent = true })
 vim.keymap.set({ "n", "t" }, "<C-Space>", require("terminal.mappings").move({ open_cmd = "float", width = 0.8, height = 0.8, border = "rounded" }), { silent = true })

@@ -1,5 +1,3 @@
-local class = require 'middleclass'
-
 vim.o.winwidth = 10
 vim.o.winminwidth = 10
 vim.o.equalalways = false
@@ -34,11 +32,3 @@ windows.setup({
 	}
 })
 
-local function cmd(command)
-   return table.concat({ '<Cmd>', command, '<CR>' })
-end
-
-vim.keymap.set('n', '<C-w>z', ':WindowsMaximize<CR>:WindowsDisableAutowidth<CR>')
-vim.keymap.set('n', '<C-w>_', ':WindowsMaximizeVertically<CR>:WindowsDisableAutowidth<CR>')
-vim.keymap.set('n', '<C-w>|', ':WindowsMaximizeHorizontally<CR>:WindowsDisableAutowidth<CR>')
-vim.keymap.set('n', '<C-w>=', ':WindowsEqualize<CR>:WindowsDisableAutowidth<CR>')
