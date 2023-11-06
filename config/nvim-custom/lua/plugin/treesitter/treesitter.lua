@@ -1,14 +1,9 @@
-local status_ok, configs = pcall(require, "nvim-treesitter.configs")
+local status_ok, treesitter = pcall(require, "nvim-treesitter")
 if not status_ok then
 	return
 end
 
-local status_ok, install = pcall(require, "nvim-treesitter.install")
-if not status_ok then
-	return
-end
-
-configs.setup({
+require("nvim-treesitter.configs").setup({
     -- ensure_installed = { "c", "cpp"}, -- one of "all" or a list of languages
 	ignore_install = { "" }, -- List of parsers to ignore installing
     sync_install = true,
@@ -20,8 +15,10 @@ configs.setup({
 	autopairs = {
 		enable = true,
 	},
-	indent = { enable = true, disable = {} },
-
+	incremental_selection = { enable = true },
+    matchup               = { enable = true },
+    endwise               = { enable = true },
+	indent                = { enable = true },
     rainbow = {
 		enable = true,
 		extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean

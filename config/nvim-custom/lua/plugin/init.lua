@@ -350,13 +350,14 @@ plugins = {
 			})
 		end,
 	},
-	['kqito/vim-easy-replace'] = {
+    ['roobert/search-replace.nvim'] = {
 		-- Desc: Quick replace
+		config = function()
+			require("search-replace").setup()
+		end,
 		keys = {
-			{ "<leader>ra", ":EasyReplaceWord<CR>",          mode = "n", silent = true, noremap = true },
-			{ "<leader>rc", ":EasyReplaceCword<CR>",         mode = "n", silent = true, noremap = true },
-			{ "<leader>ra", ":EasyReplaceWordInVisual<CR>",  mode = "v", silent = true, noremap = true },
-			{ "<leader>rc", ":EasyReplaceCwordInVisual<CR>", mode = "v", silent = true, noremap = true },
+			{ "<leader>ra", ":SearchReplaceWithinVisualSelection<CR>", mode = "v", silent = true, noremap = true },
+			{ "<leader>rc", ":SearchReplaceWithinVisualSelectionCExpr<CR>",  mode = "v", silent = true, noremap = true },
 		},
 	},
 	['mg979/vim-visual-multi'] = {
@@ -613,6 +614,7 @@ plugins = {
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------
+	['abeldekat/lazyflex.nvim'] = {},
 }
 
 -- Load lazy (plugin manager)
