@@ -611,6 +611,9 @@ plugins = {
 		-- Desc: devicons source for neovim
 	},
 
+	-- Reserved plugins -----------------------------------------
+	['kqito/vim-easy-replace'] = { conf = false },
+
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------

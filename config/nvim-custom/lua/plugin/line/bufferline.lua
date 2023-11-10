@@ -19,7 +19,7 @@ local current_buffer_list = {}
 local update_buffer_list = function()
     vim.schedule(function()
         local buffers = vim.tbl_filter(function(bufnr)
-            return vim.api.nvim_buf_get_option(bufnr, "buflisted")
+			return vim.api.nvim_get_option_value("buflisted", { buf = bufnr })
         end, vim.api.nvim_list_bufs())
         for i, v in ipairs(buffers) do
             current_buffer_list[i] = v
@@ -89,17 +89,18 @@ local buffername = {
     {
         {
             condition = function(self)
-                return vim.api.nvim_buf_get_option(self.bufnr, "modified")
+                -- return vim.api.nvim_buf_get_option(self.bufnr, "modified")
+				return vim.api.nvim_get_option_value("modified", { buf = self.bufnr })
             end,
             provider = " ",
         },
         {
             condition = function(self)
-                return not vim.api.nvim_buf_get_option(self.bufnr, "modifiable")
-                    or vim.api.nvim_buf_get_option(self.bufnr, "readonly")
+				return vim.api.nvim_get_option_value("modifiable", { buf = self.bufnr })
+					or vim.api.nvim_get_option_value("readonly", { buf = self.bufnr })
             end,
             provider = function(self)
-                if vim.api.nvim_buf_get_option(self.bufnr, "buftype") == "terminal" then
+				if vim.api.nvim_get_option_value("buftype", { buf = self.bufnr }) == "terminal" then
                     return "  "
                 else
                     return " "
@@ -109,7 +110,7 @@ local buffername = {
     },
     {
         condition = function(self)
-            return not vim.api.nvim_buf_get_option(self.bufnr, "modified")
+			return vim.api.nvim_get_option_value("modified", { buf = self.bufnr })
         end,
         { provider = " " },
         {

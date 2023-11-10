@@ -15,7 +15,7 @@ neotree.setup({
 	sort_function = nil,                                                           -- use a custom function for sorting files and directories in the tree
 	default_component_configs = {
 		container = {
-			enable_character_fade = false
+			enable_character_fade = false,
 		},
 		indent = {
 			indent_size = 2,
@@ -54,10 +54,10 @@ neotree.setup({
 		git_status = {
 			symbols = {
 				-- Change type
-				added     = "✚", -- or "✚", but this is redundant info if you use git_status_colors on the name
+				added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
 				modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
 				deleted   = "", -- this can only be used in the git_status source
-				renamed   = "󰁕", -- this can only be used in the git_status source
+				renamed   = "", -- this can only be used in the git_status source
 				-- Status type
 				untracked = "",
 				ignored   = "",
@@ -65,23 +65,16 @@ neotree.setup({
 				staged    = "",
 				conflict  = "",
 			},
+			align = "right",
 		},
         symlink_target = {
             enabled = true,
         },
-	},
-	source_selector = {
-		sources = {
-			winbar = true,
-			{ source = "filesystem",       display_name = " 󰉓 Files " },
-			{ source = "git_status",       display_name = " 󰊢 Git " },
-			{ source = "document_symbols", display_name = " 󰧮 Doc Symbols " },
-			content_layout = "center",
-			highlight_tab = "NeoTreeTabInactive",
-			highlight_tab_active = "NeoTreeTabActive",
-			highlight_background = "NeoTreeTabInactive",
-			highlight_separator = "ActiveWindow",
-			highlight_separator_active = "NeoTreeTabSeparatorActive"
+		diagnostics = {
+			symbols = {
+				hint = "",
+				info = "",
+			}
 		},
 	},
 	sources = {
@@ -131,7 +124,6 @@ neotree.setup({
 			["?"] = "show_help",
 		}
 	},
-	nesting_rules = {},
 	filesystem = {
 		filtered_items = {
 			visible = true, -- when true, they will just be displayed differently than normal items
@@ -187,8 +179,47 @@ neotree.setup({
 				["<C-p>"]  = "move_cursor_up",
 			},
 		},
-
-		commands = {}   -- Add a custom command or override a global one using the same function name
+		commands = {},  -- Add a custom command or override a global one using the same function name
+		renderers = {
+			directory = {
+				{ "indent" },
+				{ "icon" },
+				{
+					"container",
+					width = "fit_content",
+					max_width = 100,
+					content = {
+						{
+							"name",
+							use_git_status_colors = true,
+							zindex = 10,
+							right_padding = 1
+						},
+					},
+				},
+				{ "git_status",  zindex = 20 },
+			},
+			file = {
+				{ "indent" },
+				{ "icon" },
+				{
+					"container",
+					width = "fit_content",
+					max_width = 100,
+					content = {
+						{
+							"name",
+							use_git_status_colors = true,
+							zindex = 10,
+							right_padding = 1
+						},
+					},
+				},
+				{ "modified",    zindex = 20 },
+				{ "diagnostics", zindex = 20 },
+				{ "git_status",  zindex = 20 },
+			},
+		},
 	},
 	buffers = {
 		follow_current_file = true,   -- This will find and focus the file in the active buffer every
@@ -205,7 +236,6 @@ neotree.setup({
 	},
 	git_status = {
 		window = {
-			position = "float",
 			mappings = {
 				["A"]  = "git_add_all",
 				["gu"] = "git_unstage_file",
@@ -218,6 +248,7 @@ neotree.setup({
 		}
 	},
 	document_symbols = {
+		follow_cursor = false,
 		kinds = {
 			File          = { icon = "󰈙", hl = "Tag" },
 			Namespace     = { icon = "󰌗", hl = "Include" },
@@ -257,3 +288,4 @@ neotree.setup({
 		},
 	},
 })
+
