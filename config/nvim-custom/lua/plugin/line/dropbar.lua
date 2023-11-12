@@ -4,7 +4,6 @@ if not status_ok then
 	return
 end
 
-local utils = require("dropbar.utils")
 local current_path = vim.fs.normalize(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p'))
 local preview = true
 
@@ -117,32 +116,6 @@ dropbar.setup({
 		},
 		truncate = true,
 	},
-	symbol = {
-		preview = {
-			reorient = function(_, range)
-				local invisible = range['end'].line - vim.fn.line('w$') + 1
-				if invisible > 0 then
-					local view = vim.fn.winsaveview()
-					view.topline = view.topline + invisible
-					vim.fn.winrestview(view)
-				end
-			end,
-		},
-		jump = {
-			reorient = function(win, range)
-				local view = vim.fn.winsaveview()
-				local win_height = vim.api.nvim_win_get_height(win)
-				local topline = range.start.line - math.floor(win_height / 4)
-				if
-					topline > view.topline
-					and topline + win_height < vim.fn.line('$')
-				then
-					view.topline = topline
-					vim.fn.winrestview(view)
-				end
-			end,
-		},
-	},
 	menu = {
 		preview = preview,
 		quick_navigation = false,
@@ -151,6 +124,19 @@ dropbar.setup({
 				left = 1,
 				right = 1,
 			},
+		},
+		keymaps = {
+			['q'] = function()
+				local menu = require('dropbar.api').get_current_dropbar_menu()
+				if not menu then
+					return
+				end
+				local cursor = vim.api.nvim_win_get_cursor(menu.win)
+				local component = menu.entries[cursor[1]]:first_clickable(cursor[2])
+				if component then
+					menu:close()
+				end
+			end,
 		},
 		win_configs = {
 			border = 'rounded',

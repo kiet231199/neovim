@@ -170,9 +170,13 @@ mappings.flash = {
 
 mappings.easyreplace = {
 	plugin = true,
+	n = {
+		["<leader>ra"] = { ":EasyReplaceWord<CR>", opts = silent },
+		["<leader>rc"] = { ":EasyReplaceCword<CR>", opts = silent },
+	},
 	v = {
-		["<leader>ra"] = { ":SearchReplaceWithinVisualSelection<CR>", opts = silent },
-		["<leader>rc"] = { ":SearchReplaceWithinVisualSelectionCExpr<CR>", opts = silent },
+		["<leader>ra"] = { ":EasyReplaceWordInVisual<CR>", opts = silent },
+		["<leader>rc"] = { ":EasyReplaceCwordInVisual<CR>", opts = silent },
 	},
 }
 
