@@ -612,11 +612,15 @@ plugins = {
 	},
 
 	-- Reserved plugins -----------------------------------------
-	['kqito/vim-easy-replace'] = { conf = false },
+	['lewis6991/impatient.nvim'] = { cond = false },
+	['kqito/vim-easy-replace'] = { cond = false },
 
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------
+	['ray-x/navigator.lua'] = {}, -- check for replacing LSP saga
+	['ray-x/lsp_signature.nvim'] = {}, -- check for replacing LSP signature help
+	['NeogitOrg/neogit'] = {}, -- check for replacing git messenger
 	['abeldekat/lazyflex.nvim'] = {},
 }
 
