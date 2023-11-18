@@ -42,9 +42,6 @@ mappings.general = {
 		["<A-Down>"]  = { ":resize +2 <CR>", "Resize down" },
 		["<A-Left>"]  = { ":vertical resize -2 <CR>", "Resize left" },
 		["<A-Right>"] = { ":vertical resize +2 <CR>", "Resize right" },
-
-		["<"]         = { "V<gv<ESC>", "tab blockcode backward", opts = { noremap = true, silent = true } },
-		[">"]         = { "V>gv<ESC>", "tab blockcode forward" , opts = { noremap = true, silent = true } },
 	},
 
 	t = {
@@ -189,7 +186,7 @@ mappings.align = {
 			}
 		}) end, "Align to paragraph", opts = silent },
 	},
-	v = {
+	x = {
 		["<space>ac"] = { function() require("align").align_to_char({ length = 1 }) end,                      "Align to 1 char"        , opts = silent },
 		["<space>aC"] = { function() require("align").align_to_char({ length = 2, preview = true }) end,      "Align to 2 char"        , opts = silent },
 		["<space>as"] = { function() require("align").align_to_string({ preview = true, regex = false }) end, "Align to string"        , opts = silent },
@@ -269,6 +266,15 @@ mappings.session = {
 		["<space>sl"] = { ":SessionManager load_last_session<CR>"   , "Load last session"   , opts = silent },
 		["<space>ss"] = { ":SessionManager save_current_session<CR>", "Save current session", opts = silent },
 		["<space>sd"] = { ":SessionManager load_last_session<CR>"   , "Delete session"      , opts = silent },
+	}
+}
+
+mappings.multiplecursors = {
+	plugin = true,
+	n = {
+		["<C-j>"] = { ":MultipleCursorsAddDown<CR>", "Add multiple cursor down"           , opts = silent },
+		["<C-k>"] = { ":MultipleCursorsAddUp<CR>", "Add multiple cursor up"               , opts = silent },
+		["<C-LeftMouse>"] = { ":MultipleCursorsMouseAddDelete<CR>", "Add multiple cursor" , opts = silent },
 	}
 }
 

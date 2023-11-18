@@ -356,16 +356,13 @@ plugins = {
 			require("search-replace").setup()
 		end,
 		keys = {
-			{ "<leader>ra", ":SearchReplaceWithinVisualSelection<CR>", mode = "v", silent = true, noremap = true },
+			{ "<leader>ra", ":SearchReplaceWithinVisualSelection<CR>",       mode = "v", silent = true, noremap = true },
 			{ "<leader>rc", ":SearchReplaceWithinVisualSelectionCExpr<CR>",  mode = "v", silent = true, noremap = true },
 		},
 	},
-	['mg979/vim-visual-multi'] = {
-		-- Desc: Multiple cursor
-		-- TODO: Investiage to use this plugin
-	},
 	['Vonr/align.nvim'] = {
 		-- Desc: Quick align
+		commit = "8bfed3",
 		init = function()
 			require("utils").load_mappings("align")
 		end,
@@ -381,6 +378,15 @@ plugins = {
 		-- Desc: Toggle word (true/false)
 		config = function()
 			require("nvim-toggler").setup()
+		end,
+	},
+	['brenton-leighton/multiple-cursors.nvim'] = {
+		-- Desc: Multiple cursors
+		init = function()
+			require("utils").load_mappings("multiplecursors")
+		end,
+		config = function()
+			require("multiple-cursors").setup()
 		end,
 	},
 
@@ -614,6 +620,7 @@ plugins = {
 	-- Reserved plugins -----------------------------------------
 	['lewis6991/impatient.nvim'] = { cond = false },
 	['kqito/vim-easy-replace'] = { cond = false },
+	['mg979/vim-visual-multi'] = { cond = false },
 
 	-- Plugin on testing ----------------------------------------
 
@@ -622,6 +629,7 @@ plugins = {
 	['ray-x/lsp_signature.nvim'] = {}, -- check for replacing LSP signature help
 	['NeogitOrg/neogit'] = {}, -- check for replacing git messenger
 	['abeldekat/lazyflex.nvim'] = {},
+	['soulis-1256/hoverhints.nvim'] = {},
 }
 
 -- Load lazy (plugin manager)
