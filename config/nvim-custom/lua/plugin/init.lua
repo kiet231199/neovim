@@ -86,7 +86,7 @@ plugins = {
 			require("plugin.git.gitmessenger")
 		end,
 		keys = {
-			{ "<F10>", mode = "", ":Gitmessenger<CR>", silent = true },
+			{ "<F10>", mode = "", ":GitMessenger<CR>", silent = true },
 		}
 	},
 
@@ -138,7 +138,7 @@ plugins = {
 	-- Language Server Protocol ------------------------------------
 	['neovim/nvim-lspconfig'] = {
 		-- Desc: LSP config manager
-		ft = { "lua", "python", "c", "cpp", "bash", "cmake" },
+		ft = { "lua", "python", "c", "cpp", "bash", "sh", "cmake" },
 		dependencies = {
 			'folke/neodev.nvim',
 			-- Desc: LSP formatter
@@ -161,7 +161,7 @@ plugins = {
 	},
 	['glepnir/lspsaga.nvim'] = {
 		-- Desc: LSP better UI
-		ft = { "lua", "python", "c", "cpp", "bash", "cmake" },
+		ft = { "lua", "python", "c", "cpp", "bash", "sh", "cmake" },
 		init = function()
 			require("utils").load_mappings("lspsaga")
 		end,
@@ -180,7 +180,7 @@ plugins = {
 	},
 	['folke/trouble.nvim'] = {
 		-- Desc: Show LSP diagnostics
-		ft = { "lua", "python", "c", "cpp", "bash", "cmake" },
+		ft = { "lua", "python", "c", "cpp", "bash", "sh", "cmake" },
 		config = function()
 			require("plugin.lsp.trouble")
 		end,
@@ -303,14 +303,14 @@ plugins = {
     },
 	['numToStr/Comment.nvim'] = {
 		-- Desc: Quick comment
-		ft = { "lua", "python", "c", "cpp", "bash", "cmake" },
+		ft = { "lua", "python", "c", "cpp", "bash", "sh", "cmake" },
 		config = function()
 			require("plugin.editor.comment.comment")
 		end,
 	},
 	['s1n7ax/nvim-comment-frame'] = {
 		-- Desc: Create comment block
-		ft = { "lua", "python", "c", "cpp", "bash", "cmake" },
+		ft = { "lua", "python", "c", "cpp", "bash", "sh", "cmake" },
 		dependencies = {
 			'nvim-treesitter/nvim-treesitter',
 		},
@@ -350,14 +350,13 @@ plugins = {
 			})
 		end,
 	},
-    ['roobert/search-replace.nvim'] = {
+	['kqito/vim-easy-replace'] = {
 		-- Desc: Quick replace
-		config = function()
-			require("search-replace").setup()
-		end,
 		keys = {
-			{ "<leader>ra", ":SearchReplaceWithinVisualSelection<CR>",       mode = "v", silent = true, noremap = true },
-			{ "<leader>rc", ":SearchReplaceWithinVisualSelectionCExpr<CR>",  mode = "v", silent = true, noremap = true },
+			{ "<leader>ra", ":EasyReplaceWord<CR>", mode = "n", silent = true, noremap = true },
+			{ "<leader>rc", ":EasyReplaceCword<CR>", mode = "n", silent = true, noremap = true },
+			{ "<leader>ra", ":EasyReplaceWordInVisual<CR>", mode = "v", silent = true, noremap = true },
+			{ "<leader>rc", ":EasyReplaceCwordInVisual<CR>", mode = "v", silent = true, noremap = true },
 		},
 	},
 	['Vonr/align.nvim'] = {
@@ -541,7 +540,7 @@ plugins = {
 	},
 	['fmbarina/multicolumn.nvim'] = {
 		-- Desc: Smart column
-		ft = { "lua", "python", "c", "cpp", "bash", "cmake", "git" },
+		ft = { "lua", "python", "c", "cpp", "bash", "sh", "cmake", "git" },
 		config = function()
 			require("plugin.ui.multicolumn")
 		end,
@@ -619,15 +618,15 @@ plugins = {
 
 	-- Reserved plugins -----------------------------------------
 	['lewis6991/impatient.nvim'] = { cond = false },
-	['kqito/vim-easy-replace'] = { cond = false },
 	['mg979/vim-visual-multi'] = { cond = false },
+    ['roobert/search-replace.nvim'] = { cond = false },
 
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------
 	['ray-x/navigator.lua'] = {}, -- check for replacing LSP saga
 	['ray-x/lsp_signature.nvim'] = {}, -- check for replacing LSP signature help
-	['NeogitOrg/neogit'] = {}, -- check for replacing git messenger
+	['NeogitOrg/neogit'] = { config = true }, -- check for replacing git messenger
 	['abeldekat/lazyflex.nvim'] = {},
 	['soulis-1256/hoverhints.nvim'] = {},
 }

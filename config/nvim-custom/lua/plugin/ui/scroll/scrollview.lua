@@ -6,7 +6,7 @@ end
 
 scrollview.setup({
 	always_show = true,
-	excluded_filetypes = { 'neo-tree', 'lspsagaoutline', 'nvcheatsheet' },
+	excluded_filetypes = { 'neo-tree', 'lspsagaoutline', 'alpha', 'nvcheatsheet' },
 	mode = 'virtual',
 	zindex = 30,
 	winblend = 50,
