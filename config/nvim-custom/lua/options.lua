@@ -1,5 +1,6 @@
 vim.g.mapleader = ","
 vim.g.propofont = " "
+vim.g.netrw_liststyle = 3
 
 local options = {
     backup         = false,                             -- creates a backup file
@@ -51,10 +52,6 @@ for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 
-vim.opt.listchars:append "space:▁"
-vim.opt.listchars:append "eol:↲"
-vim.opt.listchars:append "tab:░░"
-
-vim.opt.shortmess:append "c"
-
+vim.opt.listchars:append({ space = "▁", eol = "↲", tab = "░░" })
+vim.opt.shortmess:append("c")
 vim.opt.formatoptions:remove({ "c", "r", "o" })

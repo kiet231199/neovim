@@ -50,5 +50,5 @@ prettyfold.setup({
 		{ '%(', ')' }, -- % to escape lua pattern char
 		{ '%[', ']' }, -- % to escape lua pattern char
 	},
-	ft_ignore = { 'neorg' },
+	ft_ignore = { 'neorg', 'DiffviewFiles' },
 })

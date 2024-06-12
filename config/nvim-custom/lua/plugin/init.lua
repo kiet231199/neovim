@@ -48,16 +48,16 @@ plugins = {
 
 	-- Tabline and Statusline --------------------------------------
 	['rebelot/heirline.nvim'] = {
-        -- Desc: Show both tabline and statusline
-        init = function()
+		-- Desc: Show both tabline and statusline
+		init = function()
 			vim.opt.laststatus = 2
-            vim.opt.showcmdloc = 'statusline'
-            vim.opt.showtabline = 2
-            vim.cmd([[au FileType * if index(['wipe', 'delete'], &bufhidden) >= 0 | set nobuflisted | endif]])
-        end,
-        config = function()
-            require("plugin.line.heirline")
-        end,
+			vim.opt.showcmdloc = 'statusline'
+			vim.opt.showtabline = 2
+			vim.cmd([[au FileType * if index(['wipe', 'delete'], &bufhidden) >= 0 | set nobuflisted | endif]])
+		end,
+		config = function()
+			require("plugin.line.heirline")
+		end,
 	},
 	['Bekaboo/dropbar.nvim'] = {
 	 	-- Desc: Winbar
@@ -79,15 +79,20 @@ plugins = {
 			require("plugin.git.gitsigns")
 		end,
 	},
-	['rhysd/git-messenger.vim'] = {
+	['FabijanZulj/blame.nvim'] = {
 		-- Desc: Git show commit contents
-		-- TODO: Long term: Convert this plugin to lua, and can be customizable
-		config = function()
-			require("plugin.git.gitmessenger")
+		init = function()
+			require("utils").load_mappings("blame")
 		end,
-		keys = {
-			{ "<F10>", mode = "", ":GitMessenger<CR>", silent = true },
-		}
+		config = function()
+			require("plugin.git.blame")
+		end
+	},
+	['sindrets/diffview.nvim'] = {
+		-- Desc: Show git diff
+		config = function()
+			require("plugin.git.diffview")
+		end,
 	},
 
 	-- Fuzy finder -------------------------------------------------
@@ -125,15 +130,6 @@ plugins = {
 			require("plugin.telescope.telescope")
 		end,
 	},
-	['AckslD/nvim-neoclip.lua'] = {
-		-- Desc: Preview clipboard
-        dependencies = {
-            'nvim-telescope/telescope.nvim',
-        },
-		config = function()
-			require("plugin.telescope.neoclip")
-		end,
-	},
 
 	-- Language Server Protocol ------------------------------------
 	['neovim/nvim-lspconfig'] = {
@@ -169,14 +165,14 @@ plugins = {
 			require("plugin.lsp.lspsaga")
 		end,
 	},
-	['https://git.sr.ht/~whynothugo/lsp_lines.nvim'] = {
-		-- Desc: LSP show line diagnostics
-		config = function()
-			require("lsp_lines").setup()
+	['rachartier/tiny-inline-diagnostic.nvim'] = {
+		-- Desc: Inline diagnostics
+		init = function()
+			require("utils").load_mappings("inlinediagnostic")
 		end,
-		keys = {
-			{ "<F3>", mode = "", ":lua require('lsp_lines').toggle()<CR>", silent = true, noremap = true },
-		}
+		config = function()
+			require("plugin.lsp.inline-diagnostic")
+		end,
 	},
 	['folke/trouble.nvim'] = {
 		-- Desc: Show LSP diagnostics
@@ -193,6 +189,7 @@ plugins = {
 			'hrsh7th/cmp-nvim-lsp',
 			'hrsh7th/cmp-nvim-lsp-document-symbol',
 			'hrsh7th/cmp-nvim-lsp-signature-help',
+			'paopaol/cmp-doxygen',
 			-- Desc: Completion for buffer
 			'hrsh7th/cmp-buffer',
 			'amarakon/nvim-cmp-buffer-lines',
@@ -204,8 +201,6 @@ plugins = {
 			-- Desc: Completion for ripgrep
 			'lukas-reineke/cmp-rg',
 			-- Desc: Completion for other stuff
-			'petertriho/cmp-git',
-			'delphinus/cmp-ctags',
 			'bydlw98/cmp-env',
 			-- Desc: Sorting completion base on priority
 			'lukas-reineke/cmp-under-comparator',
@@ -214,13 +209,26 @@ plugins = {
 			-- Desc: Completion for Luasnip
 			'saadparwaiz1/cmp_luasnip',
 			'doxnit/cmp-luasnip-choice',
-			-- Desc: Additional snippets
-			'hungnguyen1503/friendly-snippets',
 			-- Desc: Completion for DAP
 			'rcarriga/cmp-dap',
 		},
 		config = function()
 			require("plugin.lsp.cmp")
+		end,
+	},
+	['chrisgrieser/nvim-scissors'] = {
+		-- Dsec: Custom snippets
+		event = { "InsertEnter" },
+		dependencies = {
+			"hrsh7th/nvim-cmp",
+			"nvim-telescope/telescope.nvim",
+			"garymjr/nvim-snippets"
+		},
+		init = function()
+			require("utils").load_mappings("scissors")
+		end,
+		config = function()
+			require("plugin.lsp.scissors")
 		end,
 	},
 
@@ -250,7 +258,10 @@ plugins = {
     ['rcarriga/nvim-dap-ui'] = {
         -- Desc: UI for DAP
 		ft = { "c", "cpp" },
-        dependencies = { 'mfussenegger/nvim-dap' },
+        dependencies = {
+			'mfussenegger/nvim-dap',
+			'nvim-neotest/nvim-nio',
+		},
         config = function()
             require("plugin.debugger.dapui")
         end,
@@ -306,16 +317,6 @@ plugins = {
 		ft = { "lua", "python", "c", "cpp", "bash", "sh", "cmake" },
 		config = function()
 			require("plugin.editor.comment.comment")
-		end,
-	},
-	['s1n7ax/nvim-comment-frame'] = {
-		-- Desc: Create comment block
-		ft = { "lua", "python", "c", "cpp", "bash", "sh", "cmake" },
-		dependencies = {
-			'nvim-treesitter/nvim-treesitter',
-		},
-		config = function()
-			require("plugin.editor.comment.comment-frame")
 		end,
 	},
 	['folke/todo-comments.nvim'] = {
@@ -379,13 +380,15 @@ plugins = {
 			require("nvim-toggler").setup()
 		end,
 	},
-	['brenton-leighton/multiple-cursors.nvim'] = {
-		-- Desc: Multiple cursors
+	['smoka7/multicursors.nvim'] = {
+		dependencies = {
+			'smoka7/hydra.nvim',
+		},
 		init = function()
-			require("utils").load_mappings("multiplecursors")
+			require("utils").load_mappings("multicursors")
 		end,
 		config = function()
-			require("multiple-cursors").setup()
+			require("plugin.utility.multiplecursors")
 		end,
 	},
 
@@ -439,15 +442,6 @@ plugins = {
 			require("plugin.ui.noice")
 		end,
 	},
-
-	-- Window -----------------------------------------------------
-	['xorid/swap-split.nvim'] = {
-		-- Desc: Window choose
-		event = "WinNew",
-		init = function()
-			require("utils").load_mappings("swapsplit")
-		end
-	},
 	['anuvyklack/windows.nvim'] = {
 		-- Desc: Smooth window swap
 		event = "WinNew",
@@ -499,6 +493,7 @@ plugins = {
 	},
 	['anuvyklack/pretty-fold.nvim'] = {
 		-- Desc: Fold text
+		enabled = false,
 		config = function()
 			require("plugin.ui.fold.pretty-fold")
 		end,
@@ -511,18 +506,10 @@ plugins = {
 	},
 	['nvim-zh/colorful-winsep.nvim'] = {
 		-- Desc: Win separator
+		commit = "e1b72c",
 		event = "WinNew",
 		config = function()
 			require("plugin.ui.window.winsep")
-		end,
-	},
-	['dvoytik/hi-my-words.nvim'] = {
-		-- Desc: Highlight word with many colors
-		init = function()
-			require("utils").load_mappings("himywords")
-		end,
-		config = function()
-			require("plugin.ui.himywords")
 		end,
 	},
 	['echasnovski/mini.trailspace'] = {
@@ -545,21 +532,17 @@ plugins = {
 			require("plugin.ui.multicolumn")
 		end,
 	},
-	['JellyApple102/easyread.nvim'] = {
-		-- Desc: Bionic highlighting
-		ft = { "text", "markdown" },
+	['NStefan002/screenkey.nvim'] = {
+		-- Desc: Key tracking
+		init = function()
+			require("utils").load_mappings("screenkey")
+		end,
 		config = function()
-			require("plugin.ui.easyread")
+			require("plugin.ui.screenkey")
 		end,
 	},
 
 	-- Utility --------------------------------------------------
-	['folke/drop.nvim'] = {
-		-- Desc: Waiting screen
-		config = function()
-			require("plugin.utility.drop")
-		end,
-	},
 	['rcarriga/nvim-notify'] = {
 		-- Desc: Message popup
 		config = function()
@@ -581,23 +564,6 @@ plugins = {
 			require("plugin.utility.whichkey")
 		end,
 	},
-	['trmckay/based.nvim'] = {
-		-- Desc: Conver dec to hex
-		config = function()
-			require("plugin.utility.based")
-		end,
-		keys = {
-			{ "<leader>bh", "<cmd>BasedConvert hex<CR>", mode = "n", silent = true, noremap = true },
-			{ "<leader>bd", "<cmd>BasedConvert dec<CR>", mode = "n", silent = true, noremap = true },
-		},
-	},
-	['cloudysake/asciitree.nvim'] = {
-		-- Desc: Auto generate tree
-		config = function()
-			require("plugin.utility.asciitree")
-		end,
-		cmd = "AsciiTree",
-	},
 	['christoomey/vim-tmux-navigator'] = {
 		-- Desc: Switch pane between VIM and TMUX
 		config = function()
@@ -609,6 +575,14 @@ plugins = {
 			]]
 		end,
 	},
+	['RaafatTurki/hex.nvim'] = {
+		-- Desc: The same to hex dump
+		config = true,
+	},
+	['prichrd/netrw.nvim'] = {
+		-- Desc: Netrw explorer
+		config = true,
+	},
 	['ryanoasis/vim-devicons'] = {
 		-- Desc: devicons source for vim
 	},
@@ -616,19 +590,9 @@ plugins = {
 		-- Desc: devicons source for neovim
 	},
 
-	-- Reserved plugins -----------------------------------------
-	['lewis6991/impatient.nvim'] = { cond = false },
-	['mg979/vim-visual-multi'] = { cond = false },
-    ['roobert/search-replace.nvim'] = { cond = false },
-
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------
-	['ray-x/navigator.lua'] = {}, -- check for replacing LSP saga
-	['ray-x/lsp_signature.nvim'] = {}, -- check for replacing LSP signature help
-	['NeogitOrg/neogit'] = { config = true }, -- check for replacing git messenger
-	['abeldekat/lazyflex.nvim'] = {},
-	['soulis-1256/hoverhints.nvim'] = {},
 }
 
 -- Load lazy (plugin manager)

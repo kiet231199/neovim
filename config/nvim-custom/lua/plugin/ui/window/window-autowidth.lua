@@ -31,4 +31,3 @@ windows.setup({
 		easing = "in_out_sine"
 	}
 })
-

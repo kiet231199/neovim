@@ -41,7 +41,12 @@ end
 
 vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
-        option.colorscheme = vim.g.colors_name
+		-- From tokyonight v4.0.0, return value of vim.g.colors_name is "tokyonight-<style>"
+		if string.find(vim.g.colors_name, "tokyonight") then
+			option.colorscheme = "tokyonight"
+		else
+			option.colorscheme = vim.g.colors_name
+		end
     end,
 })
 

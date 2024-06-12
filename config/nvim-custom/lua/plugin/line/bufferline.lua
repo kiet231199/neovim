@@ -96,22 +96,12 @@ local buffername = {
         },
         {
             condition = function(self)
-				return vim.api.nvim_get_option_value("modifiable", { buf = self.bufnr })
-					or vim.api.nvim_get_option_value("readonly", { buf = self.bufnr })
+				return vim.api.nvim_get_option_value("readonly", { buf = self.bufnr })
             end,
-            provider = function(self)
-				if vim.api.nvim_get_option_value("buftype", { buf = self.bufnr }) == "terminal" then
-                    return "  "
-                else
-                    return " "
-                end
-            end,
+            provider = " ",
         },
     },
     {
-        condition = function(self)
-			return vim.api.nvim_get_option_value("modified", { buf = self.bufnr })
-        end,
         { provider = " " },
         {
             provider = "",
@@ -271,7 +261,8 @@ local dark_mode = {
 
 local bufferline = {
     condition = function()
-        return conditions.is_active() and not conditions.buffer_matches(exclusion)
+        -- return conditions.is_active() and not conditions.buffer_matches(exclusion)
+        return conditions.is_active() 
     end,
     offset,
     buffer,
