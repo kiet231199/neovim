@@ -19,10 +19,10 @@ mappings.general = {
 	n = {
 		["<esc>"]     = { ":noh <CR>", "clear highlight search" },
 		["<C-a>"]     = { "ggVG", "select all" },
-		["<C-s>"]     = { ':w<CR>:lua require("notify")("Save successfull 勒", "info",{title = "Save file "})<CR>:noh<CR>', opts = { silent = true } },
+		["<C-s>"]     = { ':w<CR>:lua require("notify")("Save successfull 勒", "info",{title = "Save file "})<CR>:noh<CR>', opts = silent },
 
-		["<F4>"]      = { ":lua ToggleLSP()<CR>", "toggle_lsp",            opts = { silent = true } },
-		["<F11>"]     = { ":lua ToggleCopyMode()<CR>", "toggle interface", opts = { silent = true } },
+		["<F4>"]      = { ":lua ToggleLSP()<CR>", "toggle_lsp",            opts = silent },
+		["<F11>"]     = { ":lua ToggleCopyMode()<CR>", "toggle interface", opts = silent },
 		["<F12>n"]    = { ":set norelativenumber!<CR>", "toggle relative number" },
 		["<F12>c"]    = { ":set list!<CR>", "toggle viewing special character" },
 		["<F12>s"]    = { ":lua ToggleGlobalStatusLine()<CR>", "toggle global status line" },
@@ -109,29 +109,39 @@ mappings.telescope = {
 	},
 }
 
+mappings.scissors = {
+	plugin = true,
+	n = {
+		["<leader>se"] = { function() require("scissors").editSnippet() end, "edit snippets", opts = silent },
+	},
+	x = {
+		["<leader>sa"] = { function() require("scissors").addNewSnippet() end, "add new snippets", opts = silent },
+	},
+}
+
 mappings.lspconfig = {
 	plugin = true,
 	x = {
-		["<space>f"] = { ":lua require('lsp-range-format').format() <CR>", "format range", opts = { silent = true } },
+		["<space>f"] = { ":lua require('lsp-range-format').format() <CR>", "format range", opts = silent },
 	},
 }
 
 mappings.lspsaga = {
 	plugin = true,
 	n = {
-		["gf"]   = { ":Lspsaga finder def+ref<CR>", "finder"   , opts = { silent = true } },
-		["gi"]   = { ":Lspsaga finder imp<CR>"    , "implement", opts = { silent = true } },
-		["gr"]   = { ":Lspsaga rename<CR>"        , "rename"   , opts = { silent = true } },
-		["K"]    = { ":Lspsaga hover_doc<CR>"     , "hover doc", opts = { silent = true } },
-		["<F6>"] = { ":Lspsaga outline<CR>"       , "outline"  , opts = { silent = true } },
+		["gf"]   = { ":Lspsaga finder def+ref<CR>", "finder"   , opts = silent },
+		["gi"]   = { ":Lspsaga finder imp<CR>"    , "implement", opts = silent },
+		["gr"]   = { ":Lspsaga rename<CR>"        , "rename"   , opts = silent },
+		["K"]    = { ":Lspsaga hover_doc<CR>"     , "hover doc", opts = silent },
+		["<F6>"] = { ":Lspsaga outline<CR>"       , "outline"  , opts = silent },
 		-- Use <C-t> to jump back
-		["gpd"] = { ":Lspsaga peek_definition<CR>", "float definition", opts = { silent = true } },
+		["gpd"] = { ":Lspsaga peek_definition<CR>", "float definition", opts = silent },
 		-- Diagnsotic jump can use `<c-o>` to jump back
-		["gk"] = { function() require("lspsaga.diagnostic"):goto_prev() end, "diagnostic jump prev", opts = { silent = true } },
-		["gj"] = { function() require("lspsaga.diagnostic"):goto_next() end, "diagnostic jump next", opts = { silent = true } },
+		["gk"] = { function() require("lspsaga.diagnostic"):goto_prev() end, "diagnostic jump prev", opts = silent },
+		["gj"] = { function() require("lspsaga.diagnostic"):goto_next() end, "diagnostic jump next", opts = silent },
 		-- Only jump to error
-		["gek"] = { function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "error jump prev", opts = { silent = true } },
-		["gej"] = { function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "error jump next", opts = { silent = true } },
+		["gek"] = { function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "error jump prev", opts = silent },
+		["gej"] = { function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "error jump next", opts = silent },
 	}
 }
 
@@ -139,14 +149,6 @@ mappings.lsplines = {
 	plugin = true,
 	x = {
 		["<F3>"] = { ":lua require('lsp_lines').toggle() <CR>", "Toggle LSP diagnostic", opts = silent },
-	},
-}
-
-mappings.himywords = {
-	plugin = true,
-	n = {
-		['<space>m'] = { ":HiMyWordsToggle<CR>", "highlight word on cursor" },
-		['<space>M'] = { ":HiMyWordsClear<CR>", "clear all highlight" },
 	},
 }
 
@@ -214,6 +216,16 @@ mappings.move = {
 	},
 }
 
+mappings.multicursors = {
+	plugin = true,
+	n = {
+		["<leader>m"] = { ":MCstart<CR>", "Multiple cursors", opts = silent },
+	},
+	v = {
+		["<leader>m"] = { ":MCstart<CR>", "Multiple cursors", opts = silent },
+	},
+}
+
 mappings.searchbox = {
 	plugin = true,
 	n = {
@@ -240,13 +252,6 @@ mappings.hlslens = {
 	},
 }
 
-mappings.swapsplit = {
-	plugin = true,
-	n = {
-		["sw"] = {":SwapSplit<CR>", "Jump to selection window", opts = silent },
-	},
-}
-
 mappings.windows = {
 	plugin = true,
 	n = {
@@ -255,6 +260,13 @@ mappings.windows = {
 		["<C-w>|"] = { ":WindowsMaximizeHorizontally<CR>:WindowsDisableAutowidth<CR>", "Expand current window horizontally", opts = silent },
 		["<C-w>="] = { ":WindowsEqualize<CR>:WindowsDisableAutowidth<CR>"            , "Equalize multiple windows"         , opts = silent },
 	},
+}
+
+mappings.screenkey = {
+	plugin = true,
+	n = {
+		["<F7>"]   = { ":Screenkey<CR", "Toggle key detector", opts = silent },
+	}
 }
 
 mappings.dropbar = {
@@ -270,15 +282,6 @@ mappings.session = {
 		["<space>sl"] = { ":SessionManager load_last_session<CR>"   , "Load last session"   , opts = silent },
 		["<space>ss"] = { ":SessionManager save_current_session<CR>", "Save current session", opts = silent },
 		["<space>sd"] = { ":SessionManager load_last_session<CR>"   , "Delete session"      , opts = silent },
-	}
-}
-
-mappings.multiplecursors = {
-	plugin = true,
-	n = {
-		["<C-j>"] = { ":MultipleCursorsAddDown<CR>", "Add multiple cursor down"           , opts = silent },
-		["<C-k>"] = { ":MultipleCursorsAddUp<CR>", "Add multiple cursor up"               , opts = silent },
-		["<C-LeftMouse>"] = { ":MultipleCursorsMouseAddDelete<CR>", "Add multiple cursor" , opts = silent },
 	}
 }
 

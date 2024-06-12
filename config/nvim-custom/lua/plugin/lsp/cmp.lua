@@ -10,9 +10,10 @@ if not luasnip_status then
 	return
 end
 
+local snippetDir = vim.g.my_path .. "/snippets"
+require("luasnip.loaders.from_vscode").lazy_load { paths = snippetDir }
+
 luasnip.config.set_config({ history = true, updateevents = "TextChanged, TextChangedI" })
-require("luasnip.loaders.from_vscode").lazy_load { paths = vim.g.luasnippets_path or "" }
-require("luasnip.loaders.from_vscode").lazy_load()
 
 vim.api.nvim_create_autocmd("InsertLeave", {
     callback = function()
@@ -85,8 +86,8 @@ local kinds = {
 	cmdline_history           = "[History]",
 	path                      = "[Path]",
 	rg                        = "[RG]",
-	ctags                     = "[Ctags]",
 	env                       = "[Env]",
+	doxygen                   = "[Doxygen]",
 }
 
 local has_words_before = function()
@@ -160,7 +161,6 @@ cmp.setup({
 				nvim_lsp        = 0,
 				vsnip           = 0,
 				luasnip         = 1,
-				ctags           = 0,
 				cmdline_history = 0,
 				rg              = 1,
 			})[entry.source.name] or 0
@@ -176,7 +176,7 @@ cmp.setup({
 		{ name = "nvim_lsp"               , priority = 8 },
 		{ name = "nvim_lsp_signature_help", priority = 7 },
 		{ name = "buffer"                 , priority = 5 },
-		{ name = "ctags"                  , priority = 4 },
+		{ name = "doxygen"                , priority = 4 },
 		{ name = "path"                   , priority = 3 },
 		{ name = "env"                    , priority = 2 },
 		{ name = "rg"                     , priority = 1 },
@@ -217,16 +217,6 @@ cmp.setup({
     },
 })
 
--- Set configuration for specific filetype.
-require("cmp").setup.filetype('gitcommit', {
-	sources = require("cmp").config.sources({
-		{ name = 'cmp_git', priority = 4 }, -- You can specify the `cmp_git` source if you were installed it.
-		{ name = 'buffer' , priority = 3 },
-		{ name = 'path'   , priority = 2 },
-		{ name = 'ctags'  , priority = 1 },
-	})
-})
-
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 require("cmp").setup.cmdline({ '/', '?' }, {
 	mapping = require("cmp").mapping.preset.cmdline(),
@@ -235,7 +225,7 @@ require("cmp").setup.cmdline({ '/', '?' }, {
 		{
 			name = 'buffer',
 			option = { keyword_pattern = [[\k\+]] },
-			priority = 3,
+			priority = 2,
 		},
 		{
 			name = 'buffer-lines',
@@ -243,9 +233,8 @@ require("cmp").setup.cmdline({ '/', '?' }, {
 				words = true,
 				comments = true,
 			},
-			priority = 2,
+			priority = 1,
 		},
-		{ name = 'ctags', priority = 1 },
 	})
 })
 

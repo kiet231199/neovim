@@ -5,7 +5,6 @@ if not status_ok then
 end
 
 local current_path = vim.fs.normalize(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p'))
-local preview = true
 
 local kinds = {
 	Array = '󰅪 ',
@@ -30,7 +29,7 @@ local kinds = {
 	Folder = ' ',
 	ForStatement = '󰑖 ',
 	Function = '󰊕 ',
-    H1Marker = '󰉫 ',      -- Used by markdown treesitter parser
+    H1Marker = '󰉫 ',
     H2Marker = '󰉬 ',
     H3Marker = '󰉭 ',
     H4Marker = '󰉮 ',
@@ -107,6 +106,7 @@ dropbar.setup({
 		}
 	},
 	bar = {
+		hover = true,
 		padding = {
 			left = 1,
 			right = 1,
@@ -117,7 +117,7 @@ dropbar.setup({
 		truncate = true,
 	},
 	menu = {
-		preview = preview,
+		preview = true,
 		quick_navigation = false,
 		entry = {
 			padding = {
@@ -125,18 +125,11 @@ dropbar.setup({
 				right = 1,
 			},
 		},
-		keymaps = {
-			['q'] = function()
-				local menu = require('dropbar.api').get_current_dropbar_menu()
-				if not menu then
-					return
-				end
-				local cursor = vim.api.nvim_win_get_cursor(menu.win)
-				local component = menu.entries[cursor[1]]:first_clickable(cursor[2])
-				if component then
-					menu:close()
-				end
-			end,
+		scrollbar = {
+			enable = true,
+			-- The background / gutter of the scrollbar
+			-- When false, only the scrollbar thumb is shown.
+			background = true
 		},
 		win_configs = {
 			border = 'rounded',

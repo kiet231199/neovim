@@ -44,11 +44,11 @@ whichkey.setup({
 		scroll_up = '<c-k>', -- binding to scroll up inside the popup
 	},
 	window = {
-		border = "single", -- none, single, double, shadow
+		border = "rounded", -- none, single, double, shadow
 		position = "bottom", -- bottom, top
 		margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
 		padding = { 0, 0, 0, 0 }, -- extra window padding [top, right, bottom, left]
-		winblend = 20
+		winblend = 10,
 	},
 	layout = {
 		height = { min = 4, max = 10 }, -- min and max height of the columns

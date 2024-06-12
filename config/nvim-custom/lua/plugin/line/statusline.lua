@@ -29,7 +29,7 @@ local vimode = {
             niV = " Normal-V",
             nt = " Normal-T",
             v = "󰉷 Visual",
-            vs = "󰉷 Visual-Select",
+            vs = "󰉷 VisualSelect",
             V = "󰉷 Visual-L",
             Vs = "󰉷 Visual-Select-L",
             s = "󰉷 Select",
@@ -359,7 +359,7 @@ local filename = {
         update = true,
         name = "filename_print"
     },
-    update = { "VimResized", "WinResized", "BufEnter" },
+    update = { "VimResized", "WinResized", "BufEnter", "BufWinEnter" },
 }
 
 local diagnostics = {
@@ -782,6 +782,13 @@ local percentage = {
                     local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
                     return string.rep(self.sbar[i], 2) .. " "
                 end,
+				update = {
+					"CursorMoved",
+					pattern = "*:*",
+					callback = vim.schedule_wrap(function()
+						vim.cmd("redrawstatus")
+					end),
+				},
             },
         },
         { provider = "" },

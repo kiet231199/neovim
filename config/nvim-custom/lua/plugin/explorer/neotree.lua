@@ -9,7 +9,6 @@ neotree.setup({
 	popup_border_style = "rounded",
 	enable_git_status = true,
 	enable_diagnostics = true,
-    enable_normal_mode_for_inputs = false,
 	open_files_do_not_replace_types = { "terminal", "trouble", "qf", "edgy" },     -- when opening files, do not use windows containing these filetypes or buftypes
 	sort_case_insensitive = false,                                                 -- used when sorting files and directories in the tree
 	sort_function = nil,                                                           -- use a custom function for sorting files and directories in the tree
@@ -67,9 +66,11 @@ neotree.setup({
 			},
 			align = "right",
 		},
-        symlink_target = {
-            enabled = true,
-        },
+		file_size      = { enabled = false },
+		type           = { enabled = false },
+		last_modified  = { enabled = false },
+		created        = { enabled = false },
+        symlink_target = { enabled = true },
 		diagnostics = {
 			symbols = {
 				hint = "",
@@ -148,14 +149,18 @@ neotree.setup({
 				--".null-ls_*",
 			},
 		},
-		follow_current_file = true, -- This will find and focus the file in the active buffer every
+		follow_current_file = {
+			enabled = false, -- This will find and focus the file in the active buffer every time
+			                 -- the current file is changed while the tree is open.
+			leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+		},
 		-- time the current file is changed while the tree is open.
 		group_empty_dirs = false,                 -- when true, empty folders will be grouped together
 		hijack_netrw_behavior = "open_default",   -- netrw disabled, opening a directory opens neo-tree
-		-- in whatever position is specified in window.position
-		-- "open_current",  -- netrw disabled, opening a directory opens within the
-		-- window like netrw would, regardless of window.position
-		-- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
+		                                          -- in whatever position is specified in window.position
+		                                          -- "open_current",  -- netrw disabled, opening a directory opens within the
+		                                          -- window like netrw would, regardless of window.position
+		                                          -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
 		use_libuv_file_watcher = false,   -- This will use the OS level file watchers to detect changes
 		-- instead of relying on nvim autocmd events.
 		window = {
