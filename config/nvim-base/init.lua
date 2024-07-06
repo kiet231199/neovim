@@ -4,14 +4,10 @@ if vim.fn.has("win32") == 1 then
 	-- Window
 else
 	-- Linux
-	vim.g.neovim_path = "/data4/kietpham/00_dot" -- WARN: Do not change this path
-	vim.g.my_path = "/data4/kietpham/00_dot"     -- INFO: Define parent path of your "config" folder here
+	vim.g.neovim_path = "/home/kietpham/neovim" -- WARN: Do not change this path
+	vim.g.my_path = "/home/kietpham/neovim"     -- INFO: Define parent path of your "config" folder here
 
 	global_config = {
-		-- Disable netrw at the very start of your init.lua (strongly advised)
-		loaded_netrw = 1,
-		loaded_netrwPlugin = 1,
-
 		-- Define path
 		config_path = vim.g.my_path .. "/config", -- Change config to .config if your path point to home
 		data_path = vim.g.my_path .. "/data",

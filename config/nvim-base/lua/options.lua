@@ -1,5 +1,6 @@
 vim.g.mapleader = ","
 vim.g.propofont = ""
+vim.g.netrw_liststyle = 3
 
 local options = {
     backup         = false,                             -- creates a backup file

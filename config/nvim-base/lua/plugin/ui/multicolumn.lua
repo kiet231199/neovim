@@ -22,9 +22,6 @@ multicolumn.setup({
 		nvcheatsheet = {
 			rulers = { 0 },
 		},
-		git = {
-			rulers = { 72 },
-		},
 		default = {
 			rulers = { 80 },
 		},

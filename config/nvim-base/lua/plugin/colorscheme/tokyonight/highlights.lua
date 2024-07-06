@@ -128,7 +128,6 @@ local dark = {
         ['DapBreakpoint']                = { fg = '#993939' },
         ['DapLogPoint']                  = { fg = '#61afef' },
         ['DapStopped']                   = { fg = '#98c379' },
-		['LspSignatureActiveParameter']  = { fg = 'Yellow' },
     }
 }
 

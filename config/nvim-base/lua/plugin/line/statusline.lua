@@ -127,6 +127,14 @@ local vimode = {
                 local mode = self.mode:sub(1, 1) -- get only the first mode character
                 return { fg = "#15161e", bg = self.mode_colors[mode], bold = true, }
             end,
+            update = {
+                "ModeChanged",
+                pattern = "*:*",
+                callback = vim.schedule_wrap(function()
+                    vim.cmd("redrawstatus")
+                end),
+            },
+
         },
         {
             init = function(self)
@@ -139,6 +147,13 @@ local vimode = {
                 local mode = self.mode:sub(1, 1) -- get only the first mode character
                 return { fg = "#15161e", bg = self.mode_colors[mode], bold = true, }
             end,
+            update = {
+                "ModeChanged",
+                pattern = "*:*",
+                callback = vim.schedule_wrap(function()
+                    vim.cmd("redrawstatus")
+                end),
+            },
         },
     },
     {
@@ -148,13 +163,6 @@ local vimode = {
             return { fg = self.mode_colors[mode], bold = true, bg = "secondary_bg" }
         end,
     },
-	update = {
-		"ModeChanged",
-		pattern = "*:*",
-		callback = vim.schedule_wrap(function()
-			vim.cmd("redrawstatus")
-		end),
-	},
     on_click = {
         callback = function()
             vim.cmd("lua ToggleCopyMode()")

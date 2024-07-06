@@ -20,7 +20,7 @@ else
 	history_path = vim.fn.stdpath("data") .. "/telescope_history"
 end
 
-local utils = require("plugin.telescope.utils")
+local utils = require("plugin.finder.utils")
 local actions = require("telescope.actions")
 
 local mappings = {
@@ -40,7 +40,6 @@ local mappings = {
 	},
 }
 
--- TODO: Config layout for specific plugins
 telescope.setup({
 	defaults = {
 		prompt_prefix = '🔍: ',
@@ -158,7 +157,7 @@ telescope.setup({
 				{ "Toggle LSP", 'ToggleLSP' },
 				{ "Toggle Null LSP", 'ToggleNullLSP' },
 			},
-		},
+		}
 	}
 })
 
@@ -169,5 +168,4 @@ telescope.load_extension('project')
 telescope.load_extension('ui-select')
 telescope.load_extension('find_pickers')
 telescope.load_extension('command_palette')
-telescope.load_extension('neoclip')
-telescope.load_extension('dap')
+telescope.load_extension("neoclip")
