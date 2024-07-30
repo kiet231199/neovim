@@ -6,7 +6,7 @@ end
 
 -- default settings
 require("scissors").setup {
-	snippetDir = vim.g.my_path .. "/snippets",
+	snippetDir = vim.g.dot_path .. "/snippets",
 	editSnippetPopup = {
 		height = 0.4, -- relative to the window, number between 0 and 1
 		width = 0.6,

@@ -1,5 +1,5 @@
 return {
-    root = vim.g.neovim_path .. "/config/lazy", -- directory where plugins will be installed
+    root = vim.g.dot_path .. "/config/lazy", -- directory where plugins will be installed
     defaults = {
         lazy = false,                  -- should plugins be lazy-loaded?
         version = nil,
@@ -7,7 +7,7 @@ return {
     },
     -- leave nil when passing the spec as the first argument to setup()
     spec = nil, ---@type LazySpec
-    lockfile = vim.g.neovim_path .. "/config/lazy/lazy-lock.json", -- lockfile generated after running update.
+    lockfile = vim.g.dot_path .. "/config/lazy/lazy-lock.json", -- lockfile generated after running update.
     concurrency = nil, ---@type number limit the maximum amount of concurrent tasks
     git = {
         -- defaults for the `Lazy log` command
@@ -102,7 +102,7 @@ return {
     performance = {
         cache = {
             enabled = true,
-            path = vim.g.neovim_path .. "/config/lazy/cache",
+            path = vim.g.dot_path .. "/config/lazy/cache",
             -- Once one of the following events triggers, caching will be disabled.
             -- To cache all modules, set this to `{}`, but that is not recommended.
             -- The default is to disable on:
@@ -133,7 +133,7 @@ return {
     -- so :help works even for plugins that don't have vim docs.
     -- when the readme opens with :help it will be correctly displayed as markdown
     readme = {
-        root = vim.g.neovim_path .. "/config/lazy/readme",
+        root = vim.g.dot_path .. "/config/lazy/readme",
         files = { "README.md", "lua/**/README.md" },
         -- only generate markdown helptags for plugins that dont have docs
         skip_if_doc_exists = true,

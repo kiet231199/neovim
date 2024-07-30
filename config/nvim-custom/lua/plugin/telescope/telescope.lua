@@ -14,7 +14,7 @@ table.insert(vimgrep_arguments, "!**/.git/*")
 
 local history_path = ""
 if vim.fn.has("unix") == 1 then
-	history_path = vim.g.data_path .. "/telescope_history"
+	history_path = vim.g.dot_path .. "/data/telescope_history"
 else
 	-- Don't need to care about memory in window :3
 	history_path = vim.fn.stdpath("data") .. "/telescope_history"

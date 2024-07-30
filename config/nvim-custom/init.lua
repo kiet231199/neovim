@@ -1,22 +1,54 @@
--- Define neovim base path
--- Linux
-vim.g.neovim_path = "/home/kietpham/neovim" -- WARN: Do not change this path
-vim.g.my_path = "/home/kietpham/neovim"     -- INFO: Define parent path of your "config" folder here
+--  Default configuration path of Neovim
+-- ┌──────────────────────────┐
+-- │   ${HOME}/.config/nvim/  │
+-- └───┬──────────────────────┘
+--     │    Store ultility functions to load config out of `stdpath("config")`
+--     │   ┌───────┐
+--     ├──>│  lua  │
+--     │   └───────┘
+--     │    Define path to your configuration here
+--     │   ┌────────────┐
+--     └──>│  init.lua  │ >>>-----------------------┐
+--         └────────────┘                           |
+--                                                  |
+--  Anywhere you like. Ex: /data1/kietpham/00_dot   |
+-- ┌───────────┐                                    |
+-- │  ${DOT}/  │                                    |
+-- └───┬───────┘                                    |
+--     │   ┌──────────┐                             |
+--     ├──>│  config  │                             |
+--     │   └───┬──────┘                             |
+--     │       │   ┌────────┐      Point to here    |
+--     │       ├──>│  nvim  │ <<<-------------------┘
+--     │       │   └───┬────┘
+--     │       │       │   ┌────────────┐  ─┐
+--     │       │       ├──>│  init.lua  │   │
+--     │       │       │   └────────────┘    ╲  Your real configuration for
+--     │       │       │   ┌───────┐         ╱  Neovim is stored here
+--     │       │       └──>│  lua  │        │
+--     │       │           └───────┘       ─┘
+--     │       │   ┌────────┐
+--     │       ├──>│  lazy  │
+--     │       │   └────────┘
+--     │       │    Storing Debug Adapter
+--     │       │   ┌───────┐
+--     │       ├──>│  dap  │
+--     │       │   └───────┘
+--     │       │    Storing LSP
+--     │       │   ┌─────────┐
+--     │       └──>│  mason  │
+--     │           └─────────┘
+--     │    Storing neccessary tools for neovim, these must be exported to ${PATH}
+--     │   ┌─────────┐
+--     └──>│  tools  │
+--         └─────────┘
 
-global_config = {
-	-- Define path
-	config_path = vim.g.my_path .. "/config", -- Change config to .config if your path point to home
-	data_path = vim.g.my_path .. "/data",
+-- Get dot files path
+vim.g.dot_path = vim.fn.fnamemodify(require("state").state.current_profile.path, ":h:h")
 
-	-- Define path for python3 and nodejs framework
-	python3_host_prog = vim.g.neovim_path .. "/tools/python-3.10.7/bin/python3",
-	node_host_prog    = vim.g.neovim_path .. "/tools/node-v16.17.1/lib/node_modules/neovim/bin/cli.js",
-}
-
--- Load all global_config
-for option, config in pairs(global_config) do
-	vim.g[option] = config
-end
+-- Define path for python3 and nodejs framework
+vim.g.python3_host_prog = vim.g.dot_path .. "/tools/python-3.10.7/bin/python3"
+vim.g.node_host_prog    = vim.g.dot_path .. "/tools/node-v16.17.1/lib/node_modules/neovim/bin/cli.js"
 
 -- Set nvim as default git editor
 vim.cmd[[
@@ -25,7 +57,7 @@ vim.cmd[[
 	endif
 ]]
 
-local lazypath = vim.g.neovim_path .. "/config/lazy/lazy.nvim"
+local lazypath = vim.g.dot_path .. "/config/lazy/lazy.nvim"
 -- Setup plugins manager
 -- WARN: Only uncomment below part on the first run of neovim to install lazy.nvim
 -- if not vim.loop.fs_stat(lazypath) then

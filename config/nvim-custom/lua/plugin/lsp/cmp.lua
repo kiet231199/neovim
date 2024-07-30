@@ -10,7 +10,7 @@ if not luasnip_status then
 	return
 end
 
-local snippetDir = vim.g.my_path .. "/snippets"
+local snippetDir = vim.g.dot_path .. "/snippets"
 require("luasnip.loaders.from_vscode").lazy_load { paths = snippetDir }
 
 luasnip.config.set_config({ history = true, updateevents = "TextChanged, TextChangedI" })

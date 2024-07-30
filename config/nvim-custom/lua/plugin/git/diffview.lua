@@ -9,7 +9,7 @@ local actions = require("diffview.actions")
 diffview.setup({
 	diff_binaries = false,  -- Show diffs for binaries
 	enhanced_diff_hl = true, -- See |diffview-config-enhanced_diff_hl|
-	git_cmd = { vim.g.neovim_path .. "/tools/git-2.32.0/bin/git" },    -- The git executable followed by default args.
+	git_cmd = { vim.g.dot_path .. "/tools/git-2.32.0/bin/git" },    -- The git executable followed by default args.
 	hg_cmd = { "hg" },      -- The hg executable followed by default args.
 	use_icons = true,       -- Requires nvim-web-devicons
 	show_help_hints = true, -- Show hints for how to open the help panel

@@ -4,7 +4,7 @@ local dap = require('dap')
 dap.adapters.cppdbg = {
     id = 'cppdbg',
     type = 'executable',
-    command = vim.g.neovim_path .. "/config/dap/extension/debugAdapters/bin/OpenDebugAD7",
+    command = vim.g.dot_path .. "/config/dap/extension/debugAdapters/bin/OpenDebugAD7",
 }
 dap.configurations.c = {
     {
