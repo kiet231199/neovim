@@ -541,6 +541,12 @@ plugins = {
 			require("plugin.ui.screenkey")
 		end,
 	},
+	['OXY2DEV/helpview.nvim'] = {
+		-- Desc: Neovim help document decoration
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter"
+		},
+	},
 
 	-- Utility --------------------------------------------------
 	['rcarriga/nvim-notify'] = {
