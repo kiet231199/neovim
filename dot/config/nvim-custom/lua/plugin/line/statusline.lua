@@ -697,16 +697,9 @@ local debugger = {
     debug_repl,
 }
 
-
-local key = {
+local macro = {
     flexible = 2,
     {
-        condition = function()
-            if conditions.is_active() and not conditions.buffer_matches(exclusion) then
-                return vim.o.cmdheight == 0
-            else return false end
-        end,
-        hl = { fg = "normal_fg", bg = "tertiary_bg" },
         {
             provider = separator.external.left,
             hl = {
@@ -714,9 +707,37 @@ local key = {
                 bg = "normal_bg",
             },
         },
-        { provider = "%3.5(%S%) " },
-    },
-    {
+		{
+			hl = { fg = "tertiary_fg", bg = "tertiary_bg" },
+			{
+				condition = function()
+					if conditions.is_active() and not conditions.buffer_matches(exclusion) then
+						return vim.fn.reg_recording() == "" and vim.o.cmdheight == 0
+					else return false end
+				end,
+				provider = " 󰏤 ",
+			},
+			{
+				condition = function()
+					if conditions.is_active() and not conditions.buffer_matches(exclusion) then
+						return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
+					else return false end
+				end,
+				provider = " 󰻃 󰔰 ",
+				-- hl = { fg = "orange", bg = "normal_bg", bold = true },
+				utils.surround({ "❰", "❱ " }, nil, {
+					provider = function()
+						return vim.fn.reg_recording()
+					end,
+				}),
+				update = {
+					"RecordingEnter",
+					"RecordingLeave",
+				}
+			},
+		},
+	},
+	{
         condition = conditions.is_active,
         provider = separator.external.left,
         hl = {
@@ -724,31 +745,6 @@ local key = {
             bg = "normal_bg",
         },
     },
-}
-
-local macro = {
-    flexible = 1,
-    {
-        condition = function()
-            if conditions.is_active() and not conditions.buffer_matches(exclusion) then
-                return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
-            else return false end
-        end,
-        provider = " record macro to ",
-        hl = { fg = "orange", bg = "normal_bg", bold = true },
-        utils.surround({ "[", "]" }, nil, {
-            provider = function()
-                return vim.fn.reg_recording()
-            end,
-            hl = { fg = "green", bold = true },
-        }),
-        { provider = " " },
-        update = {
-            "RecordingEnter",
-            "RecordingLeave",
-        }
-    },
-    { provider = "" },
 }
 
 local percentage = {
@@ -864,7 +860,6 @@ local statusline = {
         { provider = "%=" }, -- right align
         {
             macro,
-            key,
             percentage,
             lines,
         },
