@@ -1,4 +1,3 @@
-local keymap = vim.keymap.set
 local saga = require('lspsaga')
 
 saga.setup({
@@ -24,8 +23,9 @@ saga.setup({
 			shuttle = 'W',
 			toggle_or_oppen = 'o',
 			vsplit = 'v',
-			split = 'h',
+			split = 's',
 			tabe = 't',
+			tabnew = '<cr>',
 			quit = 'q',
 			close = '<Esc>',
 		},
@@ -39,26 +39,27 @@ saga.setup({
 	definition = {
 		width = '0.8',
 		height = '0.5',
+		save_pos = true,
 		keys= {
 			edit = 'o',
 			vsplit = 'v',
-			split = 'h',
+			split = 's',
 			tabe = 't',
+			tabnew = '<cr>',
 			quit = 'q',
 			close = '<Esc>',
 		},
 	},
 	diagnostic = {
-		show_code_action = false,
 		show_layout = 'float',
 		show_normal_height = 10,
 		jump_num_shortcut = true,
+		aut_preview = false,
 		max_width = 0.8,
 		max_height = 0.6,
 		max_show_width = 0.9,
 		max_show_height = 0.6,
-		text_hl_follow = true,
-		border_follow = true,
+		wrap_long_lines = true,
 		extend_relatedInformation = true,
 		diagnostic_only_current = false,
 		keys = {
@@ -113,24 +114,28 @@ saga.setup({
 			close = '<Esc>',
 		},
 	},
-	symbol_in_winbar = {
-		enable = false,
-		separator = '  ',
-	},
 	beacon = {
 		enable = true,
 		frequency = 7,
+	},
+	symbol_in_winbar = {
+		enable = false,
+	},
+	lightbulb = {
+		enable = false,
 	},
 	ui = {
 		title = true,
 		border = "rounded",
 		devicon = true,
-		expand = '',
-		collapse = '',
+		foldericon = true,
+		expand = ' ',
+		collapse = '󰛲 ',
 		code_action = '💡',
 		actionfix = ' ',
-		lines = { '└', '├', '│', ' ', '┌' },
+		lines = { '┗', '┣', '┃', '━', '┏' },
 		imp_sign = '󰳛 ',
+		use_nerd = true,
 		kind = {
 			['File'] = { ' ', 'Tag' },
 			['Module'] = { '󰏗 ', 'Exception' },

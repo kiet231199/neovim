@@ -22,7 +22,7 @@ mappings.general = {
 		["<C-s>"]     = { ':w<CR>:lua require("notify")("Save successfull 勒", "info",{title = "Save file "})<CR>:noh<CR>', opts = silent },
 
 		["<F4>"]      = { ":lua ToggleLSP()<CR>", "toggle_lsp",            opts = silent },
-		["<F11>"]     = { ":lua ToggleCopyMode()<CR>", "toggle interface", opts = silent },
+		["<F12>v"]    = { ":lua ToggleCopyMode()<CR>", "toggle interface", opts = silent },
 		["<F12>n"]    = { ":set norelativenumber!<CR>", "toggle relative number" },
 		["<F12>c"]    = { ":set list!<CR>", "toggle viewing special character" },
 		["<F12>s"]    = { ":lua ToggleGlobalStatusLine()<CR>", "toggle global status line" },
@@ -83,6 +83,13 @@ mappings.gitsigns = {
 	},
 }
 
+mappings.gitgraph = {
+	plugin = true,
+	n = {
+		["<F11>"] = { function() require('gitgraph').draw({}, { all = true, max_count = 200 }) end, desc = "GitGraph - Draw" },
+	},
+}
+
 mappings.blame = {
 	plugin = true,
 	n = {
@@ -116,15 +123,6 @@ mappings.scissors = {
 	},
 	x = {
 		["<leader>sa"] = { function() require("scissors").addNewSnippet() end, "add new snippets", opts = silent },
-	},
-}
-
-mappings.inlinediagnostic = {
-	n = {
-		["<F3>"] = { ":lua require('tiny-inline-diagnostic').toggle() <CR>", "toggle lsp inline", opts = silent },
-	},
-	x = {
-		["<F3>"] = { ":lua require('tiny-inline-diagnostic').toggle() <CR>", "toggle lsp inline", opts = silent },
 	},
 }
 
@@ -216,26 +214,7 @@ mappings.move = {
 mappings.multicursors = {
 	plugin = true,
 	n = {
-		["<leader>m"] = { ":MCstart<CR>", "Multiple cursors", opts = silent },
-	},
-	v = {
-		["<leader>m"] = { ":MCstart<CR>", "Multiple cursors", opts = silent },
-	},
-}
-
-mappings.searchbox = {
-	plugin = true,
-	n = {
-		["<A-f>"]   = { ":SearchBoxIncSearch title=Search<CR>"                                                             , "search" },
-		["<A-S-f>"] = { ":SearchBoxIncSearch title=Search -- <C-r>=expand('<cword>') <CR><CR>"                             , "search" },
-		["<A-r>"]   = { ":SearchBoxReplace title=Replace confirm=menu<CR>"                                                 , "search" },
-		["<A-S-r>"] = { ":SearchBoxReplace title=Replace confirm=menu -- <C-r>=expand('<cword>') <CR><CR>"                 , "search" },
-	},
-	v = {
-		["<A-f>"]   = { ":SearchBoxIncSearch title=Search visual_mode=true<CR>"                                            , "search" },
-		["<A-S-f>"] = { ":SearchBoxIncSearch title=Search visual_mode=true -- <C-r>=expand('<cword>') <CR><CR>"            , "search" },
-		["<A-r>"]   = { ":SearchBoxReplace title=Replace visual_mode=true confirm=menu<CR>"                                , "search" },
-		["<A-S-r>"] = { ":SearchBoxReplace title=Replace visual_mode=true confirm=menu -- <C-r>=expand('<cword>') <CR><CR>", "search" },
+		["<C-j>"] = { ":MCstart<CR>", "Multiple cursors", opts = silent },
 	},
 }
 

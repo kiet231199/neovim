@@ -119,6 +119,17 @@ local dark = {
 		-- Multiple cursors
 		['MultiCursor']                  = { fg = 'Black', bg = 'Yellow', bold = true },
 		['MultiCursorMain']              = { fg = 'Black', bg = 'Yellow', bold = true },
+		['GitGraphHash']                 = { fg = '#f7768e', bold = true },
+		['GitGraphTimestamp']            = { link = "Comment" },
+		['GitGraphAuthor']               = { fg = '#7aa2f7', bold = true },
+		['GitGraphBranchName']           = { fg = '#73d9c9', bold = true },
+		['GitGraphBranchTag']            = { fg = "#fb9c63", bold = true },
+		['GitGraphBranchMsg']            = { fg = '#c0caf5' },
+		['GitGraphBranch1']              = { fg = 'Red' },
+		['GitGraphBranch2']              = { fg = 'Yellow' },
+		['GitGraphBranch3']              = { fg = 'Blue' },
+		['GitGraphBranch4']              = { fg = 'Cyan' },
+		['GitGraphBranch5']              = { fg = 'Green' },
     }
 }
 

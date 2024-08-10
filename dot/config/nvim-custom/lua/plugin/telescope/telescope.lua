@@ -106,13 +106,6 @@ telescope.setup({
 	},
 	extensions = {
 		-- Your extension configuration goes here:
-		fzf = {
-			fuzzy = true,                    -- false will only do exact matching
-			override_generic_sorter = true,  -- override the generic sorter
-			override_file_sorter = true,     -- override the file sorter
-			case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-			-- the default case_mode is "smart_case"
-		},
 		file_browser = {
 			layout_strategies = "horizontal",
 			prompt_title = 'File Browser',
@@ -164,7 +157,6 @@ telescope.setup({
 
 -- load extensions
 telescope.load_extension('file_browser')
-if vim.fn.has("unix") == 1 then telescope.load_extension('fzf') end
 telescope.load_extension('project')
 telescope.load_extension('ui-select')
 telescope.load_extension('find_pickers')

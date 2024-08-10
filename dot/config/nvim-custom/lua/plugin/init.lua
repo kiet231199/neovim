@@ -60,7 +60,7 @@ plugins = {
 		end,
 	},
 	['Bekaboo/dropbar.nvim'] = {
-	 	-- Desc: Winbar
+		-- Desc: Winbar
 		init = function()
 			require("utils").load_mappings("dropbar")
 		end,
@@ -94,6 +94,16 @@ plugins = {
 			require("plugin.git.diffview")
 		end,
 	},
+	['isakbm/gitgraph.nvim'] = {
+		-- Desc: Draw Git graph
+		dependencies = { 'sindrets/diffview.nvim' },
+		init = function()
+			require("utils").load_mappings("gitgraph")
+		end,
+		config = function()
+			require("plugin.git.gitgraph")
+		end,
+	},
 
 	-- Fuzy finder -------------------------------------------------
 	['nvim-telescope/telescope.nvim'] = {
@@ -101,11 +111,6 @@ plugins = {
 		dependencies = {
 			-- Desc: Prevent duplicate function
 			'nvim-lua/plenary.nvim',
-			{
-				-- Desc: Quick search
-				'nvim-telescope/telescope-fzf-native.nvim',
-				build = "make",
-			},
 			-- Desc: File browser
 			'nvim-telescope/telescope-file-browser.nvim',
 			-- Desc: Project
@@ -165,14 +170,12 @@ plugins = {
 			require("plugin.lsp.lspsaga")
 		end,
 	},
-	['rachartier/tiny-inline-diagnostic.nvim'] = {
-		-- Desc: Inline diagnostics
-		init = function()
-			require("utils").load_mappings("inlinediagnostic")
-		end,
-		config = function()
-			require("plugin.lsp.inline-diagnostic")
-		end,
+	['https://git.sr.ht/~whynothugo/lsp_lines.nvim'] = {
+		-- Desc: LSP show line diagnostics
+		config = true,
+		keys = {
+			{ "<F3>", mode = "", ":lua require('lsp_lines').toggle()<CR>", silent = true, noremap = true },
+		},
 	},
 	['folke/trouble.nvim'] = {
 		-- Desc: Show LSP diagnostics
@@ -351,15 +354,6 @@ plugins = {
 			})
 		end,
 	},
-	['kqito/vim-easy-replace'] = {
-		-- Desc: Quick replace
-		keys = {
-			{ "<leader>ra", ":EasyReplaceWord<CR>", mode = "n", silent = true, noremap = true },
-			{ "<leader>rc", ":EasyReplaceCword<CR>", mode = "n", silent = true, noremap = true },
-			{ "<leader>ra", ":EasyReplaceWordInVisual<CR>", mode = "v", silent = true, noremap = true },
-			{ "<leader>rc", ":EasyReplaceCwordInVisual<CR>", mode = "v", silent = true, noremap = true },
-		},
-	},
 	['Vonr/align.nvim'] = {
 		-- Desc: Quick align
 		commit = "8bfed3",
@@ -393,17 +387,15 @@ plugins = {
 	},
 
 	-- Better UI ---------------------------------------------------
-	['VonHeikemen/searchbox.nvim'] = {
-		-- Desc: Search box
-		dependencies = {
-			'MunifTanjim/nui.nvim',
-		},
-		init = function()
-			require("utils").load_mappings("searchbox")
-		end,
+	['chrisgrieser/nvim-rip-substitute'] = {
+		-- Desc: Quick replace
+		cmd = "RipSubstitute",
 		config = function()
-			require("plugin.ui.search.searchbox")
+			require("plugin.ui.search.ripsubtitute")
 		end,
+		keys = {
+			{ "<leader>r", function() require("rip-substitute").sub() end, mode = { "n", "x" }, desc = " rip substitute" },
+		},
 	},
 	['kevinhwang91/nvim-hlslens'] = {
 		-- Desc: Highlight search
@@ -599,6 +591,8 @@ plugins = {
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------
+	-- TODO: Check to install these plugin
+	-- ['meznaric/conmenu']
 }
 
 -- Load lazy (plugin manager)

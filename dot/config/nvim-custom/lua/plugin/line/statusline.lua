@@ -339,7 +339,7 @@ local filename = {
         condition = function()
             return not vim.bo.modifiable or vim.bo.readonly
         end,
-        provider = "",
+        provider = " ",
     },
     {
         condition = conditions.is_active,
@@ -701,6 +701,9 @@ local macro = {
     flexible = 2,
     {
         {
+			condition = function()
+				return conditions.is_active() and not conditions.buffer_matches(exclusion)
+			end,
             provider = separator.external.left,
             hl = {
                 fg = "tertiary_bg",
@@ -833,9 +836,6 @@ local lines = {
     },
 }
 
-local blank = { provider = "" }
-local space = { provider = " " }
-
 local statusline = {
     {
         flexible = 9,
@@ -848,14 +848,14 @@ local statusline = {
         {
             flexible = 3,
             {
-                space,
+                { provider = " " },
                 diagnostics,
                 lsp,
                 status,
                 debugger,
-                space,
+                { provider = " " },
             },
-            blank,
+            { provider = "" },
         },
         { provider = "%=" }, -- right align
         {
