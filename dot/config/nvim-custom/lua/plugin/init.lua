@@ -375,6 +375,7 @@ plugins = {
 		end,
 	},
 	['smoka7/multicursors.nvim'] = {
+		commit = 'b959ad',
 		dependencies = {
 			'smoka7/hydra.nvim',
 		},
@@ -589,10 +590,13 @@ plugins = {
 	},
 
 	-- Plugin on testing ----------------------------------------
+	['nvimtools/hydra.nvim'] = {
+		config = function()
+			require("plugin.ui.hydra")
+		end,
+	},
 
 	-- Plugin on pending ----------------------------------------
-	-- TODO: Check to install these plugin
-	-- ['meznaric/conmenu']
 }
 
 -- Load lazy (plugin manager)
