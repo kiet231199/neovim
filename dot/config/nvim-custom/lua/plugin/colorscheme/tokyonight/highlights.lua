@@ -127,7 +127,7 @@ local dark = {
 		['GitGraphBranchMsg']            = { fg = '#c0caf5' },
 		['GitGraphBranch1']              = { fg = 'Red' },
 		['GitGraphBranch2']              = { fg = 'Yellow' },
-		['GitGraphBranch3']              = { fg = 'Blue' },
+		['GitGraphBranch3']              = { fg = 'Magenta' },
 		['GitGraphBranch4']              = { fg = 'Cyan' },
 		['GitGraphBranch5']              = { fg = 'Green' },
     }

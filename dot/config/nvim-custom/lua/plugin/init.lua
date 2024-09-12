@@ -72,18 +72,12 @@ plugins = {
 	-- Git ---------------------------------------------------------
 	['lewis6991/gitsigns.nvim'] = {
 		-- Desc: Git icon and ultilities
-		init = function()
-			require("utils").load_mappings("gitsigns")
-		end,
 		config = function()
 			require("plugin.git.gitsigns")
 		end,
 	},
 	['FabijanZulj/blame.nvim'] = {
 		-- Desc: Git show commit contents
-		init = function()
-			require("utils").load_mappings("blame")
-		end,
 		config = function()
 			require("plugin.git.blame")
 		end
@@ -97,9 +91,6 @@ plugins = {
 	['isakbm/gitgraph.nvim'] = {
 		-- Desc: Draw Git graph
 		dependencies = { 'sindrets/diffview.nvim' },
-		init = function()
-			require("utils").load_mappings("gitgraph")
-		end,
 		config = function()
 			require("plugin.git.gitgraph")
 		end,
@@ -374,16 +365,13 @@ plugins = {
 			require("nvim-toggler").setup()
 		end,
 	},
-	['smoka7/multicursors.nvim'] = {
-		commit = 'b959ad',
-		dependencies = {
-			'smoka7/hydra.nvim',
-		},
+	['brenton-leighton/multiple-cursors.nvim'] = {
+		-- Desc: Multiple cursors
 		init = function()
-			require("utils").load_mappings("multicursors")
+			require("utils").load_mappings("multiplecursors")
 		end,
 		config = function()
-			require("plugin.utility.multiplecursors")
+			require("multiple-cursors").setup()
 		end,
 	},
 
@@ -479,17 +467,21 @@ plugins = {
 			require("plugin.ui.window.terminal")
 		end,
 	},
+	['nvimtools/hydra.nvim'] = {
+		dependencies = {
+			'lewis6991/gitsigns.nvim',
+			'FabijanZulj/blame.nvim',
+			'sindrets/diffview.nvim',
+			'nvim-telescope/telescope.nvim',
+		},
+		config = function()
+			require("plugin.ui.hydra")
+		end,
+	},
 
 	-- Colorful ----------------------------------------------------
 	['itchyny/vim-cursorword'] = {
 		-- Desc: Underline word undercursor
-	},
-	['anuvyklack/pretty-fold.nvim'] = {
-		-- Desc: Fold text
-		enabled = false,
-		config = function()
-			require("plugin.ui.fold.pretty-fold")
-		end,
 	},
 	['yaocccc/nvim-foldsign'] = {
 		-- Desc: Fold sign
@@ -574,7 +566,7 @@ plugins = {
 			]]
 		end,
 	},
-	['RaafatTurki/hex.nvim'] = {
+    ['RaafatTurki/hex.nvim'] = {
 		-- Desc: The same to hex dump
 		config = true,
 	},
@@ -590,11 +582,6 @@ plugins = {
 	},
 
 	-- Plugin on testing ----------------------------------------
-	['nvimtools/hydra.nvim'] = {
-		config = function()
-			require("plugin.ui.hydra")
-		end,
-	},
 
 	-- Plugin on pending ----------------------------------------
 }

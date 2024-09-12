@@ -31,9 +31,9 @@ function ToggleBackground()
 end
 
 function ToggleLSP()
-	if vim.diagnostic.is_disabled() then
-		vim.diagnostic.enable()
+	if vim.diagnostic.is_enabled() then
+		vim.diagnostic.enable(true)
 	else
-		vim.diagnostic.disable()
+		vim.diagnostic.enable(false)
 	end
 end

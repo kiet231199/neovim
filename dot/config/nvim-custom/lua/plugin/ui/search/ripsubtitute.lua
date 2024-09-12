@@ -5,7 +5,7 @@ if not status_ok then
 end
 
 ripsubstitute.setup({
-		popupWin = {
+	popupWin = {
 		title = "  Replace ",
 		border = "rounded",
 		matchCountHlGroup = "Keyword",
@@ -40,7 +40,7 @@ ripsubstitute.setup({
 		---@type "case-sensitive"|"ignore-case"|"smart-case"
 		casing = "case-sensitive",
 		-- disable if you use named capture groups (see README for details)
-		autoBraceSimpleCaptureGroups = true,
+		autoBraceSimpleCaptureGroups = false,
 	},
 	editingBehavior = {
 		-- Experimental. When typing `()` in the `search` line, automatically

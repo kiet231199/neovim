@@ -20,7 +20,7 @@ noice.setup({
 			filter = { pattern = "^:%s*!", icon = "$", lang = "bash" },
 			lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = "", lang = "lua" },
 			help = { pattern = "^:%s*he?l?p?%s+", icon = "󰋖" },
-			input = {}, -- Used by input()
+			input = { view = "cmdline_input", icon = "󰥻 " }, -- Used by input()
 			-- lua = false, -- to disable a format, set to `false`
 		},
 	},
@@ -86,7 +86,7 @@ noice.setup({
 		-- event is always "notify" and kind can be any log level as a string
 		-- The default routes will forward notifications to nvim-notify
 		-- Benefit of using Noice for this is the routing and consistent history view
-		enabled = true,
+		enabled = false,
 		view = "notify",
 	},
 	lsp = {
@@ -101,7 +101,7 @@ noice.setup({
 		},
 		override = {
 			-- override the default lsp markdown formatter with Noice
-			["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 			-- override the lsp markdown formatter with Noice
 			["vim.lsp.util.stylize_markdown"] = true,
 			-- override cmp documentation with Noice (needs the other options to work)
@@ -188,7 +188,7 @@ noice.setup({
 			win_options = {
 				winblend = 60,
 			},
-			timeout = 4000,
+			timeout = 10000,
 		},
 		cmdline_popup = {
 			zindex = 65,

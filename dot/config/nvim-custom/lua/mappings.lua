@@ -75,28 +75,6 @@ mappings.jabs = {
 	}
 }
 
-mappings.gitsigns = {
-	plugin = true,
-	n = {
-		["<F2>"] = { ":Gitsigns toggle_numhl<CR>:Gitsigns toggle_linehl<CR>", "toggle highlight line" },
-		["<F9>"] = { ":Gitsigns toggle_current_line_blame <CR>", "toggle blame line" },
-	},
-}
-
-mappings.gitgraph = {
-	plugin = true,
-	n = {
-		["<F11>"] = { function() require('gitgraph').draw({}, { all = true, max_count = 200 }) end, desc = "GitGraph - Draw" },
-	},
-}
-
-mappings.blame = {
-	plugin = true,
-	n = {
-		["<F10>"] = { ":BlameToggle window<CR>", "Open git blame", opts = silent },
-	}
-}
-
 mappings.telescope = {
 	plugin = true,
 	n = {
@@ -179,19 +157,9 @@ mappings.flash = {
 
 mappings.align = {
 	plugin = true,
-	n = {
-		["<space>ap"] = { function() require("align").align_to_operator({
-			require'align'.align_to_string, {
-				regex = false,
-				preview = true,
-			}
-		}) end, "Align to paragraph", opts = silent },
-	},
 	x = {
 		["<space>ac"] = { function() require("align").align_to_char({ length = 1 }) end,                      "Align to 1 char"        , opts = silent },
-		["<space>aC"] = { function() require("align").align_to_char({ length = 2, preview = true }) end,      "Align to 2 char"        , opts = silent },
-		["<space>as"] = { function() require("align").align_to_string({ preview = true, regex = false }) end, "Align to string"        , opts = silent },
-		["<space>aS"] = { function() require("align").align_to_string({ preview = true, regex = true }) end , "Align to string + regex", opts = silent },
+		["<space>as"] = { function() require("align").align_to_string({ preview = true, regex = true }) end, "Align to string"        , opts = silent },
 	},
 }
 
@@ -211,11 +179,12 @@ mappings.move = {
 	},
 }
 
-mappings.multicursors = {
+mappings.multiplecursors = {
 	plugin = true,
 	n = {
-		["<C-j>"] = { ":MCstart<CR>", "Multiple cursors", opts = silent },
-	},
+		["<C-j>"] = { ":MultipleCursorsAddDown<CR>", "Add multiple cursor down"           , opts = silent },
+		["<C-LeftMouse>"] = { ":MultipleCursorsMouseAddDelete<CR>", "Add multiple cursor" , opts = silent },
+	}
 }
 
 mappings.hlslens = {
