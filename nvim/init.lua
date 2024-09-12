@@ -15,7 +15,7 @@
 
 -- INFO: List all configuration here
 local profiles = {
-	nvim = { "~/neovim/config/nvim-custom", {} },
+	nvim = { "~/neovim/config/nvim", {} },
 }
 
 -- Create all the plugins if necessary and start up the rest of cheovim!
