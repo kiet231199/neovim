@@ -64,7 +64,7 @@ mappings.general = {
 mappings.neotree = {
 	plugin = true,
 	n = {
-		["<F5>"] = { ":NeoTreeFocusToggle<CR>", "Open Neotree", opts = silent },
+		["<F5>"] = { ":Neotree reveal<CR>", "Open Neotree", opts = silent },
 	}
 }
 

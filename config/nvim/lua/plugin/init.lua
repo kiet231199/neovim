@@ -33,7 +33,6 @@ plugins = {
 		config = function()
 			require("plugin.explorer.neotree")
 		end,
-		cmd = "NeoTreeFocusToggle",
 	},
 	['matbme/JABS.nvim'] = {
 		-- Desc: Tab explorer

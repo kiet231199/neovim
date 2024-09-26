@@ -187,7 +187,6 @@ cmp.setup({
 	},
 	window = {
 		completion = {
-			scrollbar = false,
 			max_width = 40,
 			max_height = 25,
 			border = border("LspSagaHoverBorder"),

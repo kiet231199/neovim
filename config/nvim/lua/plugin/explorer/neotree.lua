@@ -35,6 +35,17 @@ neotree.setup({
 			folder_open = "",
 			folder_empty = "󰜌",
 			folder_empty_open = "󰜌",
+			provider = function(icon, node, state) -- default icon provider utilizes nvim-web-devicons if available
+				if node.type == "file" or node.type == "terminal" then
+					local success, web_devicons = pcall(require, "nvim-web-devicons")
+					local name = node.type == "terminal" and "terminal" or node.name
+					if success then
+						local devicon, hl = web_devicons.get_icon(name)
+						icon.text = devicon or icon.text
+						icon.highlight = hl or icon.highlight
+					end
+				end
+            end,
 			-- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
 			-- then these will never be used.
 			default = "*",
@@ -162,7 +173,7 @@ neotree.setup({
 		                                          -- window like netrw would, regardless of window.position
 		                                          -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
 		use_libuv_file_watcher = false,   -- This will use the OS level file watchers to detect changes
-		-- instead of relying on nvim autocmd events.
+		                                  -- instead of relying on nvim autocmd events.
 		window = {
 			mappings = {
 				["<bs>"]   = "navigate_up",
@@ -227,8 +238,11 @@ neotree.setup({
 		},
 	},
 	buffers = {
-		follow_current_file = true,   -- This will find and focus the file in the active buffer every
-		-- time the current file is changed while the tree is open.
+		follow_current_file = {
+			enabled = true, -- This will find and focus the file in the active buffer every time
+			--              -- the current file is changed while the tree is open.
+			leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+		},
 		group_empty_dirs = true,      -- when true, empty folders will be grouped together
 		show_unloaded = true,
 		window = {
