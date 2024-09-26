@@ -33,7 +33,7 @@ local hydra_git = {
 	name = 'Git',
 	hint = git_hint,
 	config = {
-		color = 'blue',
+		color = 'pink',
 		invoke_on_body = true,
 		hint = {
 			float_opts = {
@@ -48,28 +48,30 @@ local hydra_git = {
 	mode = { 'n', 'x' },
 	body = '<leader>g',
 	heads = {
-		{ 'J',
+		{
+			'J',
 			function()
 				if vim.wo.diff then return ']c' end
 				vim.schedule(function() gitsigns.next_hunk() end)
 				return '<Ignore>'
 			end,
 		},
-		{ 'K',
+		{
+			'K',
 			function()
 				if vim.wo.diff then return '[c' end
 				vim.schedule(function() gitsigns.prev_hunk() end)
 				return '<Ignore>'
 			end,
 		},
-		{'h', ':Gitsigns toggle_numhl<CR>:Gitsigns toggle_linehl<CR>', },
+		{'h', ':Gitsigns toggle_numhl<CR>:Gitsigns toggle_linehl<CR>' },
 		{'H', gitsigns.toggle_deleted, { nowait = true }, },
-		{'d', gitsigns.diffthis },
-		{'D', ':DiffviewOpen' },
+		{'d', gitsigns.diffthis, { exit = true } },
+		{'D', ':DiffviewOpen<CR>', { exit = true } },
 		{'b', gitsigns.toggle_current_line_blame, },
 		{'B', function() gitsigns.blame_line { full = true } end, },
-		{'g', ':BlameToggle window<CR>' },
-		{'G', function() require('gitgraph').draw({}, { all = true, max_count = 200 }) end, },
+		{'g', ':BlameToggle window<CR>', { exit = true } },
+		{'G', function() require('gitgraph').draw({}, { all = true, max_count = 200, exit = true }) end, },
 		{'q', nil, { exit = true, nowait = true } },
 	}
 }

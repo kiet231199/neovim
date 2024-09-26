@@ -18,3 +18,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
 })
 
+-- Check indent based on the current line
+vim.api.nvim_create_autocmd('InsertEnter', {
+	pattern = '*',
+	callback = function()
+		local line = vim.fn.getline('.')
+		if line:match('^\t') then
+			vim.bo.expandtab = false
+		else
+			vim.bo.expandtab = true
+		end
+	end,
+})
+

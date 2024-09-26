@@ -79,19 +79,9 @@ local kinds = {
 }
 
 dropbar.setup({
-    general = {
-        enable = function(buf, win)
-            return not vim.api.nvim_win_get_config(win).zindex
-                and vim.bo[buf].buftype == ''
-                and vim.api.nvim_buf_get_name(buf) ~= ''
-                and not vim.wo[win].diff
-        end,
-        update_interval = 70,
-    },
 	icons = {
         enable = true,
 		kinds = {
-			use_devicons = true,
 			symbols = kinds,
 		},
 		ui = {
@@ -106,6 +96,7 @@ dropbar.setup({
 		}
 	},
 	bar = {
+        update_debounce = 70,
 		hover = true,
 		padding = {
 			left = 1,

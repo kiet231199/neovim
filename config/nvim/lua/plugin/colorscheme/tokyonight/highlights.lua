@@ -9,7 +9,7 @@ local dark = {
         ["Pmenu"]                        = { bg = "#1a1b26" },
         ["PmenuSel"]                     = { fg = "None", bg = "#292938" },
         ["PmenuSbar"]                    = { bg = "#1a1b26" },
-        ["PmenuThumb"]                   = { fg = "#a9b1d6" },
+        ["PmenuThumb"]                   = { bg = "#a9b1d6" },
         -- CursorLine
         ["LineNr"]                       = { fg = "#697094" },
         ["CursorLineNr"]                 = { fg = "Yellow", bold = true },
@@ -105,6 +105,8 @@ local dark = {
         ["DropBarIconUIPickPivot"]       = { fg = "Yellow", bold = true },
         ["DropBarIconUISeparator"]       = { fg = "Orange", bold = true },
         ["DropBarIconUISeparatorMenu"]   = { fg = "Red", bold = true },
+        ["DropBarMenuFloatBorder"]       = { fg = "#7aa2f7" },
+        ["DropBarMenuHoverEntry"]        = { link = "Visual" },
         -- Flash
         ["FlashLabel"]                   = { fg = "#7aa2f7", bold = true },
         ["FlashCurrent"]                 = { fg = "#db4b4b", bold = true },

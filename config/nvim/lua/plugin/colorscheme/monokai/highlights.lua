@@ -101,6 +101,7 @@ local dark = {
         ["DropBarIconUIPickPivot"]       = { fg = "Yellow", bold = true },
         ["DropBarIconUISeparator"]       = { fg = "Orange", bold = true },
         ["DropBarIconUISeparatorMenu"]   = { fg = "Red", bold = true },
+        ["DropBarMenuHoverEntry"]        = { link = "Visual" },
         -- Flash
         ["FlashLabel"]                   = { fg = "#a5e400", bold = true },
         ["FlashCurrent"]                 = { fg = "Red", bold = true },

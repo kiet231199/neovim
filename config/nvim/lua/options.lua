@@ -1,10 +1,11 @@
+-- Option
 vim.g.mapleader = ","
 vim.g.propofont = " "
-vim.g.netrw_liststyle = 3
+vim.g.loaded_netrwPlugin = 0
+vim.g.loaded_netrw = 0
 
 local options = {
-    backup         = false,                             -- creates a backup file
-	clipboard      = "unnamedplus",                     -- allows neovim to access the system clipboard
+	backup         = false,                             -- creates a backup file
 	cmdheight      = 1,                                 -- more space in the neovim command line for displaying messages
 	completeopt    = { "menu", "menuone", "noselect" }, -- mostly just for cmp
 	conceallevel   = 0,                                 -- so that `` is visible in markdown files
@@ -18,8 +19,8 @@ local options = {
 	showmode       = false,                             -- we don't need to see things like -- INSERT -- anymor
 	showtabline    = 1,                                 -- always show tabs
 	smartcase      = true,                              -- smart case
-	smartindent    = true,                              -- make indenting smarter again
-    smarttab       = true,                              -- make tab smarter again
+	copyindent     = true,
+	smarttab       = true,                              -- make tab smarter again
 	splitbelow     = true,                              -- force all horizontal splits to go below current window
 	splitright     = true,                              -- force all vertical splits to go to the right of current window
 	swapfile       = false,                             -- creates a swapfile
@@ -38,7 +39,7 @@ local options = {
 	signcolumn     = "yes",                             -- always show the sign column, otherwise it would shift the text each time
 	wrap           = false,                             -- display lines as one long line
 	scrolloff      = 0,                                 -- is one of my fav
-	sidescrolloff  = 8,
+	sidescrolloff  = 0,
 	wildmenu       = true,
 	wildmode       = "list",
 	synmaxcol      = 300,
@@ -52,6 +53,14 @@ for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 
+-- Characters
 vim.opt.listchars:append({ space = "▁", eol = "↲", tab = "░░" })
 vim.opt.shortmess:append("c")
 vim.opt.formatoptions:remove({ "c", "r", "o" })
+
+-- Sign icons
+vim.fn.sign_define('DapBreakpoint',          { text = ' ', texthl = 'DapBreakpoint' })
+vim.fn.sign_define('DapBreakpointCondition', { text = ' ', texthl = 'DapBreakpoint' })
+vim.fn.sign_define('DapBreakpointRejected',  { text = ' ', texthl = 'DapBreakpoint' })
+vim.fn.sign_define('DapLogPoint',            { text = ' ', texthl = 'DapLogPoint' })
+vim.fn.sign_define('DapStopped',             { text = '󰁕 ', texthl = 'DapStopped' })

@@ -6,13 +6,15 @@ end
 
 screenkey.setup({
     win_opts = {
-        row = vim.o.lines - vim.o.cmdheight - 1,
-        col = vim.o.columns - 2,
         relative = "editor",
         anchor = "SE",
-        width = 20,
+		width = 40,
         height = 1,
         border = "rounded",
+		title = " Screenkey ",
+		title_pos = "center",
+        row = vim.o.lines - vim.o.cmdheight,
+        col = vim.o.columns - 2,
     },
     compress_after = 3,
     clear_after = 3,
@@ -55,3 +57,9 @@ screenkey.setup({
         ["SUPER"] = "󰘳",
     },
 })
+
+-- vim.api.nvim_create_autocmd("VimEnter", {
+-- 	group = vim.api.nvim_create_augroup("AutostartScreenkey", {}),
+-- 	command = "Screenkey toggle",
+-- 	desc = "Autostart Screenkey on VimEnter",
+-- })

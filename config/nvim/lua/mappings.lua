@@ -1,4 +1,4 @@
--- n, v, i, t = mode names
+-- n, v, mappings.luamapnames
 
 local silent = { silent = true, noremap = true }
 local remap = { silent = true, remap = true }
@@ -34,9 +34,7 @@ mappings.general = {
 		["sh"]        = { ":split <CR><C-w>w", "split pane horizontally" },
 		["sv"]        = { ":vsplit <CR><C-w>w", "split pane vertically" },
 
-		["dv"]        = { ":diffsplit", "diffview file" },
-
-		["ss"]        = { ":w<CR>:source %<CR>", "save and source file" },
+		["dv"]        = { ":diffsplit <CR>", "diffview file" },
 
 		["<A-Up>"]    = { ":resize -2 <CR>", "Resize up" },
 		["<A-Down>"]  = { ":resize +2 <CR>", "Resize down" },
@@ -64,7 +62,7 @@ mappings.general = {
 mappings.neotree = {
 	plugin = true,
 	n = {
-		["<F5>"] = { ":NeoTreeFocusToggle<CR>", "Open Neotree", opts = silent },
+		["<F5>"] = { ":Neotree toggle reveal<CR>", "Open Neotree", opts = silent },
 	}
 }
 
@@ -73,25 +71,6 @@ mappings.jabs = {
 	n = {
 		["<tab>"] = { ":JABSOpen<CR>", "Open list of buffer", opts = silent },
 	}
-}
-
-mappings.telescope = {
-	plugin = true,
-	n = {
-		["<space>ff"]     = { ":Telescope find_files <CR>"                         , "find files" },
-		["<space>fw"]     = { ":Telescope live_grep <CR>"                          , "live grep" },
-		["<space>f<TAB>"] = { ":Telescope buffers <CR>"                            , "find buffers" },
-		["<space>fh"]     = { ":Telescope help_tags <CR>"                          , "help page" },
-		["<space>fo"]     = { ":Telescope oldfiles <CR>"                           , "find oldfiles" },
-		["<space>fk"]     = { ":Telescope keymaps <CR>"                            , "find keymaps" },
-		["<space>fd"]     = { ":Telescope diagnostics <CR>"                        , "find diagnostics" },
-		["<space>fr"]     = { ":Telescope registers <CR>"                          , "find registers" },
-		["<space>fb"]     = { ":Telescope dap list_breakpoints <CR>"               , "find breakpoints" },
-		["<space>fg"]     = { ":Telescope git_commits <CR>"                        , "git commits" },
-		["<space>fp"]     = { ":Telescope project <CR>"                            , "find project" },
-		["<space>fc"]     = { ":Telescope neoclip unnamed extra=star,plus,a,b <CR>", "find clipboard" },
-		["<space>fn"]     = { ":Telescope noice <CR>"                              , "find messages" },
-	},
 }
 
 mappings.scissors = {
@@ -158,8 +137,8 @@ mappings.flash = {
 mappings.align = {
 	plugin = true,
 	x = {
-		["<space>ac"] = { function() require("align").align_to_char({ length = 1 }) end,                      "Align to 1 char"        , opts = silent },
-		["<space>as"] = { function() require("align").align_to_string({ preview = true, regex = true }) end, "Align to string"        , opts = silent },
+		["<align>ac"] = { function() require("align").align_to_char({ length = 1 }) end,                      "Align to 1 char"        , opts = silent },
+		["<align>as"] = { function() require("align").align_to_string({ preview = true, regex = true }) end, "Align to string"        , opts = silent },
 	},
 }
 
@@ -217,23 +196,23 @@ mappings.screenkey = {
 mappings.dropbar = {
 	plugin = true,
 	n = {
-		["<space>ww"] = { function() require("dropbar.api").pick() end, "pick winbar element", opts = silent },
+		["<leader>w"] = { function() require("dropbar.api").pick() end, "pick winbar element", opts = silent },
 	}
 }
 
 mappings.session = {
 	plugin = true,
 	n = {
-		["<space>sl"] = { ":SessionManager load_last_session<CR>"   , "Load last session"   , opts = silent },
-		["<space>ss"] = { ":SessionManager save_current_session<CR>", "Save current session", opts = silent },
-		["<space>sd"] = { ":SessionManager load_last_session<CR>"   , "Delete session"      , opts = silent },
+		["<leader>sl"] = { ":SessionManager load_last_session<CR>"   , "Load last session"   , opts = silent },
+		["<leader>ss"] = { ":SessionManager save_current_session<CR>", "Save current session", opts = silent },
+		["<leader>sd"] = { ":SessionManager delete_session<CR>"      , "Delete session"      , opts = silent },
 	}
 }
 
 mappings.dap = {
     plugin = true,
     n = {
-        ["<F15>"] = { function() require("dapui").float_element("watches", { title = " Watches", width = 100, height = 15, enter = true }) end, "Open Watches", opts = silent }, -- <S-F3>
+        ["<F15>"] = { function() require("dapui").float_element("watches", { title = " Watches", width = 100, height = 15, position = "center", enter = true }) end, "Open Watches", opts = silent }, -- <S-F3>
         ["<F16>"] = { function() require("dap.ui.widgets").hover() end , "Open preview",                                           opts = silent }, -- <S-F4>
         ["<F17>"] = { ":DapContinue<CR>"                               , "Start or continue debugger",                             opts = silent }, -- <S-F5>
         ["<F29>"] = { function() require("dap").run_to_cursor() end    , "Run to cursor",                                          opts = silent }, -- <C-F5>
@@ -244,7 +223,7 @@ mappings.dap = {
         ["<F23>"] = { ":DapStepInto<CR>"                               , "Step Into (next line)",                                  opts = silent }, -- <S-F11>
         ["<F24>"] = { ":DapStepOut<CR>"                                , "Step Out",                                               opts = silent }, -- <S-F12>
         -- INFO: Doubleclick to toggle breakpoint
-        ["<RightMouse>"] = {
+        ["<2-LeftMouse>"] = {
             function()
                 require('persistent-breakpoints.api').toggle_breakpoint()
             end,

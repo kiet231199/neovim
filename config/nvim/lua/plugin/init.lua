@@ -8,6 +8,12 @@ plugins = {
 			require("plugin.startup.alpha")
 		end,
 	},
+	['folke/drop.nvim'] = {
+		-- Desc: Screen saver
+		config = function()
+			require("plugin.startup.drop")
+		end,
+	},
 
 	-- Colorscheme -------------------------------------------------
     -- INFO: Colorscheme is selected in plugin.colorscheme.init
@@ -33,7 +39,6 @@ plugins = {
 		config = function()
 			require("plugin.explorer.neotree")
 		end,
-		cmd = "NeoTreeFocusToggle",
 	},
 	['matbme/JABS.nvim'] = {
 		-- Desc: Tab explorer
@@ -119,9 +124,6 @@ plugins = {
 			-- Desc: Show LSP diagnostics
 			'folke/trouble.nvim',
 		},
-		init = function()
-			require("utils").load_mappings("telescope")
-		end,
 		config = function()
 			require("plugin.telescope.telescope")
 		end,
@@ -163,6 +165,9 @@ plugins = {
 	},
 	['https://git.sr.ht/~whynothugo/lsp_lines.nvim'] = {
 		-- Desc: LSP show line diagnostics
+		dependencies = {
+			'neovim/nvim-lspconfig',
+		},
 		config = true,
 		keys = {
 			{ "<F3>", mode = "", ":lua require('lsp_lines').toggle()<CR>", silent = true, noremap = true },
@@ -229,13 +234,24 @@ plugins = {
 	-- Treesitter -------------------------------------------------
 	['nvim-treesitter/nvim-treesitter'] = {
 		-- Desc: Code highlight
+		dependencies = {
+			-- Desc: Treesitter navigate
+			'nvim-treesitter/nvim-treesitter-textobjects',
+			-- Desc: Bracket color
+			'nvim-treesitter/nvim-treesitter'
+		},
 		config = function()
 			require("plugin.treesitter.treesitter")
 		end,
 	},
-	['p00f/nvim-ts-rainbow'] = {
-		-- Desc: Bracket color
-		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+	['folke/ts-comments.nvim'] = {
+		-- Desc: Improve performance for TS comment
+		config = function()
+			require("ts-comments").setup({
+				c = { "// %s", "/* %s */" },
+				cpp = { "// %s", "/* %s */" },
+			})
+		end
 	},
 
 	-- Debugger --------------------------------------------------
@@ -293,19 +309,6 @@ plugins = {
 			{ "t", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, },
 		},
 	},
-	['sustech-data/wildfire.nvim'] = {
-		-- Desc: Treesitter quick select
-		dependencies = {
-			'nvim-treesitter/nvim-treesitter',
-		},
-		config = function()
-			require("wildfire").setup()
-		end,
-	},
-    ['nvim-treesitter/nvim-treesitter-textobjects'] = {
-		-- Desc: Treesitter navigate
-		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    },
 	['numToStr/Comment.nvim'] = {
 		-- Desc: Quick comment
 		ft = { "lua", "python", "c", "cpp", "bash", "sh", "cmake" },
@@ -328,22 +331,29 @@ plugins = {
     },
 	['kylechui/nvim-surround'] = {
 		-- Desc: Smart pair
-		event = { "ModeChanged" },
 		config = function()
 			require("nvim-surround").setup()
 		end,
 	},
 	['roobert/surround-ui.nvim'] = {
-		event = { "ModeChanged" },
 		dependencies = {
 			"kylechui/nvim-surround",
 			"folke/which-key.nvim",
 		},
 		config = function()
 			require("surround-ui").setup({
-				root_key = "s"
+				root_key = "S",
 			})
 		end,
+	},
+	['kqito/vim-easy-replace'] = {
+		-- Desc: Quick replace
+		keys = {
+			{ "<leader>ra", ":EasyReplaceWord<CR>", mode = "n", silent = true, noremap = true },
+			{ "<leader>rc", ":EasyReplaceCword<CR>", mode = "n", silent = true, noremap = true },
+			{ "<leader>ra", ":EasyReplaceWordInVisual<CR>", mode = "v", silent = true, noremap = true },
+			{ "<leader>rc", ":EasyReplaceCwordInVisual<CR>", mode = "v", silent = true, noremap = true },
+		},
 	},
 	['Vonr/align.nvim'] = {
 		-- Desc: Quick align
@@ -357,6 +367,9 @@ plugins = {
 		pin = true,
 		init = function()
 			require("utils").load_mappings("move")
+		end,
+		config = function()
+			require("move").setup({ char = { enable = true } })
 		end,
 	},
 	['nguyenvukhang/nvim-toggler'] = {
@@ -376,16 +389,6 @@ plugins = {
 	},
 
 	-- Better UI ---------------------------------------------------
-	['chrisgrieser/nvim-rip-substitute'] = {
-		-- Desc: Quick replace
-		cmd = "RipSubstitute",
-		config = function()
-			require("plugin.ui.search.ripsubtitute")
-		end,
-		keys = {
-			{ "<leader>r", function() require("rip-substitute").sub() end, mode = { "n", "x" }, desc = " rip substitute" },
-		},
-	},
 	['kevinhwang91/nvim-hlslens'] = {
 		-- Desc: Highlight search
 		init = function()
@@ -570,10 +573,6 @@ plugins = {
 		-- Desc: The same to hex dump
 		config = true,
 	},
-	['prichrd/netrw.nvim'] = {
-		-- Desc: Netrw explorer
-		config = true,
-	},
 	['ryanoasis/vim-devicons'] = {
 		-- Desc: devicons source for vim
 	},
@@ -582,8 +581,36 @@ plugins = {
 	},
 
 	-- Plugin on testing ----------------------------------------
+	['nvzone/menu'] = {
+		-- Desc: Menu
+		dependencies = { 'nvzone/volt' },
+		config = function()
+			require("plugin.ui.menu")
+		end,
+	},
+	['YaroSpace/lua-console.nvim'] = {
+        -- Desc: Lua debugger RELP
+        config = function()
+            require("plugin.debugger.console")
+        end,
+	},
 
 	-- Plugin on pending ----------------------------------------
+	-- TODO: Config for menu
+	-- TODO: Update lua-console
+	-- TODO: Update statuscolumn + foldtext
+	-- TODO: Check to replace telescope with fzf-lua
+
+	['luukvbaal/statuscol.nvim'] = {
+		-- Desc: Status column
+		enabled = false,
+		config = function()
+            require("plugin.ui.window.statuscol")
+		end,
+	},
+	['OXY2DEV/foldtext.nvim'] = {
+		config = true,
+	},
 }
 
 -- Load lazy (plugin manager)
@@ -593,10 +620,11 @@ if lazy_exits then
 	-- Override with default plugins with user ones
 	plugins = require("utils").merge_plugins(plugins)
 
-    -- Overide lazy options with user ones
+	-- Overide lazy options with user ones
 	local options = require("plugin.lazy")
 	options = require("utils").load_override(options, "folke/lazy.nvim")
 
-    -- Load plugins and options
+	-- Load plugins and options
 	lazy.setup(plugins, options)
 end
+

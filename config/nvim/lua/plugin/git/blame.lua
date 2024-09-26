@@ -6,7 +6,8 @@ end
 
 blame.setup({
 	date_format = "%Y-%m-%d",
-	virtual_style = "right",
+	virtual_style = "right_align",
+	focus_blame = true,
 	merge_consecutive = false,
 	max_summary_width = 30,
 	colors = nil,
