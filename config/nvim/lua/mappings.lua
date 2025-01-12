@@ -86,7 +86,7 @@ mappings.scissors = {
 mappings.lspconfig = {
 	plugin = true,
 	x = {
-		["<space>f"] = { ":lua require('lsp-range-format').format() <CR>", "format range", opts = silent },
+		["gF"] = { ":lua require('lsp-range-format').format() <CR>", "format range", opts = silent },
 	},
 }
 

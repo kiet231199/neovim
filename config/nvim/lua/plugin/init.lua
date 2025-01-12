@@ -180,54 +180,25 @@ plugins = {
 			require("plugin.lsp.trouble")
 		end,
 	},
-	['hrsh7th/nvim-cmp'] = {
-		-- Desc: LSP Completion manager
-		event = { "InsertEnter", "CmdlineEnter" },
-		dependencies = {
-			-- Desc: LSP Completion source
-			'hrsh7th/cmp-nvim-lsp',
-			'hrsh7th/cmp-nvim-lsp-document-symbol',
-			'hrsh7th/cmp-nvim-lsp-signature-help',
+	['saghen/blink.cmp'] = {
+	    -- Desc: LSP Completion manager
+	-- 	event = { "InsertEnter", "CmdlineEnter" },
+	    dependencies = {
+	    	-- Desc: CMP source importer for blink.nvim
+			'saghen/blink.compat',
+			-- Desc: CMP colorful list
+			'xzbdmw/colorful-menu.nvim',
+			-- Desc: CMP for ripgrep
+			'mikavilpas/blink-ripgrep.nvim',
+			-- Desc: CMP for doxygen
 			'paopaol/cmp-doxygen',
 			-- Desc: Completion for buffer
-			'hrsh7th/cmp-buffer',
 			'amarakon/nvim-cmp-buffer-lines',
-			-- Desc: Completion for directory/file path
-			'hrsh7th/cmp-path',
-			-- Desc: Completion for commandline
-			'hrsh7th/cmp-cmdline',
+			-- -- Desc: Completion for commandline
 			'dmitmel/cmp-cmdline-history',
-			-- Desc: Completion for ripgrep
-			'lukas-reineke/cmp-rg',
-			-- Desc: Completion for other stuff
-			'bydlw98/cmp-env',
-			-- Desc: Sorting completion base on priority
-			'lukas-reineke/cmp-under-comparator',
-			-- Desc: Snippet for LSP
-			'L3MON4D3/LuaSnip',
-			-- Desc: Completion for Luasnip
-			'saadparwaiz1/cmp_luasnip',
-			'doxnit/cmp-luasnip-choice',
-			-- Desc: Completion for DAP
-			'rcarriga/cmp-dap',
-		},
-		config = function()
-			require("plugin.lsp.cmp")
-		end,
-	},
-	['chrisgrieser/nvim-scissors'] = {
-		-- Dsec: Custom snippets
-		event = { "InsertEnter" },
-		dependencies = {
-			"hrsh7th/nvim-cmp",
-			"nvim-telescope/telescope.nvim",
-			"garymjr/nvim-snippets"
-		},
-		init = function()
-			require("utils").load_mappings("scissors")
-		end,
-		config = function()
-			require("plugin.lsp.scissors")
+	    },
+	    config = function()
+			require("plugin.lsp.blink")
 		end,
 	},
 

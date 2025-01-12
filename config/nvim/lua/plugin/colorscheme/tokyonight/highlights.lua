@@ -64,12 +64,8 @@ local dark = {
         -- Telescope
         ["TelescopeMatching"]            = { fg = "Orange", bold = true },
         ["TelescopePreviewMatch"]        = { fg = "Red", bg = "#1a1b26", bold = true },
-        -- Cmp
-        ["CmpItemAbbrMatch"]             = { fg = "Orange", bold = true },
-        ["CmpItemAbbrMatchDefault"]      = { fg = "Orange", bold = true },
-        ["CmpItemAbbrMatchFuzzy"]        = { fg = "Red", bold = true },
-        ["CmpItemAbbrMatchFuzzyDefault"] = { fg = "Red", bold = true },
-        ["CmpItemKindText"]              = { fg = "Yellow", bold = true },
+        -- Blink
+        ["BlinkCmpLabelMatch"]           = { fg = "Orange", bold = true },
         -- Mininvim
         ["MiniTrailspace"]               = { bg = "Red" },
         -- Notify
