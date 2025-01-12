@@ -369,24 +369,6 @@ plugins = {
 			require("plugin.ui.search.hlslens")
 		end,
 	},
-	['karb94/neoscroll.nvim'] = {
-		-- Desc: Smooth scrolling
-		config = function()
-			require("plugin.ui.scroll.neoscroll")
-		end,
-	},
-	['dstein64/nvim-scrollview'] = {
-		-- Desc: Scrollbar
-		config = function()
-			require("plugin.ui.scroll.scrollview")
-		end,
-	},
-	['gen740/SmoothCursor.nvim'] = {
-		-- Desc: Cursor pointer
-		config = function()
-			require("plugin.ui.scroll.smoothcursor")
-		end,
-	},
 	['folke/noice.nvim'] = {
 		-- Desc: Show message popup, LSP progress, popup commandline
 		dependencies = {
@@ -568,6 +550,7 @@ plugins = {
 
 	-- Plugin on pending ----------------------------------------
 	-- TODO: Config for menu
+	-- TODO: Update snacks
 	-- TODO: Update lua-console
 	-- TODO: Update statuscolumn + foldtext
 	-- TODO: Check to replace telescope with fzf-lua
@@ -581,6 +564,18 @@ plugins = {
 	},
 	['OXY2DEV/foldtext.nvim'] = {
 		config = true,
+	},
+	['folke/snacks.nvim'] = {
+		-- Desc: Collection of small ultility plugins
+		init = function()
+            vim.g.animate       = true
+            vim.g.bigfile       = true
+            vim.g.snacks_indent = false
+            vim.g.snacks_scroll = true
+        end,
+		config = function()
+			require("plugin.utility.snacks")
+		end
 	},
 }
 
