@@ -1,11 +1,11 @@
-local status_ok, dapui = pcall(require, "dapui")
-if not status_ok then
+local dapui_status_ok, dapui = pcall(require, "dapui")
+if not dapui_status_ok then
 	print("Error: dapui")
 	return
 end
 
-local status_ok, dap = pcall(require, "dap")
-if not status_ok then
+local dap_status_ok, dap = pcall(require, "dap")
+if not dap_status_ok then
 	print("Error: dap")
 	return
 end

@@ -1,7 +1,7 @@
 api = {}
 
 local option = {
-    -- "tokyonight", "monokai-nightasty"
+    -- "tokyonight" only
     colorscheme = "tokyonight",
     -- "light", "dark"
     background = "dark",
@@ -10,9 +10,6 @@ local option = {
 api.set_option = function()
     if option.colorscheme == "tokyonight" then
         vim.cmd("colorscheme tokyonight")
-    end
-    if option.colorscheme == "monokai-nightasty" then
-        vim.cmd("colorscheme monokai-nightasty")
     end
     vim.g.colors_name = option.colorscheme
     vim.o.background = option.background
@@ -26,8 +23,6 @@ api.get_highlights = function()
 	local highlights = {}
     if option.colorscheme == "tokyonight" then
         highlights = require("plugin.colorscheme.tokyonight.highlights")
-    else
-        highlights = require("plugin.colorscheme.monokai.highlights")
     end
     if option.background == "light" then return highlights.light
     else return highlights.dark end

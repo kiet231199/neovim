@@ -390,7 +390,7 @@ local diagnostics = {
     },
     {
         condition = function()
-			return conditions.has_diagnostics() and require("dap").session() == nil
+			return conditions.has_diagnostics()
 		end,
         {
             provider = function(self)
@@ -515,7 +515,9 @@ local debug_session = {
     },
     {
         provider = function()
-            local session = require("dap").session()
+            local session = function()
+                if vim.g.dap == true then return require("dap").session() else return nil end
+            end
             if session ~= nil and debug_status then return "  " .. require("dap").status()
             else return " " .. vim.g.propofont end
         end,
@@ -546,10 +548,10 @@ local debug_repl = {
         bg = "tertiary_bg",
     },
     {
+        condition = function()
+            if vim.g.dap == true then return require("dap").session() ~= nil else return false end
+        end,
         {
-            condition = function()
-                return require("dap").session() ~= nil
-            end,
             { provider = " " },
             {
                 provider = vim.g.propofont .. "" .. vim.g.propofont,
@@ -564,9 +566,6 @@ local debug_repl = {
             },
         },
         {
-            condition = function()
-                return require("dap").session() ~= nil
-            end,
             { provider = " " },
             {
                 provider = "" .. vim.g.propofont,
@@ -581,9 +580,6 @@ local debug_repl = {
             },
         },
         {
-            condition = function()
-                return require("dap").session() ~= nil
-            end,
             { provider = " " },
             {
                 provider = "" .. vim.g.propofont,
@@ -598,9 +594,6 @@ local debug_repl = {
             },
         },
         {
-            condition = function()
-                return require("dap").session() ~= nil
-            end,
             { provider = " " },
             {
                 provider = "" .. vim.g.propofont,
@@ -615,9 +608,6 @@ local debug_repl = {
             },
         },
         {
-            condition = function()
-                return require("dap").session() ~= nil
-            end,
             { provider = " " },
             {
                 provider = "" .. vim.g.propofont,
@@ -632,9 +622,6 @@ local debug_repl = {
             },
         },
         {
-            condition = function()
-                return require("dap").session() ~= nil
-            end,
             { provider = " " },
             {
                 provider = "" .. vim.g.propofont,
@@ -649,9 +636,6 @@ local debug_repl = {
             },
         },
         {
-            condition = function()
-                return require("dap").session() ~= nil
-            end,
             { provider = " " },
             {
                 provider = vim.g.propofont .. "󰇀" .. vim.g.propofont,
@@ -666,9 +650,6 @@ local debug_repl = {
             },
         },
         {
-            condition = function()
-                return require("dap").session() ~= nil
-            end,
             { provider = " " },
             {
                 provider = "󱔏" .. vim.g.propofont,

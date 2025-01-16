@@ -14,9 +14,9 @@ notify.setup({
 		TRACE = "✎",
 		WARN = " "
 	},
-	level = 2,
+	level = vim.log.levels.TRACE,
 	minimum_width = 30,
-	render = "wrapped-compact",
+	render = "default",
 	stages = "fade",
 	timeout = 3000
 })

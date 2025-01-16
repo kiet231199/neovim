@@ -20,6 +20,8 @@ mappings.general = {
 		["<esc>"]     = { ":noh <CR>", "clear highlight search" },
 		["<C-a>"]     = { "ggVG", "select all" },
 		["<C-s>"]     = { ':w<CR>:lua require("notify")("Save successfull 勒", "info",{title = "Save file "})<CR>:noh<CR>', opts = silent },
+		["<C-e>"]     = { "10<C-e>" };
+		["<C-y>"]     = { "10<C-y>" };
 
 		["<F4>"]      = { ":lua ToggleLSP()<CR>", "toggle_lsp",            opts = silent },
 		["<F12>v"]    = { ":lua ToggleCopyMode()<CR>", "toggle interface", opts = silent },
@@ -73,14 +75,11 @@ mappings.jabs = {
 	}
 }
 
-mappings.scissors = {
+mappings.dropbar = {
 	plugin = true,
 	n = {
-		["<leader>se"] = { function() require("scissors").editSnippet() end, "edit snippets", opts = silent },
-	},
-	x = {
-		["<leader>sa"] = { function() require("scissors").addNewSnippet() end, "add new snippets", opts = silent },
-	},
+		["<leader>w"] = { function() require("dropbar.api").pick() end, "pick winbar element", opts = silent },
+	}
 }
 
 mappings.lspconfig = {
@@ -116,97 +115,28 @@ mappings.lsplines = {
 	},
 }
 
-mappings.terminal = {
-	plugin = true,
-	n = {
-		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
-	},
-	t = {
-		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
-	},
-}
-
 mappings.flash = {
 	plugin = true,
 	n = {
 		['f'] = { function() require("flash").jump() end, "Jump to word / string", opts = silent },
 		['t'] = { function() require("flash").treesitter() end, "Select to treesitter object", opts = silent },
 	},
-}
-
-mappings.align = {
-	plugin = true,
 	x = {
-		["<align>ac"] = { function() require("align").align_to_char({ length = 1 }) end,                      "Align to 1 char"        , opts = silent },
-		["<align>as"] = { function() require("align").align_to_string({ preview = true, regex = true }) end, "Align to string"        , opts = silent },
+		['f'] = { function() require("flash").jump() end, "Jump to word / string", opts = silent },
+		['t'] = { function() require("flash").treesitter() end, "Select to treesitter object", opts = silent },
+	},
+	o = {
+		['f'] = { function() require("flash").jump() end, "Jump to word / string", opts = silent },
+		['t'] = { function() require("flash").treesitter() end, "Select to treesitter object", opts = silent },
 	},
 }
 
-mappings.move = {
-	plugin = true,
-	n = {
-		["<A-j>"] = { ":MoveLine(1)<CR>"   , "move block down" , opts = silent },
-		["<A-k>"] = { ":MoveLine(-1)<CR>"  , "move block up"   , opts = silent },
-		["<A-h>"] = { ":MoveHChar(-1)<CR>" , "move block left" , opts = silent },
-		["<A-l>"] = { ":MoveHChar(1)<CR>"  , "move block right", opts = silent },
-	},
-	v = {
- 		["<A-j>"] = { ":MoveBlock(1)<CR>"  , "move block down" , opts = silent },
-		["<A-k>"] = { ":MoveBlock(-1)<CR>" , "move block up"   , opts = silent },
-		["<A-h>"] = { ":MoveHBlock(-1)<CR>", "move block left" , opts = silent },
-		["<A-l>"] = { ":MoveHBlock(1)<CR>" , "move block right", opts = silent },
-	},
-}
-
-mappings.multiplecursors = {
-	plugin = true,
-	n = {
-		["<C-j>"] = { ":MultipleCursorsAddDown<CR>", "Add multiple cursor down"           , opts = silent },
-		["<C-LeftMouse>"] = { ":MultipleCursorsMouseAddDelete<CR>", "Add multiple cursor" , opts = silent },
-	}
-}
-
-mappings.hlslens = {
-	plugin = true,
-	n = {
-		["n"] = { "<cmd>execute('normal! ' . v:count1 . 'n')<CR><cmd>lua require('hlslens').start()<CR>", "Search next word", opts = remap },
-		["N"] = { "<cmd>execute('normal! ' . v:count1 . 'N')<CR><cmd>lua require('hlslens').start()<CR>", "Search prev word", opts = remap },
-		["*"] = { "*<cmd>lua require('hlslens').start()<CR>"          , "Search next word under cursor", opts = remap },
-		["#"] = { "#<cmd>lua require('hlslens').start()<CR>"          , "Search next word under cursor", opts = remap },
-	},
-}
-
-mappings.windows = {
-	plugin = true,
-	n = {
-		["<C-w>z"] = { ":WindowsMaximize<CR>:WindowsDisableAutowidth<CR>"            , "Expand current window"             , opts = silent },
-		["<C-w>_"] = { ":WindowsMaximizeVertically<CR>:WindowsDisableAutowidth<CR>"  , "Expand current window vertically"  , opts = silent },
-		["<C-w>|"] = { ":WindowsMaximizeHorizontally<CR>:WindowsDisableAutowidth<CR>", "Expand current window horizontally", opts = silent },
-		["<C-w>="] = { ":WindowsEqualize<CR>:WindowsDisableAutowidth<CR>"            , "Equalize multiple windows"         , opts = silent },
-	},
-}
-
-mappings.screenkey = {
-	plugin = true,
-	n = {
-		["<F7>"]   = { ":Screenkey<CR>", "Toggle key detector", opts = silent },
-	}
-}
-
-mappings.dropbar = {
-	plugin = true,
-	n = {
-		["<leader>w"] = { function() require("dropbar.api").pick() end, "pick winbar element", opts = silent },
-	}
-}
-
-mappings.session = {
-	plugin = true,
-	n = {
-		["<leader>sl"] = { ":SessionManager load_last_session<CR>"   , "Load last session"   , opts = silent },
-		["<leader>ss"] = { ":SessionManager save_current_session<CR>", "Save current session", opts = silent },
-		["<leader>sd"] = { ":SessionManager delete_session<CR>"      , "Delete session"      , opts = silent },
-	}
+mappings.snacks_scratch = {
+    plugin = true,
+    n = {
+        ["<leader>sc"] = { function() require("snacks").scratch() end, desc = "Toggle Scratch Buffer" },
+        ["<leader>sS"] = { function() require("snacks").scratch.select() end, desc = "Select Scratch Buffer" },
+    }
 }
 
 mappings.dap = {
@@ -252,6 +182,137 @@ mappings.dap = {
 			opts = silent,
         },
     }
+}
+
+mappings.ezreplace = {
+    plugin = true,
+    n = {
+        ["<leader>ra"] = { ":EasyReplaceWord<CR>", "Easy replace word", opts = silent },
+        ["<leader>rc"] = { ":EasyReplaceCword<CR>", "Easy replace current word", opts = silent },
+    },
+    v = {
+        ["<leader>ra"] = { ":EasyReplaceWordInVisual<CR>", "Easy replace word", opts = silent },
+        ["<leader>rc"] = { ":EasyReplaceCwordInVisual<CR>", "Easy replace current word", opts = silent },
+    },
+}
+
+mappings.align = {
+	plugin = true,
+	x = {
+		["<leader>ac"] = { function() require("align").align_to_char({ length = 1 }) end,                      "Align to 1 char"        , opts = silent },
+		["<leader>as"] = { function() require("align").align_to_string({ preview = true, regex = true }) end, "Align to string"        , opts = silent },
+	},
+}
+
+mappings.move = {
+	plugin = true,
+	n = {
+		["<A-j>"] = { ":MoveLine(1)<CR>"   , "move block down" , opts = silent },
+		["<A-k>"] = { ":MoveLine(-1)<CR>"  , "move block up"   , opts = silent },
+		["<A-h>"] = { ":MoveHChar(-1)<CR>" , "move block left" , opts = silent },
+		["<A-l>"] = { ":MoveHChar(1)<CR>"  , "move block right", opts = silent },
+	},
+	v = {
+ 		["<A-j>"] = { ":MoveBlock(1)<CR>"  , "move block down" , opts = silent },
+		["<A-k>"] = { ":MoveBlock(-1)<CR>" , "move block up"   , opts = silent },
+		["<A-h>"] = { ":MoveHBlock(-1)<CR>", "move block left" , opts = silent },
+		["<A-l>"] = { ":MoveHBlock(1)<CR>" , "move block right", opts = silent },
+	},
+}
+
+mappings.toggler = {
+    plugin = true,
+    n = {
+        ["<leader>i"] = { function() require("nvim-toggler").toggle() end, "Invert text", opts = silent },
+    },
+}
+
+mappings.multiplecursors = {
+	plugin = true,
+	n = {
+		["<C-j>"] = { ":MultipleCursorsAddDown<CR>", "Add multiple cursor down"           , opts = silent },
+		["<C-LeftMouse>"] = { ":MultipleCursorsMouseAddDelete<CR>", "Add multiple cursor" , opts = silent },
+	}
+}
+
+mappings.hlslens = {
+	plugin = true,
+	n = {
+		["n"] = { "<cmd>execute('normal! ' . v:count1 . 'n')<CR><cmd>lua require('hlslens').start()<CR>", "Search next word", opts = remap },
+		["N"] = { "<cmd>execute('normal! ' . v:count1 . 'N')<CR><cmd>lua require('hlslens').start()<CR>", "Search prev word", opts = remap },
+		["*"] = { "*<cmd>lua require('hlslens').start()<CR>"          , "Search next word under cursor", opts = remap },
+		["#"] = { "#<cmd>lua require('hlslens').start()<CR>"          , "Search next word under cursor", opts = remap },
+	},
+}
+
+mappings.windows = {
+	plugin = true,
+	n = {
+		["<C-w>z"] = { ":WindowsMaximize<CR>:WindowsDisableAutowidth<CR>"            , "Expand current window"             , opts = silent },
+		["<C-w>_"] = { ":WindowsMaximizeVertically<CR>:WindowsDisableAutowidth<CR>"  , "Expand current window vertically"  , opts = silent },
+		["<C-w>|"] = { ":WindowsMaximizeHorizontally<CR>:WindowsDisableAutowidth<CR>", "Expand current window horizontally", opts = silent },
+		["<C-w>="] = { ":WindowsEqualize<CR>:WindowsDisableAutowidth<CR>"            , "Equalize multiple windows"         , opts = silent },
+	},
+}
+
+mappings.terminal = {
+	plugin = true,
+	n = {
+		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
+	},
+	t = {
+		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
+	},
+}
+
+mappings.screenkey = {
+	plugin = true,
+	n = {
+		["<F7>"]   = { ":Screenkey<CR>", "Toggle key detector", opts = silent },
+	}
+}
+
+mappings.session = {
+	plugin = true,
+	n = {
+		["<leader>sl"] = { ":SessionManager load_last_session<CR>"   , "Load last session"   , opts = silent },
+		["<leader>ss"] = { ":SessionManager save_current_session<CR>", "Save current session", opts = silent },
+		["<leader>sd"] = { ":SessionManager delete_session<CR>"      , "Delete session"      , opts = silent },
+	}
+}
+
+mappings.tmux = {
+    plugin = true,
+    n = {
+        ["<C-b>h"] = { ":<C-U>TmuxNavigateLeft<CR>" , "Tmux navigate to left pane" , opts = silent },
+        ["<C-b>j"] = { ":<C-U>TmuxNavigateDown<CR>" , "Tmux navigate to down pane" , opts = silent },
+        ["<C-b>k"] = { ":<C-U>TmuxNavigateUp<CR>"   , "Tmux navigate to up pane"   , opts = silent },
+        ["<C-b>l"] = { ":<C-U>TmuxNavigateRight<CR>", "Tmux navigate to right pane", opts = silent },
+    }
+}
+
+mappings.menu = {
+    plugin = true,
+    n = {
+        ["<Space>"] = { function()
+            local normal = require("plugin.ui.menu").normal
+            require("menu").open(normal, { border = "rounded" })
+        end, opts = silent },
+        ["<RightMouse>"] = { function()
+            local normal = require("plugin.ui.menu").normal
+            require("menu").open(normal, { border = "rounded" })
+        end, opts = silent },
+    },
+    x = {
+        ["<Space>"] = { function()
+            local visual = require("plugin.ui.menu").visual
+            require("menu").open(visual, { border = "rounded" })
+        end, opts = silent },
+        ["<RightMouse>"] = { function()
+            local visual = require("plugin.ui.menu").visual
+            require("menu").open(visual, { border = "rounded" })
+        end, opts = silent },
+    },
 }
 
 return mappings

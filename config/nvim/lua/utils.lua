@@ -154,4 +154,33 @@ utils.load_highlights = function()
 	end
 end
 
+utils.lazy_mappings = function(map_table)
+    local mappings = require("mappings")
+
+    if mappings[map_table] then
+        local result = {}
+
+        for mode, list_keys in pairs(mappings[map_table]) do
+            if mode ~= "plugin" then -- Ignore plugin
+            	if list_keys then
+                    for key, map in pairs(list_keys) do
+                        local mapping = { key, map[1], desc = map[2], mode = mode }
+                        if map.opts then
+                            for opt, opt_value in pairs(map.opts) do
+                                mapping[opt] = opt_value
+                            end
+                        end
+                        table.insert(result, mapping)
+                    end
+                end
+            end
+        end
+
+        return result
+    else
+        print("Cannot set lazy load keys for" .. map_table)
+        return {}
+    end
+end
+
 return utils

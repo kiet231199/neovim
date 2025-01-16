@@ -57,7 +57,6 @@ blink.setup({
         ['<Tab>']   = { 'select_next', 'fallback' },
         ['<S-Tab>'] = { 'select_prev', 'fallback' },
         ['<CR>']    = { 'accept', 'fallback' },
-        ['<Esc>']   = { 'cancel', 'fallback' },
 
         ['<Up>']    = { 'select_prev', 'fallback' },
         ['<Down>']  = { 'select_next', 'fallback' },
@@ -76,7 +75,6 @@ blink.setup({
             ['<Tab>']   = { 'select_next', 'fallback' },
             ['<S-Tab>'] = { 'select_prev', 'fallback' },
             ['<CR>']    = { 'accept', 'fallback' },
-            ['<Esc>']   = { 'cancel', 'fallback' },
 
             ['<Up>']    = { 'select_prev', 'fallback' },
             ['<Down>']  = { 'select_next', 'fallback' },
@@ -222,7 +220,7 @@ blink.setup({
                 border = 'rounded',
                 winblend = 0,
                 winhighlight = 'Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc',
-                scrollbar = true,
+                scrollbar = false,
                 -- Which directions to show the documentation window, for each of the possible menu window directions, falling back to the next direction when there's not enough space
                 direction_priority = {
                     menu_north = { 'e', 'w', 'n', 's' },
@@ -251,6 +249,7 @@ blink.setup({
         use_frecency = false,
         sorts = { 'score', 'sort_text' },
         prebuilt_binaries = {
+        	ignore_version_mismatch = true,
             download = false,
         },
     },
