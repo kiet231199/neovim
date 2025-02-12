@@ -38,7 +38,6 @@ local kinds = {
 	nvim_lsp                  = "[Lsp]",
 	nvim_lsp_document_symbols = "[Document]",
 	buffer                    = "[Buffer]",
-	buffer_lines              = "[Buffer]",
 	cmdline                   = "[Cmdline]",
 	cmdline_history           = "[History]",
 	path                      = "[Path]",
@@ -74,7 +73,7 @@ blink.setup({
 
             ['<Tab>']   = { 'select_next', 'fallback' },
             ['<S-Tab>'] = { 'select_prev', 'fallback' },
-            ['<CR>']    = { 'accept', 'fallback' },
+			['<CR>']    = { 'accept', 'fallback' },
 
             ['<Up>']    = { 'select_prev', 'fallback' },
             ['<Down>']  = { 'select_next', 'fallback' },
@@ -254,11 +253,11 @@ blink.setup({
         },
     },
     sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'buffer_lines', 'ripgrep', 'doxygen' },
-        -- normal:  snipptes -> doxygen -> lsp -> ripgrep -> buffer_lines -> buffer
+        default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'doxygen' },
+        -- normal:  snipptes -> doxygen -> lsp -> ripgrep -> buffer
         -- cmdline:
             -- search:  ripgrep -> buffer
-            -- command: path --> history --> cmdline
+            -- command: path --> cmdline -> history
         cmdline = function()
             local type = vim.fn.getcmdtype()
             -- Search forward and backward
@@ -268,6 +267,12 @@ blink.setup({
             return {}
         end,
         providers = {
+			lazydev = {
+				name = "LazyDev",
+				module = "lazydev.integrations.blink",
+				-- make lazydev completions top priority (see `:h blink.cmp`)
+				score_offset = 1100,
+			},
             lsp = {
                 name = 'LSP',
                 module = 'blink.cmp.sources.lsp',
@@ -335,21 +340,6 @@ blink.setup({
                     end,
                 },
                 max_items = 10,
-                score_offset = 100,
-            },
-            buffer_lines = {
-				name = "buffer-lines",
-				module = "blink.compat.source",
-				opts = {
-					words = true,
-					comments = true,
-					line_numbers = false,
-					line_number_separator = "",
-					leading_whitespace = false,
-					max_indents = 0,
-					max_size = 100, -- in kB
-				},
-				max_items = 5,
                 score_offset = 500,
             },
 			ripgrep = {

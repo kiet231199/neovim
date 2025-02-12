@@ -13,7 +13,7 @@ screenkey.setup({
         border = "rounded",
 		title = " Screenkey ",
 		title_pos = "center",
-        row = vim.o.lines - vim.o.cmdheight,
+        row = vim.o.lines - vim.o.cmdheight - 1,
         col = vim.o.columns - 2,
     },
     compress_after = 3,
@@ -22,6 +22,8 @@ screenkey.setup({
         filetypes = {},
         buftypes = {},
     },
+    display_infront = {},
+    display_behind = {},
 	show_leader = true,
     group_mappings = true,
     keys = {

@@ -6,22 +6,86 @@ end
 
 --- @class animate
 local animate = {
-    enabled = vim.g.animate,
+    enabled = vim.g.snacks_animate,
     duration = 20, -- ms per step
     easing = "linear",
     fps = 60, -- frames per second. Global setting for all animations
 }
 
+--- @class dashboard
+local dashboard = {
+    enabled = vim.g.snacks_dashboard,
+    width = 60,
+    formats = {
+        key = function(item)
+            return { { "[", hl = "special" }, { item.key, hl = "key" }, { "]", hl = "special" } }
+        end,
+    },
+    preset = {
+        pick = "fzf-lua",
+        keys = {
+            { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+            { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+            { icon = " ", key = "w", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+            { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+            { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+        },
+    },
+    sections = {
+        {
+            align = "center",
+            text = {
+                [[
+██████╗   ████████╗        ████████╗ ███████╗    ███╗     ████████╗ ██╗   ██╗ ██████╗   ███████╗
+██╔═══██╗ ╚════██╔╝        ██╔═════╝ ██╔════╝  ██═══██╗   ╚══██╔══╝ ██║   ██║ ██╔═══██╗ ██╔════╝
+██████══╝   ╔██╔═╝  █████╗ ██████╗   █████╗   █████████╗     ██║    ██║   ██║ ██████══╝ █████╗  
+██╔══██╗  ╔██╔═╝    ╚════╝ ██╔═══╝   ██╔══╝   ██╔════██║     ██║    ██║   ██║ ██╔══██╗  ██╔══╝  
+██║   ██╗ ████████╗        ██║       ███████╗ ██║    ██║     ██║    ╚██████╔╝ ██║   ██╗ ███████╗
+╚═╝   ╚═╝ ╚═══════╝        ╚═╝       ╚══════╝ ╚═╝    ╚═╝     ╚═╝     ╚═════╝  ╚═╝   ╚═╝ ╚══════╝
+                ]],
+                hl = "SnacksDashboardHeader",
+            },
+            padding = 2,
+        },
+        { title = "  Ultility", padding = 1 },
+        { section = "keys", gap = 0, padding = 2 },
+        { title = "  Recent files", padding = 1 },
+        { section = "recent_files", limit = 8, padding = 3 },
+        {
+            align = "center",
+            text = {
+                [[
+██╗   ██╗ ██╗ ███████╗ ████████╗   ███████╗  ██╗   ██╗    ███╗    ███╗   ███╗
+██║ ██╔═╝ ██║ ██╔════╝ ╚══██╔══╝   ██║   ██╗ ██║   ██║  ██═══██╗  ████╗ ████║
+████══╝   ██║ █████╗      ██║      ██████╔═╝ ████████║ █████████╗ ██╔████╔██║
+██╔═██╗   ██║ ██╔══╝      ██║      ██╔═══╝   ██╔═══██║ ██╔════██║ ██║╚██╔╝██║
+██║ ╚═██╗ ██║ ███████╗    ██║      ██║       ██║   ██║ ██║    ██║ ██║ ╚═╝ ██║
+╚═╝   ╚═╝ ╚═╝ ╚══════╝    ╚═╝      ╚═╝       ╚═╝   ╚═╝ ╚═╝    ╚═╝ ╚═╝     ╚═╝
+                ]],
+                hl = "SnacksDashboardKey",
+            },
+        },
+        { section = "startup" },
+    },
+}
+
 --- @class bigfile
 local bigfile = {
-    enabled = vim.g.bigfile,
+    enabled = vim.g.snacks_bigfile,
     notify = true, -- show notification when big file detected
     size = 1.5 * 1024 * 1024, -- 1.5MB
 }
 
+--- @class explorer
+local explorer = {
+    enabled = vim.g.snacks_explorer,
+    replace_netrw = true,
+}
+
 --- @class notifier
 local notifier = {
-    enabled = vim.g.notifier,
+    enabled = vim.g.snacks_notifier,
     timeout = 3000, -- default timeout in ms
     width = { min = 40, max = 0.4 },
     height = { min = 1, max = 0.6 },
@@ -101,9 +165,276 @@ local indent = {
     end,
 }
 
+--- @class picker
+local picker = {
+    enabled = vim.g.snacks_picker,
+    prompt = " ",
+    sources = {
+        explorer = {
+            supports_live = true,
+            follow_file = true,
+            auto_close = false,
+            win = {
+                list = {
+                    keys = {
+                        ["<BS>"] = "explorer_up",
+                        ["l"] = "confirm",
+                        ["h"] = "explorer_close", -- close directory
+                        ["a"] = "explorer_add",
+                        ["d"] = "explorer_del",
+                        ["r"] = "explorer_rename",
+                        ["c"] = "explorer_copy",
+                        ["m"] = "explorer_move",
+                        ["o"] = "explorer_open", -- open with system application
+                        ["P"] = "toggle_preview",
+                        ["y"] = "explorer_yank",
+                        ["u"] = "explorer_update",
+                        ["<c-c>"] = "explorer_cd",
+                        ["."] = "explorer_focus",
+                        ["I"] = "toggle_ignored",
+                        ["H"] = "toggle_hidden",
+                        ["Z"] = "explorer_close_all",
+                        ["]g"] = "explorer_git_next",
+                        ["[g"] = "explorer_git_prev",
+                    },
+                },
+            },
+        }
+    },
+    layout = {
+        cycle = true,
+        --- Use the default layout or vertical if the window is too narrow
+        preset = function()
+            return vim.o.columns >= 120 and "default" or "vertical"
+        end,
+    },
+    ---@class snacks.picker.matcher.Config
+    matcher = {
+        fuzzy = true,      -- use fuzzy matching
+        smartcase = true,  -- use smartcase
+        ignorecase = true, -- use ignorecase
+        sort_empty = false, -- sort results when the search string is empty
+        filename_bonus = true, -- give bonus for matching file names (last part of the path)
+        file_pos = true,   -- support patterns like `file:line:col` and `file:line`
+    },
+    sort = {
+        -- default sort is by score, text length and index
+        fields = { "score:desc", "#text", "idx" },
+    },
+    ui_select = true, -- replace `vim.ui.select` with the snacks picker
+    ---@class snacks.picker.formatters.Config
+    formatters = {
+        file = {
+            filename_first = false, -- display filename before the file path
+        },
+        selected = {
+            show_always = false, -- only show the selected column when there are multiple selections
+            unselected = true, -- use the unselected icon for unselected items
+        },
+    },
+    ---@class snacks.picker.previewers.Config
+    previewers = {
+        git = {
+            native = false, -- use native (terminal) or Neovim for previewing git diffs and commits
+        },
+        file = {
+            max_size = 1024 * 1024, -- 1MB
+            max_line_length = 500, -- max line length
+            ft = nil, ---@type string? filetype for highlighting. Use `nil` for auto detect
+        },
+        man_pager = nil, ---@type string? MANPAGER env to use for `man` preview
+    },
+    ---@class snacks.picker.jump.Config
+    jump = {
+        jumplist = true, -- save the current position in the jumplist
+        tagstack = false, -- save the current position in the tagstack
+        reuse_win = false, -- reuse an existing window if the buffer is already open
+    },
+    win = {
+        -- input window
+        input = {
+            keys = {
+                ["<Esc>"] = "close",
+                ["<CR>"] = { "confirm", mode = { "n", "i" } },
+                ["G"] = "list_bottom",
+                ["gg"] = "list_top",
+                ["j"] = "list_down",
+                ["k"] = "list_up",
+                ["/"] = "toggle_focus",
+                ["q"] = "close",
+                ["?"] = "toggle_help",
+                ["<a-i>"] = { "inspect", mode = { "n", "i" } },
+                ["<c-a>"] = { "select_all", mode = { "n", "i" } },
+                ["<a-m>"] = { "toggle_maximize", mode = { "i", "n" } },
+                ["<C-w>"] = { "<c-s-w>", mode = { "i" }, expr = true, desc = "delete word" },
+                ["<C-Up>"] = { "history_back", mode = { "i", "n" } },
+                ["<C-Down>"] = { "history_forward", mode = { "i", "n" } },
+                ["<Tab>"] = { "select_and_next", mode = { "i", "n" } },
+                ["<S-Tab>"] = { "select_and_prev", mode = { "i", "n" } },
+                ["<Down>"] = { "list_down", mode = { "i", "n" } },
+                ["<Up>"] = { "list_up", mode = { "i", "n" } },
+                ["<c-j>"] = { "list_down", mode = { "i", "n" } },
+                ["<c-k>"] = { "list_up", mode = { "i", "n" } },
+                ["<c-n>"] = { "list_down", mode = { "i", "n" } },
+                ["<c-p>"] = { "list_up", mode = { "i", "n" } },
+                ["<a-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
+                ["<a-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+                ["<a-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
+                ["<a-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
+                ["<a-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
+                ["<c-d>"] = { "list_scroll_down", mode = { "i", "n" } },
+                ["<a-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
+                ["<c-g>"] = { "toggle_live", mode = { "i", "n" } },
+                ["<c-u>"] = { "list_scroll_up", mode = { "i", "n" } },
+                ["<ScrollWheelDown>"] = { "list_scroll_wheel_down", mode = { "i", "n" } },
+                ["<ScrollWheelUp>"] = { "list_scroll_wheel_up", mode = { "i", "n" } },
+                ["<c-v>"] = { "edit_vsplit", mode = { "i", "n" } },
+                ["<c-s>"] = { "edit_split", mode = { "i", "n" } },
+                ["<c-q>"] = { "qflist", mode = { "i", "n" } },
+            },
+            b = {
+                minipairs_disable = true,
+            },
+        },
+        -- result list window
+        list = {
+            keys = {
+                ["<CR>"] = "confirm",
+                ["gg"] = "list_top",
+                ["G"] = "list_bottom",
+                ["i"] = "focus_input",
+                ["j"] = "list_down",
+                ["k"] = "list_up",
+                ["q"] = "close",
+                ["<Tab>"] = "select_and_next",
+                ["<S-Tab>"] = "select_and_prev",
+                ["<Down>"] = "list_down",
+                ["<Up>"] = "list_up",
+                ["<a-i>"] = "inspect",
+                ["<c-d>"] = "list_scroll_down",
+                ["<c-u>"] = "list_scroll_up",
+                ["zt"] = "list_scroll_top",
+                ["zb"] = "list_scroll_bottom",
+                ["zz"] = "list_scroll_center",
+                ["/"] = "toggle_focus",
+                ["<ScrollWheelDown>"] = "list_scroll_wheel_down",
+                ["<ScrollWheelUp>"] = "list_scroll_wheel_up",
+                ["<c-a>"] = "select_all",
+                ["<a-d>"] = "preview_scroll_down",
+                ["<a-u>"] = "preview_scroll_up",
+                ["<a-j>"] = "preview_scroll_down",
+                ["<a-k>"] = "preview_scroll_up",
+                ["<a-h>"] = "preview_scroll_right",
+                ["<a-l>"] = "preview_scroll_left",
+                ["<c-v>"] = "edit_vsplit",
+                ["<c-s>"] = "edit_split",
+                ["<c-j>"] = "list_down",
+                ["<c-k>"] = "list_up",
+                ["<Esc>"] = "close",
+            },
+        },
+        -- preview window
+        preview = {
+            keys = {
+                ["<Esc>"] = "close",
+                ["q"] = "close",
+                ["i"] = "focus_input",
+                ["<ScrollWheelDown>"] = "list_scroll_wheel_down",
+                ["<ScrollWheelUp>"] = "list_scroll_wheel_up",
+            },
+        },
+    },
+    ---@class snacks.picker.icons
+    icons = {
+        files = {
+            enabled = true, -- show file icons
+        },
+        indent = {
+            vertical = "│ ",
+            middle   = "├╴",
+            last     = "└╴",
+        },
+        undo = {
+            saved = " ",
+        },
+        ui = {
+            live       = "󰐰 ",
+            hidden     = "h",
+            ignored    = "i",
+            follow     = "f",
+            selected   = "● ",
+            unselected = "○ ",
+            -- selected = " ",
+        },
+        git = {
+            enabled   = true,
+            commit    = "󰜘 ",
+            staged    = "● ",  -- staged changes. always overrides the type icons
+            added     = " ",
+            deleted   = " ",
+            ignored   = " ",
+            modified  = " ",
+            renamed   = " ",
+            unmerged  = " ",
+            untracked = "? ",
+        },
+        diagnostics = {
+            Error = " ",
+            Warn  = " ",
+            Hint  = " ",
+            Info  = " ",
+        },
+        kinds = {
+            Array         = " ",
+            Boolean       = "󰨙 ",
+            Class         = " ",
+            Color         = " ",
+            Control       = " ",
+            Collapsed     = " ",
+            Constant      = "󰏿 ",
+            Constructor   = " ",
+            Copilot       = " ",
+            Enum          = " ",
+            EnumMember    = " ",
+            Event         = " ",
+            Field         = " ",
+            File          = " ",
+            Folder        = " ",
+            Function      = "󰊕 ",
+            Interface     = " ",
+            Key           = " ",
+            Keyword       = " ",
+            Method        = "󰊕 ",
+            Module        = " ",
+            Namespace     = "󰦮 ",
+            Null          = " ",
+            Number        = "󰎠 ",
+            Object        = " ",
+            Operator      = " ",
+            Package       = " ",
+            Property      = " ",
+            Reference     = " ",
+            Snippet       = "󱄽 ",
+            String        = " ",
+            Struct        = "󰆼 ",
+            Text          = " ",
+            TypeParameter = " ",
+            Unit          = " ",
+            Unknown       = " ",
+            Value         = " ",
+            Variable      = "󰀫 ",
+        },
+    },
+    ---@class snacks.picker.debug
+    debug = {
+        scores = false, -- show scores in the list
+        leaks = false, -- show when pickers don't get garbage collected
+    },
+}
+
 --- @class scratch
 local scratch = {
-    enabled = vim.g.scratch,
+    enabled = vim.g.snacks_scratch,
     name = "Scratch",
     ft = function()
         if vim.bo.buftype == "" and vim.bo.filetype ~= "" then
@@ -167,9 +498,10 @@ snacks.setup({
     animate = animate,
     bigfile = bigfile,
     -- bufdelete
-    -- dashboard
+    dashboard = dashboard,
     -- debug
     -- dim
+    explorer = explorer,
     -- git
     -- gitbrowse,
     indent = indent,
@@ -178,13 +510,14 @@ snacks.setup({
     notifier = notifier,
     -- notify
     -- profiler
+    picker = picker,
     -- quickfile
     -- rename
     -- scope
     scratch = scratch,
     scroll = scroll,
     -- statuscolumn,
-    -- terminal
+    -- terminal,
     -- toggle
     -- util
     -- win

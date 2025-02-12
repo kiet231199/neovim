@@ -3,9 +3,18 @@ local lsp = require("plugin.ui.menu.lsp")
 
 return {
 	{
-		name = "  Editor",
-		hl = "Exyellow",
-		items = editor.visual,
+		name = "󰆏  Copy absolute path",
+		cmd = "%y+",
+	},
+
+	{
+		name = "  Paste",
+		cmd = "p",
+	},
+
+	{
+		name = "  Undo",
+		cmd = "SelectUndoLine"
 	},
 
 	{ name = "separator" },

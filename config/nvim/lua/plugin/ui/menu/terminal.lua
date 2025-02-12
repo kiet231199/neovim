@@ -1,25 +1,17 @@
 return {
 	normal = {
 		{
-			name = "New terminal",
+			name = "  New terminal",
 			cmd = "TermToggle",
-			rtxt = "F8",
 		},
 		{
-			name = "Htop",
+			name = "  Htop",
 			cmd = "Htop",
-			rtxt = "##",
 		},
 		{
-			name = "Lazygit",
+			name = "  Lazygit",
 			cmd = "Lazygit",
-			rtxt = "##",
 		},
-		{
-			name = "Console",
-			cmd = "LuaConsole AttachToggle",
-			rtxt = "##",
-		}
 	},
 
 	visual = {

@@ -31,5 +31,5 @@ multicolumn.setup({
 	},
 	line_limit = 300,
 	exclude_floating = true,
-	exclude_ft = { 'alpha', 'help', 'markdown', 'netrw', 'neo-tree', 'gitgraph' },
+	exclude_ft = { 'alpha', 'help', 'markdown', 'netrw', 'snacks_picker_list', 'snacks_terminal', 'gitgraph' },
 })

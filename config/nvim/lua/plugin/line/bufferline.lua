@@ -8,11 +8,6 @@ local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
 local separator = require("plugin.line.icon").get_icon()
 
-local exclusion = {
-    buftype = { "nofile", "prompt", "quickfix" },
-    filetype = { "alpha", "neo-tree" },
-}
-
 -- initialize the buflist cache
 local current_buffer_list = {}
 
@@ -163,16 +158,16 @@ local offset = {
         local bufnr = vim.api.nvim_win_get_buf(win)
         self.winid = win
 
-        if vim.bo[bufnr].filetype == "neo-tree" then
-            self.title = "Neo-tree"
+        if vim.bo[bufnr].filetype == "snacks_layout_box" then
+            self.title = "Snacks explorer"
             return true
         -- elseif vim.bo[bufnr].filetype == "TagBar" then
         --     ...
         end
     end,
     hl = function(self)
-        local bufnr = vim.api.nvim_win_get_buf(0)
-        if vim.api.nvim_get_current_win() == self.winid or vim.bo[bufnr].filetype == "neo-tree" then
+		local bufnr = vim.api.nvim_get_current_buf()
+        if vim.api.nvim_get_current_win() == self.winid or vim.bo[bufnr].filetype == "snacks_picker_list" then
             return { fg = "primary_bg", bg = "normal_bg" }
         else
             return { fg = "normal_bg", bg = "normal_bg" }
@@ -187,8 +182,8 @@ local offset = {
             return string.rep(" ", pad) .. title .. string.rep(" ", pad)
         end,
         hl = function(self)
-            local bufnr = vim.api.nvim_win_get_buf(0)
-            if vim.api.nvim_get_current_win() == self.winid or vim.bo[bufnr].filetype == "neo-tree" then
+            local bufnr = vim.api.nvim_get_current_buf()
+            if vim.api.nvim_get_current_win() == self.winid or vim.bo[bufnr].filetype == "snacks_picker_list" then
                 return { fg = "primary_fg", bg = "primary_bg", bold = true }
             else
                 return { fg = "normal_fg", bg = "normal_bg" }
@@ -259,14 +254,18 @@ local dark_mode = {
     },
 }
 
+local task = {
+    provider = " " .. require("lazydo").get_lualine_stats():gsub("|", " | ") .. " ",
+}
+
 local bufferline = {
-    condition = function()
-        -- return conditions.is_active() and not conditions.buffer_matches(exclusion)
-        return conditions.is_active() 
+	condition = function()
+        return conditions.is_active()
     end,
     offset,
     buffer,
     { provider = "%=" }, -- right align
+    task,
 	dark_mode,
     time,
     hl = { fg = "primary_bg", bg = "normal_bg" },

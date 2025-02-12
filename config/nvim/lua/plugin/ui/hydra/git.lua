@@ -16,6 +16,10 @@ local git_hint = [[
 ^
 ]]
 
+-- Hydra highlight group
+vim.api.nvim_set_hl(0, "HydraGitBorder", { fg = "#e0af68", bg = "#1a1b26" })
+vim.api.nvim_set_hl(0, "HydraGitTitle",  { fg = "#1a1b26", bg = "#e0af68" })
+
 local function border(hl_name)
     return {
         { "╭", hl_name },
@@ -30,7 +34,7 @@ local function border(hl_name)
 end
 
 local hydra_git = {
-	name = 'Git',
+	name = 'Git (Hydra ))',
 	hint = git_hint,
 	config = {
 		color = 'pink',
@@ -39,8 +43,8 @@ local hydra_git = {
 			float_opts = {
 				-- row, col, height, width, relative, and anchor should not be overridden
 				style = "minimal",
-				border = border("TelescopePromptBorder"),
-				title = { { "  Git  ", "TelescopePromptTitle" } },
+				border = border("HydraGitBorder"),
+				title = { { "    Hydra Git  ", "HydraGitTitle" } },
 				title_pos = "center",
 			},
 		},
@@ -52,7 +56,7 @@ local hydra_git = {
 			'J',
 			function()
 				if vim.wo.diff then return ']c' end
-				vim.schedule(function() gitsigns.next_hunk() end)
+				vim.schedule(function() gitsigns.nav_hunk("next") end)
 				return '<Ignore>'
 			end,
 		},
@@ -60,7 +64,7 @@ local hydra_git = {
 			'K',
 			function()
 				if vim.wo.diff then return '[c' end
-				vim.schedule(function() gitsigns.prev_hunk() end)
+				vim.schedule(function() gitsigns.nav_hunk("prev") end)
 				return '<Ignore>'
 			end,
 		},

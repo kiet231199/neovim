@@ -5,7 +5,7 @@ if not status_ok then
 end
 
 foldsign.setup({
-	offset = -2,
+	offset = -3,
 	foldsigns = {
 		open = '',          -- mark the beginning of a fold
 		close = '',         -- show a closed fold

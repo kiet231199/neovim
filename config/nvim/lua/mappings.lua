@@ -61,13 +61,6 @@ mappings.general = {
 	},
 }
 
-mappings.neotree = {
-	plugin = true,
-	n = {
-		["<F5>"] = { ":Neotree toggle reveal<CR>", "Open Neotree", opts = silent },
-	}
-}
-
 mappings.jabs = {
 	plugin = true,
 	n = {
@@ -131,55 +124,65 @@ mappings.flash = {
 	},
 }
 
-mappings.snacks_scratch = {
+mappings.snacks_explorer = {
     plugin = true,
     n = {
-        ["<leader>sc"] = { function() require("snacks").scratch() end, desc = "Toggle Scratch Buffer" },
-        ["<leader>sS"] = { function() require("snacks").scratch.select() end, desc = "Select Scratch Buffer" },
+        ["<F5>"] = { function() require("snacks").explorer() end, "Open file explorer", opts = silent },
     }
 }
 
+mappings.snacks_scratch = {
+    plugin = true,
+    n = {
+        ["<leader>sc"] = { function() require("snacks").scratch() end, "Toggle Scratch Buffer" },
+    }
+}
+
+mappings.snacks_picker = {
+    plugin = true,
+    n = {
+        ["<leader>/"] = { function() Snacks.picker.lines() end, "Buffer Lines" },
+        ["<leader>:"] = { function() Snacks.picker.command_history() end, "Command History" },
+        -- find
+        ["<leader>fw"] = { function() Snacks.picker.grep() end, "Grep" },
+        ["<leader>fc"] = { function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, "Find Config File" },
+        ["<leader>ff"] = { function() Snacks.picker.files() end, "Find Files" },
+        ["<leader>fr"] = { function() Snacks.picker.recent() end, "Recent" },
+        -- search
+        ["<leader>fR"] = { function() Snacks.picker.registers() end, "Registers" },
+        ["<leader>fa"] = { function() Snacks.picker.autocmds() end, "Autocmds" },
+        ["<leader>fd"] = { function() Snacks.picker.diagnostics() end, "Diagnostics" },
+        ["<leader>fh"] = { function() Snacks.picker.help() end, "Help Pages" },
+        ["<leader>fk"] = { function() Snacks.picker.keymaps() end, "Keymaps" },
+        ["<leader>fm"] = { function() Snacks.picker.man() end, "Man Pages" },
+        ["<leader>fp"] = { function() Snacks.picker.projects() end, "Projects" },
+        ["<leader>ft"] = { function() Snacks.picker.todo_comments() end, "Todo" },
+    },
+}
+
+local watch_opts = { title = " Watches", width = 100, height = 15, position = "center", enter = true }
 mappings.dap = {
     plugin = true,
     n = {
-        ["<F15>"] = { function() require("dapui").float_element("watches", { title = " Watches", width = 100, height = 15, position = "center", enter = true }) end, "Open Watches", opts = silent }, -- <S-F3>
-        ["<F16>"] = { function() require("dap.ui.widgets").hover() end , "Open preview",                                           opts = silent }, -- <S-F4>
-        ["<F17>"] = { ":DapContinue<CR>"                               , "Start or continue debugger",                             opts = silent }, -- <S-F5>
-        ["<F29>"] = { function() require("dap").run_to_cursor() end    , "Run to cursor",                                          opts = silent }, -- <C-F5>
-        ["<F18>"] = { function() require("dap").pause() end            , "Pause debugger",                                         opts = silent }, -- <S-F6>
-        ["<F19>"] = { function() require("dap").restart() end          , "Restart debugger",                                       opts = silent }, -- <S-F7>
-        ["<F20>"] = { ":DapTerminate<CR>"                              , "Terminate debugger",                                     opts = silent }, -- <S-F8>
-        ["<F22>"] = { ":DapStepOver<CR>"                               , "Step Over",                                              opts = silent }, -- <S-F10>
-        ["<F23>"] = { ":DapStepInto<CR>"                               , "Step Into (next line)",                                  opts = silent }, -- <S-F11>
-        ["<F24>"] = { ":DapStepOut<CR>"                                , "Step Out",                                               opts = silent }, -- <S-F12>
-        -- INFO: Doubleclick to toggle breakpoint
-        ["<2-LeftMouse>"] = {
-            function()
+        ["<F13>"] = { function() require("dapui").toggle() end, "Toggle UI", opts = silent },                                                                                        -- <S-F1>
+        ["<F14>"] = { ":DapVirtualTextToggle", "Toggle virtual text", opts = silent },                                                                                               -- <S-F2>
+        ["<F15>"] = { function() require("dapui").float_element("watches", watch_opts) end, "Open Watches", opts = silent },                                                         -- <S-F3>
+        ["<F16>"] = { function() require("dap.ui.widgets").hover() end, "Open preview", opts = silent },                                                                             -- <S-F4>
+        ["<F17>"] = { ":DapContinue<CR>", "Start or continue debugger", opts = silent },                                                                                             -- <S-F5>
+        ["<F18>"] = { ":DapTerminate<CR>", "Start or continue debugger", opts = silent },                                                                                            -- <S-F6>
+        ["<F19>"] = { function() require('goto-breakpoints').next() end, "Goto next breakpoint", opts = silent, },                                                                   -- <S-F7>
+        ["<F20>"] = { function() require('goto-breakpoints').prev() end, "Goto prev breakpoint", opts = silent, },                                                                   -- <S-F8>
+        ["<F21>"] = { function() require('persistent-breakpoints.api').toggle_breakpoint() end, "Add breakpoint at line", opts = silent, },                                          -- <S-F9>
+        ["<F22>"] = { ":DapStepOver<CR>", "Step Over", opts = silent },                                                                                                              -- <S-F10>
+        ["<F23>"] = { ":DapStepInto<CR>", "Step Into (next line)", opts = silent },                                                                                                  -- <S-F11>
+        ["<F24>"] = { ":DapStepOut<CR>", "Step Out", opts = silent },                                                                                                                -- <S-F12>
+        ["<F57>"] = { function() require('persistent-breakpoints.api').set_conditional_breakpoint(vim.fn.input(' CONDITION    ')) end, "Condition breakpoint", opts = silent, }, -- <A-F9>
+        ["<F33>"] = { function() require('persistent-breakpoints.api').clear_all_breakpoints() end, "Clear all breakpoints", opts = silent, },                                       -- <C-F9>
+        ["<2-LeftMouse>"] = { function()
                 require('persistent-breakpoints.api').toggle_breakpoint()
             end,
             "Add breakpoint at line by double click",
-			opts = silent,
-        },
-        ["<F21>"] = {  -- <S-F9>
-            function()
-                require('persistent-breakpoints.api').toggle_breakpoint()
-            end,
-            "Add breakpoint at line",
-			opts = silent,
-        },
-        ["<F57>"] = {  -- <A-F9>
-            function()
-                require('persistent-breakpoints.api').set_conditional_breakpoint(vim.fn.input(' CONDITION    '))
-            end,
-            "Condition breakpoint",
-			opts = silent,
-        },
-        ["<F33>"] = {  -- <C-F9>
-            function()
-                require('persistent-breakpoints.api').clear_all_breakpoints()
-            end,
-            "Clear all breakpoints",
-			opts = silent,
+            opts = silent,
         },
     }
 }
@@ -198,9 +201,9 @@ mappings.ezreplace = {
 
 mappings.align = {
 	plugin = true,
-	x = {
-		["<leader>ac"] = { function() require("align").align_to_char({ length = 1 }) end,                      "Align to 1 char"        , opts = silent },
-		["<leader>as"] = { function() require("align").align_to_string({ preview = true, regex = true }) end, "Align to string"        , opts = silent },
+	v = {
+		["<leader>ac"] = { function() require("align").align_to_char({ length = 1 }) end, "Align to 1 char", opts = silent },
+		["<leader>as"] = { function() require("align").align_to_string({ preview = true, regex = true }) end, "Align to string", opts = silent },
 	},
 }
 
@@ -230,7 +233,7 @@ mappings.toggler = {
 mappings.multiplecursors = {
 	plugin = true,
 	n = {
-		["<C-j>"] = { ":MultipleCursorsAddDown<CR>", "Add multiple cursor down"           , opts = silent },
+		["<C-j>"] = { ":MultipleCursorsAddDown<CR>", "Add multiple cursor down", opts = silent },
 		["<C-LeftMouse>"] = { ":MultipleCursorsMouseAddDelete<CR>", "Add multiple cursor" , opts = silent },
 	}
 }
@@ -240,8 +243,8 @@ mappings.hlslens = {
 	n = {
 		["n"] = { "<cmd>execute('normal! ' . v:count1 . 'n')<CR><cmd>lua require('hlslens').start()<CR>", "Search next word", opts = remap },
 		["N"] = { "<cmd>execute('normal! ' . v:count1 . 'N')<CR><cmd>lua require('hlslens').start()<CR>", "Search prev word", opts = remap },
-		["*"] = { "*<cmd>lua require('hlslens').start()<CR>"          , "Search next word under cursor", opts = remap },
-		["#"] = { "#<cmd>lua require('hlslens').start()<CR>"          , "Search next word under cursor", opts = remap },
+		["*"] = { "*<cmd>lua require('hlslens').start()<CR>", "Search next word under cursor", opts = remap },
+		["#"] = { "#<cmd>lua require('hlslens').start()<CR>", "Search next word under cursor", opts = remap },
 	},
 }
 
@@ -258,10 +261,10 @@ mappings.windows = {
 mappings.terminal = {
 	plugin = true,
 	n = {
-		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
+		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal", opts = silent },
 	},
 	t = {
-		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal" },
+		['<F8>'] = { "<C-\\><C-n>:TermToggle <CR>", "toggle float terminal", opts = silent },
 	},
 }
 
@@ -312,6 +315,13 @@ mappings.menu = {
             local visual = require("plugin.ui.menu").visual
             require("menu").open(visual, { border = "rounded" })
         end, opts = silent },
+    },
+}
+
+mappings.lazydo = {
+    plugin = true,
+    n = {
+        ["<F2>"] = { ":LazyDoToggle<CR>", "Open tasks manager", opts = silent },
     },
 }
 

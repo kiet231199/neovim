@@ -24,7 +24,7 @@ flash.setup({
 		exclude = {
 			"notify",
 			"cmp_menu",
-			"neo-tree",
+			"snacks_picker_list",
 			"flash_prompt",
 			function(win)
 				-- exclude non-focusable windows

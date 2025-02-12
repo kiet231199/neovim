@@ -36,7 +36,7 @@ local options = {
 	number         = true,                              -- set numbered lines
 	relativenumber = true,                              -- set relative numbered lines
 	numberwidth    = 2,                                 -- set number column width to 2 {default 4}
-	signcolumn     = "yes",                             -- always show the sign column, otherwise it would shift the text each time
+	signcolumn     = "auto:1-4",                        -- auto resize sign column (min = 1, max = 6)
 	wrap           = false,                             -- display lines as one long line
 	scrolloff      = 0,                                 -- is one of my fav
 	sidescrolloff  = 0,

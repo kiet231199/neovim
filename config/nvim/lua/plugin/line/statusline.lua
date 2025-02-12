@@ -11,7 +11,7 @@ local separator = require("plugin.line.icon").get_icon()
 
 local exclusion = {
     buftype = { "nofile", "prompt", "quickfix" },
-    filetype = { "neo-tree" },
+    filetype = { "snacks_picker_list" },
 }
 
 local vimode = {

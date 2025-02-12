@@ -4,21 +4,13 @@ local terminal = require("plugin.ui.menu.terminal")
 
 return {
 	{
-		name = "Open Explorer",
-		cmd = "Neotree toggle reveal",
-		rtxt = "F5",
+		name = "󱏒  Open Explorer",
+		cmd = function() require("snacks").explorer() end,
 	},
 
 	{
-		name = "Open Buffer list",
-		cmd = "JABSOpen",
-		rtxt = "Tab",
-	},
-
-	{
-		name = "Open Outline",
-		cmd = "Lsp saga",
-		rtxt = "F6",
+		name = "󰮌  Open Outline",
+		cmd = "Lspsaga outline",
 	},
 
 	{ name = "separator" },
@@ -32,15 +24,15 @@ return {
 	{ name = "separator" },
 
 	{
-		name = "Load Session"
+		name = "󰩍  Load Session"
 	},
 
 	{
-		name = "Save Session"
+		name = "  Save Session"
 	},
 
 	{
-		name = "Delete Session"
+		name = "󱀷  Delete Session"
 	},
 
 	{ name = "separator" },

@@ -53,7 +53,7 @@ dapui.setup({
 	}, {
 		elements = { {
 			id = "stacks",
-			size = 0.6
+			size = 0.4
 		}, {
 			id = "breakpoints",
 			size = 0.3

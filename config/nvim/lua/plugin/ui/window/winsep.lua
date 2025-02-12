@@ -11,7 +11,7 @@ winsep.setup({
 		fg = "#A9B1D6"
 	},
 	-- filetype in the list, will not be executed
-	no_exec_files = { "lazy", "TelescopePrompt", "mason", "CompetiTest", "neotree" },
+	no_exec_files = { "lazy", "TelescopePrompt", "mason", "CompetiTest", "snacks_picker_list" },
 	-- Split line symbol definition
 	symbols = { "━", "┃", "┏", "┓", "┗", "┛" },
 	only_line_seq = true,

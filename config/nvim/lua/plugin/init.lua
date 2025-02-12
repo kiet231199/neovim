@@ -1,36 +1,20 @@
 local plugins = {}
 
 plugins = {
-	['goolord/alpha-nvim'] = {
-		-- Startup -----------------------------------------------------
-		-- Desc: Start up screen
-		config = function()
-			require("plugin.startup.alpha")
-		end,
-	},
-
 	-- Colorscheme -------------------------------------------------
-    -- INFO: Colorscheme is selected in plugin.colorscheme.init
 	['folke/tokyonight.nvim'] = {
 		-- Desc: Tokyo-night
         priority = 1100,
 		config = function()
 			require("plugin.colorscheme.tokyonight")
 		end,
-},
+	},
 
 	-- Explorer ----------------------------------------------------
-	['nvim-neo-tree/neo-tree.nvim'] = {
-		-- Desc: File browser
-		config = function()
-			require("plugin.explorer.neotree")
-		end,
-		keys = require("utils").lazy_mappings("neotree")
-	},
 	['matbme/JABS.nvim'] = {
 		-- Desc: Tab explorer
 		config = function()
-			require("plugin.explorer.jabs")
+			require("plugin.utility.jabs")
 		end,
 		keys = require("utils").lazy_mappings("jabs")
 	},
@@ -86,40 +70,45 @@ plugins = {
 		end,
 	},
 
-	-- Fuzy finder -------------------------------------------------
-	['nvim-telescope/telescope.nvim'] = {
-		-- Desc: Telescope
-		dependencies = {
-			-- Desc: Prevent duplicate function
-			'nvim-lua/plenary.nvim',
-			-- Desc: File browser
-			'nvim-telescope/telescope-file-browser.nvim',
-			-- Desc: Project
-			'nvim-telescope/telescope-project.nvim',
-			-- Desc: UI for telescope
-			'nvim-telescope/telescope-ui-select.nvim',
-			-- Dess: Telescope DAP
-			'nvim-telescope/telescope-dap.nvim',
-			-- Desc: Builtin/extension picker for telescope
-			'keyvchan/telescope-find-pickers.nvim',
-			-- Desc: Menu command
-			'LinArcX/telescope-command-palette.nvim',
-			-- Desc: Preview clipboard
-			'AckslD/nvim-neoclip.lua',
-			-- Desc: Show LSP diagnostics
-			'folke/trouble.nvim',
-		},
+    -- Finder ------------------------------------------------------
+	['folke/snacks.nvim'] = {
+		-- Desc: Collection of small ultility plugins
+        priority = 1000,
+		init = function()
+            vim.g.snacks_animate   = true
+            vim.g.snacks_dashboard = true
+            vim.g.snacks_bigfile   = true
+            vim.g.snacks_explorer  = true
+            vim.g.snacks_notifier  = true
+            vim.g.snacks_picker    = true
+            vim.g.snacks_indent    = true
+            vim.g.snacks_scratch   = true
+            vim.g.snacks_scroll    = true
+
+			-- Mappings
+			require("utils").load_mappings("snacks_explorer")
+			require("utils").load_mappings("snacks_scratch")
+			require("utils").load_mappings("snacks_picker")
+        end,
 		config = function()
-			require("plugin.telescope.telescope")
-		end,
+			require("plugin.utility.snacks")
+			-- BUG: Enable indent at start up. Unless, it sometimes does not load
+			require("snacks").indent.enable()
+		end
 	},
 
 	-- Language Server Protocol ------------------------------------
+	['folke/lazydev.nvim'] = {
+		-- Desc: Quick LuaLS configuration
+		ft = { "lua" },
+		opts = {
+			library = { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+		},
+	},
 	['neovim/nvim-lspconfig'] = {
 		-- Desc: LSP config manager
 		ft = { "lua", "python", "c", "cpp", "bash", "sh", "cmake" },
 		dependencies = {
-			'folke/neodev.nvim',
 			-- Desc: LSP formatter
 			'lukas-reineke/lsp-format.nvim',
 			'Djancyp/lsp-range-format',
@@ -152,13 +141,14 @@ plugins = {
 	},
 	['folke/trouble.nvim'] = {
 		-- Desc: Show LSP diagnostics
-		ft = { "lua", "python", "c", "cpp", "bash", "sh", "cmake" },
 		config = function()
 			require("plugin.lsp.trouble")
 		end,
+		cmd = { "Trouble" },
 	},
 	['saghen/blink.cmp'] = {
 	    -- Desc: LSP Completion manager
+	    commit = "507d0d7",
 		event = { "InsertEnter", "CmdlineEnter" },
 	    dependencies = {
 	    	-- Desc: CMP source importer for blink.nvim
@@ -169,8 +159,6 @@ plugins = {
 			'mikavilpas/blink-ripgrep.nvim',
 			-- Desc: CMP for doxygen
 			'paopaol/cmp-doxygen',
-			-- Desc: Completion for buffer
-			'amarakon/nvim-cmp-buffer-lines',
 			-- -- Desc: Completion for commandline
 			'dmitmel/cmp-cmdline-history',
 	    },
@@ -214,6 +202,8 @@ plugins = {
 			'theHamsta/nvim-dap-virtual-text',
             -- Desc: Conditional breakpoint
 			'Weissle/persistent-breakpoints.nvim',
+			-- Desc: Breakpoints navigation
+			'ofirgall/goto-breakpoints.nvim',
 		},
         config = function()
             vim.g.dap = true -- Update for statusline
@@ -262,6 +252,7 @@ plugins = {
 	['folke/todo-comments.nvim'] = {
 		-- Desc: Todo comment
 		version = "*",
+		dependencies = { 'nvim-lua/plenary.nvim', },
 		config = function()
 			require("plugin.editor.comment.todo")
 		end,
@@ -276,6 +267,13 @@ plugins = {
 	['kylechui/nvim-surround'] = {
 		-- Desc: Smart pair
 		config = true,
+	},
+	['NStefan002/visual-surround.nvim'] = {
+		-- Desc: Smart pair in visual mode
+		event = { "ModeChanged" },
+		opts = {
+			surround_chars = { "{", "}", "[", "]", "(", ")", "'", '"', "`" },
+		},
 	},
 	['kqito/vim-easy-replace'] = {
 		-- Desc: Quick replace
@@ -304,15 +302,28 @@ plugins = {
 		config = true,
 		keys = require("utils").lazy_mappings("multiplecursors")
 	},
+	['SunnyTamang/select-undo.nvim'] = {
+		-- Desc: Undo on selected part
+        opts = {
+            line_mapping = "su",
+            partial_mapping = "scu",
+        }
+	},
 
 	-- Better UI ---------------------------------------------------
 	['kevinhwang91/nvim-hlslens'] = {
 		-- Desc: Highlight search
 		event = { "ModeChanged" },
 		config = function()
-			require("plugin.ui.search.hlslens")
+			require("plugin.ui.hlslens")
 		end,
 		keys = require("utils").lazy_mappings("hlslens")
+	},
+	['dstein64/nvim-scrollview'] = {
+		-- Desc: Scrollbar
+		config = function()
+			require("plugin.ui.scrollview")
+		end,
 	},
 	['folke/noice.nvim'] = {
 		-- Desc: Show message popup, LSP progress, popup commandline
@@ -347,32 +358,22 @@ plugins = {
 		end,
 	},
 
-	-- Picker ------------------------------------------------------
-    ['2KAbhishek/nerdy.nvim'] = {
-    	-- Desc: Icon picker
-        dependencies = {
-            'stevearc/dressing.nvim',
-            'nvim-telescope/telescope.nvim',
-        },
-        cmd = 'Nerdy',
-    },
-
 	-- Float terminal ----------------------------------------------
 	['rebelot/terminal.nvim'] = {
 		-- Desc: Float terminal
+		init = function()
+			require("utils").load_mappings("terminal")
+		end,
 		config = function()
 			require("plugin.ui.window.terminal")
 		end,
-		keys = require("utils").lazy_mappings("terminal")
 	},
 	['nvimtools/hydra.nvim'] = {
 		-- Desc: Menu keymap
-		-- enabled = false,
 		dependencies = {
 			'lewis6991/gitsigns.nvim',
 			'FabijanZulj/blame.nvim',
 			'sindrets/diffview.nvim',
-			'nvim-telescope/telescope.nvim',
 		},
 		config = function()
 			require("plugin.ui.hydra")
@@ -389,6 +390,12 @@ plugins = {
 			require("plugin.ui.fold.foldsign")
 		end,
 	},
+	['OXY2DEV/foldtext.nvim'] = {
+		-- Desc: Pretty foldtext
+		config = function()
+            require("plugin.ui.fold.foldtext")
+		end,
+	},
 	['nvim-zh/colorful-winsep.nvim'] = {
 		-- Desc: Win separator
 		commit = "e1b72c",
@@ -399,6 +406,7 @@ plugins = {
 	},
 	['echasnovski/mini.trailspace'] = {
 		-- Desc: Highlight, remove trailing space
+		event = "VeryLazy",
 		version = false,
 		config = true,
 	},
@@ -418,12 +426,6 @@ plugins = {
 	},
 
 	-- Utility --------------------------------------------------
-	['rcarriga/nvim-notify'] = {
-		-- Desc: Message popup
-		config = function()
-			require("plugin.utility.notify")
-		end,
-	},
 	['Shatur/neovim-session-manager'] = {
 		-- Desc: Session
 		config = function()
@@ -446,6 +448,14 @@ plugins = {
 		cmd = { "HexDump", "HexAssemble", "HexToggle" },
 		config = true,
 	},
+	['Dan7h3x/LazyDo'] = {
+		-- Desc: Tasks noting
+		event = "VeryLazy",
+		config = function()
+			require("plugin.ui.lazydo")
+		end,
+		keys = require("utils").lazy_mappings("lazydo")
+	},
 	['ryanoasis/vim-devicons'] = {
 		-- Desc: devicons source for vim
 	},
@@ -464,43 +474,10 @@ plugins = {
 	},
 
 	-- Plugin on pending ----------------------------------------
-	-- TODO: Config Lazyload (from nvim-dap to end)
-	-- TODO: Config for blinks (Esc to cancel insert, Enter to confirm selection)
-	-- TODO: Config for menu
-	-- TODO: Update snacks (notifier + may use terminal to replace terminal + may use dashboard to replace dashboard)
-	-- TODO: Update statuscolumn + foldtext (may use snacks-statuscolumn)
-	-- TODO: Check to replace telescope with fzf-lua
+	-- ERROR: Check blink commit to fix critical error
+	-- TODO: Config for menu + hydra
+	-- TODO: Update snacks picker to use with Todo (Currently, it's a bug from Snacks)
 
-	['luukvbaal/statuscol.nvim'] = {
-		-- Desc: Status column
-		enabled = false,
-		config = function()
-            require("plugin.ui.window.statuscol")
-		end,
-	},
-	['OXY2DEV/foldtext.nvim'] = {
-		config = true,
-	},
-	['folke/snacks.nvim'] = {
-		-- Desc: Collection of small ultility plugins
-        priority = 1000,
-		init = function()
-            vim.g.animate       = true
-            vim.g.bigfile       = true
-            vim.g.notifier      = true
-            vim.g.snacks_indent = true
-            vim.g.scratch       = true
-            vim.g.snacks_scroll = true
-
-			-- Mappings
-			require("utils").load_mappings("snacks_scratch")
-        end,
-		config = function()
-			require("plugin.utility.snacks")
-			-- BUG: Enable indent at start up. Unless, it sometimes does not load
-			require("snacks").indent.enable()
-		end
-	},
 }
 
 -- Load lazy (plugin manager)

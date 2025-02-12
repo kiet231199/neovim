@@ -1,11 +1,3 @@
--- IMPORTANT: make sure to setup neodev BEFORE lspconfig
-require("neodev").setup({
-    -- add any options here, or leave empty to use the default settings
-    library = { plugins = { "nvim-dap-ui" }, types = true },
-})
-
----------------------------------------------------------------------------------------------------
-
 -- LSP UI
 local signs = { Error = "", Warn = "", Hint = "", Information = "" }
 for type, icon in pairs(signs) do
@@ -168,7 +160,6 @@ require("lsp-format").setup {
 
 -- Auto command
 vim.api.nvim_create_autocmd("CursorHold", {
-    buffer = bufnr,
     callback = function()
         local opts = {
             focusable = false,
