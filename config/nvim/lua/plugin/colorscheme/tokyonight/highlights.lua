@@ -63,6 +63,7 @@ local dark = {
         ["SnacksPickerPreviewTitle"]     = { fg = "#1a1b26", bg = "#bb9af7" },
         -- Blink
         ["BlinkCmpLabelMatch"]           = { fg = "Orange", bold = true },
+        ["BlinkCmpLabelDescription"]     = { fg = "#565F89" },
         -- Mininvim
         ["MiniTrailspace"]               = { bg = "Red" },
         -- Dropbar

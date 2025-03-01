@@ -148,7 +148,7 @@ plugins = {
 	},
 	['saghen/blink.cmp'] = {
 	    -- Desc: LSP Completion manager
-	    commit = "507d0d7",
+	    -- commit = "507d0d7",
 		event = { "InsertEnter", "CmdlineEnter" },
 	    dependencies = {
 	    	-- Desc: CMP source importer for blink.nvim

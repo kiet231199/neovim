@@ -7,7 +7,7 @@ end
 local icons = {
 	Text          = "󰉿",
 	Method        = "",
-	Function      = "󰊕",
+	Function      = '󰊕',
 	Constructor   = "",
 	Field         = "",
 	Variable      = "󰆦",
@@ -66,19 +66,6 @@ blink.setup({
 
         ['<C-u>'] = { function(cmp) cmp.scroll_documentation_up(4) end, 'fallback' },
         ['<C-d>'] = { function(cmp) cmp.scroll_documentation_down(4) end, 'fallback' },
-
-        cmdline = {
-            -- Disable default keymap
-            preset = 'none',
-
-            ['<Tab>']   = { 'select_next', 'fallback' },
-            ['<S-Tab>'] = { 'select_prev', 'fallback' },
-			['<CR>']    = { 'accept', 'fallback' },
-
-            ['<Up>']    = { 'select_prev', 'fallback' },
-            ['<Down>']  = { 'select_next', 'fallback' },
-            ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-        },
     },
     completion = {
         -- example: 'foo_|_bar' will match 'foo_' for 'prefix' and 'foo__bar' for 'full'
@@ -183,8 +170,7 @@ blink.setup({
                         ellipsis = true,
                         text = function(ctx) return icons[ctx.kind] .. ctx.icon_gap end,
                         highlight = function(ctx)
-							local hl = require('blink.cmp.completion.windows.render.tailwind').get_hl(ctx) or 'BlinkCmpKind'
-                            return hl .. ctx.kind
+                            return ctx.kind_hl
                         end,
                     },
                     kind = {
@@ -192,8 +178,7 @@ blink.setup({
                         width = { fill = true },
                         text = function(ctx) return ctx.kind end,
                         highlight = function(ctx)
-							local hl = require('blink.cmp.completion.windows.render.tailwind').get_hl(ctx) or 'BlinkCmpKind'
-                            return hl .. ctx.kind
+                            return ctx.kind_hl
                         end,
                     },
                     source_name = {
@@ -202,7 +187,7 @@ blink.setup({
                             local source_name = '[' .. ctx.source_name .. ']'
                             return kinds[ctx.source_name] or source_name
                         end,
-                        highlight = 'BlinkCmpSource',
+                        highlight = 'BlinkCmpLabelDescription',
                     },
                 },
             },
@@ -245,6 +230,7 @@ blink.setup({
         },
     },
     fuzzy = {
+    	implementation = "lua",
         use_frecency = false,
         sorts = { 'score', 'sort_text' },
         prebuilt_binaries = {
@@ -253,19 +239,8 @@ blink.setup({
         },
     },
     sources = {
-        default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'doxygen' },
         -- normal:  snipptes -> doxygen -> lsp -> ripgrep -> buffer
-        -- cmdline:
-            -- search:  ripgrep -> buffer
-            -- command: path --> cmdline -> history
-        cmdline = function()
-            local type = vim.fn.getcmdtype()
-            -- Search forward and backward
-            if type == '/' or type == '?' then return { 'ripgrep', 'buffer' } end
-            -- Commands
-            if type == ':' or type == '@' then return { 'path', 'cmdline', 'history' } end
-            return {}
-        end,
+        default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'doxygen' },
         providers = {
 			lazydev = {
 				name = "LazyDev",
@@ -297,11 +272,12 @@ blink.setup({
                 module = 'blink.cmp.sources.path',
                 fallbacks = { 'cmdline', 'cmdline_history' },
                 opts = {
-                    trailing_slash = true,
+                    trailing_slash = false,
                     label_trailing_slash = true,
                     get_cwd = function(context) return vim.fn.expand(('#%d:p:h'):format(context.bufnr)) end,
                     show_hidden_files_by_default = true,
                 },
+                should_show_items = true,
                 score_offset = 900,
             },
             cmdline = {
@@ -339,8 +315,8 @@ blink.setup({
                             :totable()
                     end,
                 },
-                max_items = 10,
-                score_offset = 500,
+                max_items = 15,
+                score_offset = 600,
             },
 			ripgrep = {
 				name = "Ripgrep",
@@ -353,13 +329,13 @@ blink.setup({
 					context_size = 5,
 					max_filesize = "10M",
 					-- "--case-sensitive" or "--smart-case".
-					search_casing = "--ignore-case",
+					search_casing = "--smart-case",
 					fallback_to_regex_highlighting = true,
 					-- Show debug information in `:messages`
 					debug = false,
 				},
                 max_items = 15,
-                score_offset = 600,
+                score_offset = 500,
 			},
 			doxygen = {
 				name = "doxygen",
@@ -373,6 +349,36 @@ blink.setup({
 				max_items = 5,
                 score_offset = 800,
 			},
+        },
+    },
+	cmdline = {
+		enabled = true,
+	    keymap = {
+            -- Disable default keymap
+            preset = 'none',
+
+            ['<Tab>']   = { 'select_next', 'fallback' },
+            ['<S-Tab>'] = { 'select_prev', 'fallback' },
+			['<CR>']    = { 'accept_and_enter', 'fallback' },
+
+            ['<Up>']    = { 'select_prev', 'fallback' },
+            ['<Down>']  = { 'select_next', 'fallback' },
+            ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        },
+		-- search:  ripgrep -> buffer
+		-- command: path --> cmdline -> history
+        sources = function()
+            local type = vim.fn.getcmdtype()
+            -- Search forward and backward
+            if type == '/' or type == '?' then return { 'ripgrep', 'buffer' } end
+            -- Commands
+            if type == ':' or type == '@' then return { 'path', 'cmdline', 'history' } end
+            return {}
+        end,
+        completion = {
+            menu = { auto_show = true },
+            ghost_text = { enabled = true },
+            draw = nil,
         },
     },
 })
