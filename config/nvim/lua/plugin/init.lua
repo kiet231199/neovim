@@ -148,7 +148,6 @@ plugins = {
 	},
 	['saghen/blink.cmp'] = {
 	    -- Desc: LSP Completion manager
-	    -- commit = "507d0d7",
 		event = { "InsertEnter", "CmdlineEnter" },
 	    dependencies = {
 	    	-- Desc: CMP source importer for blink.nvim
@@ -474,9 +473,10 @@ plugins = {
 	},
 
 	-- Plugin on pending ----------------------------------------
-	-- ERROR: Check blink commit to fix critical error
 	-- TODO: Config for menu + hydra
 	-- TODO: Update snacks picker to use with Todo (Currently, it's a bug from Snacks)
+	['PsychoLlama/alternaut.nvim'] = {},
+	['igorlfs/nvim-dap-view'] = {},
 
 }
 
