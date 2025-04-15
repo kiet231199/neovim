@@ -1,16 +1,22 @@
 -- LSP UI
-local signs = { Error = "", Warn = "", Hint = "", Information = "" }
-for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
 vim.diagnostic.config({
     -- disable virtual text
-    virtual_text = false,
+    virtual_text = true,
+    virtual_lines = false,
     -- show signs
     signs = {
-        active = signs,
+    	text = {
+            [vim.diagnostic.severity.ERROR] = '',
+            [vim.diagnostic.severity.WARN]  = '',
+            [vim.diagnostic.severity.HINT]  = '',
+            [vim.diagnostic.severity.INFO]  = '',
+    	},
+    	numhl = {
+            [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+            [vim.diagnostic.severity.WARN]  = 'DiagnosticSignWarn',
+            [vim.diagnostic.severity.HINT]  = 'DiagnosticSignHint',
+            [vim.diagnostic.severity.INFO]  = 'DiagnosticSignInfo',
+        },
     },
     update_in_insert = true,
     underline = true,
@@ -26,39 +32,6 @@ vim.diagnostic.config({
 })
 
 ---------------------------------------------------------------------------------------------------
-
--- LSP Common configuration
-local on_attach = function(client, bufnr)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
-
-    -- Mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
-
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition,      bufopts)
-    vim.keymap.set('n', 'gf', vim.lsp.buf.references,      bufopts)
-    vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', 'gk', vim.diagnostic.goto_prev,    bufopts)
-    vim.keymap.set('n', 'gj', vim.diagnostic.goto_next,    bufopts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.rename,          bufopts)
-    vim.keymap.set('n', 'K',  vim.lsp.buf.hover,           bufopts)
-
-    -- Auto format on saving
-    -- require("lsp-format").on_attach(client)
-end
-
-local handlers = {
-    ["textDocument/hover"]         = vim.lsp.with(vim.lsp.handlers.hover, { width = 60, border = "rounded" }),
-    ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { width = 60, border = "rounded" }),
-}
-
-local completeionItem = {
-    snippetSupport = true,
-    resolveSupport = {
-        properties = { "documentation", "detail", "additionalTextEdits" },
-    },
-}
 
 -- Server configuration based on https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 local servers = {
@@ -129,19 +102,12 @@ local servers = {
 }
 
 for server, config in pairs(servers) do
-    -- Merge capabilities with blink.cmp
-    local capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
-
-    -- Override capabilities
-    capabilities.textDocument.completion.completeionItem = completeionItem
-
-    -- Setup LSP
-    require('lspconfig')[server].setup({
-        capabilities = capabilities,
-        handler      = handlers,
-        on_attach    = on_attach,
-    })
+	vim.lsp.config(server, config)
+	vim.lsp.enable(server)
 end
+
+-- BUG: I don't know what diagnosticls is and what does it do. But vim.lsp.enable() does not work
+require("lspconfig").diagnosticls.setup({})
 
 ---------------------------------------------------------------------------------------------------
 
@@ -171,4 +137,19 @@ vim.api.nvim_create_autocmd("CursorHold", {
         }
         vim.diagnostic.open_float(nil, opts)
     end
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('my.lsp', {}),
+  callback = function(args)
+    vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = args.buf })
+
+    -- Mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local bufopts = { noremap = true, silent = true, buffer = args.buf }
+
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.rename,     bufopts)
+    vim.keymap.set('n', 'K',  vim.lsp.buf.hover,      bufopts)
+  end,
 })

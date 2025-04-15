@@ -1,4 +1,4 @@
-api = {}
+Api = {}
 
 local icons = {
     external = {
@@ -11,8 +11,8 @@ local icons = {
     },
 }
 
-api.get_icon = function()
+Api.get_icon = function()
     return icons
 end
 
-return api
+return Api

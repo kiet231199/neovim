@@ -77,6 +77,12 @@ mappings.dropbar = {
 
 mappings.lspconfig = {
 	plugin = true,
+	n = {
+		["<F3>"] = { function() vim.diagnostic.config({
+			virtual_text = not vim.diagnostic.config().virtual_text,
+			virtual_lines = not vim.diagnostic.config().virtual_lines,
+		}) end, "toggle lsp diagnostic", opts = silent },
+	},
 	x = {
 		["gF"] = { ":lua require('lsp-range-format').format() <CR>", "format range", opts = silent },
 	},
@@ -85,9 +91,9 @@ mappings.lspconfig = {
 mappings.lspsaga = {
 	plugin = true,
 	n = {
+		-- Goto definition, Rename and Hover are used with LSP native
 		["gf"]   = { ":Lspsaga finder def+ref<CR>", "finder"   , opts = silent },
 		["gi"]   = { ":Lspsaga finder imp<CR>"    , "implement", opts = silent },
-		["gr"]   = { ":Lspsaga rename<CR>"        , "rename"   , opts = silent },
 		["K"]    = { ":Lspsaga hover_doc<CR>"     , "hover doc", opts = silent },
 		["<F6>"] = { ":Lspsaga outline<CR>"       , "outline"  , opts = silent },
 		-- Use <C-t> to jump back
@@ -95,17 +101,7 @@ mappings.lspsaga = {
 		-- Diagnsotic jump can use `<c-o>` to jump back
 		["gk"] = { function() require("lspsaga.diagnostic"):goto_prev() end, "diagnostic jump prev", opts = silent },
 		["gj"] = { function() require("lspsaga.diagnostic"):goto_next() end, "diagnostic jump next", opts = silent },
-		-- Only jump to error
-		["gek"] = { function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "error jump prev", opts = silent },
-		["gej"] = { function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "error jump next", opts = silent },
 	}
-}
-
-mappings.lsplines = {
-	plugin = true,
-	x = {
-		["<F3>"] = { ":lua require('lsp_lines').toggle() <CR>", "Toggle LSP diagnostic", opts = silent },
-	},
 }
 
 mappings.flash = {
@@ -178,12 +174,6 @@ mappings.dap = {
         ["<F24>"] = { ":DapStepOut<CR>", "Step Out", opts = silent },                                                                                                                -- <S-F12>
         ["<F57>"] = { function() require('persistent-breakpoints.api').set_conditional_breakpoint(vim.fn.input(' CONDITION    ')) end, "Condition breakpoint", opts = silent, }, -- <A-F9>
         ["<F33>"] = { function() require('persistent-breakpoints.api').clear_all_breakpoints() end, "Clear all breakpoints", opts = silent, },                                       -- <C-F9>
-        ["<2-LeftMouse>"] = { function()
-                require('persistent-breakpoints.api').toggle_breakpoint()
-            end,
-            "Add breakpoint at line by double click",
-            opts = silent,
-        },
     }
 }
 
@@ -297,25 +287,13 @@ mappings.tmux = {
 mappings.menu = {
     plugin = true,
     n = {
-        ["<Space>"] = { function()
-            local normal = require("plugin.ui.menu").normal
-            require("menu").open(normal, { border = "rounded" })
-        end, opts = silent },
-        ["<RightMouse>"] = { function()
-            local normal = require("plugin.ui.menu").normal
-            require("menu").open(normal, { border = "rounded" })
-        end, opts = silent },
+        ["<Space>"]      = { function() require("plugin.ui.menu").open("normal") end, opts = silent },
+        ["<RightMouse>"] = { function() require("plugin.ui.menu").open("normal") end, opts = silent },
     },
     x = {
-        ["<Space>"] = { function()
-            local visual = require("plugin.ui.menu").visual
-            require("menu").open(visual, { border = "rounded" })
-        end, opts = silent },
-        ["<RightMouse>"] = { function()
-            local visual = require("plugin.ui.menu").visual
-            require("menu").open(visual, { border = "rounded" })
-        end, opts = silent },
-    },
+        ["<Space>"]      = { function() require("plugin.ui.menu").open("visual") end, opts = silent },
+        ["<RightMouse>"] = { function() require("plugin.ui.menu").open("visual") end, opts = silent },
+    }
 }
 
 mappings.lazydo = {

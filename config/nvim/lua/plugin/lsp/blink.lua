@@ -49,6 +49,9 @@ blink.setup({
     enabled = function()
         return vim.bo.buftype ~= "prompt" and vim.b.completion ~= false
     end,
+    appearance = {
+        use_nvim_cmp_as_default = false,
+    },
     keymap = {
         -- Disable default keymap
         preset = 'none',
@@ -77,22 +80,18 @@ blink.setup({
             show_in_snippet = false,
             -- When true, will show the completion window after typing any of alphanumerics, `-` or `_`
             show_on_keyword = true,
-            -- When true, will show the completion window after accepting an item
-            show_on_accept_on_trigger_character = true,
-            -- When true, will show the completion window after triggerring character when entering insert mode
-            show_on_insert_on_trigger_character = true,
         },
         list = {
-            max_items = 15,
             -- No item will be selected by default
             selection = {
+                -- No auto select the first item
                 preselect = false,
                 auto_insert = true,
             },
         },
         accept = {
             -- Create an undo point when accepting a completion item
-            create_undo_point = true,
+            create_undo_point = false,
             auto_brackets = { enabled = true },
         },
         menu = {
@@ -212,12 +211,13 @@ blink.setup({
                 },
             },
         },
-        ghost_text = {
-            enabled = false,
-        },
     },
     signature = {
         enabled = true,
+        trigger = {
+            enabled = true,
+            show_on_keyword = false,
+        },
         window = {
             min_width = 40,
             max_width = 100,
@@ -230,9 +230,10 @@ blink.setup({
         },
     },
     fuzzy = {
-    	implementation = "lua",
+    	implementation = "prefer_rust_with_warning",
         use_frecency = false,
-        sorts = { 'score', 'sort_text' },
+        use_proximity = false,
+        sorts = { 'score', 'exact' , 'sort_text' },
         prebuilt_binaries = {
         	ignore_version_mismatch = true,
             download = false,
@@ -265,12 +266,11 @@ blink.setup({
                         items
                     )
                 end,
-                score_offset = 800,
+                score_offset = 1000,
             },
             path = {
                 name = 'Path',
                 module = 'blink.cmp.sources.path',
-                fallbacks = { 'cmdline', 'cmdline_history' },
                 opts = {
                     trailing_slash = false,
                     label_trailing_slash = true,
@@ -283,7 +283,7 @@ blink.setup({
             cmdline = {
                 name = "Cmdline",
                 module = 'blink.cmp.sources.cmdline',
-                score_offset = 700,
+                score_offset = 800,
             },
             snippets = {
                 name = 'Snippets',
@@ -300,7 +300,7 @@ blink.setup({
                     -- Set to '+' to use the system clipboard, or '"' to use the unnamed register
                     clipboard_register = nil,
                 },
-                score_offset = 1000,
+                score_offset = 800,
             },
             buffer = {
                 name = 'Buffer',
@@ -316,7 +316,7 @@ blink.setup({
                     end,
                 },
                 max_items = 15,
-                score_offset = 600,
+                score_offset = 700,
             },
 			ripgrep = {
 				name = "Ripgrep",
@@ -329,25 +329,25 @@ blink.setup({
 					context_size = 5,
 					max_filesize = "10M",
 					-- "--case-sensitive" or "--smart-case".
-					search_casing = "--smart-case",
+					search_casing = "--case-sensitive",
 					fallback_to_regex_highlighting = true,
 					-- Show debug information in `:messages`
 					debug = false,
 				},
                 max_items = 15,
-                score_offset = 500,
+                score_offset = 700,
 			},
 			doxygen = {
 				name = "doxygen",
 				module = "blink.compat.source",
 				max_items = 10,
-                score_offset = 700,
+                score_offset = 600,
 			},
 			history = {
 				name = "cmdline_history",
 				module = "blink.compat.source",
 				max_items = 5,
-                score_offset = 800,
+                score_offset = 500,
 			},
         },
     },
@@ -367,7 +367,7 @@ blink.setup({
         },
 		-- search:  ripgrep -> buffer
 		-- command: path --> cmdline -> history
-        sources = function()
+		sources = function()
             local type = vim.fn.getcmdtype()
             -- Search forward and backward
             if type == '/' or type == '?' then return { 'ripgrep', 'buffer' } end
@@ -376,8 +376,13 @@ blink.setup({
             return {}
         end,
         completion = {
+            list = {
+                selection = {
+                    preselect = false,
+                    auto_insert = true,
+                }
+            },
             menu = { auto_show = true },
-            ghost_text = { enabled = true },
             draw = nil,
         },
     },

@@ -1,45 +1,112 @@
-local editor   = require("plugin.ui.menu.editor")
-local lsp      = require("plugin.ui.menu.lsp")
-local terminal = require("plugin.ui.menu.terminal")
-
 return {
 	{
 		name = "󱏒  Open Explorer",
+		hl = "WarningMsg",
 		cmd = function() require("snacks").explorer() end,
+		rtxt = "F5",
 	},
 
 	{
 		name = "󰮌  Open Outline",
+		hl = "WarningMsg",
 		cmd = "Lspsaga outline",
+		rtxt = "F6",
 	},
 
 	{ name = "separator" },
 
 	{
-		name = "  Lsp Actions",
+		name = "  Goto Definition",
 		hl = "Exblue",
-		items = lsp.normal,
+		cmd = vim.lsp.buf.definition,
+		rtxt = "gd",
+	},
+
+	{
+		name = "  Peek Definition",
+		hl = "Exblue",
+		cmd = "Lspsaga peek_definition",
+		rtxt = "gpd",
+	},
+
+	{
+		name = "  Show References",
+		hl = "Exblue",
+		cmd = vim.lsp.buf.references,
+		rtxt = "gf",
+	},
+
+	{
+		name = "󰈙  Show Signature help",
+		hl = "Exblue",
+		cmd = vim.lsp.buf.signature_help,
+	},
+
+	{
+		name = "󰧮  Show Hover",
+		hl = "Exblue",
+		cmd = vim.lsp.buf.hover,
+		rtxt = "K",
+	},
+
+	{
+		name = "  Rename Symbol",
+		hl = "Exblue",
+		cmd = vim.lsp.buf.rename,
+		rtxt = "gr",
 	},
 
 	{ name = "separator" },
 
 	{
-		name = "󰩍  Load Session"
+		name = "  Git Show",
+		hl = "DiagnosticInfo",
+		cmd = function() require("gitsigns").blame_line({ full = true }) end,
 	},
 
 	{
-		name = "  Save Session"
+		name = "󰋚  Git Full Blame",
+		hl = "DiagnosticInfo",
+		cmd = "Gitsigns blame",
 	},
 
 	{
-		name = "󱀷  Delete Session"
+		name = "󰕚  Git Diff",
+		hl = "DiagnosticInfo",
+		cmd = "Gitsigns diffthis",
+	},
+
+	{
+		name = "󱁊  Git Graph",
+		hl = "DiagnosticInfo",
+		cmd = function() require("gitgraph").draw({}, { all = true, max_count = 200, exit = true }) end,
 	},
 
 	{ name = "separator" },
 
 	{
-		name = "  Open in terminal",
+		name = "  New terminal",
 		hl = "ExRed",
-		items = terminal.normal,
+		cmd = "TermToggle",
+		rtxt = "F8",
+	},
+	{
+		name = "󰕮  Htop",
+		hl = "ExRed",
+		cmd = "Htop",
+	},
+	{
+		name = "  Lazygit",
+		hl = "ExRed",
+		cmd = "Lazygit",
+	},
+
+	{ name = "separator" },
+
+	{
+		name = "  Add breakpoint",
+		hl = "ErrorMsg",
+		cmd = function() require('persistent-breakpoints.api').toggle_breakpoint() end,
+		rtxt = "Shift+F9",
 	},
 }

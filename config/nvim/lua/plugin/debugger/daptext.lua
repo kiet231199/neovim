@@ -15,11 +15,11 @@ virtualtext.setup({
     all_references = true,                 -- show virtual text on all all references of the variable (not only definitions)
     clear_on_continue = false,             -- clear virtual text on "continue" (might cause flickering when stepping)
     display_callback = function(variable, buf, stackframe, node, options)
-      if options.virt_text_pos == 'inline' then
-        return ' 󰶢 ' .. variable.value
-      else
-        return variable.name .. ' 󰶢 ' .. variable.value
-      end
+		if options.virt_text_pos == 'inline' then
+			return ' 󰶢 ' .. variable.value
+		else
+			return variable.name .. ' 󰶢 ' .. variable.value
+		end
     end,
     virt_text_pos = vim.fn.has 'nvim-0.10' == 1 and 'inline' or 'eol',
     -- experimental features:

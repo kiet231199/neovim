@@ -36,7 +36,7 @@ local options = {
 	number         = true,                              -- set numbered lines
 	relativenumber = true,                              -- set relative numbered lines
 	numberwidth    = 2,                                 -- set number column width to 2 {default 4}
-	signcolumn     = "auto:2-4",                        -- auto resize sign column (min = 1, max = 6)
+	signcolumn     = "yes",                        		-- auto resize sign column (min = 1, max = 6)
 	wrap           = false,                             -- display lines as one long line
 	scrolloff      = 0,                                 -- is one of my fav
 	sidescrolloff  = 0,
@@ -47,6 +47,7 @@ local options = {
 	whichwrap  	   = "bs<>[]hl",
 	diffopt        = { "vertical", "closeoff" },
 	colorcolumn    = "80",
+	smoothscroll   = true,
 }
 
 for k, v in pairs(options) do

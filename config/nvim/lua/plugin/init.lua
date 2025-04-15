@@ -50,12 +50,6 @@ plugins = {
 			require("plugin.git.gitsigns")
 		end,
 	},
-	['FabijanZulj/blame.nvim'] = {
-		-- Desc: Git show commit contents
-		config = function()
-			require("plugin.git.blame")
-		end
-	},
 	['sindrets/diffview.nvim'] = {
 		-- Desc: Show git diff
 		config = function()
@@ -132,12 +126,9 @@ plugins = {
 		config = function()
 			require("plugin.lsp.lspsaga")
 		end,
-		keys = require("utils").lazy_mappings("lspsaga")
-	},
-	['https://git.sr.ht/~whynothugo/lsp_lines.nvim'] = {
-		-- Desc: LSP show line diagnostics
-		config = true,
-		keys = require("utils").lazy_mappings("lsplines")
+		init = function()
+			require("utils").load_mappings("lspsaga")
+		end,
 	},
 	['folke/trouble.nvim'] = {
 		-- Desc: Show LSP diagnostics
@@ -346,16 +337,6 @@ plugins = {
 		end,
 		keys = require("utils").lazy_mappings("windows")
 	},
-	['folke/edgy.nvim'] = {
-		-- Desc: manage predefine window layout
-		event = "CmdlineEnter",
-		init = function()
-			vim.opt.splitkeep = "screen"
-		end,
-		config = function()
-			require("plugin.ui.window.edgy")
-		end,
-	},
 
 	-- Float terminal ----------------------------------------------
 	['rebelot/terminal.nvim'] = {
@@ -377,6 +358,14 @@ plugins = {
 		config = function()
 			require("plugin.ui.hydra")
 		end,
+	},
+	['nvzone/menu'] = {
+		-- Desc: Utility menu
+		dependencies = {
+			-- Desc: UI framework
+			'nvzone/volt',
+		},
+		keys = require("utils").lazy_mappings("menu")
 	},
 
 	-- Colorful ----------------------------------------------------
@@ -423,6 +412,12 @@ plugins = {
 		end,
 		keys = require("utils").lazy_mappings("screenkey")
 	},
+	['OXY2DEV/markview.nvim'] = {
+        -- Desc: Beautiful markdown renderer
+		config = function()
+			require("plugin.ui.markview")
+		end,
+	},
 
 	-- Utility --------------------------------------------------
 	['Shatur/neovim-session-manager'] = {
@@ -463,21 +458,19 @@ plugins = {
 	},
 
 	-- Plugin on testing ----------------------------------------
-	['nvzone/menu'] = {
-		-- Desc: Utility menu
-		dependencies = {
-			-- Desc: UI framework
-			'nvzone/volt',
-		},
-		keys = require("utils").lazy_mappings("menu")
+	['olimorris/codecompanion.nvim'] = {
+		-- Desc: AI for neovim
+		event = "VeryLazy",
+		config = function()
+			require("plugin.editor.ollama")
+		end,
 	},
 
 	-- Plugin on pending ----------------------------------------
-	-- TODO: Config for menu + hydra
 	-- TODO: Update snacks picker to use with Todo (Currently, it's a bug from Snacks)
-	['PsychoLlama/alternaut.nvim'] = {},
+	-- TODO: Try patchr
 	['igorlfs/nvim-dap-view'] = {},
-
+	['nhu/patchr.nvim'] = {},
 }
 
 -- Load lazy (plugin manager)

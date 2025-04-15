@@ -1,4 +1,8 @@
-local saga = require('lspsaga')
+local status_ok, saga = pcall(require, "lspsaga")
+if not status_ok then
+	print("Error: lspsaga")
+	return
+end
 
 saga.setup({
 	preview = {
@@ -51,12 +55,13 @@ saga.setup({
 		},
 	},
 	diagnostic = {
-		show_layout = 'float',
-		show_normal_height = 10,
+		show_code_action = true,
 		jump_num_shortcut = true,
-		aut_preview = false,
 		max_width = 0.8,
 		max_height = 0.6,
+		text_hl_follow = true,
+		show_layout = 'float',
+		show_normal_height = 10,
 		max_show_width = 0.9,
 		max_show_height = 0.6,
 		wrap_long_lines = true,
@@ -166,3 +171,4 @@ saga.setup({
 		},
 	},
 })
+

@@ -1,4 +1,4 @@
-api = {}
+Api = {}
 
 local option = {
     -- "tokyonight" only
@@ -7,7 +7,7 @@ local option = {
     background = "dark",
 }
 
-api.set_option = function()
+Api.set_option = function()
     if option.colorscheme == "tokyonight" then
         vim.cmd("colorscheme tokyonight")
     end
@@ -15,11 +15,11 @@ api.set_option = function()
     vim.o.background = option.background
 end
 
-api.get_option = function()
+Api.get_option = function()
     return option
 end
 
-api.get_highlights = function()
+Api.get_highlights = function()
 	local highlights = {}
     if option.colorscheme == "tokyonight" then
         highlights = require("plugin.colorscheme.tokyonight.highlights")
@@ -28,7 +28,7 @@ api.get_highlights = function()
     else return highlights.dark end
 end
 
-api.toggle_background = function()
+Api.toggle_background = function()
     if option.background == "dark" then option.background = "light"
     else option.background = "dark" end
     vim.o.background = option.background
@@ -45,4 +45,4 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     end,
 })
 
-return api
+return Api
