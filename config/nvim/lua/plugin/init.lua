@@ -442,14 +442,6 @@ plugins = {
 		cmd = { "HexDump", "HexAssemble", "HexToggle" },
 		config = true,
 	},
-	['Dan7h3x/LazyDo'] = {
-		-- Desc: Tasks noting
-		event = "VeryLazy",
-		config = function()
-			require("plugin.ui.lazydo")
-		end,
-		keys = require("utils").lazy_mappings("lazydo")
-	},
 	['ryanoasis/vim-devicons'] = {
 		-- Desc: devicons source for vim
 	},
@@ -458,19 +450,9 @@ plugins = {
 	},
 
 	-- Plugin on testing ----------------------------------------
-	['olimorris/codecompanion.nvim'] = {
-		-- Desc: AI for neovim
-		event = "VeryLazy",
-		config = function()
-			require("plugin.editor.ollama")
-		end,
-	},
 
 	-- Plugin on pending ----------------------------------------
 	-- TODO: Update snacks picker to use with Todo (Currently, it's a bug from Snacks)
-	-- TODO: Try patchr
-	['igorlfs/nvim-dap-view'] = {},
-	['nhu/patchr.nvim'] = {},
 }
 
 -- Load lazy (plugin manager)

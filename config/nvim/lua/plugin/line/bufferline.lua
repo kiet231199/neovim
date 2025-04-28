@@ -254,10 +254,6 @@ local dark_mode = {
     },
 }
 
-local task = {
-    provider = " " .. require("lazydo").get_lualine_stats():gsub("|", " | ") .. " ",
-}
-
 local bufferline = {
 	condition = function()
         return conditions.is_active()
@@ -265,7 +261,6 @@ local bufferline = {
     offset,
     buffer,
     { provider = "%=" }, -- right align
-    task,
 	dark_mode,
     time,
     hl = { fg = "primary_bg", bg = "normal_bg" },

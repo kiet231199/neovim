@@ -296,11 +296,4 @@ mappings.menu = {
     }
 }
 
-mappings.lazydo = {
-    plugin = true,
-    n = {
-        ["<F2>"] = { ":LazyDoToggle<CR>", "Open tasks manager", opts = silent },
-    },
-}
-
 return mappings
