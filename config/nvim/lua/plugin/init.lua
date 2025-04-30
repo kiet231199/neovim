@@ -241,7 +241,6 @@ plugins = {
 	},
 	['folke/todo-comments.nvim'] = {
 		-- Desc: Todo comment
-		version = "*",
 		dependencies = { 'nvim-lua/plenary.nvim', },
 		config = function()
 			require("plugin.editor.comment.todo")
@@ -452,7 +451,6 @@ plugins = {
 	-- Plugin on testing ----------------------------------------
 
 	-- Plugin on pending ----------------------------------------
-	-- TODO: Update snacks picker to use with Todo (Currently, it's a bug from Snacks)
 }
 
 -- Load lazy (plugin manager)
