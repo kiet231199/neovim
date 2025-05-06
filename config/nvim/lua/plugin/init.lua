@@ -77,7 +77,6 @@ plugins = {
             vim.g.snacks_picker    = true
             vim.g.snacks_indent    = true
             vim.g.snacks_scratch   = true
-            vim.g.snacks_scroll    = true
 
 			-- Mappings
 			require("utils").load_mappings("snacks_explorer")
@@ -308,10 +307,16 @@ plugins = {
 		end,
 		keys = require("utils").lazy_mappings("hlslens")
 	},
+	['karb94/neoscroll.nvim'] = {
+		-- Desc: Smooth scrolling
+		config = function()
+			require("plugin.ui.scroll.neoscroll")
+		end,
+	},
 	['dstein64/nvim-scrollview'] = {
 		-- Desc: Scrollbar
 		config = function()
-			require("plugin.ui.scrollview")
+			require("plugin.ui.scroll.scrollview")
 		end,
 	},
 	['folke/noice.nvim'] = {

@@ -20,8 +20,6 @@ mappings.general = {
 		["<esc>"]     = { ":noh <CR>", "clear highlight search" },
 		["<C-a>"]     = { "ggVG", "select all" },
 		["<C-s>"]     = { ':w<CR>:lua require("notify")("Save successfull 勒", "info",{title = "Save file "})<CR>:noh<CR>', opts = silent },
-		["<C-e>"]     = { "10<C-e>" };
-		["<C-y>"]     = { "10<C-y>" };
 
 		["<F4>"]      = { ":lua ToggleLSP()<CR>", "toggle_lsp",            opts = silent },
 		["<F12>v"]    = { ":lua ToggleCopyMode()<CR>", "toggle interface", opts = silent },
