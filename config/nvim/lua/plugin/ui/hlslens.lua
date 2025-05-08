@@ -5,6 +5,7 @@ if not status_ok then
 end
 
 hlslens.setup({
+	enable_incsearch = false,
     override_lens = function(render, posList, nearest, idx, relIdx)
         local sfw = vim.v.searchforward == 1
         local indicator, text, chunks
