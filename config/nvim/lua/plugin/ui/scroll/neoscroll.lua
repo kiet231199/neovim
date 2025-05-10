@@ -6,7 +6,7 @@ end
 
 neoscroll.setup({
 	mappings = {},
-	hide_cursor = false,       -- Hide cursor while scrolling
+	hide_cursor = true,        -- Hide cursor while scrolling
 	stop_eof = true,           -- Stop at <EOF> when scrolling downwards
 	respect_scrolloff = true,  -- Stop scrolling when the cursor reaches the scrolloff margin of the file
 	cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
@@ -38,4 +38,3 @@ local modes = { 'n', 'v', 'x' }
 for key, func in pairs(keymap) do
 	vim.keymap.set(modes, key, func)
 end
-

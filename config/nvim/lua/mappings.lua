@@ -90,9 +90,8 @@ mappings.lspsaga = {
 	plugin = true,
 	n = {
 		-- Goto definition, Rename and Hover are used with LSP native
-		["gf"]   = { ":Lspsaga finder def+ref<CR>", "finder"   , opts = silent },
-		["gi"]   = { ":Lspsaga finder imp<CR>"    , "implement", opts = silent },
-		["K"]    = { ":Lspsaga hover_doc<CR>"     , "hover doc", opts = silent },
+		-- ["gf"]   = { ":Lspsaga finder def+ref<CR>", "finder"   , opts = silent },
+		-- ["gi"]   = { ":Lspsaga finder imp<CR>"    , "implement", opts = silent },
 		["<F6>"] = { ":Lspsaga outline<CR>"       , "outline"  , opts = silent },
 		-- Use <C-t> to jump back
 		["gpd"] = { ":Lspsaga peek_definition<CR>", "float definition", opts = silent },
@@ -151,6 +150,9 @@ mappings.snacks_picker = {
         ["<leader>fm"] = { function() Snacks.picker.man() end, "Man Pages" },
         ["<leader>fp"] = { function() Snacks.picker.projects() end, "Projects" },
         ["<leader>ft"] = { function() Snacks.picker.todo_comments() end, "Todo" },
+        -- lsp
+        ["gf"] = { function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
+        ["gi"] = { function() Snacks.picker.lsp_implementations() end, nowait = true, desc = "Implementations" },
     },
 }
 

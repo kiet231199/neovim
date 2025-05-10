@@ -73,7 +73,7 @@ local hydra_git = {
 		{'d', gitsigns.diffthis, { exit = true } },
 		{'D', ':DiffviewOpen<CR>', { exit = true } },
 		{'b', gitsigns.toggle_current_line_blame, },
-		{'B', function() gitsigns.blame_line { full = true } end, },
+		{'B', function() Snacks.git.blame_line() end, },
 		{'g', 'Gitsigns blame<CR>', { exit = true } },
 		{'G', function() require('gitgraph').draw({}, { all = true, max_count = 200, exit = true }) end, },
 		{'q', nil, { exit = true, nowait = true } },

@@ -83,6 +83,17 @@ local explorer = {
     replace_netrw = true,
 }
 
+--- @class git
+local git = {
+    enabled = vim.g.snacks_git,
+    width = 0.6,
+    height = 0.8,
+    border = "rounded",
+    title = " Git Blame ",
+    title_pos = "center",
+    ft = "git",
+}
+
 --- @class notifier
 local notifier = {
     enabled = vim.g.snacks_notifier,
@@ -169,38 +180,6 @@ local indent = {
 local picker = {
     enabled = vim.g.snacks_picker,
     prompt = " ",
-    sources = {
-        explorer = {
-            supports_live = true,
-            follow_file = true,
-            auto_close = false,
-            win = {
-                list = {
-                    keys = {
-                        ["<BS>"] = "explorer_up",
-                        ["l"] = "confirm",
-                        ["h"] = "explorer_close", -- close directory
-                        ["a"] = "explorer_add",
-                        ["d"] = "explorer_del",
-                        ["r"] = "explorer_rename",
-                        ["c"] = "explorer_copy",
-                        ["m"] = "explorer_move",
-                        ["o"] = "explorer_open", -- open with system application
-                        ["P"] = "toggle_preview",
-                        ["y"] = "explorer_yank",
-                        ["u"] = "explorer_update",
-                        ["<c-c>"] = "explorer_cd",
-                        ["."] = "explorer_focus",
-                        ["I"] = "toggle_ignored",
-                        ["H"] = "toggle_hidden",
-                        ["Z"] = "explorer_close_all",
-                        ["]g"] = "explorer_git_next",
-                        ["[g"] = "explorer_git_prev",
-                    },
-                },
-            },
-        }
-    },
     layout = {
         cycle = true,
         --- Use the default layout or vertical if the window is too narrow
@@ -283,9 +262,8 @@ local picker = {
                 ["<a-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
                 ["<a-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
                 ["<c-d>"] = { "list_scroll_down", mode = { "i", "n" } },
-                ["<a-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
-                ["<c-g>"] = { "toggle_live", mode = { "i", "n" } },
                 ["<c-u>"] = { "list_scroll_up", mode = { "i", "n" } },
+                ["<c-g>"] = { "toggle_live", mode = { "i", "n" } },
                 ["<ScrollWheelDown>"] = { "list_scroll_wheel_down", mode = { "i", "n" } },
                 ["<ScrollWheelUp>"] = { "list_scroll_wheel_up", mode = { "i", "n" } },
                 ["<c-v>"] = { "edit_vsplit", mode = { "i", "n" } },
@@ -324,8 +302,8 @@ local picker = {
                 ["<a-u>"] = "preview_scroll_up",
                 ["<a-j>"] = "preview_scroll_down",
                 ["<a-k>"] = "preview_scroll_up",
-                ["<a-h>"] = "preview_scroll_right",
-                ["<a-l>"] = "preview_scroll_left",
+                ["<a-h>"] = "preview_scroll_left",
+                ["<a-l>"] = "preview_scroll_right",
                 ["<c-v>"] = "edit_vsplit",
                 ["<c-s>"] = "edit_split",
                 ["<c-j>"] = "list_down",
@@ -430,6 +408,48 @@ local picker = {
         scores = false, -- show scores in the list
         leaks = false, -- show when pickers don't get garbage collected
     },
+    ---@class snacks.picker.explorer
+    sources = {
+        explorer = {
+            diagnostics_open = true,
+            git_status_open = true,
+            auto_close = true,
+            layout = {
+                preset = "sidebar", layout = { position = "left", width = 50 },
+            },
+            win = {
+                list = {
+                    keys = {
+                        ["<BS>"] = "explorer_up",
+                        ["l"] = "confirm",
+                        ["h"] = "explorer_close", -- close directory
+                        ["a"] = "explorer_add",
+                        ["d"] = "explorer_del",
+                        ["r"] = "explorer_rename",
+                        ["c"] = "explorer_copy",
+                        ["m"] = "explorer_move",
+                        ["o"] = "explorer_open", -- open with system application
+                        ["P"] = "toggle_preview",
+                        ["y"] = "explorer_yank",
+                        ["u"] = "explorer_update",
+                        ["<c-c>"] = "explorer_cd",
+                        ["."] = "explorer_focus",
+                        ["I"] = "toggle_ignored",
+                        ["H"] = "toggle_hidden",
+                        ["Z"] = "explorer_close_all",
+                        ["]g"] = "explorer_git_next",
+                        ["[g"] = "explorer_git_prev",
+						["<a-d>"] = "preview_scroll_down",
+						["<a-u>"] = "preview_scroll_up",
+						["<a-j>"] = "preview_scroll_down",
+						["<a-k>"] = "preview_scroll_up",
+						["<a-h>"] = "preview_scroll_left",
+						["<a-l>"] = "preview_scroll_right",
+                    },
+                },
+            },
+        },
+    }
 }
 
 --- @class scratch
@@ -483,7 +503,7 @@ snacks.setup({
     -- debug
     -- dim
     explorer = explorer,
-    -- git
+    git = git,
     -- gitbrowse,
     indent = indent,
     -- input

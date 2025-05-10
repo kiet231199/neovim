@@ -73,6 +73,7 @@ plugins = {
             vim.g.snacks_dashboard = true
             vim.g.snacks_bigfile   = true
             vim.g.snacks_explorer  = true
+            vim.g.snacks_git       = true
             vim.g.snacks_notifier  = true
             vim.g.snacks_picker    = true
             vim.g.snacks_indent    = true
@@ -114,7 +115,7 @@ plugins = {
 		end,
 	},
 	['williamboman/mason.nvim'] = {
-		-- Desc: LSP installer
+		-- Desc: LSP installer,
 		config = function()
 			require("plugin.lsp.mason")
 		end,
