@@ -59,6 +59,13 @@ mappings.general = {
 	},
 }
 
+mappings.neotree = {
+	plugin = true,
+	n = {
+		["<F5>"] = { ":Neotree toggle reveal_force_cwd<CR>", "Open Neotree", opts = silent },
+	}
+}
+
 mappings.jabs = {
 	plugin = true,
 	n = {
@@ -115,13 +122,6 @@ mappings.flash = {
 		['f'] = { function() require("flash").jump() end, "Jump to word / string", opts = silent },
 		['t'] = { function() require("flash").treesitter() end, "Select to treesitter object", opts = silent },
 	},
-}
-
-mappings.snacks_explorer = {
-    plugin = true,
-    n = {
-        ["<F5>"] = { function() require("snacks").explorer() end, "Open file explorer", opts = silent },
-    }
 }
 
 mappings.snacks_scratch = {

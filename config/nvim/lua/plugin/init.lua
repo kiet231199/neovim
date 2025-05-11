@@ -11,10 +11,19 @@ plugins = {
 	},
 
 	-- Explorer ----------------------------------------------------
+	['nvim-neo-tree/neo-tree.nvim'] = {
+		-- Desc: File browser
+		init = function()
+			require("utils").load_mappings("neotree")
+		end,
+		config = function()
+			require("plugin.explorer.neotree")
+		end,
+	},
 	['matbme/JABS.nvim'] = {
 		-- Desc: Tab explorer
 		config = function()
-			require("plugin.utility.jabs")
+			require("plugin.explorer.jabs")
 		end,
 		keys = require("utils").lazy_mappings("jabs")
 	},
@@ -72,7 +81,6 @@ plugins = {
             vim.g.snacks_animate   = true
             vim.g.snacks_dashboard = true
             vim.g.snacks_bigfile   = true
-            vim.g.snacks_explorer  = true
             vim.g.snacks_git       = true
             vim.g.snacks_notifier  = true
             vim.g.snacks_picker    = true
@@ -80,7 +88,6 @@ plugins = {
             vim.g.snacks_scratch   = true
 
 			-- Mappings
-			require("utils").load_mappings("snacks_explorer")
 			require("utils").load_mappings("snacks_scratch")
 			require("utils").load_mappings("snacks_picker")
         end,

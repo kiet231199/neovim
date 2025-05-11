@@ -2,7 +2,7 @@ return {
 	{
 		name = "󱏒  Open Explorer",
 		hl = "WarningMsg",
-		cmd = function() require("snacks").explorer() end,
+		cmd = "Neotree toggle reveal_force_cwd",
 		rtxt = "F5",
 	},
 

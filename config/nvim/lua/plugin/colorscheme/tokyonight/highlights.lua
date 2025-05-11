@@ -28,6 +28,10 @@ local dark = {
     },
     -- Plugin group
     plugin = {
+        -- NeoTree
+        ["NeoTreeFileNameOpened"]        = { fg = "#7aa2f7", bold = true },
+        ["NeoTreeIndentMarker"]          = { link = "Directory" },
+        ["NeoTreeExpander"]              = { link = "Directory" },
         -- Scrollview
         ["ScrollView"]                   = { bg = "#494C63" },
         ["ScrollViewCursor"]             = { fg = "#bb9af7" },
