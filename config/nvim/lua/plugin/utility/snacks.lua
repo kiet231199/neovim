@@ -26,7 +26,8 @@ local dashboard = {
         keys = {
             { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
             { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-            { icon = " ", key = "w", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+            { icon = " ", key = "w", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
+            { icon = " ", key = "e", desc = "Explorer", action = ":lua Snacks.explorer()" },
             { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
             { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
@@ -183,12 +184,12 @@ local picker = {
     },
     ---@class snacks.picker.matcher.Config
     matcher = {
-        fuzzy = true,      -- use fuzzy matching
-        smartcase = true,  -- use smartcase
-        ignorecase = true, -- use ignorecase
-        sort_empty = false, -- sort results when the search string is empty
-        filename_bonus = true, -- give bonus for matching file names (last part of the path)
-        file_pos = true,   -- support patterns like `file:line:col` and `file:line`
+        fuzzy          = true,  -- use fuzzy matching
+        smartcase      = true, -- use smartcase
+        ignorecase     = true,  -- use ignorecase
+        sort_empty     = false, -- sort results when the search string is empty
+        filename_bonus = false, -- give bonus for matching file names (last part of the path)
+        file_pos       = false, -- support patterns like `file:line:col` and `file:line`
     },
     sort = {
         -- default sort is by score, text length and index
@@ -199,6 +200,10 @@ local picker = {
     formatters = {
         file = {
             filename_first = false, -- display filename before the file path
+            truncate       = 40,    -- truncate the file path to (roughly) this length
+            filename_only  = false,  -- only show the filename
+            icon_width     = 2,     -- width of the icon (in characters)
+            git_status_hl  = true,  -- use the git status highlight group for the filename
         },
         selected = {
             show_always = false, -- only show the selected column when there are multiple selections
@@ -207,9 +212,6 @@ local picker = {
     },
     ---@class snacks.picker.previewers.Config
     previewers = {
-        git = {
-            native = false, -- use native (terminal) or Neovim for previewing git diffs and commits
-        },
         file = {
             max_size = 1024 * 1024, -- 1MB
             max_line_length = 500, -- max line length
@@ -401,6 +403,19 @@ local picker = {
     debug = {
         scores = false, -- show scores in the list
         leaks = false, -- show when pickers don't get garbage collected
+    },
+    sources = {
+    	explorer = {
+            layout = {
+                preset = "sidebar",
+                layout = { width = 0.35, },
+                preview = false
+            },
+    	},
+        grep = {
+            finder = "grep",
+            args = { "--ignore-case", },
+        },
     },
 }
 
