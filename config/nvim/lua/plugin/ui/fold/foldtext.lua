@@ -6,64 +6,74 @@ end
 
 local per = 0.2
 foldtext.setup({
-    default = {
-		{
-			type = "indent"
-		},
-		{
-			type = "raw",
-			text = function (win)
-				local w = vim.api.nvim_win_get_width(win);
-				local off = vim.fn.getwininfo(win)[1].textoff;
-				local rep = (w - off) / 2  * per
+	-- Ignore buffers with these buftypes.
+    ignore_buftypes = {},
+    -- Ignore buffers with these filetypes.
+    ignore_filetypes = {},
+	styles = {
+		default = {
+			{
+				kind = "indent"
+			},
+			{
+				kind = "section",
+				output = function (_, win)
+                    local w = vim.api.nvim_win_get_width(win);
+                    local off = vim.fn.getwininfo(win)[1].textoff;
+                    local rep = (w - off) / 2  * per
+                    local text = string.rep("━", math.floor(rep)) .. " "
 
-				return string.rep("━", math.floor(rep)) .. " "
-			end,
-			hl = "Comment",
-			gradient_repeat = true
-		},
-		{
-			type = "raw",
-			text = " ",
-			hl = "Title"
-		},
-		{
-			type = "raw",
-			text = " Fold: ",
-			hl = "Title"
-		},
-		{
-			type = "fold_size",
-			hl = "Title"
-		},
-		{
-			type = "raw",
-			text = " lines ",
-			hl = "Title"
-		},
-		{
-			type = "raw",
-			text = function()
-				return "[" .. vim.v.foldstart .. "   " .. vim.v.foldend .. "]"
-			end,
-			hl = "Comment",
-		},
-		{
-			type = "raw",
-			text = "  ",
-			hl = "Title"
-		},
-		{
-			type = "raw",
-			text = function (win)
-				local w = vim.api.nvim_win_get_width(win);
-				local off = vim.fn.getwininfo(win)[1].textoff;
-				local rep = (w - off) / 2  * per
+                    return { { text, "Comment" } }
+                end,
+				gradient_repeat = true
+			},
+			{
+				kind = "section",
+				output = function()
+                    return { { " ", "Title" } }
+				end,
+			},
+			{
+				kind = "section",
+				output = function()
+                    return { { " Fold: ", "Title" } }
+				end,
+			},
+			{
+				kind = "fold_size",
+				hl = "Title"
+			},
+			{
+				kind = "section",
+				output = function()
+                    return { { " lines ", "Title" } }
+				end,
+			},
+			{
+				kind = "section",
+				output = function()
+					local text = "[" .. vim.v.foldstart .. "   " .. vim.v.foldend .. "]"
+					return { { text, "Comment" } }
+				end,
+			},
+			{
+				kind = "section",
+				output = function()
+                    return { { "  ", "Title" } }
+				end,
+			},
+			{
+				kind = "section",
+				output = function (_, win)
+					local w = vim.api.nvim_win_get_width(win);
+					local off = vim.fn.getwininfo(win)[1].textoff;
+					local rep = (w - off) / 2  * per
+					local text = " " .. string.rep("━", math.floor(rep))
 
-				return " " .. string.rep("━", math.floor(rep))
-			end,
-			hl = "Comment",
-			gradient_repeat = true
+					return { { text, "Comment" } }
+				end,
+				gradient_repeat = true
+			},
 		},
-    },
+	},
 })
