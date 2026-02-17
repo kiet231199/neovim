@@ -1,7 +1,7 @@
 -- LSP UI
 vim.diagnostic.config({
     -- disable virtual text
-    virtual_text = true,
+    virtual_text = false,
     virtual_lines = false,
     -- show signs
     signs = {
@@ -105,9 +105,6 @@ for server, config in pairs(servers) do
 	vim.lsp.config(server, config)
 	vim.lsp.enable(server)
 end
-
--- BUG: I don't know what diagnosticls is and what does it do. But vim.lsp.enable() does not work
-require("lspconfig").diagnosticls.setup({})
 
 ---------------------------------------------------------------------------------------------------
 

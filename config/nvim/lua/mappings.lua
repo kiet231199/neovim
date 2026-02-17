@@ -21,12 +21,6 @@ mappings.general = {
 		["<C-a>"]     = { "ggVG", "select all" },
 		["<C-s>"]     = { ':w<CR>:lua require("notify")("Save successfull 勒", "info",{title = "Save file "})<CR>:noh<CR>', opts = silent },
 
-		["<F4>"]      = { ":lua ToggleLSP()<CR>", "toggle_lsp",            opts = silent },
-		["<F12>v"]    = { ":lua ToggleCopyMode()<CR>", "toggle interface", opts = silent },
-		["<F12>n"]    = { ":set norelativenumber!<CR>", "toggle relative number" },
-		["<F12>c"]    = { ":set list!<CR>", "toggle viewing special character" },
-		["<F12>s"]    = { ":lua ToggleGlobalStatusLine()<CR>", "toggle global status line" },
-
 		['<A-.>']     = { ":bnext<CR>", "next buffer" },
 		['<A-,>']     = { ":bprevious <CR>", "previous buffer" },
 		['<A-c>']     = { ":bdelete<CR>", "delete buffer" },
@@ -83,10 +77,11 @@ mappings.dropbar = {
 mappings.lspconfig = {
 	plugin = true,
 	n = {
-		["<F3>"] = { function() vim.diagnostic.config({
-			virtual_text = not vim.diagnostic.config().virtual_text,
-			virtual_lines = not vim.diagnostic.config().virtual_lines,
-		}) end, "toggle lsp diagnostic", opts = silent },
+		-- ["<F3>"] = { function() vim.diagnostic.config({
+		-- 	virtual_text = not vim.diagnostic.config().virtual_text,
+		-- 	virtual_lines = not vim.diagnostic.config().virtual_lines,
+		-- }) end, "toggle lsp diagnostic", opts = silent },
+		["<F3>"] = { ":lua require('tiny-inline-diagnostic').toggle() <CR>", "toggle lsp diagnostic", opts = silent },
 	},
 	x = {
 		["gF"] = { ":lua require('lsp-range-format').format() <CR>", "format range", opts = silent },
@@ -294,6 +289,13 @@ mappings.menu = {
         ["<Space>"]      = { function() require("plugin.ui.menu").open("visual") end, opts = silent },
         ["<RightMouse>"] = { function() require("plugin.ui.menu").open("visual") end, opts = silent },
     }
+}
+
+mappings.toggler = {
+    plugin = true,
+    n = {
+        ["<F12>"] = { function() require("megatoggler").toggle() end, opts = silent },
+    },
 }
 
 return mappings

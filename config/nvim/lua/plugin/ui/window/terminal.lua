@@ -82,12 +82,7 @@ vim.keymap.set({ "n", "t" }, "<leader>tp", function()
 	end
 end, { desc = "prev terminal", silent = true })
 
-vim.keymap.set({ "n", "t" }, "<leader>tc", function()
-	local index = require("terminal").current_term_index()
-	require("terminal").close(index)
-end, { silent = true })
-
-vim.keymap.set({ "n", "t" }, "<leader>tk", function()
+vim.keymap.set({ "n", "t" }, "<leader>q", function()
 	local index = require("terminal").current_term_index()
 	require("terminal").kill(index)
 end, { silent = true })

@@ -121,6 +121,12 @@ plugins = {
 			require("plugin.lsp.lspconfig")
 		end,
 	},
+	['rachartier/tiny-inline-diagnostic.nvim'] = {
+		-- Desc: Tiny inline diagnostics
+		config = function()
+			require("plugin.lsp.inline_diag")
+		end,
+	},
 	['williamboman/mason.nvim'] = {
 		-- Desc: LSP installer,
 		config = function()
@@ -379,6 +385,13 @@ plugins = {
 		},
 		keys = require("utils").lazy_mappings("menu")
 	},
+	['mihaifm/MegaToggler'] = {
+		-- Desc: Utility toggle menu
+		config = function()
+			require("plugin.ui.toggler")
+		end,
+		keys = require("utils").lazy_mappings("toggler")
+	},
 
 	-- Colorful ----------------------------------------------------
 	['itchyny/vim-cursorword'] = {
@@ -452,6 +465,15 @@ plugins = {
     ['RaafatTurki/hex.nvim'] = {
 		-- Desc: The same to hex dump
 		cmd = { "HexDump", "HexAssemble", "HexToggle" },
+		config = true,
+	},
+	['thgrass/tail.nvim'] = {
+		-- Desc: Allows any buffer to follow appended lines
+		cmd = { "TailEnable" },
+	},
+	['Necrom4/convy.nvim'] = {
+		-- Desc: Convert text formats
+		cmd = { "Convy", "ConvySeparator" },
 		config = true,
 	},
 	['ryanoasis/vim-devicons'] = {

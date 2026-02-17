@@ -231,7 +231,9 @@ blink.setup({
     },
     fuzzy = {
     	implementation = "prefer_rust_with_warning",
-        use_frecency = false,
+        frecency = {
+            enabled = false,
+        },
         use_proximity = false,
         sorts = { 'score', 'exact' , 'sort_text' },
         prebuilt_binaries = {
@@ -240,8 +242,8 @@ blink.setup({
         },
     },
     sources = {
-        -- normal:  snipptes -> doxygen -> lsp -> ripgrep -> buffer
-        default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'doxygen' },
+        -- normal:  snipptes -> doxygen -> lsp -> buffer
+        default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer', 'doxygen' },
         providers = {
 			lazydev = {
 				name = "LazyDev",
@@ -365,12 +367,12 @@ blink.setup({
             ['<Down>']  = { 'select_next', 'fallback' },
             ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
         },
-		-- search:  ripgrep -> buffer
+		-- search: buffer
 		-- command: path --> cmdline -> history
 		sources = function()
             local type = vim.fn.getcmdtype()
             -- Search forward and backward
-            if type == '/' or type == '?' then return { 'ripgrep', 'buffer' } end
+            if type == '/' or type == '?' then return { 'buffer'} end
             -- Commands
             if type == ':' or type == '@' then return { 'path', 'cmdline', 'history' } end
             return {}
