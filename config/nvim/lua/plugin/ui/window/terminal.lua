@@ -10,24 +10,26 @@ terminal.setup({
 	}
 })
 
--- Htop
-local htop = require("terminal").terminal:new({
-    layout = {
-		open_cmd = "float",
-		width = 0.7,
-		height = 0.5,
-		border = "rounded",
-	},
-    cmd = { "htop" },
-    autoclose = true,
-})
-vim.api.nvim_create_user_command("Htop", function()
-	if htop:is_attached() == true then
-		htop:close()
-	else
-		htop:open(nil, true)
-	end
-end, { nargs = "?" })
+-- Htop (Linux only, skip on Windows where the binary does not exist)
+if vim.fn.executable("htop") == 1 then
+	local htop = require("terminal").terminal:new({
+	    layout = {
+			open_cmd = "float",
+			width = 0.7,
+			height = 0.5,
+			border = "rounded",
+		},
+	    cmd = { "htop" },
+	    autoclose = true,
+	})
+	vim.api.nvim_create_user_command("Htop", function()
+		if htop:is_attached() == true then
+			htop:close()
+		else
+			htop:open(nil, true)
+		end
+	end, { nargs = "?" })
+end
 
 -- Lazygit
 local lazygit = require("terminal").terminal:new({
@@ -40,7 +42,9 @@ local lazygit = require("terminal").terminal:new({
     cmd = { "lazygit" },
     autoclose = true,
 })
-vim.env["GIT_EDITOR"] = "nvr -cc close -cc split --remote-wait +'set bufhidden=wipe'"
+if vim.fn.executable("nvr") == 1 then
+	vim.env["GIT_EDITOR"] = "nvr -cc close -cc split --remote-wait +'set bufhidden=wipe'"
+end
 vim.api.nvim_create_user_command("Lazygit", function(args)
     lazygit.cwd = args.args and vim.fn.expand(args.args)
 	if lazygit:is_attached() == true then

@@ -82,7 +82,9 @@ function install_config() {
     # Loader
     mkdir -p ${HOME}/.config/nvim
     cp -r ${WORK}/rtp/* ${HOME}/.config/nvim
-    sed -i "s|~/neovim/config/nvim|${INSTALL_PATH}/config/nvim|g" ${HOME}/.config/nvim/init.lua
+    # Patch the dot path fallback in the copied init.lua so nvim finds the profile
+    sed -i -e "s|NVIM_DOT_PATH or \"~/neovim\"|NVIM_DOT_PATH or \"${INSTALL_PATH}\"|g" \
+           -e "s|~/neovim/config/nvim|${INSTALL_PATH}/config/nvim|g" ${HOME}/.config/nvim/init.lua
     echo "[DONE] Installed configuration"
 }
 

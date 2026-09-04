@@ -460,6 +460,8 @@ plugins = {
 	},
 	['christoomey/vim-tmux-navigator'] = {
 		-- Desc: Switch pane between VIM and TMUX
+		-- tmux is a Linux tool; keep the plugin disabled when it is unavailable
+		enabled = vim.fn.executable("tmux") == 1,
 		keys = require("utils").lazy_mappings("tmux")
 	},
     ['RaafatTurki/hex.nvim'] = {

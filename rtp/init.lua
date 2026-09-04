@@ -14,8 +14,12 @@
 -- Full information can be found on https://github.com/NTBBloodbath/cheovim
 
 -- INFO: List all configuration here
+-- The default location is "~/neovim". Set the NVIM_DOT_PATH environment
+-- variable to point at any other deployment directory (the install scripts
+-- patch this fallback, so you normally never need to touch it).
+local nvim_dir = vim.env.NVIM_DOT_PATH or "~/neovim"
 local profiles = {
-	nvim = { "~/neovim/config/nvim", {} },
+	nvim = { nvim_dir .. "/config/nvim", {} },
 }
 
 -- Create all the plugins if necessary and start up the rest of cheovim!

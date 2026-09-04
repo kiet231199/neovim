@@ -1,10 +1,26 @@
 local dap = require('dap')
 
+-- Resolve a debugger for the current platform: keep the Linux default unchanged
+-- and pick gdb/lldb from PATH on Windows (e.g. from MSYS2 or LLVM).
+local function find_debugger()
+	if vim.fn.has("win32") == 1 then
+		local exe = vim.fn.exepath("gdb")
+		if exe == "" then exe = vim.fn.exepath("lldb") end
+		return exe
+	end
+	return "/usr/bin/gdb"
+end
+
 -- c/cpp
+local cpptools = vim.g.dot_path .. "/config/dap/extension/debugAdapters/bin/OpenDebugAD7"
+if vim.fn.has("win32") == 1 and vim.fn.filereadable(cpptools .. ".exe") == 1 then
+	cpptools = cpptools .. ".exe" -- Windows build of the adapter
+end
+
 dap.adapters.cppdbg = {
     id = 'cppdbg',
     type = 'executable',
-    command = vim.g.dot_path .. "/config/dap/extension/debugAdapters/bin/OpenDebugAD7",
+    command = cpptools,
 }
 dap.configurations.c = {
     {
@@ -12,7 +28,7 @@ dap.configurations.c = {
         type = "cppdbg",
         request = "launch",
         MIMode = "gdb",
-        miDebuggerPath = "/usr/bin/gdb",
+        miDebuggerPath = find_debugger(),
         program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,

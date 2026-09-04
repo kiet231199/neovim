@@ -17,6 +17,37 @@ Clone the repository and install the plugins:
 git clone git@github.com:kiet231199/neovim ~/.config/kiet231199/neovim
 ```
 
+## 🪟 Windows (PowerShell)
+
+The configuration itself is cross-platform. The bundled `tools/`, `config/lazy`,
+`config/mason` and `config/dap` packages are **Linux builds** and are **not
+extracted** on Windows: lazy.nvim is bootstrapped from GitHub on first start,
+Mason installs native Windows servers itself, and the required applications are
+installed on `PATH` (e.g. with `winget`). The config falls back to the system
+tools whenever the bundled Linux ones are absent, so Neovim works in any shell
+(PowerShell, NuShell, …).
+
+```powershell
+# from the repository root
+./install.ps1 -Option install -All
+```
+
+| Switch | Meaning |
+| ------ | ------- |
+| `-All` | configuration + LSP/DAP pack note + tool report |
+| `-Config` | configuration only |
+| `-Lsp` | note on LSP/DAP packs (skipped on Windows) |
+| `-Tools` | report missing Windows tools (Linux binaries are not shipped) |
+| `-InstallPath <dir>` | deployment directory (default: `~\neovim`) |
+
+First `nvim` start clones lazy.nvim (`config/lazy` pack is not extracted on
+Windows) and installs all plugins into `%LOCALAPPDATA%\nvim-data\lazy`; Mason
+installs LSP/DAP servers natively. `-Option cleanup` removes the loader from
+`%LOCALAPPDATA%\nvim` and the cache (`%LOCALAPPDATA%\nvim-data`).
+
+Windows requirements are the same set as Linux: Neovim, Git, ripgrep, fd, fzf,
+lazygit, Python 3 (with `pynvim`) and Node.js (with the `neovim` npm package).
+
 ## 💅 Support applications
 - 🌅 **Ripgrep**
 - 🔍 **Lazygit**
