@@ -153,6 +153,7 @@ plugins = {
 	['saghen/blink.cmp'] = {
 	    -- Desc: LSP Completion manager
 		event = { "InsertEnter", "CmdlineEnter" },
+		version = '1.*',
 	    dependencies = {
 	    	-- Desc: CMP source importer for blink.nvim
 			'saghen/blink.compat',
@@ -160,8 +161,6 @@ plugins = {
 			'xzbdmw/colorful-menu.nvim',
 			-- Desc: CMP for ripgrep
 			'mikavilpas/blink-ripgrep.nvim',
-			-- Desc: CMP for doxygen
-			'paopaol/cmp-doxygen',
 			-- -- Desc: Completion for commandline
 			'dmitmel/cmp-cmdline-history',
 	    },
@@ -173,14 +172,14 @@ plugins = {
 	-- Treesitter -------------------------------------------------
 	['nvim-treesitter/nvim-treesitter'] = {
 		-- Desc: Code highlight
+		lazy = false,
 		dependencies = {
 			-- Desc: Treesitter navigate
 			'nvim-treesitter/nvim-treesitter-textobjects',
-			-- Desc: Bracket color
-			'nvim-treesitter/nvim-treesitter',
-            -- Desc: Beautiful help document
+			-- Desc: Beautiful help document
 			'OXY2DEV/helpview.nvim',
 		},
+		build = ':TSUpdate',
 		config = function()
 			require("plugin.treesitter.treesitter")
 		end,

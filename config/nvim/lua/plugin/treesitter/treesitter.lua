@@ -1,109 +1,108 @@
-local status_ok, treesitter = pcall(require, "nvim-treesitter")
-if not status_ok then
+-- nvim-treesitter (main branch, full rewrite):
+--   * `require("nvim-treesitter.configs").setup{...}` no longer exists.
+--   * Highlighting / folding / indentation are Neovim built-ins, enabled per
+--     filetype via autocommands below.
+--   * Parsers are installed with `require("nvim-treesitter").install{...}`.
+local ts_ok, treesitter = pcall(require, "nvim-treesitter")
+if not ts_ok then
 	return
 end
 
-require("nvim-treesitter.configs").setup({
-    -- ensure_installed = { "c", "cpp"}, -- one of "all" or a list of languages
-	ignore_install = { "" }, -- List of parsers to ignore installing
-    sync_install = false,
-    auto_install = false,
-	highlight = {
-		enable = true, -- false will disable the whole extension
-        use_languagetree = true,
-	},
-	autopairs = {
-		enable = true,
-	},
-	incremental_selection = { enable = true },
-    matchup               = { enable = true },
-    endwise               = { enable = true },
-	indent                = { enable = true },
-    rainbow = {
-		enable = true,
-		extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-		max_file_lines = nil, -- Do not enable for files with more than n lines, int
-		-- termcolors = {} -- table of colour name strings
-		colors = {
-			'#458588',
-			'#b16286',
-			'#cc241d',
-			'#d65d0e',
-			'#458588',
-			'#b16286',
-			'#cc241d',
-			'#d65d0e',
-			'#458588',
-			'#b16286',
-			'#cc241d',
-			'#d65d0e',
-			'#458588',
-			'#b16286',
-			'#cc241d',
-			'#d65d0e',
-		},
-		termcolors = {
-			'brown',
-			'Darkblue',
-			'darkgray',
-			'darkgreen',
-			'darkcyan',
-			'darkred',
-			'darkmagenta',
-			'brown',
-			'gray',
-			'black',
-			'darkmagenta',
-			'Darkblue',
-			'darkgreen',
-			'darkcyan',
-			'darkred',
-			'red',
-		},
-	},
-    textobjects = {
-        move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-                ["]F"] = { query = "@function.outer"   , desc = "next function start point" },
-                ["]C"] = { query = "@class.outer"      , desc = "next struct start point" },
-                ["]P"] = { query = "@parameter.outer"  , desc = "next param start point" },
-                ["]I"] = { query = "@conditional.outer", desc = "next conditional start point" },
-                ["]L"] = { query = "@loop.outer"       , desc = "next loop start point" },
-                ["]R"] = { query = "@return.outer"     , desc = "next return start point" },
-            },
-            goto_next_end= {
-                ["]f"] = { query = "@function.outer"   , desc = "next function end point" },
-                ["]c"] = { query = "@class.outer"      , desc = "next struct end point" },
-                ["]p"] = { query = "@parameter.inner"  , desc = "next param end point" },
-                ["]i"] = { query = "@conditional.outer", desc = "next conditional end point" },
-                ["]l"] = { query = "@loop.outer"       , desc = "next loop end point" },
-                ["]r"] = { query = "@return.inner"     , desc = "next return end point" },
-            },
-            goto_previous_start = {
-                ["[F"] = { query = "@function.outer"   , desc = "prev function start point" },
-                ["[C"] = { query = "@class.outer"      , desc = "prev struct start point" },
-                ["[P"] = { query = "@parameter.outer"  , desc = "prev param end point" },
-                ["[I"] = { query = "@conditional.outer", desc = "prev conditional start point" },
-                ["[L"] = { query = "@loop.outer"       , desc = "prev loop start point" },
-                ["[R"] = { query = "@return.outer"     , desc = "prev return start point" },
-            },
-            goto_previous_end = {
-                ["[f"] = { query = "@function.outer"   , desc = "prev function end point" },
-                ["[c"] = { query = "@class.outer"      , desc = "prev struct end point" },
-                ["[p"] = { query = "@parameter.inner"  , desc = "prev param end point" },
-                ["[i"] = { query = "@conditional.outer", desc = "prev conditional end point" },
-                ["[l"] = { query = "@loop.outer"       , desc = "prev loop end point" },
-                ["[r"] = { query = "@return.inner"     , desc = "prev return end point" },
-			},
-        },
-    }
+-- `tree-sitter build` prefers MSVC (cl.exe) on Windows; force gcc/clang so the
+-- toolchain already in ${PATH} (e.g. WinLibs MinGW) is used instead.
+if vim.fn.has("win32") == 1 and vim.env.CC == nil then
+	vim.env.CC = "gcc"
+end
+
+treesitter.setup({})
+
+-- Languages to install on first start (no-op when already installed)
+local ensure_installed = {
+	"c", "cpp", "lua", "vim", "vimdoc", "query",
+	"python", "bash", "cmake",
+	"markdown", "markdown_inline",
+	"json", "yaml", "html",
+}
+
+local installed = treesitter.get_installed("parsers")
+local missing = vim.iter(ensure_installed)
+	:filter(function(lang)
+		return not vim.list_contains(installed, lang)
+	end)
+	:totable()
+
+if #missing > 0 then
+	treesitter.install(missing)
+end
+
+-- Treesitter highlighting (built-in feature)
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("user-treesitter", { clear = true }),
+	callback = function(args)
+		-- Start only when a parser is available for this filetype
+		pcall(vim.treesitter.start, args.buf)
+	end,
 })
 
--- Only need to run on the first time, then comment it
--- if vim.fn.has("win32") == 1 then
--- 	install.compilers = { "x86_64-w64-mingw32-clang", "gcc", "g++" }
--- else
--- 	install.compilers = { "clang", "gcc" }
--- end
+-- Treesitter indentation (experimental, provided by the plugin)
+vim.api.nvim_create_autocmd("FileType", {
+	group = "user-treesitter",
+	callback = function(args)
+		vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	end,
+})
+
+-- nvim-treesitter-textobjects (main branch): flat setup + manual keymaps
+local to_ok, textobjects = pcall(require, "nvim-treesitter-textobjects")
+if to_ok then
+	textobjects.setup({
+		move = {
+			set_jumps = true, -- whether to set jumps in the jumplist
+		},
+	})
+
+	local move = require("nvim-treesitter-textobjects.move")
+	local modes = { "n", "x", "o" }
+	local function map(lhs, fn, query, desc)
+		vim.keymap.set(modes, lhs, function()
+			move[fn](query, "textobjects")
+		end, { silent = true, desc = desc })
+	end
+
+	-- Next start
+	map("]F", "goto_next_start", "@function.outer",    "Next function start")
+	map("]C", "goto_next_start", "@class.outer",       "Next class/struct start")
+	map("]P", "goto_next_start", "@parameter.outer",   "Next parameter start")
+	map("]I", "goto_next_start", "@conditional.outer", "Next conditional start")
+	map("]L", "goto_next_start", "@loop.outer",        "Next loop start")
+	map("]R", "goto_next_start", "@return.outer",      "Next return start")
+	-- Next end
+	map("]f", "goto_next_end",   "@function.outer",    "Next function end")
+	map("]c", "goto_next_end",   "@class.outer",       "Next class/struct end")
+	map("]p", "goto_next_end",   "@parameter.inner",   "Next parameter end")
+	map("]i", "goto_next_end",   "@conditional.outer", "Next conditional end")
+	map("]l", "goto_next_end",   "@loop.outer",        "Next loop end")
+	map("]r", "goto_next_end",   "@return.inner",      "Next return end")
+	-- Previous start
+	map("[F", "goto_previous_start", "@function.outer",    "Previous function start")
+	map("[C", "goto_previous_start", "@class.outer",       "Previous class/struct start")
+	map("[P", "goto_previous_start", "@parameter.outer",   "Previous parameter start")
+	map("[I", "goto_previous_start", "@conditional.outer", "Previous conditional start")
+	map("[L", "goto_previous_start", "@loop.outer",        "Previous loop start")
+	map("[R", "goto_previous_start", "@return.outer",      "Previous return start")
+	-- Previous end
+	map("[f", "goto_previous_end",   "@function.outer",    "Previous function end")
+	map("[c", "goto_previous_end",   "@class.outer",       "Previous class/struct end")
+	map("[p", "goto_previous_end",   "@parameter.inner",   "Previous parameter end")
+	map("[i", "goto_previous_end",   "@conditional.outer", "Previous conditional end")
+	map("[l", "goto_previous_end",   "@loop.outer",        "Previous loop end")
+	map("[r", "goto_previous_end",   "@return.inner",      "Previous return end")
+end
+
+-- Old `configs.setup` options intentionally dropped:
+--   rainbow  -> plugin (nvim-ts-rainbow) not installed anymore
+--   matchup / endwise -> plugins not installed
+--   autopairs -> handled by ultimate-autopair.nvim
+--   incremental_selection -> removed upstream; textobjects covers navigation
+-- Parser compilers (first install only): the toolchain in ${PATH} is used
+-- (gcc via WinLibs on Windows, clang/gcc elsewhere).
