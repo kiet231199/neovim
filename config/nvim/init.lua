@@ -64,7 +64,7 @@ if vim.fn.has("win32") == 1 then
 	vim.g.node_host_prog = nil
 else
 	vim.g.python3_host_prog = find_host_prog({
-		vim.g.dot_path .. "/tools/python-3.10.7/bin/python3",
+		-- vim.g.dot_path .. "/tools/python-3.10.7/bin/python3",
 		vim.fn.exepath("python3"),
 	})
 	vim.g.node_host_prog = find_host_prog({
