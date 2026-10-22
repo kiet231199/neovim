@@ -42,6 +42,7 @@ local kinds = {
 	cmdline_history           = "[History]",
 	path                      = "[Path]",
 	ripgrep                   = "[Ripgrep]",
+	doxygen                   = "[Doxygen]",
 }
 
 blink.setup({
@@ -236,12 +237,13 @@ blink.setup({
         use_proximity = false,
         sorts = { 'score', 'exact' , 'sort_text' },
         prebuilt_binaries = {
-            download = true,
+        	ignore_version_mismatch = true,
+            download = false,
         },
     },
     sources = {
-        -- normal:  snipptes -> lsp -> buffer
-        default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+        -- normal:  snipptes -> doxygen -> lsp -> buffer
+        default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer', 'doxygen' },
         providers = {
 			lazydev = {
 				name = "LazyDev",
@@ -336,6 +338,12 @@ blink.setup({
 				},
                 max_items = 15,
                 score_offset = 700,
+			},
+			doxygen = {
+				name = "doxygen",
+				module = "blink.compat.source",
+				max_items = 10,
+                score_offset = 600,
 			},
 			history = {
 				name = "cmdline_history",
