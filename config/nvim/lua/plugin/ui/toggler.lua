@@ -18,26 +18,6 @@ megatoggler.setup({
     persist_file = vim.fn.stdpath('config') .. '/megatoggler_state.json',
     tabs = {
         {
-            -- global options you might want to persist
-            id = " Globals ",
-            items = {
-                {
-                    id = "Status Line",
-                    get = function()
-                        if vim.o.laststatus == 3 then return true
-                        else return false end
-                    end,
-                    on_toggle = function()
-                        if vim.o.laststatus == 3 then
-                            vim.o.laststatus = 2
-                            return
-                        end
-                        vim.o.laststatus = 3
-                    end,
-                },
-            }
-        },
-        {
             id = " Features ",
             items = {
                 {
@@ -88,6 +68,26 @@ megatoggler.setup({
                     end
                 },
             }
-        }
+        },
+        {
+            -- global options you might want to persist
+            id = " Globals ",
+            items = {
+                {
+                    id = "Status Line",
+                    get = function()
+                        if vim.o.laststatus == 3 then return true
+                        else return false end
+                    end,
+                    on_toggle = function()
+                        if vim.o.laststatus == 3 then
+                            vim.o.laststatus = 2
+                            return
+                        end
+                        vim.o.laststatus = 3
+                    end,
+                },
+            }
+        },
     }
 })
